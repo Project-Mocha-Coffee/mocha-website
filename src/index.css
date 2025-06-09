@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-gray-800 bg-cream-50;
+    font-family: 'Poppins', 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    font-weight: 800;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+    font-weight: 700;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+    font-weight: 600;
+  }
+
+  p {
+    @apply leading-relaxed;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Make text more vibrant and punchy */
+  .text-vibrant {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .text-hero {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-bold transition-all duration-300 rounded-full hover:scale-[1.02] active:scale-[0.98] shadow-lg;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+  }
+  
+  .btn-primary {
+    @apply bg-coffee-600 text-white hover:bg-coffee-700 border border-coffee-600 hover:border-coffee-700;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-coffee-600 border border-coffee-600 hover:bg-coffee-50 hover:text-coffee-700;
+  }
+
+  .btn-gold {
+    @apply bg-gold-400 text-coffee-900 border border-gold-400 hover:bg-gold-500 hover:border-gold-500;
+  }
+  
+  .section {
+    @apply py-16 md:py-24 overflow-hidden;
+  }
+
+  .container-custom {
+    @apply container mx-auto px-4 md:px-8 max-w-7xl;
+  }
+
+  .card {
+    @apply bg-white rounded-3xl shadow-lg border border-gray-100 transition-all duration-500 hover:shadow-xl hover:-translate-y-2;
+  }
+
+  .card-large {
+    @apply bg-white rounded-[2rem] shadow-xl border border-gray-100 transition-all duration-500 hover:shadow-2xl;
+  }
+
+  .fade-in {
+    @apply opacity-0 translate-y-8 transition-all duration-1000 ease-out;
+  }
+
+  .fade-in.appear {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .slide-in-left {
+    @apply opacity-0 -translate-x-8 transition-all duration-1000 ease-out;
+  }
+
+  .slide-in-left.appear {
+    @apply opacity-100 translate-x-0;
+  }
+
+  .slide-in-right {
+    @apply opacity-0 translate-x-8 transition-all duration-1000 ease-out;
+  }
+
+  .slide-in-right.appear {
+    @apply opacity-100 translate-x-0;
+  }
+
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+  .stagger-5 { transition-delay: 0.5s; }
+
+  .nav-pill {
+    @apply bg-white rounded-full shadow-lg border border-gray-100 backdrop-blur-sm;
+  }
+
+  .stat-card {
+    @apply bg-forest-600 text-white rounded-2xl p-6 text-center;
+  }
+
+  .stat-card-alt {
+    @apply bg-gold-400 text-coffee-900 rounded-2xl p-6 text-center;
+  }
+
+  /* Enhanced typography classes */
+  .heading-primary {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .heading-secondary {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  .text-emphasis {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Custom Slider Styles */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #E5E7EB;
+    outline: none;
+    border-radius: 8px;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #8B4513;
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .slider::-moz-range-thumb {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #8B4513;
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+  }
+
+  .slider::-moz-range-track {
+    background: #E5E7EB;
+    height: 8px;
+    border-radius: 8px;
+  }
+
+  .slider::-moz-range-progress {
+    background: #8B4513;
+    height: 8px;
+    border-radius: 8px;
+  }
+}
+
+/* Custom scrollbar - Coffee Theme */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F9F7F4; /* cream-50 */
+  border-radius: 8px;
+  border: 1px solid #E5D3B3; /* cream-200 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8B4513 0%, #A0522D 50%, #8B4513 100%); /* coffee gradient */
+  border-radius: 8px;
+  border: 2px solid #F9F7F4; /* cream-50 border for definition */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #A0522D 0%, #8B4513 50%, #A0522D 100%); /* darker coffee on hover */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #654321; /* even darker brown when pressed */
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #8B4513 #F9F7F4;
+}
+
+/* Elegant hover effects */
+.hover-lift {
+  @apply transition-transform duration-500 hover:-translate-y-1;
+}
+
+/* Sophisticated animations */
+.slide-up {
+  @apply opacity-0 translate-y-8 transition-all duration-1000;
+}
+
+.slide-up.in-view {
+  @apply opacity-100 translate-y-0;
+}
+
+/* Video play button */
+.play-button {
+  @apply absolute inset-0 flex items-center justify-center;
+}
+
+.play-button::before {
+  content: '';
+  @apply w-20 h-20 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg;
+}
+
+.play-button::after {
+  content: '';
+  @apply absolute w-6 h-6 border-l-8 border-l-gray-800 border-t-4 border-b-4 border-t-transparent border-b-transparent ml-1;
+}
+
+/* Gradient backgrounds */
+.gradient-forest {
+  background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+}
+
+.gradient-coffee {
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+}
