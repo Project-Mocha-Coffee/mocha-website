@@ -116,43 +116,43 @@ const TestimonialsSection: React.FC = () => {
             ))}
           </div>
 
-          {/* Bottom Section */}
+          {/* Bottom Section - Meet The People */}
           <div 
             className={`mt-16 text-center transition-all duration-1000 delay-700 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <div className="card-large bg-white p-8">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="card-large bg-white p-6">
+              <div className="grid md:grid-cols-2 gap-6 items-center">
                 <div className="relative">
                   <img
                     src="https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
                     alt="Meet the team"
-                    className="w-full h-64 object-cover rounded-2xl"
+                    className="w-full h-48 object-cover rounded-2xl"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                    <div className="w-20 h-20 bg-coffee-600 bg-opacity-90 rounded-full flex items-center justify-center">
-                      <Play className="w-8 h-8 text-white ml-1" />
+                    <div className="w-16 h-16 bg-coffee-600 bg-opacity-90 rounded-full flex items-center justify-center">
+                      <Play className="w-6 h-6 text-white ml-1" />
                     </div>
                   </div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white text-sm italic">
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <p className="text-white text-xs italic">
                       "Given time and care, that small coffee tree becomes something much bigger."
                     </p>
                   </div>
                 </div>
                 <div className="text-left">
-                  <h3 className="heading-secondary text-coffee-600 mb-2">
+                  <h3 className="text-xl text-coffee-600 mb-1 font-bold">
                     Meet The People
                   </h3>
-                  <h4 className="heading-secondary text-forest-600 mb-6">
+                  <h4 className="text-lg text-forest-600 mb-4 font-semibold">
                     Helping Your Coffee Trees Reach Their Full Potential
                   </h4>
-                  <p className="text-gray-700 mb-6">
+                  <p className="text-gray-700 mb-4 text-sm">
                     Get to know who's taking care of your coffee trees from seed to harvest.
                   </p>
                   <button className="btn btn-primary">
-                    More about us <ArrowRight className="ml-2 h-5 w-5" />
+                    More about us <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
                 </div>
               </div>

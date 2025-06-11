@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import WhyJoinCarousel from './components/WhyJoinCarousel';
-import InvestmentCalculator from './components/InvestmentCalculator';
-import InvestmentPlans from './components/InvestmentPlans';
-import AvailableOpportunities from './components/AvailableOpportunities';
-import HowItWorks from './components/HowItWorks';
-import TestimonialsSection from './components/TestimonialsSection';
-import Cta from './components/Cta';
+import ScrollToTop from './components/ScrollToTop';
+import Home from './pages/Home';
+import AboutUs from './pages/AboutUs';
+import Investing from './pages/Investing';
+import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
+import Blog from './pages/Blog';
+import BlogArticle from './pages/BlogArticle';
+import Contact from './pages/Contact';
 import Footer from './components/Footer';
 
 function App() {
@@ -37,34 +39,23 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-cream-50 overflow-hidden">
-      <Navbar />
-      <section id="hero">
-        <Hero />
-      </section>
-      <section id="why-join">
-        <WhyJoinCarousel />
-      </section>
-      <section id="calculator">
-        <InvestmentCalculator />
-      </section>
-      <section id="plans">
-        <InvestmentPlans />
-      </section>
-      <section id="opportunities">
-        <AvailableOpportunities />
-      </section>
-      <section id="how-it-works">
-        <HowItWorks />
-      </section>
-      <section id="testimonials">
-        <TestimonialsSection />
-      </section>
-      <section id="contact">
-        <Cta />
-      </section>
-      <Footer />
-    </div>
+    <Router>
+      <ScrollToTop />
+      <div className="bg-cream-50 overflow-hidden">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/investing" element={<Investing />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:projectId" element={<ProjectDetail />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:articleId" element={<BlogArticle />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

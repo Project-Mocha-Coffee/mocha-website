@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
@@ -7,27 +8,38 @@ const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
+  const location = useLocation();
 
   const navigationItems = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Why Invest', href: '#why-join' },
-    { name: 'Calculator', href: '#calculator' },
-    { name: 'Plans', href: '#plans' },
-    { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: '/', type: 'route' },
+    { name: 'About us', href: '/about', type: 'route' },
+    { name: 'Investing', href: '/investing', type: 'route' },
+    { name: 'Projects', href: '/projects', type: 'route' },
+    { name: 'Blog', href: '/blog', type: 'route' },
+    { name: 'Contact', href: '/contact', type: 'route' }
   ];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href: string, type: string) => {
     setIsMenuOpen(false);
-    // Smooth scroll to section
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    
+    if (type === 'scroll') {
+      // If we're not on the home page, go to home first then scroll
+      if (location.pathname !== '/') {
+        window.location.href = '/' + href;
+        return;
+      }
+      
+      // Smooth scroll to section
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+    // For route type, React Router Link will handle the navigation
   };
 
   useEffect(() => {
@@ -86,7 +98,7 @@ const Navbar: React.FC = () => {
   return (
     <nav 
       className={`fixed w-full z-50 transition-all duration-500 ${
-        isScrolled ? 'py-3' : 'py-5'
+        isScrolled ? 'py-1' : 'py-2'
       } ${
         isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
       }`}
@@ -94,46 +106,48 @@ const Navbar: React.FC = () => {
       onFocus={handleNavbarInteraction}
     >
       <div className="container-custom">
-        <div className={`nav-pill px-8 py-5 flex justify-between items-center transition-all duration-500 ${
+        <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
           isScrolled ? 'shadow-xl' : 'shadow-lg'
         }`}>
-          <a 
-            href="#hero" 
+          <Link 
+            to="/" 
             className="flex items-center"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick('#hero');
-            }}
           >
-            <div className="w-9 h-9 mr-3 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
+            <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
               <img 
                 src="/mocha.jpg" 
                 alt="Project Mocha Logo" 
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-2xl font-bold text-coffee-800 text-emphasis">
+            <span className="text-xl font-bold text-coffee-800 text-emphasis">
               Project Mocha
             </span>
-          </a>
+          </Link>
 
-          <div className="hidden md:flex space-x-10">
+          <div className="hidden md:flex space-x-6">
             {navigationItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.href);
-                }}
-                className="text-base font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
-              >
-                {item.name}
-              </a>
+              <div key={item.name}>
+                {item.type === 'route' ? (
+                  <Link
+                    to={item.href}
+                    className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => handleNavClick(item.href, item.type)}
+                    className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
+                  >
+                    {item.name}
+                  </button>
+                )}
+              </div>
             ))}
           </div>
 
-          <button className="hidden md:block btn btn-gold text-base px-6 py-3">
+          <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
             Start Investing
           </button>
 
@@ -143,38 +157,45 @@ const Navbar: React.FC = () => {
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
-              <X className="h-7 w-7 text-coffee-800" />
+              <X className="h-5 w-5 text-coffee-800" />
             ) : (
-              <Menu className="h-7 w-7 text-coffee-800" />
+              <Menu className="h-5 w-5 text-coffee-800" />
             )}
           </button>
         </div>
 
         {/* Mobile menu */}
         <div 
-          className={`mt-4 nav-pill transition-all duration-300 md:hidden ${
-            isMenuOpen ? 'max-h-screen py-6' : 'max-h-0 overflow-hidden'
+          className={`mt-2 nav-pill transition-all duration-300 md:hidden ${
+            isMenuOpen ? 'max-h-screen py-4' : 'max-h-0 overflow-hidden'
           }`}
         >
-          <div className="px-8 flex flex-col space-y-5">
+          <div className="px-6 flex flex-col space-y-3">
             {navigationItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.href);
-                }}
-                className="text-coffee-800 py-3 border-b border-gray-100 text-base font-semibold hover:text-coffee-600 transition-colors"
-              >
-                {item.name}
-              </a>
+              <div key={item.name}>
+                {item.type === 'route' ? (
+                  <Link
+                    to={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-coffee-800 py-2 border-b border-gray-100 text-sm font-semibold hover:text-coffee-600 transition-colors block"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => handleNavClick(item.href, item.type)}
+                    className="text-coffee-800 py-2 border-b border-gray-100 text-sm font-semibold hover:text-coffee-600 transition-colors text-left w-full"
+                  >
+                    {item.name}
+                  </button>
+                )}
+              </div>
             ))}
             <button 
-              className="btn btn-gold mt-6 text-base"
+              className="btn btn-gold mt-4 text-sm"
               onClick={() => {
                 setIsMenuOpen(false);
-                handleNavClick('#plans');
+                handleNavClick('#plans', 'scroll');
               }}
             >
               Start Investing

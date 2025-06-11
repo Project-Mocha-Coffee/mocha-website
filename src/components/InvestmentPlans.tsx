@@ -66,26 +66,26 @@ const InvestmentPlans: React.FC = () => {
   }, []);
 
   return (
-    <section className="section bg-cream-50 py-12 md:py-16">
+    <section className="py-8 md:py-10 bg-cream-50">
       <div className="container-custom">
         <div className="max-w-6xl mx-auto">
           <div 
-            className={`text-center mb-10 transition-all duration-1000 ${
+            className={`text-center mb-8 transition-all duration-1000 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <h2 className="heading-primary text-forest-600 mb-3">
+            <h2 className="text-2xl md:text-3xl text-forest-600 mb-2 font-bold">
               Choose Your Plan
             </h2>
-            <p className="text-gray-600 text-base max-w-3xl mx-auto mb-1">
+            <p className="text-gray-600 text-sm max-w-3xl mx-auto mb-1">
               Choose from flexible investment plans designed to fit any budget and financial goal.
             </p>
-            <p className="text-gray-600 text-base max-w-3xl mx-auto">
+            <p className="text-gray-600 text-sm max-w-3xl mx-auto">
               Each plan is fully managed and designed for long-term growth.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4">
             {plans.map((plan, index) => (
               <div 
                 key={plan.id}
@@ -96,15 +96,15 @@ const InvestmentPlans: React.FC = () => {
               >
                 {/* Plan Card */}
                 <div 
-                  className={`card h-full p-5 ${
+                  className={`card h-full p-4 ${
                     plan.isRecommended 
                       ? 'bg-forest-600 text-white border-4 border-forest-700 transform scale-105' 
                       : 'bg-white hover:shadow-xl'
                   }`}
                 >
                   {/* Badge */}
-                  <div className="flex justify-center mb-3">
-                    <span className={`px-3 py-1 rounded-full text-white text-xs font-semibold ${
+                  <div className="flex justify-center mb-2">
+                    <span className={`px-2 py-1 rounded-full text-white text-xs font-semibold ${
                       plan.isRecommended ? 'bg-white text-forest-600' : plan.badgeColor
                     }`}>
                       {plan.badge}
@@ -112,34 +112,34 @@ const InvestmentPlans: React.FC = () => {
                   </div>
 
                   {/* Image */}
-                  <div className="relative mb-4">
+                  <div className="relative mb-3">
                     <div className="rounded-2xl overflow-hidden">
                       <img
                         src={plan.image}
                         alt={plan.name}
-                        className="w-full h-40 object-cover"
+                        className="w-full h-32 object-cover"
                       />
                     </div>
                     {plan.tagline && (
-                      <div className="absolute top-3 left-3 bg-white px-2 py-1 rounded-full text-xs font-semibold text-gray-700">
+                      <div className="absolute top-2 left-2 bg-white px-2 py-1 rounded-full text-xs font-semibold text-gray-700">
                         {plan.tagline}
                       </div>
                     )}
                   </div>
 
                   {/* Plan Details */}
-                  <div className="text-center mb-4">
-                    <h3 className={`text-xl font-bold mb-1 ${
+                  <div className="text-center mb-3">
+                    <h3 className={`text-lg font-bold mb-1 ${
                       plan.isRecommended ? 'text-white' : 'text-coffee-600'
                     }`}>
                       {plan.name}
                     </h3>
-                    <p className={`text-base font-semibold mb-1 ${
+                    <p className={`text-sm font-semibold mb-1 ${
                       plan.isRecommended ? 'text-white' : 'text-gray-700'
                     }`}>
                       {plan.trees}
                     </p>
-                    <p className={`text-sm ${
+                    <p className={`text-xs ${
                       plan.isRecommended ? 'text-cream-100' : 'text-gray-600'
                     }`}>
                       {plan.investment}
@@ -147,11 +147,11 @@ const InvestmentPlans: React.FC = () => {
                   </div>
 
                   {/* Features */}
-                  <div className="mb-5">
-                    <ul className="space-y-2">
+                  <div className="mb-4">
+                    <ul className="space-y-1.5">
                       {plan.features.map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-start">
-                          <Check className={`h-4 w-4 mr-2 mt-0.5 flex-shrink-0 ${
+                          <Check className={`h-3 w-3 mr-2 mt-0.5 flex-shrink-0 ${
                             plan.isRecommended ? 'text-green-300' : 'text-green-500'
                           }`} />
                           <span className={`text-xs ${
