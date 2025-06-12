@@ -48,7 +48,7 @@ const Cta: React.FC = () => {
                 <h3 className="heading-secondary text-white mb-2">
                   Get Our Best Deals Straight In Your Inbox
                 </h3>
-                <p className="text-green-100 mb-6">
+                <p className="text-coffee-800 mb-6">
                   Learn more about Kenyan coffee farming opportunities and be the first to know about new investment openings in our Embu plantations.
                 </p>
                 

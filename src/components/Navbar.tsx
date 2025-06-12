@@ -23,6 +23,10 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const handleNavClick = (href: string, type: string) => {
     setIsMenuOpen(false);
     
@@ -95,106 +99,183 @@ const Navbar: React.FC = () => {
     setIsVisible(true);
   };
 
-  return (
-    <nav 
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        isScrolled ? 'py-1' : 'py-2'
-      } ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-      }`}
-      onMouseEnter={handleNavbarInteraction}
-      onFocus={handleNavbarInteraction}
-    >
-      <div className="container-custom">
-        <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
-          isScrolled ? 'shadow-xl' : 'shadow-lg'
-        }`}>
-          <Link 
-            to="/" 
-            className="flex items-center"
-          >
-            <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
-              <img 
-                src="/mocha.jpg" 
-                alt="Project Mocha Logo" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <span className="text-xl font-bold text-coffee-800 text-emphasis">
-              Project Mocha
-            </span>
-          </Link>
+  // Close menu when clicking outside or on escape
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const nav = document.getElementById('mobile-nav');
+      if (nav && !nav.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
 
-          <div className="hidden md:flex space-x-6">
-            {navigationItems.map((item) => (
-              <div key={item.name}>
-                {item.type === 'route' ? (
-                  <Link
-                    to={item.href}
-                    className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => handleNavClick(item.href, item.type)}
-                    className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
-                  >
-                    {item.name}
-                  </button>
-                )}
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isMenuOpen]);
+
+  return (
+    <>
+      <nav 
+        id="mobile-nav"
+        className={`fixed w-full z-50 transition-all duration-500 ${
+          isScrolled ? 'py-1' : 'py-2'
+        } ${
+          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        }`}
+        onMouseEnter={handleNavbarInteraction}
+        onFocus={handleNavbarInteraction}
+      >
+        <div className="container-custom">
+          <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
+            isScrolled ? 'shadow-xl' : 'shadow-lg'
+          }`}>
+            <Link 
+              to="/" 
+              className="flex items-center z-20"
+              onClick={closeMenu}
+            >
+              <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
+                <img 
+                  src="/mocha.jpg" 
+                  alt="Project Mocha Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
-            ))}
+              <span className="text-xl font-bold text-coffee-800 text-emphasis">
+                Project Mocha
+              </span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-6">
+              {navigationItems.map((item) => (
+                <div key={item.name}>
+                  {item.type === 'route' ? (
+                    <Link
+                      to={item.href}
+                      className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleNavClick(item.href, item.type)}
+                      className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
+                    >
+                      {item.name}
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
+              Start Investing
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden focus:outline-none z-20 relative"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6 text-coffee-800" />
+              ) : (
+                <Menu className="h-6 w-6 text-coffee-800" />
+              )}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-30 z-40 md:hidden"
+          onClick={closeMenu}
+        />
+      )}
+
+      {/* Mobile Menu */}
+      <div 
+        className={`fixed top-20 right-4 w-80 max-w-sm bg-white bg-opacity-95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out md:hidden ${
+          isMenuOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-95'
+        }`}
+      >
+        <div className="flex flex-col">
+          {/* Mobile Menu Header */}
+          <div className="flex items-center justify-between p-6 border-b border-gray-200 border-opacity-50">
+            <Link 
+              to="/" 
+              className="flex items-center"
+              onClick={closeMenu}
+            >
+              <div className="w-6 h-6 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
+                <img 
+                  src="/mocha.jpg" 
+                  alt="Project Mocha Logo" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-lg font-bold text-coffee-800 text-emphasis">
+                Project Mocha
+              </span>
+            </Link>
+            <button 
+              onClick={closeMenu}
+              className="p-2 rounded-full hover:bg-gray-100 hover:bg-opacity-50 transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="h-5 w-5 text-gray-600" />
+            </button>
           </div>
 
-          <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
-            Start Investing
-          </button>
+          {/* Mobile Menu Items */}
+          <div className="py-4">
+            <div className="px-4 space-y-1">
+              {navigationItems.map((item) => (
+                <div key={item.name}>
+                  {item.type === 'route' ? (
+                    <Link
+                      to={item.href}
+                      onClick={closeMenu}
+                      className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70 rounded-lg transition-all duration-200"
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleNavClick(item.href, item.type)}
+                      className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70 rounded-lg transition-all duration-200"
+                    >
+                      {item.name}
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
-          <button 
-            className="md:hidden focus:outline-none"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-5 w-5 text-coffee-800" />
-            ) : (
-              <Menu className="h-5 w-5 text-coffee-800" />
-            )}
-          </button>
-        </div>
-
-        {/* Mobile menu */}
-        <div 
-          className={`mt-2 nav-pill transition-all duration-300 md:hidden ${
-            isMenuOpen ? 'max-h-screen py-4' : 'max-h-0 overflow-hidden'
-          }`}
-        >
-          <div className="px-6 flex flex-col space-y-3">
-            {navigationItems.map((item) => (
-              <div key={item.name}>
-                {item.type === 'route' ? (
-                  <Link
-                    to={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-coffee-800 py-2 border-b border-gray-100 text-sm font-semibold hover:text-coffee-600 transition-colors block"
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => handleNavClick(item.href, item.type)}
-                    className="text-coffee-800 py-2 border-b border-gray-100 text-sm font-semibold hover:text-coffee-600 transition-colors text-left w-full"
-                  >
-                    {item.name}
-                  </button>
-                )}
-              </div>
-            ))}
+          {/* Mobile Menu Footer */}
+          <div className="p-4 border-t border-gray-200 border-opacity-50">
             <button 
-              className="btn btn-gold mt-4 text-sm"
+              className="w-full btn btn-gold text-sm py-3 hover:shadow-lg transition-all duration-200"
               onClick={() => {
-                setIsMenuOpen(false);
+                closeMenu();
                 handleNavClick('#plans', 'scroll');
               }}
             >
@@ -203,7 +284,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 
