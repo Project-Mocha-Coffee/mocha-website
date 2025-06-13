@@ -94,7 +94,7 @@ const Projects: React.FC = () => {
       <section className="min-h-screen gradient-forest relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: `url('https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=1920')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&w=1920&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}></div>
@@ -249,9 +249,9 @@ const Projects: React.FC = () => {
                 </div>
                 <div className="relative">
                   <img
-                    src={coffeeFacts[currentSlide].image}
-                    alt="Coffee"
-                    className="w-full h-64 object-cover rounded-2xl shadow-lg"
+                    src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&h=400&q=80"
+                    alt="Coffee plantation project development"
+                    className="w-full h-48 object-cover rounded-2xl shadow-lg"
                   />
                 </div>
               </div>

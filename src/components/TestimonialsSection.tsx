@@ -126,9 +126,9 @@ const TestimonialsSection: React.FC = () => {
               <div className="grid md:grid-cols-2 gap-6 items-center">
                 <div className="relative">
                   <img
-                    src="https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                    alt="Meet the team"
-                    className="w-full h-48 object-cover rounded-2xl"
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=400&q=80"
+                    alt="Happy coffee investor testimonial"
+                    className="w-full h-64 object-cover rounded-2xl shadow-lg"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
                     <div className="w-16 h-16 bg-coffee-600 bg-opacity-90 rounded-full flex items-center justify-center">

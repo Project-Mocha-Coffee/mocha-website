@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url('https://images.pexels.com/photos/2909083/pexels-photo-2909083.jpeg?auto=compress&cs=tinysrgb&w=1920')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1920&q=80')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}></div>
@@ -96,13 +96,13 @@ const Hero: React.FC = () => {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}
         >
-          <p className="text-gray-600 text-center mb-4 text-emphasis text-sm">Trusted by leading media:</p>
+          <p className="text-gray-600 text-center mb-4 text-emphasis text-sm">Trusted by our partners:</p>
           
           {/* Partner logos with rotating animation */}
           <div className="relative overflow-hidden">
-            <div className="flex items-center gap-8 md:gap-12 animate-scroll">
+            <div className="flex items-center gap-4 md:gap-6 animate-scroll">
               {/* First set of logos */}
-              <div className="flex items-center gap-8 md:gap-12 flex-shrink-0">
+              <div className="flex items-center gap-4 md:gap-6 flex-shrink-0">
                 <img 
                   src="/partners/MAGUTA-COFFEE-ESTATE-LOGO.png" 
                   alt="Maguta Coffee Estate" 
@@ -119,8 +119,8 @@ const Hero: React.FC = () => {
                   className="h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
                 <img 
-                  src="/partners/lisk.png" 
-                  alt="Lisk" 
+                  src="/partners/Scroll.png" 
+                  alt="Scroll" 
                   className="h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
                 <img 
@@ -146,7 +146,7 @@ const Hero: React.FC = () => {
               </div>
               
               {/* Second set of logos */}
-              <div className="flex items-center gap-8 md:gap-12 flex-shrink-0">
+              <div className="flex items-center gap-4 md:gap-6 flex-shrink-0">
                 <img 
                   src="/partners/MAGUTA-COFFEE-ESTATE-LOGO.png" 
                   alt="Maguta Coffee Estate" 
@@ -163,8 +163,8 @@ const Hero: React.FC = () => {
                   className="h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
                 <img 
-                  src="/partners/lisk.png" 
-                  alt="Lisk" 
+                  src="/partners/Scroll.png" 
+                  alt="Scroll" 
                   className="h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
                 <img 
@@ -190,7 +190,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Third set of logos */}
-              <div className="flex items-center gap-8 md:gap-12 flex-shrink-0">
+              <div className="flex items-center gap-4 md:gap-6 flex-shrink-0">
                 <img 
                   src="/partners/MAGUTA-COFFEE-ESTATE-LOGO.png" 
                   alt="Maguta Coffee Estate" 
@@ -207,8 +207,8 @@ const Hero: React.FC = () => {
                   className="h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
                 <img 
-                  src="/partners/lisk.png" 
-                  alt="Lisk" 
+                  src="/partners/Scroll.png" 
+                  alt="Scroll" 
                   className="h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
                 <img 

@@ -107,7 +107,7 @@ const AboutUs: React.FC = () => {
       <section className="min-h-screen gradient-forest relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: `url('https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=1920')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1920&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}></div>
@@ -326,9 +326,9 @@ const AboutUs: React.FC = () => {
                 </div>
                 <div className="relative">
                   <img
-                    src="https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                    alt="Coffee beans"
-                    className="w-full h-48 object-cover rounded-2xl"
+                    src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&h=400&q=80"
+                    alt="Coffee plantation sustainability practices"
+                    className="w-full h-48 object-cover rounded-2xl shadow-lg"
                   />
                 </div>
               </div>
@@ -415,9 +415,9 @@ const AboutUs: React.FC = () => {
                 </div>
                 <div className="relative">
                   <img
-                    src="https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                    alt="Coffee farming impact"
-                    className="w-full h-48 object-cover rounded-2xl"
+                    src="https://images.unsplash.com/photo-1442544213729-6a15f1611937?auto=format&fit=crop&w=600&h=400&q=80"
+                    alt="Coffee farming team collaboration"
+                    className="w-full h-48 object-cover rounded-2xl shadow-lg"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
                     <div className="w-12 h-12 bg-coffee-600 bg-opacity-90 rounded-full flex items-center justify-center">
@@ -514,6 +514,37 @@ const AboutUs: React.FC = () => {
                 </p>
                 <button className="btn btn-primary">
                   Invest now <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Modern Coffee Processing Facility */}
+      <section className="py-8 md:py-10 bg-cream-50">
+        <div className="container-custom">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-6 items-center">
+              <div className="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&h=400&q=80"
+                  alt="Modern coffee processing facility"
+                  className="w-full h-48 object-cover rounded-2xl shadow-lg"
+                />
+              </div>
+              <div>
+                <h2 className="text-2xl md:text-3xl text-forest-600 mb-4 font-bold">
+                  Modern Coffee Processing Facility
+                </h2>
+                <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+                  Our state-of-the-art coffee processing facility ensures that every coffee bean is treated with the utmost care and precision.
+                </p>
+                <p className="text-gray-600 leading-relaxed mb-4 text-sm">
+                  We use the latest technology and traditional methods to produce high-quality coffee that meets the highest standards.
+                </p>
+                <button className="btn btn-primary">
+                  Learn more <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
               </div>
             </div>

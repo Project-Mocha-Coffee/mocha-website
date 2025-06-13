@@ -129,7 +129,7 @@ const Investing: React.FC = () => {
       <section className="min-h-screen gradient-forest relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: `url('https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=1920')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1920&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}></div>
@@ -201,8 +201,8 @@ const Investing: React.FC = () => {
           <div className="max-w-6xl mx-auto mb-8">
             <div className="card bg-forest-600 rounded-3xl overflow-hidden relative">
               <img
-                src="https://images.pexels.com/photos/355988/pexels-photo-355988.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop"
-                alt="World map showing global investment opportunities"
+                src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1200&h=600&q=80"
+                alt="Kenyan coffee plantations in highland terrain"
                 className="w-full h-64 object-cover opacity-80"
               />
               <div className="absolute inset-0 bg-forest-600 bg-opacity-60 flex items-center justify-center">
@@ -410,8 +410,7 @@ const Investing: React.FC = () => {
                     
                     {/* Card */}
                     <div className={`card bg-white rounded-3xl p-4 relative z-10 ${
-                      index % 2 === 0 
-                        ? 'md:mr-auto md:ml-0 md:w-[55%]' 
+                      index % 2 === 1 ? 'md:mr-auto md:ml-0 md:w-[55%]' 
                         : 'md:ml-auto md:mr-0 md:w-[55%]'
                     }`}>
                       <div className={`grid md:grid-cols-5 gap-3 items-center ${
@@ -516,8 +515,8 @@ const Investing: React.FC = () => {
                 </div>
                 <div className="col-span-1">
                   <img
-                    src="https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                    alt="Coffee beans"
+                    src="https://images.unsplash.com/photo-1442544213729-6a15f1611937?auto=format&fit=crop&w=600&h=400&q=80"
+                    alt="Coffee farmers working in plantation"
                     className="w-full h-32 object-cover rounded-2xl"
                   />
                 </div>
@@ -529,8 +528,8 @@ const Investing: React.FC = () => {
               <div className="grid grid-cols-3 gap-4 items-center">
                 <div className="col-span-1">
                   <img
-                    src="https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                    alt="Coffee plantation"
+                    src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&h=400&q=80"
+                    alt="Coffee plantation aerial view"
                     className="w-full h-32 object-cover rounded-2xl"
                   />
                 </div>
@@ -596,8 +595,8 @@ const Investing: React.FC = () => {
             {/* Tree Image Card */}
             <div className="card rounded-2xl overflow-hidden h-36 max-w-xs mx-auto w-full">
               <img
-                src="https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                alt="Coffee tree"
+                src="https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&w=600&h=400&q=80"
+                alt="Young coffee trees growing"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -606,8 +605,8 @@ const Investing: React.FC = () => {
             {/* Family Image Card */}
             <div className="card rounded-2xl overflow-hidden h-36 max-w-xs mx-auto w-full">
               <img
-                src="https://images.pexels.com/photos/1128318/pexels-photo-1128318.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                alt="Family in nature"
+                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+                alt="Coffee farming family"
                 className="w-full h-full object-cover"
               />
             </div>

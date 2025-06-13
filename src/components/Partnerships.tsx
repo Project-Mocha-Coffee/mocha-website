@@ -43,10 +43,10 @@ const Partnerships: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-coffee-100 h-48 rounded-sm flex items-center justify-center mb-6 overflow-hidden">
-                <img 
-                  src="https://images.pexels.com/photos/4050359/pexels-photo-4050359.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Satellite Tracking" 
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
+                <img
+                  src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1260&h=750&q=80"
+                  alt="Business partnership meeting in coffee industry"
+                  className="w-full h-64 object-cover rounded-2xl"
                 />
               </div>
               <h4 className="font-serif text-lg mb-2 text-coffee-800">Satellite Monitoring</h4>
@@ -57,10 +57,10 @@ const Partnerships: React.FC = () => {
             
             <div className="text-center">
               <div className="bg-coffee-100 h-48 rounded-sm flex items-center justify-center mb-6 overflow-hidden">
-                <img 
-                  src="https://images.pexels.com/photos/7014337/pexels-photo-7014337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="IoT Sensors" 
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
+                <img
+                  src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1260&h=750&q=80"
+                  alt="Coffee industry collaboration and innovation"
+                  className="w-full h-64 object-cover rounded-2xl"
                 />
               </div>
               <h4 className="font-serif text-lg mb-2 text-coffee-800">IoT Farm Sensors</h4>
@@ -71,10 +71,10 @@ const Partnerships: React.FC = () => {
             
             <div className="text-center">
               <div className="bg-coffee-100 h-48 rounded-sm flex items-center justify-center mb-6 overflow-hidden">
-                <img 
-                  src="https://images.pexels.com/photos/6693659/pexels-photo-6693659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Blockchain Traceability" 
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
+                <img
+                  src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1260&h=750&q=80"
+                  alt="Sustainable coffee plantation development"
+                  className="w-full h-64 object-cover rounded-2xl"
                 />
               </div>
               <h4 className="font-serif text-lg mb-2 text-coffee-800">Blockchain Traceability</h4>

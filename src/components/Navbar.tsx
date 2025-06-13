@@ -127,77 +127,77 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav 
+    <nav 
         id="mobile-nav"
-        className={`fixed w-full z-50 transition-all duration-500 ${
-          isScrolled ? 'py-1' : 'py-2'
-        } ${
-          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-        }`}
-        onMouseEnter={handleNavbarInteraction}
-        onFocus={handleNavbarInteraction}
-      >
-        <div className="container-custom">
-          <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
-            isScrolled ? 'shadow-xl' : 'shadow-lg'
-          }`}>
-            <Link 
-              to="/" 
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        isScrolled ? 'py-1' : 'py-2'
+      } ${
+        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+      }`}
+      onMouseEnter={handleNavbarInteraction}
+      onFocus={handleNavbarInteraction}
+    >
+      <div className="container-custom">
+        <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
+          isScrolled ? 'shadow-xl' : 'shadow-lg'
+        }`}>
+          <Link 
+            to="/" 
               className="flex items-center z-20"
               onClick={closeMenu}
-            >
-              <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
-                <img 
-                  src="/mocha.jpg" 
-                  alt="Project Mocha Logo" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="text-xl font-bold text-coffee-800 text-emphasis">
-                Project Mocha
-              </span>
-            </Link>
+          >
+            <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
+              <img 
+                src="/mocha.jpg" 
+                alt="Project Mocha Logo" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="text-xl font-bold text-coffee-800 text-emphasis">
+              Project Mocha
+            </span>
+          </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-6">
-              {navigationItems.map((item) => (
-                <div key={item.name}>
-                  {item.type === 'route' ? (
-                    <Link
-                      to={item.href}
-                      className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
-                    >
-                      {item.name}
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => handleNavClick(item.href, item.type)}
-                      className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
-                    >
-                      {item.name}
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
+          <div className="hidden md:flex space-x-6">
+            {navigationItems.map((item) => (
+              <div key={item.name}>
+                {item.type === 'route' ? (
+                  <Link
+                    to={item.href}
+                    className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => handleNavClick(item.href, item.type)}
+                    className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
+                  >
+                    {item.name}
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
 
-            <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
-              Start Investing
-            </button>
+          <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
+            Start Investing
+          </button>
 
             {/* Mobile Menu Button */}
-            <button 
+          <button 
               className="md:hidden focus:outline-none z-20 relative"
-              onClick={toggleMenu}
-              aria-label="Toggle menu"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
-            >
-              {isMenuOpen ? (
+          >
+            {isMenuOpen ? (
                 <X className="h-6 w-6 text-coffee-800" />
-              ) : (
+            ) : (
                 <Menu className="h-6 w-6 text-coffee-800" />
-              )}
-            </button>
+            )}
+          </button>
           </div>
         </div>
       </nav>
@@ -211,7 +211,7 @@ const Navbar: React.FC = () => {
       )}
 
       {/* Mobile Menu */}
-      <div 
+        <div 
         className={`fixed top-20 right-4 w-80 max-w-sm bg-white bg-opacity-95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out md:hidden ${
           isMenuOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-95'
         }`}
@@ -247,26 +247,26 @@ const Navbar: React.FC = () => {
           {/* Mobile Menu Items */}
           <div className="py-4">
             <div className="px-4 space-y-1">
-              {navigationItems.map((item) => (
-                <div key={item.name}>
-                  {item.type === 'route' ? (
-                    <Link
-                      to={item.href}
+            {navigationItems.map((item) => (
+              <div key={item.name}>
+                {item.type === 'route' ? (
+                  <Link
+                    to={item.href}
                       onClick={closeMenu}
                       className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70 rounded-lg transition-all duration-200"
-                    >
-                      {item.name}
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => handleNavClick(item.href, item.type)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => handleNavClick(item.href, item.type)}
                       className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70 rounded-lg transition-all duration-200"
-                    >
-                      {item.name}
-                    </button>
-                  )}
-                </div>
-              ))}
+                  >
+                    {item.name}
+                  </button>
+                )}
+              </div>
+            ))}
             </div>
           </div>
 

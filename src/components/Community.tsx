@@ -25,8 +25,8 @@ const Community: React.FC = () => {
             <div className="flex items-center">
               <div className="w-16 h-16 bg-forest-500 rounded-full overflow-hidden mr-4">
                 <img 
-                  src="https://images.pexels.com/photos/7657735/pexels-photo-7657735.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Farmer Portrait" 
+                  src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&h=400&q=80" 
+                  alt="Kenyan Coffee Farmer Portrait" 
                   className="w-full h-full object-cover" 
                 />
               </div>
@@ -45,22 +45,22 @@ const Community: React.FC = () => {
             <div className="grid grid-cols-3 gap-2">
               <div className="bg-forest-500 h-16 overflow-hidden">
                 <img 
-                  src="https://images.pexels.com/photos/1253661/pexels-photo-1253661.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Water Conservation" 
+                  src="https://images.unsplash.com/photo-1574263867128-a3d5c1b1deae?auto=format&fit=crop&w=400&h=300&q=80" 
+                  alt="Water Conservation in Coffee Farming" 
                   className="w-full h-full object-cover" 
                 />
               </div>
               <div className="bg-forest-500 h-16 overflow-hidden">
                 <img 
-                  src="https://images.pexels.com/photos/2120595/pexels-photo-2120595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Biodiversity" 
+                  src="https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&w=400&h=300&q=80" 
+                  alt="Coffee Plantation Biodiversity" 
                   className="w-full h-full object-cover" 
                 />
               </div>
               <div className="bg-forest-500 h-16 overflow-hidden">
                 <img 
-                  src="https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Sustainable Farming" 
+                  src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&h=300&q=80" 
+                  alt="Sustainable Coffee Farming Practices" 
                   className="w-full h-full object-cover" 
                 />
               </div>
