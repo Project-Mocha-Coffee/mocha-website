@@ -103,7 +103,7 @@ const InvestmentCalculator: React.FC = () => {
               <div>
                 {/* Tree Slider */}
                 <div className="mb-4">
-                  <label className="block text-coffee-700 font-semibold mb-2 text-xs">
+                  <label className="block text-brown-800 font-semibold mb-2 text-xs">
                     Total trees (+0 free)
                   </label>
                   <div className="relative">
@@ -119,11 +119,11 @@ const InvestmentCalculator: React.FC = () => {
                       }}
                       className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #8B4513 0%, #8B4513 ${treePercentage}%, #E5E7EB ${treePercentage}%, #E5E7EB 100%)`
+                        background: `linear-gradient(to right, #3E2B28 0%, #3E2B28 ${treePercentage}%, #E5E7EB ${treePercentage}%, #E5E7EB 100%)`
                       }}
                     />
                     <div className="flex justify-end mt-1">
-                      <span className="bg-white px-2 py-0.5 rounded-full border text-coffee-700 font-semibold text-xs">
+                      <span className="bg-white px-2 py-0.5 rounded-full border text-brown-800 font-semibold text-xs">
                         {totalTrees}
                       </span>
                     </div>
@@ -132,7 +132,7 @@ const InvestmentCalculator: React.FC = () => {
 
                 {/* Money Slider */}
                 <div className="mb-4">
-                  <label className="block text-coffee-700 font-semibold mb-2 text-xs">
+                  <label className="block text-brown-800 font-semibold mb-2 text-xs">
                     Money to invest
                   </label>
                   <div className="relative">
@@ -149,11 +149,11 @@ const InvestmentCalculator: React.FC = () => {
                       }}
                       className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #8B4513 0%, #8B4513 ${moneyPercentage}%, #E5E7EB ${moneyPercentage}%, #E5E7EB 100%)`
+                        background: `linear-gradient(to right, #3E2B28 0%, #3E2B28 ${moneyPercentage}%, #E5E7EB ${moneyPercentage}%, #E5E7EB 100%)`
                       }}
                     />
                     <div className="flex justify-end mt-1">
-                      <span className="bg-white px-2 py-0.5 rounded-full border text-coffee-700 font-semibold text-xs">
+                      <span className="bg-white px-2 py-0.5 rounded-full border text-brown-800 font-semibold text-xs">
                         {moneyToInvest}€
                       </span>
                     </div>

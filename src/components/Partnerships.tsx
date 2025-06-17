@@ -12,10 +12,13 @@ const Partnerships: React.FC = () => {
     <section className="section bg-cream-100">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-coffee-800 mb-6 fade-in">Partnerships & Transparency</h2>
+          <h2 className="text-coffee-800 mb-6 fade-in">Our Partners</h2>
           <div className="w-24 h-1 bg-gold-400 mx-auto mb-8 fade-in"></div>
+          <p className="text-coffee-700 fade-in mb-4">
+            We work with globally recognized partners such as the Rainforest Alliance, local farming cooperatives, and leading logistics firms to ensure quality and transparency at every step. Our partnerships ensure every bean is traceable, ethically sourced, and meets the highest environmental standards.
+          </p>
           <p className="text-coffee-700 fade-in">
-            Our roots extend beyond Kenya. We collaborate with leading organizations to ensure ethical practices, environmental sustainability, and transparent operations at every step.
+            Interested in partnering with us? <a href="/contact" className="text-brown-600 hover:text-brown-800 underline">Contact our partnerships team</a> to explore collaboration opportunities.
           </p>
         </div>
         

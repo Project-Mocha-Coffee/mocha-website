@@ -22,7 +22,7 @@ const RiskMitigation: React.FC = () => {
             </div>
             <h3 className="text-xl font-serif text-center mb-4 text-coffee-800">Diversified Locations</h3>
             <p className="text-coffee-600 text-center">
-              We plant across multiple microclimates—Embu's misty highlands, rich volcanic slopes, and emerging regions—so that a single drought or temperamental season never silences your collective returns.
+              Plantations in multiple climate zones for stability. We strategically distribute our coffee farms across different regions to minimize risk and ensure consistent returns.
             </p>
           </div>
           
@@ -32,9 +32,9 @@ const RiskMitigation: React.FC = () => {
                 <CloudRain className="h-8 w-8 text-cream-50" strokeWidth={1.5} />
               </div>
             </div>
-            <h3 className="text-xl font-serif text-center mb-4 text-coffee-800">Comprehensive Insurance</h3>
+            <h3 className="text-xl font-serif text-center mb-4 text-coffee-800">Insurance Coverage</h3>
             <p className="text-coffee-600 text-center">
-              Every tree is covered. In the rare event of adverse weather or unforeseen calamities, our full-crop coverage ensures your investment remains protected against natural disasters and climate challenges.
+              Full crop coverage for peace of mind. Every investment is protected against natural disasters, weather events, and other unforeseen circumstances that could affect your returns.
             </p>
           </div>
           
@@ -46,11 +46,18 @@ const RiskMitigation: React.FC = () => {
             </div>
             <h3 className="text-xl font-serif text-center mb-4 text-coffee-800">Certified Standards</h3>
             <p className="text-coffee-600 text-center">
-              From USDA Organic to Fair Trade and Rainforest Alliance, each certification is a guarantee that your beans are ethically cultivated, harvested by fairly treated farmers, and traceable from seedling to export.
+              USDA Organic, Fair Trade, Rainforest Alliance. Our certifications guarantee ethical cultivation, fair farmer treatment, and complete traceability from seedling to export.
             </p>
           </div>
         </div>
         
+        <div className="mt-12 text-center fade-in">
+          <div className="bg-gold-100 p-6 rounded-lg inline-block">
+            <h3 className="text-xl font-serif text-coffee-800 mb-2">Join Our Growing Community</h3>
+            <p className="text-coffee-600 text-lg font-semibold">Join 1,250+ investors since 2022</p>
+          </div>
+        </div>
+
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="bg-coffee-700 p-8 md:p-12 text-cream-50 shadow-md fade-in">
             <h3 className="text-2xl font-serif mb-6 text-center">Transparency and Accountability</h3>

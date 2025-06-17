@@ -18,7 +18,7 @@ const Cta: React.FC = () => {
   };
   
   return (
-    <section className="section bg-forest-600">
+    <section className="section bg-brown-800">
       <div className="container-custom">
         <div className="max-w-6xl mx-auto">
           <div 
@@ -29,10 +29,10 @@ const Cta: React.FC = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               {/* Left Side - Main CTA */}
               <div className="bg-white p-8 rounded-2xl">
-                <h3 className="heading-secondary text-coffee-600 mb-2">
+                <h3 className="heading-secondary text-brown-700 mb-2">
                   Ready To Join 2000+
                 </h3>
-                <h4 className="heading-secondary text-forest-600 mb-6">
+                <h4 className="heading-secondary text-brown-600 mb-6">
                   Kenyan Coffee Investors?
                 </h4>
                 <p className="text-gray-700 mb-6">
@@ -48,7 +48,7 @@ const Cta: React.FC = () => {
                 <h3 className="heading-secondary text-white mb-2">
                   Get Our Best Deals Straight In Your Inbox
                 </h3>
-                <p className="text-coffee-800 mb-6">
+                <p className="text-brown-200 mb-6">
                   Learn more about Kenyan coffee farming opportunities and be the first to know about new investment openings in our Embu plantations.
                 </p>
                 
@@ -58,12 +58,12 @@ const Cta: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email address"
-                    className="flex-1 px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-coffee-600 focus:border-transparent"
+                    className="flex-1 px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brown-600 focus:border-transparent"
                     required
                   />
                   <button 
                     type="submit"
-                    className="btn bg-coffee-600 text-white hover:bg-coffee-700 border-coffee-600 px-8"
+                    className="btn bg-brown-700 text-white hover:bg-brown-800 border-brown-700 px-8"
                   >
                     Subscribe <ArrowRight className="ml-2 h-5 w-5" />
                   </button>

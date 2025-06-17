@@ -4,6 +4,14 @@ import { Play, ArrowRight } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
+    title: "Better Returns Than My Stock Portfolio",
+    name: "M. Rodríguez",
+    location: "Investor",
+    thumbnail: "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+    quote: "Received 14.3% returns in Year 3 – better than my stock portfolio."
+  },
+  {
+    id: 2,
     title: "Coffee Investment Is Something That Will Be The...",
     name: "Our Gen 1 Investors",
     location: "Nairobi, Kenya",
@@ -11,7 +19,7 @@ const testimonials = [
     quote: "Coffee investment will be great for other people to invest and help develop Kenya's agricultural future."
   },
   {
-    id: 2,
+    id: 3,
     title: "It Is Possible To Invest Not Only...",
     name: "Our Gen 1 Investors", 
     location: "Embu County, Kenya",
@@ -19,7 +27,7 @@ const testimonials = [
     quote: "I'm excited about supporting one of Kenya's most promising agricultural ventures because it's not only profitable."
   },
   {
-    id: 3,
+    id: 4,
     title: "I See This As The Future, Because...",
     name: "Our Gen 1 Investors",
     location: "Nyeri County, Kenya", 
@@ -27,7 +35,7 @@ const testimonials = [
     quote: "Hello, I'm Sarah Wanjiku and I see this as the future of sustainable coffee farming in Kenya."
   },
   {
-    id: 4,
+    id: 5,
     title: "If You Want To Think Outside The...",
     name: "Our Gen 1 Investors",
     location: "Mombasa, Kenya",
@@ -45,7 +53,7 @@ const TestimonialsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="section bg-forest-600">
+    <section className="section bg-forest-100">
       <div className="container-custom">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -61,7 +69,7 @@ const TestimonialsSection: React.FC = () => {
               Here's What Our Investors Say
             </h3>
             <div className="flex justify-end">
-              <button className="btn bg-forest-700 text-white hover:bg-forest-800 border-forest-700">
+              <button className="btn bg-brown-700 text-white hover:bg-brown-800 border-brown-700">
                 View more <ArrowRight className="ml-2 h-5 w-5" />
               </button>
             </div>
@@ -100,7 +108,7 @@ const TestimonialsSection: React.FC = () => {
 
                 {/* Content */}
                 <div className="p-4">
-                  <h4 className="text-coffee-600 font-bold text-sm mb-2 line-clamp-2">
+                  <h4 className="text-brown-700 font-bold text-sm mb-2 line-clamp-2">
                     {testimonial.title}
                   </h4>
                   <div className="space-y-1">
@@ -131,7 +139,7 @@ const TestimonialsSection: React.FC = () => {
                     className="w-full h-64 object-cover rounded-2xl shadow-lg"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                    <div className="w-16 h-16 bg-coffee-600 bg-opacity-90 rounded-full flex items-center justify-center">
+                    <div className="w-16 h-16 bg-forest-800 bg-opacity-90 rounded-full flex items-center justify-center">
                       <Play className="w-6 h-6 text-white ml-1" />
                     </div>
                   </div>
@@ -142,10 +150,10 @@ const TestimonialsSection: React.FC = () => {
                   </div>
                 </div>
                 <div className="text-left">
-                  <h3 className="text-xl text-coffee-600 mb-1 font-bold">
+                  <h3 className="text-xl text-brown-700 mb-1 font-bold">
                     Meet The People
                   </h3>
-                  <h4 className="text-lg text-forest-600 mb-4 font-semibold">
+                  <h4 className="text-lg text-brown-600 mb-4 font-semibold">
                     Helping Your Coffee Trees Reach Their Full Potential
                   </h4>
                   <p className="text-gray-700 mb-4 text-sm">

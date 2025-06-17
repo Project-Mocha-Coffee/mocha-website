@@ -144,7 +144,7 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <div className="bg-forest-600 min-h-screen">
+    <div className="bg-forest-100 min-h-screen">
       {/* Hero Section */}
       <section className="pt-20 pb-8 md:pt-24 md:pb-12">
         <div className="container-custom">

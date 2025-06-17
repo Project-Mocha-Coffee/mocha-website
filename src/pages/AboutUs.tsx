@@ -32,11 +32,11 @@ const AboutUs: React.FC = () => {
   ];
 
   const statistics = [
-    { number: "15", label: "Years of experience" },
+    { number: "2024", label: "Founded" },
     { number: "8", label: "Dedicated Coffee Experts" },
-    { number: "1500+", label: "Satisfied Investors" },
-    { number: "25000+", label: "Coffee trees managed" },
-    { number: "30+", label: "Years of Projected Returns" }
+    { number: "1,250+", label: "Investors since 2022" },
+    { number: "2,000", label: "Coffee trees (pilot)" },
+    { number: "200M", label: "Trees by 2040" }
   ];
 
   const values = [
@@ -74,21 +74,21 @@ const AboutUs: React.FC = () => {
 
   const journeySteps = [
     {
-      year: "2018",
-      title: "The first trees",
-      description: "In a country with a rich coffee tradition, Project Mocha founders, backed by family expertise in coffee farming, set out to establish their first plantation.",
+      year: "2024",
+      title: "Project Mocha Founded",
+      description: "Founded with a vision to connect investors with coffee while supporting ethical, sustainable farming. Started with a small pilot in Embu, Kenya.",
       image: "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
     },
     {
-      year: "2019 - 2021", 
-      title: "The Business Grew",
-      description: "Our coffee investment model gained traction as we expanded our plantations and refined our sustainable farming practices across multiple regions in Kenya.",
+      year: "2024 - 2025", 
+      title: "Pilot Farm Success",
+      description: "Our journey begins with bringing 2000 coffee trees from our pilot farm in Embu. Establishing sustainable farming practices and community partnerships.",
       image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
     },
     {
-      year: "2022",
-      title: "Project Mocha was born", 
-      description: "We became ready to share our concept with the world. Our love for coffee farming was no longer something that we could keep to ourselves.",
+      year: "2040 Vision",
+      title: "Global Expansion", 
+      description: "Plan to increase to 200 million coffee trees by 2040, introduce innovative agroforestry techniques, and partner with investors worldwide.",
       image: "https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
     }
   ];
@@ -123,11 +123,16 @@ const AboutUs: React.FC = () => {
               >
                 <h1 className="text-3xl md:text-4xl lg:text-5xl text-white mb-4 font-bold leading-tight">
                   About Project<br />
-                  <span className="text-gold-400">Mocha</span>
+                  <span className="text-brown-400">Mocha</span>
                 </h1>
                 <p className="text-lg md:text-xl text-cream-100 max-w-3xl leading-relaxed mb-6">
-                  Project Mocha is the world-first online coffee investment platform that allows 
-                  you to invest in fully managed coffee plantations.
+                  Project Mocha was founded in 2024 with a vision to connect investors with the world's most cherished crop—coffee—while supporting ethical, sustainable farming. What began as a small pilot in Embu, Kenya is growing into a global initiative that empowers communities and delivers real returns.
+                </p>
+                <p className="text-base md:text-lg text-cream-200 max-w-3xl leading-relaxed mb-6">
+                  Our journey begins with bringing 2000 coffee trees from our pilot farm in Embu. After the first year, we plan to increase the number of coffee trees to 200 million by 2040, introduce innovative agroforestry techniques, and partner with investors worldwide. Our mission is to make coffee farming accessible, profitable, and sustainable—benefiting both our investors and the communities who grow the beans.
+                </p>
+                <p className="text-base md:text-lg text-cream-200 max-w-3xl leading-relaxed mb-6">
+                  We pay our farmers above market rates, invest in research around the monetisation of biodiversity data, IoT sensors for farm management and invest in water conservation projects to ensure long-term environmental health.
                 </p>
               </div>
 
@@ -162,8 +167,8 @@ const AboutUs: React.FC = () => {
       <section className="py-8 md:py-10 bg-cream-100">
         <div className="container-custom">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl text-forest-600 mb-2 font-bold">Who We Are?</h2>
-            <h3 className="text-lg md:text-xl text-coffee-600 mb-4 font-semibold">
+            <h2 className="text-2xl md:text-3xl text-brown-700 mb-2 font-bold">Who We Are?</h2>
+            <h3 className="text-lg md:text-xl text-brown-800 mb-4 font-semibold">
               Meet The Team Behind Sustainable Growth
             </h3>
           </div>
@@ -183,17 +188,17 @@ const AboutUs: React.FC = () => {
                     alt={member.name}
                     className="w-full h-48 object-cover rounded-2xl"
                   />
-                  <div className="absolute bottom-2 right-2 w-8 h-8 bg-coffee-600 rounded-full flex items-center justify-center text-white font-bold text-xs">
+                  <div className="absolute bottom-2 right-2 w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-xs">
                     {member.initials}
                   </div>
                 </div>
-                <h4 className="text-base font-bold text-coffee-600 mb-1">{member.name}</h4>
-                <p className="text-forest-600 font-medium mb-2 text-sm">{member.role}</p>
+                <h4 className="text-base font-bold text-brown-800 mb-1">{member.name}</h4>
+                <p className="text-brown-700 font-medium mb-2 text-sm">{member.role}</p>
                 <div className="flex justify-center gap-2">
-                  <div className="w-6 h-6 bg-coffee-600 rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-brown-700 rounded-full flex items-center justify-center">
                     <span className="text-white text-xs">in</span>
                   </div>
-                  <div className="w-6 h-6 bg-coffee-600 rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-brown-700 rounded-full flex items-center justify-center">
                     <span className="text-white text-xs">@</span>
                   </div>
                 </div>
@@ -207,9 +212,9 @@ const AboutUs: React.FC = () => {
       <section className="py-8 md:py-10 bg-cream-50">
         <div className="container-custom">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl text-forest-600 mb-2 font-bold">
+            <h2 className="text-2xl md:text-3xl text-brown-700 mb-2 font-bold">
               Why Invest In<br />
-              <span className="text-coffee-600">Coffee?</span>
+              <span className="text-brown-800">Coffee?</span>
             </h2>
             <div className="max-w-3xl mx-auto mb-4">
               <p className="text-gray-600 text-sm mb-3">
@@ -233,12 +238,12 @@ const AboutUs: React.FC = () => {
             {statistics.map((stat, index) => (
               <div 
                 key={index}
-                className={`card bg-coffee-600 text-white p-3 text-center transition-all duration-1000 ${
+                className={`card bg-brown-800 text-white p-3 text-center transition-all duration-1000 ${
                   isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="text-xl md:text-2xl font-bold text-gold-400 mb-1">
+                <div className="text-xl md:text-2xl font-bold text-brown-400 mb-1">
                   {stat.number}
                 </div>
                 <div className="text-xs text-cream-100">
@@ -252,7 +257,7 @@ const AboutUs: React.FC = () => {
 
       {/* Investment Model Section */}
       <section className="py-8 md:py-10" style={{
-        backgroundImage: `linear-gradient(rgba(44, 85, 48, 0.9), rgba(44, 85, 48, 0.9)), url('https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1920')`,
+        backgroundImage: `linear-gradient(rgba(62, 43, 40, 0.9), rgba(62, 43, 40, 0.9)), url('https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1920')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}>
@@ -260,27 +265,27 @@ const AboutUs: React.FC = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl text-white mb-2 font-bold">What We Offer</h2>
-              <h3 className="text-lg md:text-xl text-gold-400 mb-4 font-semibold">
+              <h3 className="text-lg md:text-xl text-brown-400 mb-4 font-semibold">
                 A Unique Investment Model!
               </h3>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="card bg-forest-600 text-white p-4">
-                <h4 className="text-lg font-bold text-gold-400 mb-3">Long-Term Returns</h4>
+              <div className="card bg-brown-800 text-white p-4">
+                <h4 className="text-lg font-bold text-brown-400 mb-3">Long-Term Returns</h4>
                 <p className="text-cream-100 mb-4 leading-relaxed text-sm">
                   Coffee plantations provide over 30 years of stability and 
                   yield. Our investment strategy focuses on sustainable 
                   agricultural practices that ensure consistent production 
                   and profitability for our investors over the long haul.
                 </p>
-                <button className="btn bg-coffee-600 text-white hover:bg-coffee-700">
+                <button className="btn bg-brown-700 text-white hover:bg-brown-800">
                   Register now
                 </button>
               </div>
 
-              <div className="card bg-coffee-600 text-white p-4">
-                <h4 className="text-lg font-bold text-gold-400 mb-3">Investor Priority</h4>
+              <div className="card bg-brown-700 text-white p-4">
+                <h4 className="text-lg font-bold text-brown-400 mb-3">Investor Priority</h4>
                 <p className="text-cream-100 mb-4 leading-relaxed text-sm">
                   Profits are prioritized to first cover the expenses of 
                   investors, thereby ensuring the security of your 
@@ -288,7 +293,7 @@ const AboutUs: React.FC = () => {
                   trustworthy relationship with our investors, where your 
                   financial well-being is our primary concern.
                 </p>
-                <button className="btn bg-white text-coffee-600 hover:bg-cream-50">
+                <button className="btn bg-white text-brown-800 hover:bg-cream-50">
                   My account
                 </button>
               </div>
@@ -298,16 +303,16 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Coffee Demand Section */}
-      <section className="py-8 md:py-10 bg-forest-600">
+      <section className="py-8 md:py-10 bg-brown-800">
         <div className="container-custom">
           <div className="max-w-6xl mx-auto">
             <div className="card-large p-4 md:p-6">
               <div className="grid lg:grid-cols-2 gap-6 items-center">
                 <div>
-                  <div className="inline-block bg-forest-100 text-forest-600 px-2 py-1 rounded-full text-xs font-medium mb-3">
+                  <div className="inline-block bg-brown-200 text-brown-800 px-2 py-1 rounded-full text-xs font-medium mb-3">
                     Continuous growth
                   </div>
-                  <h3 className="text-lg md:text-xl text-coffee-600 mb-3 font-semibold">
+                  <h3 className="text-lg md:text-xl text-brown-800 mb-3 font-semibold">
                     Historically, Coffee Has Always Been In High Demand And Short Supply
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed mb-4">
@@ -315,11 +320,11 @@ const AboutUs: React.FC = () => {
                     coffee is very consistent, making it an ideal long-term investment opportunity.
                   </p>
                   <div className="flex items-center gap-2">
-                    <button className="w-8 h-8 bg-coffee-600 rounded-full flex items-center justify-center text-white hover:bg-coffee-700 transition-colors">
+                    <button className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors">
                       <ChevronLeft className="w-3 h-3" />
                     </button>
-                    <span className="text-coffee-600 font-medium text-sm">1 / 6</span>
-                    <button className="w-8 h-8 bg-coffee-600 rounded-full flex items-center justify-center text-white hover:bg-coffee-700 transition-colors">
+                    <span className="text-brown-800 font-medium text-sm">1 / 6</span>
+                    <button className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors">
                       <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -341,7 +346,7 @@ const AboutUs: React.FC = () => {
       <section className="py-8 md:py-10 bg-cream-100">
         <div className="container-custom">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl text-coffee-600 mb-4 font-bold">What Drives Us?</h2>
+            <h2 className="text-2xl md:text-3xl text-brown-800 mb-4 font-bold">What Drives Us?</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 max-w-6xl mx-auto">
@@ -350,20 +355,20 @@ const AboutUs: React.FC = () => {
                 key={index}
                 className={`card p-4 transition-all duration-1000 ${
                   index % 2 === 0 ? 'bg-white' : 
-                  index === 1 || index === 5 ? 'bg-forest-600 text-white' : 
-                  'bg-coffee-600 text-white'
+                  index === 1 || index === 5 ? 'bg-brown-800 text-white' : 
+                  'bg-brown-700 text-white'
                 } ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-center mb-2">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${
-                    index % 2 === 0 ? 'bg-coffee-100' : 'bg-white/20'
+                    index % 2 === 0 ? 'bg-brown-200' : 'bg-white/20'
                   }`}>
                     <span className="text-lg">{value.icon}</span>
                   </div>
                   <h4 className={`text-base font-bold ${
                     index % 2 === 0 ? 
-                    (index === 0 ? 'text-coffee-600' : index === 2 ? 'text-forest-600' : 'text-coffee-600') : 
+                    (index === 0 ? 'text-brown-800' : index === 2 ? 'text-brown-700' : 'text-brown-800') : 
                     'text-white'
                   }`}>
                     {value.title}
@@ -380,53 +385,83 @@ const AboutUs: React.FC = () => {
         </div>
       </section>
 
-      {/* Impact Section */}
-      <section className="py-8 md:py-10 bg-forest-600">
+      {/* Ethical Impact Section */}
+      <section className="py-8 md:py-10 bg-brown-800">
         <div className="container-custom">
           <div className="max-w-6xl mx-auto">
             <div className="card-large p-4 md:p-6">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl md:text-3xl text-brown-700 mb-2 font-bold">
+                  Your Investment Grows Communities
+                </h2>
+                <p className="text-gray-600 leading-relaxed text-sm max-w-3xl mx-auto">
+                  Every coffee tree you invest in creates positive impact beyond financial returns. 
+                  See how your investment supports farmers, communities, and the environment.
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6 mb-6">
+                <div className="card bg-white p-4 text-center">
+                  <div className="text-3xl font-bold text-brown-600 mb-2">40%</div>
+                  <h4 className="text-base font-bold text-brown-800 mb-2">Premium Over Market</h4>
+                  <p className="text-gray-600 text-sm">
+                    Premium over local coffee prices paid to farmers, ensuring fair compensation and sustainable livelihoods.
+                  </p>
+                </div>
+                
+                <div className="card bg-brown-600 text-white p-4 text-center">
+                  <div className="text-3xl font-bold text-white mb-2">100+</div>
+                  <h4 className="text-base font-bold text-white mb-2">School Scholarships</h4>
+                  <p className="text-white/90 text-sm">
+                    School scholarships for growers' children, investing in education and future opportunities.
+                  </p>
+                </div>
+                
+                <div className="card bg-white p-4 text-center">
+                  <div className="text-3xl font-bold text-brown-600 mb-2">5+</div>
+                  <h4 className="text-base font-bold text-brown-800 mb-2">Water Systems</h4>
+                  <p className="text-gray-600 text-sm">
+                    Water conservation systems installed per 100 trees, supporting sustainable farming practices.
+                  </p>
+                </div>
+              </div>
+
               <div className="grid lg:grid-cols-2 gap-6 items-center">
                 <div>
-                  <h2 className="text-2xl md:text-3xl text-forest-600 mb-2 font-bold">
-                    Impact And Benefits Of
-                  </h2>
-                  <h3 className="text-lg md:text-xl text-coffee-600 mb-3 font-semibold">
-                    Coffee Farming
+                  <h3 className="text-lg md:text-xl text-brown-800 mb-3 font-semibold">
+                    Community Impact Beyond Coffee
                   </h3>
-                  <h4 className="text-base font-bold text-gray-700 mb-3">
-                    How We Contribute to Nature and Community:
-                  </h4>
                   <p className="text-gray-600 leading-relaxed mb-3 text-sm">
-                    Coffee farming offers a wide range of environmental and community benefits that 
-                    make it a powerful choice for sustainable investment.
+                    Our investment model creates lasting positive change in farming communities. 
+                    We believe that sustainable returns come from sustainable practices that benefit everyone.
                   </p>
                   <p className="text-gray-600 leading-relaxed mb-4 text-sm">
-                    By investing in coffee plantations, you are not only securing your financial future 
-                    but also contributing positively to the planet and local communities.
+                    By investing in coffee plantations, you're not only securing your financial future 
+                    but also contributing to environmental conservation and community development.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <button className="btn btn-primary">
                       Invest now <ArrowRight className="ml-2 h-4 w-4" />
                     </button>
                     <button className="btn btn-secondary">
-                      Explore plantation <ArrowRight className="ml-2 h-4 w-4" />
+                      Learn more <ArrowRight className="ml-2 h-4 w-4" />
                     </button>
                   </div>
                 </div>
                 <div className="relative">
                   <img
                     src="https://images.unsplash.com/photo-1442544213729-6a15f1611937?auto=format&fit=crop&w=600&h=400&q=80"
-                    alt="Coffee farming team collaboration"
+                    alt="Coffee farming community impact"
                     className="w-full h-48 object-cover rounded-2xl shadow-lg"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                    <div className="w-12 h-12 bg-coffee-600 bg-opacity-90 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-brown-700 bg-opacity-90 rounded-full flex items-center justify-center">
                       <Play className="w-5 h-5 text-white ml-1" />
                     </div>
                   </div>
                   <div className="absolute bottom-2 left-2 right-2">
                     <p className="text-white italic text-sm">
-                      "because this is the first mutual"
+                      "Supporting communities through sustainable coffee farming"
                     </p>
                   </div>
                 </div>
@@ -440,8 +475,8 @@ const AboutUs: React.FC = () => {
       <section className="py-8 md:py-10 bg-cream-50">
         <div className="container-custom">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl text-forest-600 mb-2 font-bold">Explore</h2>
-            <h3 className="text-lg md:text-xl text-coffee-600 mb-4 font-semibold">
+            <h2 className="text-2xl md:text-3xl text-brown-700 mb-2 font-bold">Explore</h2>
+            <h3 className="text-lg md:text-xl text-brown-800 mb-4 font-semibold">
               The Project Mocha Journey
             </h3>
           </div>
@@ -450,13 +485,13 @@ const AboutUs: React.FC = () => {
             <div className="flex justify-between items-center mb-4">
               <button 
                 onClick={prevSlide}
-                className="w-8 h-8 bg-forest-600 rounded-full flex items-center justify-center text-white hover:bg-forest-700 transition-colors"
+                className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button 
                 onClick={nextSlide}
-                className="w-8 h-8 bg-forest-600 rounded-full flex items-center justify-center text-white hover:bg-forest-700 transition-colors"
+                className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -475,8 +510,8 @@ const AboutUs: React.FC = () => {
                     alt={step.title}
                     className="w-full h-32 object-cover rounded-xl mb-3"
                   />
-                  <div className="text-xl font-bold text-forest-600 mb-1">{step.year}</div>
-                  <h4 className="text-base font-bold text-coffee-600 mb-2">{step.title}</h4>
+                  <div className="text-xl font-bold text-brown-700 mb-1">{step.year}</div>
+                  <h4 className="text-base font-bold text-brown-800 mb-2">{step.title}</h4>
                   <p className="text-gray-600 leading-relaxed text-xs">{step.description}</p>
                 </div>
               ))}
@@ -498,7 +533,7 @@ const AboutUs: React.FC = () => {
                 />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl text-forest-600 mb-4 font-bold">
+                <h2 className="text-2xl md:text-3xl text-brown-700 mb-4 font-bold">
                   Culture And Opportunity
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-3 text-sm">
@@ -534,7 +569,7 @@ const AboutUs: React.FC = () => {
                 />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl text-forest-600 mb-4 font-bold">
+                <h2 className="text-2xl md:text-3xl text-brown-700 mb-4 font-bold">
                   Modern Coffee Processing Facility
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-3 text-sm">

@@ -3,56 +3,65 @@ import { Check, ArrowRight, MessageCircle } from 'lucide-react';
 
 const plans = [
   {
-    id: 'green-start',
-    name: 'Green Start',
-    trees: '1 Tree',
-    investment: '200€ investment',
-    image: 'https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
-    badge: 'Exploring the beginnings',
-    badgeColor: 'bg-forest-600',
+    id: 'starter',
+    name: 'Starter',
+    trees: '50 Trees',
+    investment: '$5,000 investment',
+    annualYield: '12%',
+    term: '5 years',
+    image: 'https://images.pexels.com/photos/7125492/pexels-photo-7125492.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+    badge: 'Perfect Entry Point',
+    badgeColor: 'bg-brown-600',
     features: [
-      'Affordable entry into coffee farming',
-      'Long-term passive income for over 20 years',
-      'Supports global reforestation efforts',
-      'Fully managed by agricultural experts'
+      'Minimum investment to start earning',
+      '12% annual yield from Year 3',
+      'Expert agronomist management',
+      'Quarterly harvest reports',
+      'Full crop insurance coverage'
     ],
-    buttonText: 'Invest now',
+    buttonText: 'Start Investing',
     buttonClass: 'btn-primary'
   },
   {
-    id: 'wealth-forest',
-    name: 'Wealth Forest',
-    trees: '10 Trees + 1 Free Tree',
-    investment: '2,000€ investment',
-    image: 'https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
-    badge: 'Smart Choice',
-    badgeColor: 'bg-coffee-600',
+    id: 'professional',
+    name: 'Professional',
+    trees: '200 Trees',
+    investment: '$20,000 investment',
+    annualYield: '14%',
+    term: '7 years',
+    image: 'https://images.unsplash.com/photo-1647220577886-6a5faaa7c141?auto=format&fit=crop&w=600&h=400&q=80',
+    badge: 'Most Popular',
+    badgeColor: 'bg-brown-700',
     isRecommended: true,
-    tagline: 'Grow, Gather, Gain',
+    tagline: 'Most Popular',
     features: [
-      'Higher profit potential with 11 trees',
-      'Long-term, consistent returns',
-      'Create a meaningful legacy for future generations',
-      'Supports ecological sustainability'
+      'Higher returns with 200 trees',
+      '14% annual yield potential',
+      'Priority plantation management',
+      'Detailed investment tracking',
+      'Reinvestment options for compounding'
     ],
-    buttonText: 'Invest now',
+    buttonText: 'Choose Professional',
     buttonClass: 'btn-secondary'
   },
   {
-    id: 'coffee-dynasty',
-    name: 'Coffee Dynasty',
-    trees: '300+ Trees',
-    investment: 'Own the land',
-    image: 'https://images.pexels.com/photos/4202325/pexels-photo-4202325.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
-    badge: 'Peak Green Majesty',
-    badgeColor: 'bg-coffee-600',
+    id: 'enterprise',
+    name: 'Enterprise',
+    trees: '1,000+ Trees',
+    investment: '$100,000 investment',
+    annualYield: '16%',
+    term: '10 years',
+    image: 'https://images.unsplash.com/photo-1736017703593-30934e35cc8c?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=luckas-spalinger-P_d9EfO5MjE-unsplash.jpg&w=640',
+    badge: 'Maximum Returns',
+    badgeColor: 'bg-brown-800',
     features: [
-      'Highest return potential with 300+ trees',
-      'Land ownership for complete control',
-      'Priority plantation care',
-      'Premium tree management'
+      'Highest return potential at 16%',
+      'Large-scale coffee plantation',
+      'Dedicated account management',
+      'Premium harvest priority',
+      'Custom investment strategies'
     ],
-    buttonText: 'Talk To Our Advisor',
+    buttonText: 'Talk To Advisor',
     buttonClass: 'btn-primary'
   }
 ];
@@ -74,7 +83,7 @@ const InvestmentPlans: React.FC = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <h2 className="text-2xl md:text-3xl text-forest-600 mb-2 font-bold">
+            <h2 className="text-2xl md:text-3xl text-brown-700 mb-2 font-bold">
               Choose Your Plan
             </h2>
             <p className="text-gray-600 text-sm max-w-3xl mx-auto mb-1">
@@ -98,16 +107,16 @@ const InvestmentPlans: React.FC = () => {
                 <div 
                   className={`card h-full p-4 ${
                     plan.isRecommended 
-                      ? 'bg-forest-600 text-white border-4 border-forest-700 transform scale-105' 
+                      ? 'bg-brown-800 text-white border-4 border-brown-900 transform scale-105' 
                       : 'bg-white hover:shadow-xl'
                   }`}
                 >
                   {/* Badge */}
                   <div className="flex justify-center mb-2">
                     <span className={`px-2 py-1 rounded-full text-white text-xs font-semibold ${
-                      plan.isRecommended ? 'bg-white text-forest-600' : plan.badgeColor
+                      plan.isRecommended ? 'bg-white text-brown-900' : plan.badgeColor
                     }`}>
-                      {plan.badge}
+                      {plan.isRecommended && plan.tagline ? plan.tagline : plan.badge}
                     </span>
                   </div>
 
@@ -120,17 +129,12 @@ const InvestmentPlans: React.FC = () => {
                         className="w-full h-32 object-cover"
                       />
                     </div>
-                    {plan.tagline && (
-                      <div className="absolute top-2 left-2 bg-white px-2 py-1 rounded-full text-xs font-semibold text-gray-700">
-                        {plan.tagline}
-                      </div>
-                    )}
                   </div>
 
                   {/* Plan Details */}
                   <div className="text-center mb-3">
                     <h3 className={`text-lg font-bold mb-1 ${
-                      plan.isRecommended ? 'text-white' : 'text-coffee-600'
+                      plan.isRecommended ? 'text-white' : 'text-brown-700'
                     }`}>
                       {plan.name}
                     </h3>
@@ -139,11 +143,23 @@ const InvestmentPlans: React.FC = () => {
                     }`}>
                       {plan.trees}
                     </p>
-                    <p className={`text-xs ${
+                    <p className={`text-xs mb-1 ${
                       plan.isRecommended ? 'text-cream-100' : 'text-gray-600'
                     }`}>
                       {plan.investment}
                     </p>
+                    <div className="flex justify-center gap-4 text-xs">
+                      <span className={`${
+                        plan.isRecommended ? 'text-green-300' : 'text-green-600'
+                      } font-semibold`}>
+                        {plan.annualYield} Annual Yield
+                      </span>
+                      <span className={`${
+                        plan.isRecommended ? 'text-cream-200' : 'text-gray-500'
+                      }`}>
+                        {plan.term}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Features */}

@@ -40,14 +40,14 @@ const Hero: React.FC = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            Invest In Coffee Trees
+            Invest in Coffee Trees – Earn 12-18% Annual Returns
           </h1>
           <p 
             className={`text-white/90 text-lg mb-6 max-w-2xl transition-all duration-1000 delay-300 transform text-emphasis ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            Create passive income, diversify your portfolio & get outstanding returns.
+            Tangible assets, passive income, and a greener future.
           </p>
           <p 
             className={`text-white/80 text-base mb-6 max-w-2xl transition-all duration-1000 delay-500 transform ${
@@ -63,16 +63,16 @@ const Hero: React.FC = () => {
             }`}
           >
             <div className="flex items-center text-white">
-              <Check className="h-4 w-4 mr-2 text-green-400" />
+              <Check className="h-4 w-4 mr-2 text-brown-400" />
               <span className="text-emphasis text-sm">12-18% average annual returns.</span>
             </div>
             <div className="flex items-center text-white">
-              <Check className="h-4 w-4 mr-2 text-green-400" />
+              <Check className="h-4 w-4 mr-2 text-brown-400" />
               <span className="text-emphasis text-sm">Simple Investment, Great Returns.</span>
             </div>
             <div className="flex items-center text-white">
-              <Check className="h-4 w-4 mr-2 text-green-400" />
-              <span className="text-emphasis text-sm">Join 2000+ investors.</span>
+              <Check className="h-4 w-4 mr-2 text-brown-400" />
+              <span className="text-emphasis text-sm">Join 1,250+ investors since 2022.</span>
             </div>
           </div>
           
@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
             }`}
           >
             <button onClick={scrollToCalculator} className="btn btn-gold">
-              Start investing <ArrowRight className="ml-2 h-5 w-5" />
+              Explore Investment Plans <ArrowRight className="ml-2 h-5 w-5" />
             </button>
             <button className="btn btn-secondary">
               Book a call <ArrowRight className="ml-2 h-5 w-5" />

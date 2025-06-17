@@ -6,7 +6,7 @@ const whyJoinData = [
     title: "20% Average Expected",
     subtitle: "Annual Returns",
     description: "Your wealth grows with your trees: with 20% historical annual returns, this investment truly bears fruit.",
-    image: "https://images.pexels.com/photos/4202325/pexels-photo-4202325.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
+    image: "https://images.pexels.com/photos/6801874/pexels-photo-6801874.jpeg"
   },
   {
     title: "An Investment You Can",
@@ -18,7 +18,7 @@ const whyJoinData = [
     title: "Sustainable Agriculture",
     subtitle: "For Future Generations",
     description: "Support eco-friendly farming practices while building wealth for yourself and preserving the environment.",
-    image: "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
+    image: "https://images.pexels.com/photos/21555027/pexels-photo-21555027.jpeg"
   }
 ];
 

@@ -19,12 +19,12 @@ const Timeline: React.FC = () => {
             <div className="ml-8">
               <h3 className="text-xl font-serif mb-3 text-cream-50">Year 1–2: Sapling Establishment</h3>
               <p className="text-cream-100 mb-6">
-                Tender is the season when young roots delve into Kenyan earth, adapting to rains and refining resilience. Our agronomists ensure each sapling thrives, with organic composts and protective shade canopies.
+                Sapling establishment phase – root development and adaptation. Our expert agronomists ensure optimal growing conditions with proper irrigation, organic fertilization, and protective care during this critical foundation period.
               </p>
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Growth Stage</h4>
-                  <p className="text-cream-100 text-sm">Sapling rooting and leaf development</p>
+                  <p className="text-cream-100 text-sm">Root development and adaptation</p>
                 </div>
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Return</h4>
@@ -32,7 +32,7 @@ const Timeline: React.FC = () => {
                 </div>
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Care Activities</h4>
-                  <p className="text-cream-100 text-sm">Irrigation, mulching, shade management</p>
+                  <p className="text-cream-100 text-sm">Planting, irrigation, organic certification</p>
                 </div>
               </div>
             </div>
@@ -42,20 +42,20 @@ const Timeline: React.FC = () => {
             <div className="ml-8">
               <h3 className="text-xl font-serif mb-3 text-cream-50">Year 3: First Harvest</h3>
               <p className="text-cream-100 mb-6">
-                A gentle taste of promise—as 20% of peak yield ripens beneath the sun. Your trees transform into working assets, and your first distributions begin landing in your account, a tangible testament to careful stewardship.
+                First harvest – expect 20% of target yield. Your coffee trees begin producing their first commercial harvest, marking the start of your investment returns with direct deposits to your account.
               </p>
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Growth Stage</h4>
-                  <p className="text-cream-100 text-sm">First flowering and cherry development</p>
+                  <p className="text-cream-100 text-sm">First commercial harvest begins</p>
                 </div>
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Return</h4>
-                  <p className="text-cream-100 text-sm">~20% of full yield potential</p>
+                  <p className="text-cream-100 text-sm">20% of target yield</p>
                 </div>
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Investor Benefits</h4>
-                  <p className="text-cream-100 text-sm">First dividend distribution</p>
+                  <p className="text-cream-100 text-sm">Annual payouts begin</p>
                 </div>
               </div>
             </div>
@@ -65,20 +65,20 @@ const Timeline: React.FC = () => {
             <div className="ml-8">
               <h3 className="text-xl font-serif mb-3 text-cream-50">Year 5+: Peak Production</h3>
               <p className="text-cream-100 mb-6">
-                With lush canopies and abundant cherries, your grove reaches full strength. Now, maximum returns flow—year after tranquil year, as each harvest is meticulously processed, shipped, and sold to discerning roasters worldwide.
+                Peak production – full yield capacity and maximum returns. Your coffee trees reach maturity, delivering consistent 12-18% annual returns with options to reinvest for compounding growth.
               </p>
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Growth Stage</h4>
-                  <p className="text-cream-100 text-sm">Full maturity with maximum yield</p>
+                  <p className="text-cream-100 text-sm">Full maturity and peak production</p>
                 </div>
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Return</h4>
-                  <p className="text-cream-100 text-sm">100% yield potential (12-18% annually)</p>
+                  <p className="text-cream-100 text-sm">Full yield capacity (12-18% annually)</p>
                 </div>
                 <div className="bg-coffee-800/50 p-4 border border-coffee-700">
                   <h4 className="text-gold-400 text-sm font-medium mb-2">Sustainability</h4>
-                  <p className="text-cream-100 text-sm">Carbon offset credits activate</p>
+                  <p className="text-cream-100 text-sm">Maximum environmental impact</p>
                 </div>
               </div>
             </div>

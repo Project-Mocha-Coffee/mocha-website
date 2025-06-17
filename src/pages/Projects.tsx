@@ -18,7 +18,7 @@ const Projects: React.FC = () => {
       title: "Nyeri Highland Coffee Farm 2024",
       location: "Located in Kenya's premier coffee highlands",
       status: "Available",
-      statusColor: "bg-forest-600",
+      statusColor: "bg-brown-800",
       image: "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
       features: ["Lifetime Investment", "Premium Arabica variety", "Volcanic soil advantage"],
       buttonColor: "btn-secondary"
@@ -178,7 +178,7 @@ const Projects: React.FC = () => {
                 </div>
                 
                 <div className="p-4">
-                  <h3 className="text-base md:text-lg font-bold text-coffee-600 mb-2">
+                  <h3 className="text-base md:text-lg font-bold text-brown-800 mb-2">
                     {project.title}
                   </h3>
                   <p className="text-gray-600 mb-3 text-sm">
@@ -188,7 +188,7 @@ const Projects: React.FC = () => {
                   <div className="space-y-2 mb-4">
                     {project.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center text-sm text-gray-700">
-                        <Check className="w-4 h-4 text-forest-600 mr-2 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-brown-700 mr-2 flex-shrink-0" />
                         {feature}
                       </div>
                     ))}
@@ -205,7 +205,7 @@ const Projects: React.FC = () => {
       </section>
 
       {/* Walnut Demand Section */}
-      <section className="min-h-screen py-16 md:py-20 bg-forest-600 flex items-center">
+      <section className="min-h-screen py-16 md:py-20 bg-forest-100 flex items-center">
         <div className="container-custom w-full">
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
@@ -220,7 +220,7 @@ const Projects: React.FC = () => {
             <div className="card-large p-4 md:p-6">
               <div className="grid lg:grid-cols-2 gap-6 items-center">
                 <div>
-                  <div className="inline-block bg-forest-100 text-forest-600 px-2 py-1 rounded-full text-xs font-medium mb-3">
+                  <div className="inline-block bg-coffee-600 text-forest-600 px-2 py-1 rounded-full text-xs font-medium mb-3">
                     Continuous growth
                   </div>
                   <h3 className="text-lg md:text-xl text-coffee-600 mb-3 font-semibold leading-tight">

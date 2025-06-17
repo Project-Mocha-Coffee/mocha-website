@@ -61,7 +61,7 @@ const ProjectDetail: React.FC = () => {
       location: 'Nyeri County, Central Kenya',
       region: 'Kenya\'s premier coffee highlands',
       status: 'Available now',
-      statusColor: 'bg-forest-600',
+      statusColor: 'bg-brown-800',
       fundName: 'The Coffee Highland Project',
       pricePerTree: '200€',
       roi: '11% - 22%',
@@ -285,8 +285,8 @@ const ProjectDetail: React.FC = () => {
     return (
       <div className="min-h-screen bg-cream-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-forest-600 mb-4">Project Not Found</h1>
-          <Link to="/projects" className="btn bg-coffee-600 text-white hover:bg-coffee-700 px-4 py-2 text-sm">
+                  <h1 className="text-2xl font-bold text-brown-700 mb-4">Project Not Found</h1>
+        <Link to="/projects" className="btn bg-brown-700 text-white hover:bg-brown-800 px-4 py-2 text-sm">
             Back to Projects <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
@@ -341,7 +341,7 @@ const ProjectDetail: React.FC = () => {
               {/* Right side - Investment card */}
               <div className="lg:ml-auto">
                 <div className="card bg-white rounded-3xl p-6 max-w-md">
-                  <div className="bg-forest-600 text-white rounded-2xl p-4 mb-4">
+                  <div className="bg-brown-800 text-white rounded-2xl p-4 mb-4">
                     <h3 className="text-lg font-bold mb-2">Invest Now</h3>
                     <div className={`inline-block ${project.statusColor} text-white px-3 py-1 rounded-full text-sm mb-2`}>
                       {project.status}

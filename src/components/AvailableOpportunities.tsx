@@ -16,7 +16,7 @@ const AvailableOpportunities: React.FC = () => {
     title: 'Nyeri Highland Coffee Farm 2024',
     location: 'Kenya\'s premier coffee highlands',
     status: 'Available now',
-    statusColor: 'bg-forest-600',
+    statusColor: 'bg-brown-600',
     totalTrees: 25200,
     treesSold: 15480,
     treesAvailable: 9720,
@@ -35,10 +35,10 @@ const AvailableOpportunities: React.FC = () => {
           >
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
-                <div className="inline-block bg-forest-100 text-forest-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
+                <div className="inline-block bg-brown-100 text-brown-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
                 Available Plantation
               </div>
-                <h2 className="text-lg md:text-xl text-forest-600 mb-2 font-semibold">
+                <h2 className="text-lg md:text-xl text-brown-600 mb-2 font-semibold">
                 Available Investment Opportunities
               </h2>
                 <h3 className="text-2xl md:text-3xl text-coffee-600 mb-6 font-bold">
@@ -46,7 +46,7 @@ const AvailableOpportunities: React.FC = () => {
               </h3>
               
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-forest-600 text-white rounded-2xl p-4 text-center">
+                  <div className="bg-brown-600 text-white rounded-2xl p-4 text-center">
                   <div className="flex items-center justify-center mb-1">
                     <Coffee className="h-5 w-5 mr-2" />
                       <span className="text-2xl font-bold">{availableProject.treesSold.toLocaleString()}</span>

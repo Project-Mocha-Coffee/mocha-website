@@ -71,11 +71,11 @@
   }
   
   .btn-secondary {
-    @apply bg-white text-coffee-600 border border-coffee-600 hover:bg-coffee-50 hover:text-coffee-700;
+    @apply bg-white text-brown-800 border border-brown-800 hover:bg-brown-50 hover:text-brown-900;
   }
 
   .btn-gold {
-    @apply bg-gold-400 text-coffee-900 border border-gold-400 hover:bg-gold-500 hover:border-gold-500;
+    @apply bg-brown-800 text-white border border-brown-800 hover:bg-brown-900 hover:border-brown-900;
   }
   
   .section {
@@ -129,11 +129,11 @@
   }
 
   .stat-card {
-    @apply bg-forest-600 text-white rounded-2xl p-6 text-center;
+    @apply bg-brown-600 text-white rounded-2xl p-6 text-center;
   }
 
   .stat-card-alt {
-    @apply bg-gold-400 text-coffee-900 rounded-2xl p-6 text-center;
+    @apply bg-brown-700 text-white rounded-2xl p-6 text-center;
   }
 
   /* Enhanced typography classes */
@@ -172,7 +172,7 @@
     height: 24px;
     width: 24px;
     border-radius: 50%;
-    background: #8B4513;
+    background: #3E2B28;
     cursor: pointer;
     border: 3px solid #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -182,7 +182,7 @@
     height: 24px;
     width: 24px;
     border-radius: 50%;
-    background: #8B4513;
+    background: #3E2B28;
     cursor: pointer;
     border: 3px solid #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -196,7 +196,7 @@
   }
 
   .slider::-moz-range-progress {
-    background: #8B4513;
+    background: #3E2B28;
     height: 8px;
     border-radius: 8px;
   }
@@ -222,7 +222,7 @@
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    background: #92400e; /* brown-700 */
+    background: #3E2B28; /* brown-800 */
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -240,7 +240,7 @@
 
   /* Thumb styling for Firefox */
   input[type="range"]::-moz-range-thumb {
-    background: #92400e; /* brown-700 */
+    background: #3E2B28; /* brown-800 */
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -281,25 +281,25 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #8B4513 0%, #A0522D 50%, #8B4513 100%); /* coffee gradient */
+  background: linear-gradient(180deg, #3E2B28 0%, #2C1B16 50%, #3E2B28 100%); /* brown gradient */
   border-radius: 8px;
   border: 2px solid #F9F7F4; /* cream-50 border for definition */
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #A0522D 0%, #8B4513 50%, #A0522D 100%); /* darker coffee on hover */
+  background: linear-gradient(180deg, #2C1B16 0%, #1F0F0A 50%, #2C1B16 100%); /* darker brown on hover */
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: #654321; /* even darker brown when pressed */
+  background: #1F0F0A; /* even darker brown when pressed */
 }
 
 /* Firefox scrollbar */
 html {
   scrollbar-width: thin;
-  scrollbar-color: #8B4513 #F9F7F4;
+  scrollbar-color: #3E2B28 #F9F7F4;
 }
 
 /* Elegant hover effects */
@@ -333,13 +333,13 @@ html {
 
 /* Gradient backgrounds */
 .gradient-forest {
-  background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+  background: linear-gradient(135deg, #3E2B28 0%, #2C1B16 100%);
 }
 
 .gradient-coffee {
-  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  background: linear-gradient(135deg, #3E2B28 0%, #2C1B16 100%);
 }
 
 .gradient-gold {
-  background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+  background: linear-gradient(135deg, #3E2B28 0%, #5C4034 100%);
 }

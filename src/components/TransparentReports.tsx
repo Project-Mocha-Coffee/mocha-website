@@ -22,7 +22,7 @@ const TransparentReports: React.FC = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-forest-800 flex items-center py-8 md:py-12">
+    <section className="min-h-screen bg-brown-600 flex items-center py-8 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Left Content */}
@@ -30,12 +30,12 @@ const TransparentReports: React.FC = () => {
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
               Transparent Operational Reports And News
             </h2>
-            <p className="text-base text-forest-100 mb-6">
+            <p className="text-base text-brown-100 mb-6">
               Stay informed at all times with real-time updates from our plantations and projects.
             </p>
             <Link 
               to="/blog"
-              className="inline-flex items-center bg-coffee-600 hover:bg-coffee-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-sm"
+              className="inline-flex items-center bg-brown-700 hover:bg-brown-800 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-sm"
             >
               View all
               <svg className="ml-2 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@ const TransparentReports: React.FC = () => {
           {/* Right Content - News Box */}
           <div className="bg-white rounded-2xl p-6 shadow-xl">
             {/* Latest News Badge */}
-            <div className="inline-flex items-center bg-forest-700 text-white px-3 py-1 rounded-full text-xs font-medium mb-4">
+            <div className="inline-flex items-center bg-brown-700 text-white px-3 py-1 rounded-full text-xs font-medium mb-4">
               Latest news
             </div>
 
@@ -57,12 +57,12 @@ const TransparentReports: React.FC = () => {
                 <div key={item.id} className="relative">
                   {/* Timeline Line */}
                   {index < newsItems.length - 1 && (
-                    <div className="absolute left-5 top-10 w-0.5 h-12 bg-coffee-200"></div>
+                    <div className="absolute left-5 top-10 w-0.5 h-12 bg-brown-300"></div>
                   )}
                   
                   <div className="flex items-start space-x-3">
                     {/* Icon Circle */}
-                    <div className="flex-shrink-0 w-10 h-10 bg-coffee-100 rounded-full flex items-center justify-center text-base">
+                    <div className="flex-shrink-0 w-10 h-10 bg-brown-100 rounded-full flex items-center justify-center text-base">
                       {item.icon}
                     </div>
                     
@@ -82,7 +82,7 @@ const TransparentReports: React.FC = () => {
                       </p>
                       <Link 
                         to="/blog"
-                        className="inline-flex items-center bg-coffee-600 hover:bg-coffee-700 text-white px-3 py-1 rounded-lg text-xs font-medium transition-colors duration-200"
+                        className="inline-flex items-center bg-brown-700 hover:bg-brown-800 text-white px-3 py-1 rounded-lg text-xs font-medium transition-colors duration-200"
                       >
                         Read more
                         <svg className="ml-1 w-2 h-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { ArrowRight, Instagram, Facebook, Linkedin, Twitter, Youtube } from 'lucide-react';
+import { ArrowRight, Instagram, Facebook, Linkedin, Youtube } from 'lucide-react';
+
+// Custom X (Twitter) icon component
+const XIcon: React.FC<{ className?: string }> = ({ className = "" }) => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +38,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="bg-forest-600 min-h-screen">
+    <div className="bg-brown-800 min-h-screen">
       {/* Contact Section */}
       <section className="pt-20 pb-8 md:pt-24 md:pb-12">
         <div className="container-custom">
@@ -45,12 +58,12 @@ const Contact: React.FC = () => {
                 {/* Left side - Company Details */}
                 <div className="p-6 lg:p-8">
                   <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-forest-600 mb-6">
+                    <h2 className="text-2xl font-bold text-brown-800 mb-6">
                       Company Details
                     </h2>
                     
                     <div className="mb-6">
-                      <h3 className="text-lg font-bold text-amber-600 mb-3">
+                      <h3 className="text-lg font-bold text-brown-700 mb-3">
                         The Mocha Coffee Enterprise
                       </h3>
                       <div className="space-y-2 text-sm text-gray-600">
@@ -61,7 +74,7 @@ const Contact: React.FC = () => {
                     </div>
 
                     <div className="mb-6">
-                      <h3 className="text-lg font-bold text-amber-600 mb-3">
+                      <h3 className="text-lg font-bold text-brown-700 mb-3">
                         Head Office
                       </h3>
                       <div className="text-sm text-gray-600">
@@ -71,24 +84,24 @@ const Contact: React.FC = () => {
                     </div>
 
                     <div>
-                      <h3 className="text-lg font-bold text-amber-600 mb-3">
+                      <h3 className="text-lg font-bold text-brown-700 mb-3">
                         Follow Us:
                       </h3>
                       <div className="flex gap-3">
-                        <button className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
-                          <Instagram className="w-5 h-5 text-gray-600" />
-                        </button>
-                        <button className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
-                          <Twitter className="w-5 h-5 text-gray-600" />
-                        </button>
-                        <button className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
-                          <Facebook className="w-5 h-5 text-gray-600" />
-                        </button>
-                        <button className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
-                          <Linkedin className="w-5 h-5 text-gray-600" />
-                        </button>
-                        <button className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
-                          <Youtube className="w-5 h-5 text-gray-600" />
+                        <a href="https://www.instagram.com/projectmocha254/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
+                          <Instagram className="w-5 h-5 text-brown-700" />
+                        </a>
+                        <a href="https://www.x.com/projectmocha254" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
+                          <XIcon className="w-5 h-5 text-brown-700" />
+                        </a>
+                        <a href="https://web.facebook.com/profile.php?id=61561477005084" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
+                          <Facebook className="w-5 h-5 text-brown-700" />
+                        </a>
+                        <a href="https://www.linkedin.com/company/project-mocha/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
+                          <Linkedin className="w-5 h-5 text-brown-700" />
+                        </a>
+                        <button className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
+                          <Youtube className="w-5 h-5 text-brown-700" />
                         </button>
                       </div>
                     </div>
@@ -96,7 +109,7 @@ const Contact: React.FC = () => {
                 </div>
 
                 {/* Right side - Contact Form */}
-                <div className="bg-forest-600 p-6 lg:p-8 text-white">
+                <div className="bg-brown-800 p-6 lg:p-8 text-white">
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Row 1: Full name and Email */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -110,7 +123,7 @@ const Contact: React.FC = () => {
                           value={formData.fullName}
                           onChange={handleInputChange}
                           placeholder="Enter your name"
-                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm"
                           required
                         />
                       </div>
@@ -124,7 +137,7 @@ const Contact: React.FC = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           placeholder="Enter your email address"
-                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm"
                           required
                         />
                       </div>
@@ -142,7 +155,7 @@ const Contact: React.FC = () => {
                           value={formData.subject}
                           onChange={handleInputChange}
                           placeholder="Question about investment"
-                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm"
                           required
                         />
                       </div>
@@ -156,7 +169,7 @@ const Contact: React.FC = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder="Phone number"
-                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm"
                         />
                       </div>
                     </div>
@@ -172,7 +185,7 @@ const Contact: React.FC = () => {
                         onChange={handleInputChange}
                         placeholder="Enter your message..."
                         rows={6}
-                        className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm resize-none"
+                        className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm resize-none"
                       />
                     </div>
 
@@ -180,7 +193,7 @@ const Contact: React.FC = () => {
                     <div className="pt-2">
                       <button
                         type="submit"
-                        className="btn bg-amber-500 text-forest-600 hover:bg-amber-400 px-6 py-3 text-sm font-medium"
+                        className="btn bg-brown-600 text-white hover:bg-brown-700 px-6 py-3 text-sm font-medium"
                       >
                         Send message <ArrowRight className="ml-2 h-4 w-4" />
                       </button>
