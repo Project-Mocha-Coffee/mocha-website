@@ -12,6 +12,17 @@ const Investing: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-scroll functionality for mobile lifecycle carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (window.innerWidth < 768) { // Only auto-scroll on mobile
+        setCurrentLifeCycleSlide((prev) => (prev + 1) % lifeCycleStages.length);
+      }
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   const lifeCycleStages = [
     {
       stage: "Plantation Setup",
@@ -124,10 +135,14 @@ const Investing: React.FC = () => {
     setCurrentLifeCycleSlide((prev) => (prev - 1 + lifeCycleStages.length) % lifeCycleStages.length);
   };
 
+  const goToLifeCycleSlide = (index: number) => {
+    setCurrentLifeCycleSlide(index);
+  };
+
   return (
     <div className="bg-cream-50">
       {/* Hero Section */}
-      <section className="min-h-screen gradient-forest relative overflow-hidden">
+      <section className="gradient-forest relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1920&q=80')`,
@@ -136,7 +151,7 @@ const Investing: React.FC = () => {
           }}></div>
         </div>
 
-        <div className="relative z-10 container-custom h-screen flex items-center">
+        <div className="relative z-10 container-custom pt-20 sm:pt-24 md:pt-32 pb-8 sm:pb-12 md:pb-16 px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="max-w-4xl">
               <div 
@@ -144,27 +159,27 @@ const Investing: React.FC = () => {
                   isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
               >
-                <h1 className="text-3xl md:text-4xl lg:text-5xl text-white mb-4 font-bold leading-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-4 sm:mb-6 font-bold leading-tight">
                   Start Investing In<br />
                   Your Coffee<br />
-                  <span className="text-brown-700">Future Today</span>
+                  <span className="text-brown-400">Future Today</span>
                 </h1>
-                <p className="text-base md:text-lg text-cream-100 max-w-3xl leading-relaxed mb-6">
+                <p className="text-sm sm:text-base md:text-lg text-cream-100 max-w-3xl leading-relaxed mb-6 sm:mb-8">
                   Grow premium Arabica coffee trees with us. Expand your portfolio with our fully-managed coffee 
                   plantations in Kenya's renowned highland regions - home to some of the world's finest coffee.
                 </p>
               </div>
 
               <div 
-                className={`flex flex-col sm:flex-row gap-3 mb-8 transition-all duration-1000 delay-1000 transform ${
+                className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 transition-all duration-1000 delay-1000 transform ${
                   isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
               >
-                <button className="btn btn-gold">
-                  Free strategy session <ArrowRight className="ml-2 h-4 w-4" />
+                <button className="btn btn-gold w-full sm:w-auto text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4 touch-manipulation">
+                  Free strategy session <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
-                <button className="btn btn-secondary">
-                  Make long-term profits <ArrowRight className="ml-2 h-4 w-4" />
+                <button className="btn btn-secondary w-full sm:w-auto text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4 touch-manipulation">
+                  Make long-term profits <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
               </div>
 
@@ -173,7 +188,7 @@ const Investing: React.FC = () => {
                   isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
               >
-                <p className="text-cream-200 italic text-base">
+                <p className="text-cream-200 italic text-sm sm:text-base">
                   Talk to our advisor and get to know everything you need for a secure investment.
                 </p>
               </div>
@@ -183,15 +198,15 @@ const Investing: React.FC = () => {
       </section>
 
       {/* Invest From All Around The World */}
-      <section className="py-8 md:py-10 bg-cream-50">
-        <div className="container-custom">
-          <div className="text-center mb-6">
-                      <h2 className="text-2xl md:text-3xl font-bold text-brown-700 mb-1">Invest From</h2>
-          <h3 className="text-2xl md:text-3xl font-bold text-brown-800 mb-4">
+      <section className="py-8 sm:py-12 md:py-16 bg-cream-50">
+        <div className="container-custom px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-brown-700 mb-1">Invest From</h2>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-brown-800 mb-4 sm:mb-6">
               All Around The World
             </h3>
-            <div className="max-w-4xl mx-auto mb-6">
-              <p className="text-gray-600 text-sm leading-relaxed">
+            <div className="max-w-4xl mx-auto mb-6 sm:mb-8">
+              <p className="text-gray-600 text-sm sm:text-base leading-relaxed px-4">
                 <span className="font-semibold text-brown-700">Project Mocha</span> invites global investors to grow high-yield Arabica coffee plantations in Kenya's fertile highlands. 
                 After setup, our local agricultural experts and Kenyan farmers ensure each tree thrives in the ideal volcanic soil for maximum long-term profits. We only take our share 
                 after your initial investment is fully returned.
@@ -199,18 +214,18 @@ const Investing: React.FC = () => {
             </div>
           </div>
 
-          <div className="max-w-6xl mx-auto mb-8">
-            <div className="card bg-brown-800 rounded-3xl overflow-hidden relative">
+          <div className="max-w-6xl mx-auto mb-6 sm:mb-8">
+            <div className="card bg-brown-800 rounded-2xl sm:rounded-3xl overflow-hidden relative">
               <img
                 src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1200&h=600&q=80"
                 alt="Kenyan coffee plantations in highland terrain"
-                className="w-full h-64 object-cover opacity-80"
+                className="w-full h-48 sm:h-56 md:h-64 object-cover opacity-80"
               />
               <div className="absolute inset-0 bg-brown-800 bg-opacity-60 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-3xl mb-3">🇰🇪</div>
-                  <h4 className="text-lg md:text-xl font-bold text-brown-400 mb-2">Kenyan Coffee Investment</h4>
-                  <p className="text-cream-100 text-sm max-w-2xl mx-auto">
+                <div className="text-center text-white px-4">
+                  <div className="text-2xl sm:text-3xl mb-3">🇰🇪</div>
+                  <h4 className="text-base sm:text-lg md:text-xl font-bold text-brown-400 mb-2 sm:mb-3">Kenyan Coffee Investment</h4>
+                  <p className="text-cream-100 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
                     Our premium Arabica coffee plantations in Kenya's highlands welcome investors from around the world. 
                     Join our community of international investors in Kenya's renowned coffee heritage.
                   </p>
@@ -219,11 +234,11 @@ const Investing: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <button className="btn bg-brown-700 text-white hover:bg-brown-800 px-4 py-2 text-sm rounded-full">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <button className="btn bg-brown-700 text-white hover:bg-brown-800 w-full sm:w-auto px-6 py-3 text-sm sm:text-base rounded-full touch-manipulation">
               Schedule a call <ArrowRight className="ml-2 h-4 w-4" />
             </button>
-            <button className="btn bg-brown-800 text-white hover:bg-brown-900 px-4 py-2 text-sm rounded-full">
+            <button className="btn bg-brown-800 text-white hover:bg-brown-900 w-full sm:w-auto px-6 py-3 text-sm sm:text-base rounded-full touch-manipulation">
               Invest now <ArrowRight className="ml-2 h-4 w-4" />
             </button>
           </div>
@@ -231,32 +246,32 @@ const Investing: React.FC = () => {
       </section>
 
       {/* How Does My Investment Work */}
-      <section className="py-8 md:py-10 bg-brown-800">
-        <div className="container-custom">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">How Does My Investment Work?</h2>
-            <p className="text-cream-100 text-sm max-w-3xl mx-auto">
+      <section className="py-8 sm:py-12 md:py-16 bg-brown-800">
+        <div className="container-custom px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">How Does My Investment Work?</h2>
+            <p className="text-cream-100 text-sm sm:text-base max-w-3xl mx-auto">
               Simple steps to grow your sustainable coffee investment.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4 max-w-6xl mx-auto mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto mb-6 sm:mb-8">
             {investmentSteps.map((step, index) => (
-              <div key={index} className="card p-4 text-center">
-                <div className="text-3xl mb-3">{step.icon}</div>
-                <h4 className="text-base font-bold text-brown-700 mb-2">{step.title}</h4>
-                <div className="flex items-center justify-center mb-2">
-                  <span className="bg-brown-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+              <div key={index} className="card p-4 sm:p-6 text-center">
+                <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">{step.icon}</div>
+                <h4 className="text-sm sm:text-base font-bold text-brown-700 mb-3 sm:mb-4 leading-tight">{step.title}</h4>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
+                  <span className="bg-brown-600 text-white px-3 py-1.5 rounded-full text-xs font-bold">
                     Step {step.step}:
                   </span>
-                  <span className="ml-2 text-gray-600 text-xs">{step.subtitle}</span>
+                  <span className="text-gray-600 text-xs sm:text-sm">{step.subtitle}</span>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="text-center">
-            <button className="btn bg-brown-600 text-white hover:bg-brown-700 px-4 py-2 text-sm">
+            <button className="btn bg-brown-600 text-white hover:bg-brown-700 w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base touch-manipulation">
               Start Your Journey Today <ArrowRight className="ml-2 h-4 w-4" />
             </button>
           </div>
@@ -267,30 +282,30 @@ const Investing: React.FC = () => {
       <InvestmentCalculator />
 
       {/* Cash Flow Forecast */}
-      <section className="py-8 md:py-10 bg-cream-100">
-        <div className="container-custom">
+      <section className="py-8 sm:py-12 md:py-16 bg-cream-100">
+        <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-6 items-center">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-brown-700 mb-2">Cash Flow Forecast And</h2>
-                                  <h3 className="text-lg md:text-xl font-semibold text-brown-800 mb-4">Investment Pitch Desk</h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+              <div className="order-2 lg:order-1">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-brown-700 mb-2">Cash Flow Forecast And</h2>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-brown-800 mb-4 sm:mb-6">Investment Pitch Desk</h3>
+                <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
                   Download the 10 years cash flow forecast and investment pitch deck featuring Kenya-specific market data 
                   and get detailed insights into your Kenyan coffee investment.
                 </p>
-                <button className="btn bg-coffee-600 text-white hover:bg-coffee-700 px-4 py-2 text-sm">
+                <button className="btn bg-coffee-600 text-white hover:bg-coffee-700 w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base touch-manipulation">
                   Download now <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
               </div>
               
-              <div className="relative">
-                <div className="card p-4 bg-white rounded-2xl shadow-lg">
-                  <h4 className="text-base font-bold text-forest-600 mb-3">Yearly income from one coffee tree</h4>
+              <div className="relative order-1 lg:order-2">
+                <div className="card p-4 sm:p-6 bg-white rounded-2xl shadow-lg">
+                  <h4 className="text-sm sm:text-base font-bold text-forest-600 mb-3 sm:mb-4">Yearly income from one coffee tree</h4>
                   
                   {/* Chart representation */}
-                  <div className="relative h-64 bg-gradient-to-br from-cream-50 to-gold-50 rounded-xl p-4">
+                  <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-cream-50 to-gold-50 rounded-xl p-3 sm:p-4">
                     {/* Y-axis labels */}
-                    <div className="absolute left-2 top-4 text-xs text-gray-500 space-y-6">
+                    <div className="absolute left-1 sm:left-2 top-3 sm:top-4 text-xs text-gray-500 space-y-4 sm:space-y-6">
                       <div>$100</div>
                       <div>$80</div>
                       <div>$60</div>
@@ -300,7 +315,7 @@ const Investing: React.FC = () => {
                     </div>
                     
                     {/* Chart area */}
-                    <div className="ml-8 h-full relative">
+                    <div className="ml-6 sm:ml-8 h-full relative">
                       {/* Growth curve representation */}
                       <svg className="w-full h-full" viewBox="0 0 300 200">
                         <defs>
@@ -334,24 +349,24 @@ const Investing: React.FC = () => {
                       </svg>
                       
                       {/* Phase labels */}
-                      <div className="absolute bottom-2 left-0 right-0 flex justify-between text-xs text-gray-500">
+                      <div className="absolute bottom-1 sm:bottom-2 left-0 right-0 flex justify-between text-xs text-gray-500">
                         <span>Year 1</span>
-                        <span>Year 3</span>
+                        <span className="hidden sm:inline">Year 3</span>
                         <span>Year 5</span>
-                        <span>Year 7</span>
+                        <span className="hidden sm:inline">Year 7</span>
                         <span>Year 10+</span>
                       </div>
                       
-                      {/* Phase annotations */}
-                      <div className="absolute top-4 left-4 bg-coffee-100 px-2 py-1 rounded text-xs text-coffee-600">
+                      {/* Phase annotations - Hidden on small screens */}
+                      <div className="hidden sm:block absolute top-4 left-4 bg-coffee-100 px-2 py-1 rounded text-xs text-coffee-600">
                         Kenya highland planting<br />& tree development
                       </div>
                       
-                      <div className="absolute top-8 right-4 bg-forest-100 px-2 py-1 rounded text-xs text-forest-600">
+                      <div className="hidden md:block absolute top-8 right-4 bg-forest-100 px-2 py-1 rounded text-xs text-forest-600">
                         Return on<br />Investment period
                       </div>
                       
-                      <div className="absolute bottom-12 right-8 bg-gold-100 px-2 py-1 rounded text-xs text-coffee-600">
+                      <div className="hidden lg:block absolute bottom-12 right-8 bg-gold-100 px-2 py-1 rounded text-xs text-coffee-600">
                         <div className="font-semibold text-gold-600">The golden years</div>
                         <div className="text-xs">Premium Kenyan Arabica yields $70-$120/tree</div>
                       </div>
@@ -365,19 +380,19 @@ const Investing: React.FC = () => {
       </section>
 
       {/* Investment Life Cycle */}
-      <section className="py-8 md:py-10 bg-forest-200">
-        <div className="container-custom">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Investment Life Cycle</h2>
-            <p className="text-cream-100 text-sm max-w-3xl mx-auto">
+      <section className="py-8 sm:py-12 md:py-16 bg-forest-200">
+        <div className="container-custom px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">Investment Life Cycle</h2>
+            <p className="text-cream-100 text-sm sm:text-base max-w-3xl mx-auto">
               Discover the growth stages of your coffee investment, from planting to peak profitability.
             </p>
           </div>
 
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="relative">
-              {/* Timeline Cards */}
-              <div className="space-y-12">
+          <div className="max-w-7xl mx-auto">
+            {/* Desktop Timeline */}
+            <div className="hidden md:block">
+              <div className="space-y-8 sm:space-y-12">
                 {lifeCycleStages.map((stage, index) => (
                   <div key={index} className="relative">
                     {/* Curved Connector Line */}
@@ -410,21 +425,21 @@ const Investing: React.FC = () => {
                     </div>
                     
                     {/* Card */}
-                    <div className={`card bg-white rounded-3xl p-4 relative z-10 ${
+                    <div className={`card bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 relative z-10 ${
                       index % 2 === 1 ? 'md:mr-auto md:ml-0 md:w-[55%]' 
                         : 'md:ml-auto md:mr-0 md:w-[55%]'
                     }`}>
-                      <div className={`grid md:grid-cols-5 gap-3 items-center ${
+                      <div className={`grid md:grid-cols-5 gap-4 items-center ${
                         index % 2 === 1 ? 'md:grid-flow-col-dense' : ''
                       }`}>
                         <div className={`md:col-span-3 ${index % 2 === 1 ? 'md:col-start-3' : ''}`}>
-                          <div className="inline-block bg-brown-700 text-forest-600 px-2 py-1 rounded-full text-xs font-medium mb-2">
+                          <div className="inline-block bg-brown-700 text-forest-600 px-3 py-1.5 rounded-full text-xs font-medium mb-2 sm:mb-3">
                             {stage.badge}
                           </div>
-                          <h3 className="text-base md:text-lg font-bold text-coffee-600 mb-2">
+                          <h3 className="text-base sm:text-lg md:text-xl font-bold text-coffee-600 mb-2 sm:mb-3">
                             {stage.title}
                           </h3>
-                          <p className="text-gray-600 leading-snug text-xs">
+                          <p className="text-gray-600 leading-relaxed text-xs sm:text-sm">
                             {stage.description}
                           </p>
                         </div>
@@ -432,12 +447,83 @@ const Investing: React.FC = () => {
                           <img
                             src={stage.image}
                             alt={stage.title}
-                            className="w-full h-24 object-cover rounded-xl"
+                            className="w-full h-32 sm:h-36 md:h-32 object-cover rounded-xl"
                           />
                         </div>
                       </div>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Carousel */}
+            <div className="md:hidden relative">
+              <div className="relative overflow-hidden rounded-2xl">
+                <div 
+                  className="flex transition-transform duration-500 ease-in-out touch-manipulation"
+                  style={{ transform: `translateX(-${currentLifeCycleSlide * 100}%)` }}
+                >
+                  {lifeCycleStages.map((stage, index) => (
+                    <div key={index} className="w-full flex-shrink-0 px-2">
+                      <div className="card bg-white rounded-2xl p-5 sm:p-6">
+                        {/* Badge */}
+                        <div className="text-center mb-4">
+                          <span className="inline-block bg-brown-700 text-forest-600 px-4 py-2 rounded-full text-sm font-medium">
+                            {stage.badge}
+                          </span>
+                        </div>
+
+                        {/* Image */}
+                        <div className="relative mb-5">
+                          <img
+                            src={stage.image}
+                            alt={stage.title}
+                            className="w-full h-48 sm:h-56 object-cover rounded-xl"
+                          />
+                        </div>
+
+                        {/* Content */}
+                        <div className="text-center">
+                          <h3 className="text-lg sm:text-xl font-bold text-coffee-600 mb-3">
+                            {stage.title}
+                          </h3>
+                          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            {stage.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevLifeCycleSlide}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={nextLifeCycleSlide}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="flex justify-center mt-6 space-x-2">
+                {lifeCycleStages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToLifeCycleSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-200 touch-manipulation ${
+                      index === currentLifeCycleSlide 
+                        ? 'bg-white w-8' 
+                        : 'bg-white/50 hover:bg-white/70'
+                    }`}
+                  />
                 ))}
               </div>
             </div>
@@ -449,64 +535,64 @@ const Investing: React.FC = () => {
       <ReferralProgram />
 
       {/* Risk Mitigation */}
-      <section className="py-8 md:py-10 bg-cream-50">
-        <div className="container-custom">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-forest-600 mb-2">
+      <section className="py-8 sm:py-12 md:py-16 bg-cream-50">
+        <div className="container-custom px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-forest-600 mb-2">
               Full ROI
             </h2>
-            <h3 className="text-lg md:text-xl font-bold text-coffee-600">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-coffee-600">
               No Matter What
             </h3>
           </div>
 
-          <div className="space-y-3 max-w-5xl mx-auto">
+          <div className="space-y-4 sm:space-y-6 max-w-5xl mx-auto">
             {/* Risk Mitigation Card */}
-            <div className="card bg-forest-100 text-white rounded-3xl p-4 md:p-6">
-              <div className="grid grid-cols-3 gap-4 items-center">
-                <div className="col-span-2">
-                  <h3 className="text-lg font-bold text-white mb-3">Risk Mitigation</h3>
-                  <div className="space-y-2">
-                    <p className="leading-relaxed text-white/90 text-sm">
+            <div className="card bg-forest-100 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 items-center">
+                <div className="md:col-span-2 order-2 md:order-1">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Risk Mitigation</h3>
+                  <div className="space-y-2 sm:space-y-3">
+                    <p className="leading-relaxed text-white/90 text-sm sm:text-base">
                       The calculation of yearly dividends is based on a percentage ownership stake in the Kenyan plantation, 
                       not on an individual "tree yield" basis.
                     </p>
-                    <p className="leading-relaxed text-white/90 text-sm">
+                    <p className="leading-relaxed text-white/90 text-sm sm:text-base">
                       This means that in case something happens to your tree/trees due to weather or other factors affecting Kenyan highlands, you will not be left empty-handed.
                     </p>
-                    <p className="leading-relaxed text-white/90 text-sm">
+                    <p className="leading-relaxed text-white/90 text-sm sm:text-base">
                       We ensure that you receive your entitled profits, and we will replant your trees in our Kenyan plantation sites.
                     </p>
                   </div>
                 </div>
-                <div className="col-span-1">
+                <div className="md:col-span-1 order-1 md:order-2">
                   <img
                     src="https://images.unsplash.com/photo-1442544213729-6a15f1611937?auto=format&fit=crop&w=600&h=400&q=80"
                     alt="Coffee farmers working in plantation"
-                    className="w-full h-32 object-cover rounded-2xl"
+                    className="w-full h-40 sm:h-48 md:h-32 object-cover rounded-xl sm:rounded-2xl"
                   />
                 </div>
               </div>
             </div>
 
             {/* Insurance Card */}
-            <div className="card bg-coffee-600 text-white rounded-3xl p-4 md:p-6">
-              <div className="grid grid-cols-3 gap-4 items-center">
-                <div className="col-span-1">
+            <div className="card bg-coffee-600 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 items-center">
+                <div className="md:col-span-1 order-1">
                   <img
                     src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&h=400&q=80"
                     alt="Coffee plantation aerial view"
-                    className="w-full h-32 object-cover rounded-2xl"
+                    className="w-full h-40 sm:h-48 md:h-32 object-cover rounded-xl sm:rounded-2xl"
                   />
                 </div>
-                <div className="col-span-2">
-                  <h3 className="text-lg font-bold text-white mb-3">Insurance</h3>
-                  <div className="space-y-2">
-                    <p className="leading-relaxed text-white/90 text-sm">
+                <div className="md:col-span-2 order-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Insurance</h3>
+                  <div className="space-y-2 sm:space-y-3">
+                    <p className="leading-relaxed text-white/90 text-sm sm:text-base">
                       As an additional line of defense from unforeseen circumstances in Kenya's highlands, Project Mocha covers 
                       all insurance-related costs until the plantation has reached self-sustainability.
                     </p>
-                    <p className="leading-relaxed text-white/90 text-sm">
+                    <p className="leading-relaxed text-white/90 text-sm sm:text-base">
                       In case of force majeure affecting our Kenyan operations, insurance settlements paid out to Project Mocha will be 
                       divided among investors proportionally.
                     </p>
@@ -519,47 +605,46 @@ const Investing: React.FC = () => {
       </section>
 
       {/* Investment Benefits */}
-      <section className="py-8 md:py-10 bg-forest-100">
-        <div className="container-custom">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Choose Your</h2>
-            <h3 className="text-lg md:text-xl font-bold text-gold-400 mb-3">Investment Future</h3>
-            <p className="text-cream-100 text-sm max-w-4xl mx-auto">
+      <section className="py-8 sm:py-12 md:py-16 bg-forest-100">
+        <div className="container-custom px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">Choose Your</h2>
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gold-400 mb-3 sm:mb-4">Investment Future</h3>
+            <p className="text-cream-100 text-sm sm:text-base max-w-4xl mx-auto">
               Discover the growth stages of your Kenyan coffee investment, from highland planting to premium Arabica profitability.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 max-w-4xl mx-auto">
-            {/* Top Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto">
             {/* Passive Income Card */}
-            <div className="card bg-white rounded-2xl p-3 h-36 max-w-xs mx-auto w-full">
-              <div className="flex items-start mb-2">
-                <div className="w-6 h-6 bg-coffee-100 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
-                  <TrendingUp className="w-3 h-3 text-coffee-600" />
+            <div className="card bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 h-auto sm:h-40 md:h-36">
+              <div className="flex items-start mb-3">
+                <div className="w-8 h-8 bg-coffee-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <TrendingUp className="w-4 h-4 text-coffee-600" />
                 </div>
-                <h4 className="text-sm font-bold text-forest-600 leading-tight">Passive Income And Yield</h4>
+                <h4 className="text-sm sm:text-base font-bold text-forest-600 leading-tight">Passive Income And Yield</h4>
               </div>
-              <p className="text-gray-600 leading-snug text-xs">
+              <p className="text-gray-600 leading-relaxed text-xs sm:text-sm">
                 Coffee farming is a substantial source of passive income. It might take a couple of years for the yield 
                 to start coming in, but when it does, you will enjoy it for the next 25+ years.
               </p>
             </div>
 
             {/* Good For Environment Card */}
-            <div className="card bg-coffee-600 text-white rounded-2xl p-3 h-36 max-w-xs mx-auto w-full">
-              <div className="flex items-start mb-2">
-                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
-                  <Leaf className="w-3 h-3 text-white" />
+            <div className="card bg-coffee-600 text-white rounded-xl sm:rounded-2xl p-4 sm:p-5 h-auto sm:h-40 md:h-36">
+              <div className="flex items-start mb-3">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <Leaf className="w-4 h-4 text-white" />
                 </div>
-                <h4 className="text-sm font-bold text-white leading-tight">Good For The Environment</h4>
+                <h4 className="text-sm sm:text-base font-bold text-white leading-tight">Good For The Environment</h4>
               </div>
-              <p className="text-white/90 leading-snug text-xs">
+              <p className="text-white/90 leading-relaxed text-xs sm:text-sm">
                 Everyone should plant at least one tree in his or her lifetime... And you are going to get paid for doing so.
               </p>
             </div>
 
             {/* Tree Image Card */}
-            <div className="card rounded-2xl overflow-hidden h-36 max-w-xs mx-auto w-full">
+            <div className="card rounded-xl sm:rounded-2xl overflow-hidden h-40 sm:h-40 md:h-36">
               <img
                 src="https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&w=600&h=400&q=80"
                 alt="Young coffee trees growing"
@@ -567,9 +652,8 @@ const Investing: React.FC = () => {
               />
             </div>
 
-            {/* Bottom Row */}
             {/* Family Image Card */}
-            <div className="card rounded-2xl overflow-hidden h-36 max-w-xs mx-auto w-full">
+            <div className="card rounded-xl sm:rounded-2xl overflow-hidden h-40 sm:h-40 md:h-36">
               <img
                 src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
                 alt="Coffee farming family"
@@ -578,27 +662,27 @@ const Investing: React.FC = () => {
             </div>
 
             {/* Gift for Next Generation Card */}
-            <div className="card bg-white rounded-2xl p-3 h-36 max-w-xs mx-auto w-full">
-              <div className="flex items-start mb-2">
-                <div className="w-6 h-6 bg-forest-100 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
-                  <Gift className="w-3 h-3 text-forest-600" />
+            <div className="card bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 h-auto sm:h-40 md:h-36">
+              <div className="flex items-start mb-3">
+                <div className="w-8 h-8 bg-forest-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <Gift className="w-4 h-4 text-forest-600" />
                 </div>
-                <h4 className="text-sm font-bold text-forest-600 leading-tight">A Gift For The Next Generation</h4>
+                <h4 className="text-sm sm:text-base font-bold text-forest-600 leading-tight">A Gift For The Next Generation</h4>
               </div>
-              <p className="text-gray-600 leading-snug text-xs">
+              <p className="text-gray-600 leading-relaxed text-xs sm:text-sm">
                 Not only are you creating equity for yourself, you are also securing future generations to come.
               </p>
             </div>
 
             {/* Photo and Video Updates Card */}
-            <div className="card bg-coffee-600 text-white rounded-2xl p-3 h-36 max-w-xs mx-auto w-full">
-              <div className="flex items-start mb-2">
-                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
-                  <Camera className="w-3 h-3 text-white" />
+            <div className="card bg-coffee-600 text-white rounded-xl sm:rounded-2xl p-4 sm:p-5 h-auto sm:h-40 md:h-36">
+              <div className="flex items-start mb-3">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <Camera className="w-4 h-4 text-white" />
                 </div>
-                <h4 className="text-sm font-bold text-white leading-tight">Photo And Video Updates</h4>
+                <h4 className="text-sm sm:text-base font-bold text-white leading-tight">Photo And Video Updates</h4>
               </div>
-              <p className="text-white/90 leading-snug text-xs">
+              <p className="text-white/90 leading-relaxed text-xs sm:text-sm">
                 Project Mocha prides itself on transparency. With photo and video updates directly from the plantation, 
                 you will follow your coffee trees thoroughly, from planting to harvesting.
               </p>

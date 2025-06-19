@@ -68,28 +68,28 @@ const WhyJoinCarousel: React.FC = () => {
   const currentData = whyJoinData[currentSlide];
 
   return (
-    <section className="py-8 md:py-10 bg-cream-100">
-      <div className="container-custom">
+    <section className="py-6 sm:py-8 md:py-10 bg-cream-100">
+      <div className="container-custom px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div 
-            className={`text-center mb-8 transition-all duration-1000 ${
+            className={`text-center mb-6 sm:mb-8 transition-all duration-1000 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <h2 className="text-2xl md:text-3xl text-forest-600 mb-2 font-bold">
+            <h2 className="text-xl sm:text-2xl md:text-3xl text-forest-600 mb-1 sm:mb-2 font-bold">
               Why Join
             </h2>
-            <h3 className="text-lg md:text-xl text-coffee-600 mb-6 font-semibold">
+            <h3 className="text-base sm:text-lg md:text-xl text-coffee-600 mb-4 sm:mb-6 font-semibold">
               Project Mocha?
             </h3>
           </div>
 
-          <div className="relative px-12 md:px-16">
-            {/* Navigation arrows - positioned outside the card */}
+          <div className="relative px-6 sm:px-8 md:px-12 lg:px-16">
+            {/* Navigation arrows - hidden on mobile, shown on desktop */}
             <button
               onClick={prevSlide}
               disabled={isTransitioning}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-forest-600 text-white rounded-full flex items-center justify-center hover:bg-forest-700 transition-all duration-300 shadow-lg hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-forest-600 text-white rounded-full flex items-center justify-center hover:bg-forest-700 transition-all duration-300 shadow-lg hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -97,15 +97,15 @@ const WhyJoinCarousel: React.FC = () => {
             <button
               onClick={nextSlide}
               disabled={isTransitioning}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-forest-600 text-white rounded-full flex items-center justify-center hover:bg-forest-700 transition-all duration-300 shadow-lg hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-forest-600 text-white rounded-full flex items-center justify-center hover:bg-forest-700 transition-all duration-300 shadow-lg hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
 
             {/* Main slide container with overflow hidden for smooth animations */}
-            <div className="overflow-hidden rounded-3xl">
+            <div className="overflow-hidden rounded-2xl sm:rounded-3xl">
               <div 
-                className={`card-large p-6 md:p-8 transition-all duration-300 ease-in-out ${
+                className={`card-large p-4 sm:p-6 md:p-8 transition-all duration-300 ease-in-out ${
                   isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 } ${
                   isTransitioning 
@@ -115,19 +115,19 @@ const WhyJoinCarousel: React.FC = () => {
                     : 'translate-x-0 opacity-100'
                 }`}
               >
-                <div className="grid md:grid-cols-2 gap-6 items-center">
-                  <div className={`order-2 md:order-1 transition-all duration-250 delay-50 ${
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-6 items-center">
+                  <div className={`order-2 md:order-1 text-center md:text-left transition-all duration-250 delay-50 ${
                     isTransitioning 
                       ? 'translate-y-4 opacity-0' 
                       : 'translate-y-0 opacity-100'
                   }`}>
-                    <h3 className="text-xl md:text-2xl text-forest-600 mb-1 font-bold">
+                    <h3 className="text-lg sm:text-xl md:text-2xl text-forest-600 mb-1 font-bold leading-tight">
                       {currentData.title}
                     </h3>
-                    <h4 className="text-lg md:text-xl text-coffee-600 mb-4 font-semibold">
+                    <h4 className="text-base sm:text-lg md:text-xl text-coffee-600 mb-3 sm:mb-4 font-semibold leading-tight">
                       {currentData.subtitle}
                     </h4>
-                    <p className="text-gray-700 text-sm leading-relaxed">
+                    <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
                       {currentData.description}
                     </p>
                   </div>
@@ -138,11 +138,11 @@ const WhyJoinCarousel: React.FC = () => {
                         : '-translate-x-8 opacity-0'
                       : 'translate-x-0 opacity-100'
                   }`}>
-                    <div className="relative rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-250 hover:scale-105">
+                    <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-250 hover:scale-105">
                       <img
                         src={currentData.image}
                         alt={currentData.title}
-                        className="w-full h-64 object-cover transition-transform duration-350"
+                        className="w-full h-48 sm:h-56 md:h-64 object-cover transition-transform duration-350"
                       />
                     </div>
                   </div>
@@ -151,32 +151,32 @@ const WhyJoinCarousel: React.FC = () => {
             </div>
 
             {/* Mobile navigation - below the card on smaller screens */}
-            <div className="flex justify-center mt-3 space-x-3 md:hidden">
+            <div className="flex justify-center mt-4 sm:mt-6 space-x-4 md:hidden">
               <button
                 onClick={prevSlide}
                 disabled={isTransitioning}
-                className="w-8 h-8 bg-forest-600 text-white rounded-full flex items-center justify-center hover:bg-forest-700 transition-colors shadow-lg disabled:opacity-50"
+                className="w-10 h-10 bg-forest-600 text-white rounded-full flex items-center justify-center hover:bg-forest-700 transition-colors shadow-lg disabled:opacity-50 touch-manipulation"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={nextSlide}
                 disabled={isTransitioning}
-                className="w-8 h-8 bg-forest-600 text-white rounded-full flex items-center justify-center hover:bg-forest-700 transition-colors shadow-lg disabled:opacity-50"
+                className="w-10 h-10 bg-forest-600 text-white rounded-full flex items-center justify-center hover:bg-forest-700 transition-colors shadow-lg disabled:opacity-50 touch-manipulation"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           </div>
 
           {/* Slide indicators */}
-          <div className="flex justify-center mt-6 space-x-2">
+          <div className="flex justify-center mt-4 sm:mt-6 space-x-2">
             {whyJoinData.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
                 disabled={isTransitioning}
-                className={`w-10 h-1.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed ${
+                className={`w-8 sm:w-10 h-1.5 rounded-full transition-all duration-300 disabled:cursor-not-allowed touch-manipulation ${
                   index === currentSlide
                     ? 'bg-coffee-600 scale-110'
                     : 'bg-coffee-200 hover:bg-coffee-400 hover:scale-105'

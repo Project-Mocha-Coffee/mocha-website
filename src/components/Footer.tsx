@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
     <footer className="bg-cream-50 text-gray-700 border-t border-gray-200">
       {/* Conversion CTA Section */}
       <div className="bg-brown-800 text-white py-12">
-        <div className="container-custom">
+      <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
               Download Our 10-Year Cash Flow Projection

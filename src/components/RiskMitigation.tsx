@@ -57,7 +57,7 @@ const RiskMitigation: React.FC = () => {
             <p className="text-coffee-600 text-lg font-semibold">Join 1,250+ investors since 2022</p>
           </div>
         </div>
-
+        
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="bg-coffee-700 p-8 md:p-12 text-cream-50 shadow-md fade-in">
             <h3 className="text-2xl font-serif mb-6 text-center">Transparency and Accountability</h3>

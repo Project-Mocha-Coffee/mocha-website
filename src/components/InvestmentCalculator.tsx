@@ -9,7 +9,7 @@ const scenarios = {
 
 const InvestmentCalculator: React.FC = () => {
   const [totalTrees, setTotalTrees] = useState(1);
-  const [moneyToInvest, setMoneyToInvest] = useState(200);
+  const [moneyToInvest, setMoneyToInvest] = useState(100);
   const [selectedScenario, setSelectedScenario] = useState<keyof typeof scenarios>('realistic');
   const [isVisible, setIsVisible] = useState(false);
 
@@ -19,56 +19,77 @@ const InvestmentCalculator: React.FC = () => {
   }, []);
 
   const scenario = scenarios[selectedScenario];
-  const costPerTree = 200; // €200 per tree
+  const costPerTree = 100; // $100 per tree
   const actualTrees = Math.floor(moneyToInvest / costPerTree);
-  const returnPerYear = actualTrees * scenario.yieldKg * scenario.pricePerKg;
+  const actualFreeTrees = Math.floor(actualTrees / 10);
+  const actualTotalTrees = actualTrees + actualFreeTrees;
+  const returnPerYear = actualTotalTrees * scenario.yieldKg * scenario.pricePerKg;
   const lifetimeReturn = returnPerYear * 20; // 20 year lifespan
   const roi = ((lifetimeReturn - moneyToInvest) / moneyToInvest) * 100;
 
-  // Calculate percentage for sliders
-  const treePercentage = ((totalTrees - 1) / (50 - 1)) * 100;
-  const moneyPercentage = ((moneyToInvest - 200) / (10000 - 200)) * 100;
+  // Calculate percentage for tree slider
+  const treePercentage = ((totalTrees - 1) / (1000 - 1)) * 100;
+  
+  // Calculate required investment for selected trees
+  const requiredInvestment = totalTrees * costPerTree;
+  
+  // Calculate free trees (1 free for every 10 purchased)
+  const freeTrees = Math.floor(totalTrees / 10);
+  const totalTreesWithFree = totalTrees + freeTrees;
+
+  const handleTreeChange = (trees: number) => {
+    setTotalTrees(trees);
+    // Automatically update money to invest to match required amount
+    const requiredAmount = trees * costPerTree;
+    setMoneyToInvest(requiredAmount);
+  };
+
+  const handleMoneyChange = (money: number) => {
+    setMoneyToInvest(money);
+    // Update trees based on money invested
+    setTotalTrees(Math.floor(money / costPerTree));
+  };
 
   return (
-    <section className="section bg-cream-50 py-8 md:py-10">
-      <div className="container-custom">
+    <section className="section bg-cream-50 py-6 sm:py-8 md:py-10" id="calculator">
+      <div className="container-custom px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div 
-            className={`text-center mb-6 transition-all duration-1000 ${
+            className={`text-center mb-6 sm:mb-8 transition-all duration-1000 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-coffee-600 mb-2">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-coffee-600 mb-2 sm:mb-3">
               Calculate Your Investment Growth
             </h2>
-            <p className="text-gray-600 text-sm max-w-2xl mx-auto">
+            <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
               Curious about your potential profits? Use this calculator to estimate your earnings.
             </p>
           </div>
 
           <div 
-            className={`card-large p-4 md:p-6 transition-all duration-1000 delay-300 ${
+            className={`card-large p-4 sm:p-6 md:p-8 transition-all duration-1000 delay-300 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               {/* Left side - Controls */}
-              <div>
+              <div className="order-2 lg:order-1">
                 {/* Profit Scenario Selection */}
-                <div className="mb-4">
-                  <h3 className="text-base font-bold text-coffee-700 mb-2">Pick Your Profit Scenario</h3>
-                  <div className="space-y-1">
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-bold text-coffee-700 mb-3 sm:mb-4">Pick Your Profit Scenario</h3>
+                  <div className="space-y-2 sm:space-y-3">
                     {Object.entries(scenarios).map(([key, scenario]) => (
-                      <label key={key} className="flex items-center cursor-pointer">
+                      <label key={key} className="flex items-center cursor-pointer p-2 sm:p-3 rounded-lg hover:bg-cream-100 transition-colors touch-manipulation">
                         <input
                           type="radio"
                           name="scenario"
                           value={key}
                           checked={selectedScenario === key}
                           onChange={(e) => setSelectedScenario(e.target.value as keyof typeof scenarios)}
-                          className="w-3 h-3 text-coffee-600 mr-2"
+                          className="w-4 h-4 sm:w-5 sm:h-5 text-coffee-600 mr-3 sm:mr-4"
                         />
-                        <span className={`text-sm ${selectedScenario === key ? 'text-coffee-700 font-semibold' : 'text-gray-600'}`}>
+                        <span className={`text-sm sm:text-base ${selectedScenario === key ? 'text-coffee-700 font-semibold' : 'text-gray-600'}`}>
                           {scenario.name}
                         </span>
                       </label>
@@ -77,110 +98,104 @@ const InvestmentCalculator: React.FC = () => {
                 </div>
 
                 {/* Scenario Details */}
-                <div className="mb-4 space-y-2">
-                  <div className="flex justify-between py-1 border-b border-gray-200">
-                    <span className="text-gray-600 text-xs">Mature tree yield</span>
-                    <span className="text-coffee-600 font-semibold text-sm">{scenario.yieldKg}kg</span>
+                <div className="mb-4 sm:mb-6 space-y-2 sm:space-y-3">
+                  <div className="flex justify-between py-2 sm:py-3 border-b border-gray-200">
+                    <span className="text-gray-600 text-xs sm:text-sm">Mature tree yield</span>
+                    <span className="text-coffee-600 font-semibold text-sm sm:text-base">{scenario.yieldKg}kg</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-gray-200">
-                    <span className="text-gray-600 text-xs">Coffee price</span>
-                    <span className="text-coffee-600 font-semibold text-sm">{scenario.pricePerKg}€/kg</span>
+                  <div className="flex justify-between py-2 sm:py-3 border-b border-gray-200">
+                    <span className="text-gray-600 text-xs sm:text-sm">Coffee price</span>
+                    <span className="text-coffee-600 font-semibold text-sm sm:text-base">${scenario.pricePerKg}/kg</span>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <button className="btn btn-primary flex-1 text-xs px-3 py-2">
-                    Invest Now <ArrowRight className="ml-1 h-3 w-3" />
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <button className="btn btn-primary flex-1 text-sm sm:text-base py-3 sm:py-4 px-4 sm:px-6 touch-manipulation">
+                    Invest Now <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
-                  <button className="btn btn-secondary flex-1 text-xs px-3 py-2">
-                    P&L Statement <ArrowRight className="ml-1 h-3 w-3" />
+                  <button className="btn btn-secondary flex-1 text-sm sm:text-base py-3 sm:py-4 px-4 sm:px-6 touch-manipulation">
+                    P&L Statement <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
                 </div>
               </div>
 
               {/* Right side - Sliders and Results */}
-              <div>
+              <div className="order-1 lg:order-2">
                 {/* Tree Slider */}
-                <div className="mb-4">
-                  <label className="block text-brown-800 font-semibold mb-2 text-xs">
-                    Total trees (+0 free)
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-brown-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base">
+                    Total trees (+{freeTrees} free)
                   </label>
                   <div className="relative">
                     <input
                       type="range"
                       min="1"
-                      max="50"
+                      max="1000"
                       value={totalTrees}
-                      onChange={(e) => {
-                        const trees = parseInt(e.target.value);
-                        setTotalTrees(trees);
-                        setMoneyToInvest(trees * costPerTree);
-                      }}
-                      className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                      onChange={(e) => handleTreeChange(parseInt(e.target.value))}
+                      className="w-full h-2 sm:h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer slider touch-manipulation"
                       style={{
                         background: `linear-gradient(to right, #3E2B28 0%, #3E2B28 ${treePercentage}%, #E5E7EB ${treePercentage}%, #E5E7EB 100%)`
                       }}
                     />
-                    <div className="flex justify-end mt-1">
-                      <span className="bg-white px-2 py-0.5 rounded-full border text-brown-800 font-semibold text-xs">
+                    <div className="flex justify-between mt-2 sm:mt-3">
+                      <span className="text-xs sm:text-sm text-gray-500">
+                        Required: ${requiredInvestment.toLocaleString()}
+                      </span>
+                      <span className="bg-white px-2 sm:px-3 py-1 rounded-full border text-brown-800 font-semibold text-xs sm:text-sm">
                         {totalTrees}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Money Slider */}
-                <div className="mb-4">
-                  <label className="block text-brown-800 font-semibold mb-2 text-xs">
+                {/* Money Input Field */}
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-brown-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base">
                     Money to invest
                   </label>
                   <div className="relative">
                     <input
-                      type="range"
-                      min="200"
-                      max="10000"
-                      step="200"
+                      type="number"
+                      min="100"
+                      max="100000"
+                      step="100"
                       value={moneyToInvest}
-                      onChange={(e) => {
-                        const money = parseInt(e.target.value);
-                        setMoneyToInvest(money);
-                        setTotalTrees(Math.floor(money / costPerTree));
-                      }}
-                      className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-                      style={{
-                        background: `linear-gradient(to right, #3E2B28 0%, #3E2B28 ${moneyPercentage}%, #E5E7EB ${moneyPercentage}%, #E5E7EB 100%)`
-                      }}
+                      onChange={(e) => handleMoneyChange(parseInt(e.target.value) || 100)}
+                      className="w-full px-4 py-3 sm:py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coffee-500 focus:border-transparent text-sm sm:text-base touch-manipulation"
+                      placeholder="Enter amount"
                     />
-                    <div className="flex justify-end mt-1">
-                      <span className="bg-white px-2 py-0.5 rounded-full border text-brown-800 font-semibold text-xs">
-                        {moneyToInvest}€
-                      </span>
+                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm sm:text-base">
+                      $
                     </div>
+                  </div>
+                  <div className="mt-2 text-xs sm:text-sm text-gray-500">
+                    Min: $100 | Max: $100,000
                   </div>
                 </div>
 
                 {/* Results */}
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center py-0.5">
-                    <span className="text-gray-600 text-xs">Total trees</span>
-                    <span className="text-coffee-600 font-bold text-sm">{actualTrees}</span>
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-gray-600 text-sm sm:text-base">Total trees</span>
+                    <span className="text-coffee-600 font-bold text-base sm:text-lg">{actualTotalTrees}</span>
                   </div>
-                  <div className="flex justify-between items-center py-0.5">
-                    <span className="text-gray-600 text-xs">Return / year</span>
-                    <span className="text-coffee-600 font-bold text-sm">{Math.round(returnPerYear)}€</span>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-gray-600 text-sm sm:text-base">Return / year</span>
+                    <span className="text-coffee-600 font-bold text-base sm:text-lg">${Math.round(returnPerYear).toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between items-center py-1 border-t border-gray-200">
-                    <span className="text-gray-600 text-xs">To invest</span>
-                    <span className="text-coffee-600 font-bold text-sm">{moneyToInvest}€</span>
+                  <div className="flex justify-between items-center py-2 border-t border-gray-200">
+                    <span className="text-gray-600 text-sm sm:text-base">To invest</span>
+                    <span className="text-coffee-600 font-bold text-base sm:text-lg">${moneyToInvest.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between items-center py-0.5">
-                    <span className="text-gray-600 text-xs">Lifetime</span>
-                    <span className="text-coffee-600 font-bold text-sm">{Math.round(lifetimeReturn).toLocaleString()}€</span>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-gray-600 text-sm sm:text-base">Lifetime</span>
+                    <span className="text-coffee-600 font-bold text-base sm:text-lg">${Math.round(lifetimeReturn).toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between items-center py-1 border-t-2 border-coffee-200">
-                    <span className="text-gray-600 font-semibold text-xs">ROI</span>
-                    <span className="text-coffee-600 font-bold text-lg">{roi.toFixed(1)}%</span>
+                  <div className="flex justify-between items-center py-3 border-t-2 border-coffee-200">
+                    <span className="text-gray-600 font-semibold text-sm sm:text-base">ROI</span>
+                    <span className="text-coffee-600 font-bold text-xl sm:text-2xl">{roi.toFixed(1)}%</span>
                   </div>
                 </div>
               </div>

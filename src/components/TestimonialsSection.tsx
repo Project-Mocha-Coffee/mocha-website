@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, ArrowRight } from 'lucide-react';
+import { Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const testimonials = [
   {
@@ -46,120 +46,208 @@ const testimonials = [
 
 const TestimonialsSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-scroll functionality for mobile
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (window.innerWidth < 1024) { // Only auto-scroll on mobile/tablet
+        setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+      }
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const TestimonialCard = ({ testimonial, index, isMobile = false }: { testimonial: typeof testimonials[0], index: number, isMobile?: boolean }) => (
+    <div 
+      className={`card bg-white hover:shadow-xl transition-all duration-1000 overflow-hidden ${
+        !isMobile && isVisible ? 'translate-y-0 opacity-100' : !isMobile ? 'translate-y-10 opacity-0' : ''
+      } ${isMobile ? 'mx-2' : ''}`}
+      style={!isMobile ? { transitionDelay: `${index * 150}ms` } : {}}
+    >
+      {/* Video Thumbnail */}
+      <div className="relative">
+        <img
+          src={testimonial.thumbnail}
+          alt={testimonial.name}
+          className={`w-full object-cover ${isMobile ? 'h-56 sm:h-64' : 'h-48'}`}
+        />
+        {/* Play Button Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer touch-manipulation">
+          <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+            <Play className="w-6 h-6 text-gray-800 ml-1" />
+          </div>
+        </div>
+        {/* Quote overlay */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
+          <p className={`text-white italic leading-relaxed ${isMobile ? 'text-sm sm:text-base' : 'text-sm'}`}>
+            "{testimonial.quote}"
+          </p>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className={`${isMobile ? 'p-4 sm:p-5' : 'p-4'}`}>
+        <h4 className={`text-brown-700 font-bold mb-2 line-clamp-2 ${isMobile ? 'text-base sm:text-lg' : 'text-sm'}`}>
+          {testimonial.title}
+        </h4>
+        <div className="space-y-1">
+          <p className={`text-gray-700 font-semibold ${isMobile ? 'text-sm sm:text-base' : 'text-sm'}`}>
+            {testimonial.name}
+          </p>
+          <p className={`text-gray-500 ${isMobile ? 'text-xs sm:text-sm' : 'text-xs'}`}>
+            {testimonial.location}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <section className="section bg-forest-100">
-      <div className="container-custom">
+      <div className="container-custom px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div 
-            className={`text-center mb-16 transition-all duration-1000 ${
+            className={`text-center mb-8 sm:mb-12 lg:mb-16 transition-all duration-1000 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <h2 className="heading-primary text-white mb-2">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">
               Don't Take Our Word For It -
             </h2>
-            <h3 className="heading-secondary text-coffee-300 mb-8">
+            <h3 className="text-lg sm:text-xl lg:text-2xl text-coffee-300 mb-6 sm:mb-8">
               Here's What Our Investors Say
             </h3>
-            <div className="flex justify-end">
-              <button className="btn bg-brown-700 text-white hover:bg-brown-800 border-brown-700">
-                View more <ArrowRight className="ml-2 h-5 w-5" />
+            <div className="flex justify-center lg:justify-end">
+              <button className="btn bg-brown-700 text-white hover:bg-brown-800 border-brown-700 text-sm sm:text-base py-3 px-6 touch-manipulation">
+                View more <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </button>
             </div>
           </div>
 
-          {/* Testimonials Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Desktop Grid Layout */}
+          <div className="hidden lg:grid lg:grid-cols-4 gap-6">
             {testimonials.map((testimonial, index) => (
+              <TestimonialCard 
+                key={testimonial.id} 
+                testimonial={testimonial} 
+                index={index} 
+              />
+            ))}
+          </div>
+
+          {/* Mobile/Tablet Carousel */}
+          <div className="lg:hidden relative mb-8 sm:mb-12">
+            {/* Carousel Container */}
+            <div className="relative overflow-hidden rounded-2xl">
               <div 
-                key={testimonial.id}
-                className={`card bg-white hover:shadow-xl transition-all duration-1000 overflow-hidden ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                className="flex transition-transform duration-500 ease-in-out touch-manipulation"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
-                {/* Video Thumbnail */}
-                <div className="relative">
-                  <img
-                    src={testimonial.thumbnail}
-                    alt={testimonial.name}
-                    className="w-full h-48 object-cover"
-                  />
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                    <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                      <Play className="w-6 h-6 text-gray-800 ml-1" />
-                    </div>
+                {testimonials.map((testimonial) => (
+                  <div key={testimonial.id} className="w-full flex-shrink-0">
+                    <TestimonialCard 
+                      testimonial={testimonial} 
+                      index={0} 
+                      isMobile={true}
+                    />
                   </div>
-                  {/* Quote overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
-                    <p className="text-white text-sm italic leading-relaxed">
-                      "{testimonial.quote}"
-                    </p>
+                ))}
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-4">
-                  <h4 className="text-brown-700 font-bold text-sm mb-2 line-clamp-2">
-                    {testimonial.title}
-                  </h4>
-                  <div className="space-y-1">
-                    <p className="text-gray-700 font-semibold text-sm">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-gray-500 text-xs">
-                      {testimonial.location}
+            {/* Navigation Arrows - Hidden on small mobile */}
+            <button
+              onClick={prevSlide}
+              className="hidden sm:flex absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="hidden sm:flex absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-200 touch-manipulation ${
+                    index === currentSlide 
+                      ? 'bg-brown-600 w-8' 
+                      : 'bg-white/50 hover:bg-white/70'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Mobile Swipe Hint */}
+            <div className="text-center mt-4 sm:hidden">
+              <p className="text-xs text-white/70">
+                Swipe left or right to see more testimonials
                     </p>
                   </div>
-                </div>
-              </div>
-            ))}
           </div>
 
           {/* Bottom Section - Meet The People */}
           <div 
-            className={`mt-16 text-center transition-all duration-1000 delay-700 ${
+            className={`text-center transition-all duration-1000 delay-700 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <div className="card-large bg-white p-6">
-              <div className="grid md:grid-cols-2 gap-6 items-center">
-                <div className="relative">
+            <div className="card-large bg-white p-4 sm:p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-center">
+                <div className="relative order-2 md:order-1">
                   <img
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=400&q=80"
                     alt="Happy coffee investor testimonial"
-                    className="w-full h-64 object-cover rounded-2xl shadow-lg"
+                    className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                  <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl sm:rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer touch-manipulation">
                     <div className="w-16 h-16 bg-forest-800 bg-opacity-90 rounded-full flex items-center justify-center">
                       <Play className="w-6 h-6 text-white ml-1" />
                     </div>
                   </div>
                   <div className="absolute bottom-3 left-3 right-3">
-                    <p className="text-white text-xs italic">
+                    <p className="text-white text-xs sm:text-sm italic">
                       "Given time and care, that small coffee tree becomes something much bigger."
                     </p>
                   </div>
                 </div>
-                <div className="text-left">
-                  <h3 className="text-xl text-brown-700 mb-1 font-bold">
+                <div className="text-center md:text-left order-1 md:order-2">
+                  <h3 className="text-lg sm:text-xl text-brown-700 mb-1 sm:mb-2 font-bold">
                     Meet The People
                   </h3>
-                  <h4 className="text-lg text-brown-600 mb-4 font-semibold">
+                  <h4 className="text-base sm:text-lg text-brown-600 mb-3 sm:mb-4 font-semibold">
                     Helping Your Coffee Trees Reach Their Full Potential
                   </h4>
-                  <p className="text-gray-700 mb-4 text-sm">
+                  <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
                     Get to know who's taking care of your coffee trees from seed to harvest.
                   </p>
-                  <button className="btn btn-primary">
+                  <button className="btn btn-primary text-sm sm:text-base py-3 px-6 touch-manipulation">
                     More about us <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
                 </div>
