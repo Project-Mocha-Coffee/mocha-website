@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, ChevronRight, Check, Play, User, MapPin, Calendar, TrendingUp, Plus, Minus } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Check, Play, MapPin, Calendar, TrendingUp, Plus, Minus } from 'lucide-react';
+import Timeline from '../components/Timeline';
 
 interface ProjectData {
   id: string;
@@ -26,13 +27,6 @@ interface ProjectData {
     description: string;
     status: 'completed' | 'coming-soon';
     image: string;
-  }>;
-  testimonials: Array<{
-    name: string;
-    location: string;
-    title: string;
-    video: string;
-    thumbnail: string;
   }>;
   stats: Array<{
     number: string;
@@ -103,29 +97,6 @@ const ProjectDetail: React.FC = () => {
           image: 'https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
         }
       ],
-      testimonials: [
-        {
-          name: 'Sarah Mwangi',
-          location: 'Nairobi, Kenya',
-          title: 'This Can Be A Really Great Investment...',
-          video: '#',
-          thumbnail: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop'
-        },
-        {
-          name: 'James & Mary',
-          location: 'Mombasa, Kenya',
-          title: 'It\'s Actually Investment In The Future...',
-          video: '#',
-          thumbnail: 'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop'
-        },
-        {
-          name: 'David Kiprop',
-          location: 'Eldoret, Kenya',
-          title: 'This Is The Best Way To Invest...',
-          video: '#',
-          thumbnail: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop'
-        }
-      ],
       stats: [
         { number: '25', label: 'Years of Highland Farming' },
         { number: '8', label: 'Dedicated Coffee Experts' },
@@ -176,22 +147,6 @@ const ProjectDetail: React.FC = () => {
           image: 'https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
         }
       ],
-      testimonials: [
-        {
-          name: 'Peter Kamau',
-          location: 'Kiambu, Kenya',
-          title: 'Excellent Returns From Highland Coffee...',
-          video: '#',
-          thumbnail: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop'
-        },
-        {
-          name: 'Grace Wanjiku',
-          location: 'Thika, Kenya',
-          title: 'The Best Coffee Investment Decision...',
-          video: '#',
-          thumbnail: 'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop'
-        }
-      ],
       stats: [
         { number: '25', label: 'Years of Highland Farming' },
         { number: '8', label: 'Dedicated Coffee Experts' },
@@ -232,22 +187,6 @@ const ProjectDetail: React.FC = () => {
           description: 'This mature plantation in Muranga is now producing award-winning coffee beans, representing the pinnacle of our highland coffee cultivation expertise. Trees are in peak production phase.',
           status: 'completed',
           image: 'https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
-        }
-      ],
-      testimonials: [
-        {
-          name: 'John Muriuki',
-          location: 'Muranga, Kenya',
-          title: 'Outstanding Investment Performance...',
-          video: '#',
-          thumbnail: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop'
-        },
-        {
-          name: 'Elizabeth Njeri',
-          location: 'Nairobi, Kenya',
-          title: 'Best Coffee Investment Returns...',
-          video: '#',
-          thumbnail: 'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop'
         }
       ],
       stats: [
@@ -427,7 +366,7 @@ const ProjectDetail: React.FC = () => {
             </div>
 
             {/* Stats */}
-            <div className="bg-forest-600 rounded-3xl p-6 text-white">
+            <div className="bg-forest-200 rounded-3xl p-6 text-white">
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-2 border-b border-white/20">
                   <span className="text-cream-200">Total trees</span>
@@ -481,120 +420,24 @@ const ProjectDetail: React.FC = () => {
       </section>
 
       {/* Plantation Status Timeline */}
-      <section className="py-16 md:py-20 bg-forest-600">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-              Plantation Status
-            </h2>
-            <p className="text-cream-100 text-sm max-w-3xl mx-auto">
-              Discover the growth stages of your coffee investment, from highland planting to peak profitability.
-            </p>
-          </div>
+      <Timeline 
+        stages={project.timelineStages.map(stage => ({
+          title: stage.title,
+          description: stage.description,
+          image: stage.image,
+          badge: stage.stage,
+          status: stage.status
+        }))}
+        title="Plantation Status"
+        subtitle="Discover the growth stages of your coffee investment, from highland planting to peak profitability."
+        backgroundColor="bg-forest-200"
+        textColor="text-white"
+        accentColor="bg-amber-500"
+        showCurvedConnectors={true}
+        autoScroll={false}
+      />
 
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-8">
-              {project.timelineStages.map((stage, index) => (
-                <div key={index} className="relative">
-                  {/* Connector line */}
-                  {index < project.timelineStages.length - 1 && (
-                    <div className="absolute left-1/2 top-full transform -translate-x-1/2 w-0.5 h-8 bg-white/30"></div>
-                  )}
-                  
-                  {/* Timeline node */}
-                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center z-10">
-                    <div className="w-3 h-3 bg-white rounded-full"></div>
-                  </div>
 
-                  {/* Content card */}
-                  <div className={`card bg-white rounded-3xl p-6 ${
-                    index % 2 === 0 ? 'mr-auto ml-0 w-full max-w-lg' : 'ml-auto mr-0 w-full max-w-lg'
-                  }`}>
-                    <div className={`grid gap-4 items-center ${
-                      index % 2 === 0 ? 'md:grid-cols-3' : 'md:grid-cols-3'
-                    }`}>
-                      <div className={`${index % 2 === 0 ? 'md:col-span-2' : 'md:col-span-2 md:order-2'}`}>
-                        <div className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-3 ${
-                          stage.status === 'completed' 
-                            ? 'bg-green-100 text-green-700' 
-                            : 'bg-amber-100 text-amber-700'
-                        }`}>
-                          {stage.status === 'completed' ? 'Completed' : 'Coming soon'}
-                        </div>
-                        <h3 className="text-lg font-bold text-coffee-600 mb-2">
-                          {stage.title}
-                        </h3>
-                        <p className="text-gray-600 text-sm leading-relaxed">
-                          {stage.description}
-                        </p>
-                      </div>
-                      <div className={`${index % 2 === 0 ? 'md:col-span-1' : 'md:col-span-1 md:order-1'}`}>
-                        <img
-                          src={stage.image}
-                          alt={stage.title}
-                          className="w-full h-24 object-cover rounded-xl"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Investor Testimonials */}
-      <section className="py-16 md:py-20 bg-cream-100">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-forest-600 mb-2">
-              Don't Take Our Word For It –
-            </h2>
-            <h3 className="text-2xl md:text-3xl font-bold text-amber-600 mb-6">
-              Here's What Our Investors Say
-            </h3>
-            <button className="btn bg-forest-600 text-white hover:bg-forest-700 px-4 py-2 text-sm">
-              View more <ArrowRight className="ml-2 h-4 w-4" />
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {project.testimonials.map((testimonial, index) => (
-              <div key={index} className="relative group cursor-pointer">
-                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                  <div className="relative">
-                    <img
-                      src={testimonial.thumbnail}
-                      alt={testimonial.name}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                      <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
-                        <Play className="w-4 h-4 text-white ml-1" />
-                      </div>
-                    </div>
-                    <div className="absolute top-4 right-4 bg-white/90 rounded-full px-2 py-1">
-                      <span className="text-xs text-gray-600">2 months ago</span>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h4 className="font-bold text-forest-600 mb-1 text-sm">
-                      {testimonial.title}
-                    </h4>
-                    <div className="flex items-center text-gray-500 text-xs">
-                      <User className="w-3 h-3 mr-1" />
-                      <span>{testimonial.name}</span>
-                      <span className="mx-2">•</span>
-                      <span>{testimonial.location}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Investment and Returns */}
       <section className="py-16 md:py-20 bg-cream-50" style={{
@@ -616,7 +459,7 @@ const ProjectDetail: React.FC = () => {
 
             <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {/* Investment */}
-              <div className="bg-forest-600 rounded-3xl p-8 text-white">
+              <div className="bg-forest-200 rounded-3xl p-8 text-white">
                 <h4 className="text-2xl font-bold mb-6">Investment</h4>
                 <p className="text-cream-100 text-sm leading-relaxed mb-6">
                   {project.investmentDescription}
@@ -646,42 +489,10 @@ const ProjectDetail: React.FC = () => {
         <div className="container-custom">
           <div className="max-w-7xl mx-auto">
             {/* Header and Content */}
-            <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
-              {/* Left side content */}
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-forest-600 mb-2">
-                  Why Invest In
-                </h2>
-                <h3 className="text-2xl md:text-3xl font-bold text-amber-600 mb-6">
-                  Coffee?
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-8">
-                  For just 200€ per tree, you can be part of a thriving, environmentally friendly venture that not only generates steady passive income but also contributes positively to Kenya's highland coffee heritage.
-                </p>
-
-                <div className="flex gap-4">
-                  <button className="btn bg-forest-600 text-white hover:bg-forest-700 px-6 py-3 text-sm">
-                    Invest now <ArrowRight className="ml-2 h-4 w-4" />
-                  </button>
-                  <button className="btn btn-secondary px-6 py-3 text-sm">
-                    Schedule a call <ArrowRight className="ml-2 h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Right side - placeholder for balance */}
-              <div></div>
-            </div>
+            
 
             {/* Stats */}
-            <div className="grid grid-cols-5 gap-4 mb-12">
-              {project.stats.map((stat, index) => (
-                <div key={index} className="bg-amber-500 rounded-2xl p-4 text-center text-forest-600">
-                  <div className="font-bold text-xl mb-2">{stat.number}</div>
-                  <div className="text-sm leading-tight">{stat.label}</div>
-                </div>
-              ))}
-            </div>
+            
 
             {/* Image Carousel */}
             <div className="relative">

@@ -138,7 +138,7 @@ const Navbar: React.FC = () => {
       onFocus={handleNavbarInteraction}
     >
       <div className="container-custom">
-        <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
+        <div className={`nav-pill px-4 sm:px-6 py-3 flex justify-between items-center transition-all duration-500 ${
           isScrolled ? 'shadow-xl' : 'shadow-lg'
         }`}>
           <Link 
@@ -146,20 +146,20 @@ const Navbar: React.FC = () => {
               className="flex items-center z-20"
               onClick={closeMenu}
           >
-            <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
               <img 
                 src="/mocha.jpg" 
                 alt="Project Mocha Logo" 
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-xl font-bold text-coffee-800 text-emphasis">
+            <span className="text-lg sm:text-xl font-bold text-coffee-800 text-emphasis">
               Project Mocha
             </span>
           </Link>
 
-            {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-6">
+            {/* Desktop Navigation - Only show on large screens */}
+          <div className="hidden lg:flex space-x-6">
             {navigationItems.map((item) => (
               <div key={item.name}>
                 {item.type === 'route' ? (
@@ -181,13 +181,13 @@ const Navbar: React.FC = () => {
             ))}
           </div>
 
-          <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
+          <button className="hidden lg:block btn btn-gold text-sm px-4 py-2">
             Start Investing
           </button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile/Tablet Menu Button - Show on medium screens and below */}
           <button 
-              className="md:hidden focus:outline-none z-20 relative"
+              className="lg:hidden focus:outline-none z-20 relative"
             onClick={toggleMenu}
             aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
@@ -202,23 +202,23 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile/Tablet Menu Overlay */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-30 z-40 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-30 z-40 lg:hidden"
           onClick={closeMenu}
         />
       )}
 
-      {/* Mobile Menu */}
+      {/* Mobile/Tablet Menu */}
         <div 
-        className={`fixed top-20 right-4 w-80 max-w-sm bg-white bg-opacity-95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out md:hidden ${
+        className={`fixed top-16 sm:top-20 right-4 w-80 max-w-sm bg-white bg-opacity-95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out lg:hidden ${
           isMenuOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-95'
         }`}
       >
         <div className="flex flex-col">
-          {/* Mobile Menu Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 border-opacity-50">
+          {/* Mobile/Tablet Menu Header */}
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 border-opacity-50">
             <Link 
               to="/" 
               className="flex items-center"
@@ -244,7 +244,7 @@ const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Items */}
+          {/* Mobile/Tablet Menu Items */}
           <div className="py-4">
             <div className="px-4 space-y-1">
             {navigationItems.map((item) => (
@@ -270,7 +270,7 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Footer */}
+          {/* Mobile/Tablet Menu Footer */}
           <div className="p-4 border-t border-gray-200 border-opacity-50">
             <button 
               className="w-full btn btn-gold text-sm py-3 hover:shadow-lg transition-all duration-200"

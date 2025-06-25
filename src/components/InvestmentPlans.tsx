@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Check, ArrowRight, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const plans = [
@@ -69,6 +69,12 @@ const plans = [
 const InvestmentPlans: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -78,13 +84,13 @@ const InvestmentPlans: React.FC = () => {
   // Auto-scroll functionality for mobile
   useEffect(() => {
     const interval = setInterval(() => {
-      if (window.innerWidth < 1024) { // Only auto-scroll on mobile/tablet
+      if (window.innerWidth < 1024 && !isDragging) { // Only auto-scroll on mobile/tablet when not dragging
         setCurrentSlide((prev) => (prev + 1) % plans.length);
       }
     }, 4000); // Change slide every 4 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isDragging]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % plans.length);
@@ -96,6 +102,59 @@ const InvestmentPlans: React.FC = () => {
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
+  };
+
+  // Touch/Swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    
+    const distance = touchStartX - touchEndX;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+
+    // Reset values
+    setTouchStartX(0);
+    setTouchEndX(0);
+    setIsDragging(false);
+  };
+
+  // Mouse drag handlers for desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!carouselRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - carouselRef.current.offsetLeft);
+    setScrollLeft(carouselRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !carouselRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - carouselRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    carouselRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
   };
 
   return (
@@ -232,13 +291,23 @@ const InvestmentPlans: React.FC = () => {
             {/* Carousel Container */}
             <div className="relative overflow-hidden rounded-2xl">
               <div 
-                className="flex transition-transform duration-500 ease-in-out touch-manipulation"
+                ref={carouselRef}
+                className={`flex transition-transform duration-500 ease-in-out ${
+                  isDragging ? 'transition-none' : ''
+                }`}
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseLeave}
               >
                 {plans.map((plan, index) => (
                   <div key={plan.id} className="w-full flex-shrink-0 px-2">
                     <div 
-                      className={`card h-full p-5 sm:p-6 ${
+                      className={`card h-full p-5 sm:p-6 select-none ${
                         plan.isRecommended 
                           ? 'bg-brown-800 text-white border-4 border-brown-900' 
                           : 'bg-white'
@@ -260,6 +329,7 @@ const InvestmentPlans: React.FC = () => {
                             src={plan.image}
                             alt={plan.name}
                             className="w-full h-48 sm:h-56 object-cover"
+                            draggable={false}
                           />
                         </div>
                       </div>
@@ -368,7 +438,7 @@ const InvestmentPlans: React.FC = () => {
             {/* Mobile Swipe Hint */}
             <div className="text-center mt-4 sm:hidden">
               <p className="text-xs text-gray-500">
-                Swipe left or right to explore plans
+                👈 Swipe left or right to explore plans 👉
               </p>
             </div>
           </div>

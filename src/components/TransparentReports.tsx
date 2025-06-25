@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const TransparentReports: React.FC = () => {
+  //should be the same as the news items in the blog page, pick from the first 2
   const newsItems = [
     {
       id: 1,
