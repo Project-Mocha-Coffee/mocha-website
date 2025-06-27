@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
+import contentData from '../data/content.json';
+import { ContentData, HeroData } from '../types/content';
 
 const Hero: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const heroData = (contentData as ContentData).hero;
   
   useEffect(() => {
     setIsVisible(true);
@@ -21,13 +24,26 @@ const Hero: React.FC = () => {
       calculatorSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const handleButtonClick = (action: string) => {
+    switch (action) {
+      case 'scrollToCalculator':
+        scrollToCalculator();
+        break;
+      case 'external':
+        // Handle external link or modal for booking a call
+        break;
+      default:
+        break;
+    }
+  };
   
   return (
     <section className="gradient-forest relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1920&q=80')`,
+          backgroundImage: `url('${heroData.backgroundImage}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}></div>
@@ -40,21 +56,21 @@ const Hero: React.FC = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            Invest in Coffee Trees – Earn 12-18% Annual Returns
+            {heroData.title}
           </h1>
           <p 
             className={`text-white/90 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 max-w-2xl transition-all duration-1000 delay-300 transform font-medium ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            Tangible assets, passive income, and a greener future.
+            {heroData.primarySubtitle}
           </p>
           <p 
             className={`text-white/80 text-sm sm:text-base mb-6 sm:mb-8 max-w-2xl transition-all duration-1000 delay-500 transform ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            An investment you can see, touch, smell, and taste.
+            {heroData.secondarySubtitle}
           </p>
           
           <div 
@@ -62,18 +78,12 @@ const Hero: React.FC = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <div className="flex items-center text-white">
-              <Check className="h-4 w-4 mr-2 text-brown-400 flex-shrink-0" />
-              <span className="text-sm sm:text-base font-medium">12-18% average annual returns.</span>
-            </div>
-            <div className="flex items-center text-white">
-              <Check className="h-4 w-4 mr-2 text-brown-400 flex-shrink-0" />
-              <span className="text-sm sm:text-base font-medium">Simple Investment, Great Returns.</span>
-            </div>
-            <div className="flex items-center text-white">
-              <Check className="h-4 w-4 mr-2 text-brown-400 flex-shrink-0" />
-              <span className="text-sm sm:text-base font-medium">Join 1,250+ investors since 2022.</span>
-            </div>
+            {heroData.benefits.map((benefit, index) => (
+              <div key={index} className="flex items-center text-white">
+                <Check className="h-4 w-4 mr-2 text-brown-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base font-medium">{benefit}</span>
+              </div>
+            ))}
           </div>
           
           <div 
@@ -81,12 +91,19 @@ const Hero: React.FC = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <button onClick={scrollToCalculator} className="btn btn-gold w-full sm:w-auto text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4">
-              Explore Investment Plans <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-            </button>
-            <button className="btn btn-secondary w-full sm:w-auto text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4">
-              Book a call <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-            </button>
+            {heroData.buttons.map((button, index) => {
+              const buttonClass = button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary';
+              
+              return (
+                <button 
+                  key={index}
+                  onClick={() => handleButtonClick(button.action)} 
+                  className={`${buttonClass} w-full sm:w-auto text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4`}
+                >
+                  {button.text} <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+              );
+            })}
           </div>
         </div>
         
@@ -96,141 +113,47 @@ const Hero: React.FC = () => {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}
         >
-          <p className="text-gray-600 text-center mb-3 sm:mb-4 text-xs sm:text-sm font-medium">Trusted by our partners:</p>
+          <p className="text-gray-600 text-center mb-3 sm:mb-4 text-xs sm:text-sm font-medium">
+            {heroData.trustIndicators.title}
+          </p>
           
           {/* Partner logos with rotating animation */}
           <div className="relative overflow-hidden">
             <div className="flex items-center gap-3 sm:gap-4 md:gap-6 animate-scroll">
               {/* First set of logos */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-                <img 
-                  src="/partners/MAGUTA-COFFEE-ESTATE-LOGO.png" 
-                  alt="Maguta Coffee Estate" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/tagcc.png" 
-                  alt="TAGCC" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/aya.png" 
-                  alt="AYA" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/Scroll.png" 
-                  alt="Scroll" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/blck-iot.png" 
-                  alt="BLCK IoT" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/Kotani-Pay-logo.png" 
-                  alt="Kotani Pay" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/omo.png" 
-                  alt="OMO" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/swypt-logo.png" 
-                  alt="Swypt" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
+                {heroData.trustIndicators.partners.map((partner, index) => (
+                  <img 
+                    key={`first-${index}`}
+                    src={partner.logo} 
+                    alt={partner.alt} 
+                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
+                  />
+                ))}
               </div>
               
               {/* Second set of logos */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-                <img 
-                  src="/partners/MAGUTA-COFFEE-ESTATE-LOGO.png" 
-                  alt="Maguta Coffee Estate" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/tagcc.png" 
-                  alt="TAGCC" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/aya.png" 
-                  alt="AYA" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/Scroll.png" 
-                  alt="Scroll" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/blck-iot.png" 
-                  alt="BLCK IoT" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/Kotani-Pay-logo.png" 
-                  alt="Kotani Pay" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/omo.png" 
-                  alt="OMO" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/swypt-logo.png" 
-                  alt="Swypt" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
+                {heroData.trustIndicators.partners.map((partner, index) => (
+                  <img 
+                    key={`second-${index}`}
+                    src={partner.logo} 
+                    alt={partner.alt} 
+                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
+                  />
+                ))}
               </div>
 
               {/* Third set of logos */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-                <img 
-                  src="/partners/MAGUTA-COFFEE-ESTATE-LOGO.png" 
-                  alt="Maguta Coffee Estate" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/tagcc.png" 
-                  alt="TAGCC" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/aya.png" 
-                  alt="AYA" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/Scroll.png" 
-                  alt="Scroll" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/blck-iot.png" 
-                  alt="BLCK IoT" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/Kotani-Pay-logo.png" 
-                  alt="Kotani Pay" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/omo.png" 
-                  alt="OMO" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
-                <img 
-                  src="/partners/swypt-logo.png" 
-                  alt="Swypt" 
-                  className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                />
+                {heroData.trustIndicators.partners.map((partner, index) => (
+                  <img 
+                    key={`third-${index}`}
+                    src={partner.logo} 
+                    alt={partner.alt} 
+                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
+                  />
+                ))}
               </div>
             </div>
           </div>

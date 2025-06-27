@@ -1,26 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import contentData from '../data/content.json';
+import type { TransparentReportsData, BlogData, BlogPost } from '../types/content';
 
 const TransparentReports: React.FC = () => {
-  //should be the same as the news items in the blog page, pick from the first 2
-  const newsItems = [
-    {
-      id: 1,
-      icon: '🍃☕',
-      title: 'A Sweet Collaboration: Joining Forces With Kenya\'s Largest Coffee Cooperative',
-      date: '23. January',
-      description: 'As we are officially in harvest season with our plantations and trees, it\'s the perfect time to shift...',
-      category: 'Latest news'
-    },
-    {
-      id: 2,
-      icon: '🌱',
-      title: 'Coffee Growing Success in Nyeri: 80 Hands, 3 Days, And A Growing Opportunity',
-      date: '13. January', 
-      description: 'The Mocha Coffee Fund is excited to announce that the first phase of planting at our Nyeri location has...',
-      category: 'Updates'
-    }
-  ];
+  const data = contentData.transparentReports as TransparentReportsData;
+  const blogData = contentData.blog as BlogData;
+  
+  // Get the latest posts based on maxDisplayItems (first 2 posts)
+  const newsItems = blogData.posts.slice(0, data.maxDisplayItems);
 
   return (
     <section className="bg-brown-600 py-8 sm:py-12 md:py-16">
@@ -29,16 +17,16 @@ const TransparentReports: React.FC = () => {
           {/* Left Content */}
           <div className="text-white">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight">
-              Transparent Operational Reports And News
+              {data.sectionTitle}
             </h2>
             <p className="text-sm sm:text-base text-brown-100 mb-4 sm:mb-6 leading-relaxed">
-              Stay informed at all times with real-time updates from our plantations and projects.
+              {data.sectionSubtitle}
             </p>
             <Link 
               to="/blog"
               className="inline-flex items-center bg-brown-700 hover:bg-brown-800 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors duration-200 text-sm sm:text-base touch-manipulation"
             >
-              View all
+              {data.viewAllButton}
               <svg className="ml-2 w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
@@ -49,12 +37,12 @@ const TransparentReports: React.FC = () => {
           <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl">
             {/* Latest News Badge */}
             <div className="inline-flex items-center bg-brown-700 text-white px-3 py-1.5 rounded-full text-xs font-medium mb-4 sm:mb-5">
-              Latest news
+              {data.latestNewsBadge}
             </div>
 
             {/* News Items */}
             <div className="space-y-4 sm:space-y-6">
-              {newsItems.map((item, index) => (
+              {newsItems.map((item: BlogPost, index: number) => (
                 <div key={item.id} className="relative">
                   {/* Timeline Line */}
                   {index < newsItems.length - 1 && (
@@ -79,13 +67,13 @@ const TransparentReports: React.FC = () => {
                         {item.date}
                       </div>
                       <p className="text-gray-600 text-xs sm:text-sm mb-3 leading-relaxed">
-                        {item.description}
+                        {item.excerpt}
                       </p>
                       <Link 
-                        to="/blog"
+                        to={`/blog/${item.id}`}
                         className="inline-flex items-center bg-brown-700 hover:bg-brown-800 text-white px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors duration-200 touch-manipulation"
                       >
-                        Read more
+                        {data.readMoreButton}
                         <svg className="ml-1 w-2 h-2 sm:w-3 sm:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>

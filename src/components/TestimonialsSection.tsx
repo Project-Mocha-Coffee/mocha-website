@@ -1,50 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const testimonials = [
-  {
-    id: 1,
-    title: "Better Returns Than My Stock Portfolio",
-    name: "M. Rodríguez",
-    location: "Investor",
-    thumbnail: "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "Received 14.3% returns in Year 3 – better than my stock portfolio."
-  },
-  {
-    id: 2,
-    title: "Coffee Investment Is Something That Will Be The...",
-    name: "Our Gen 1 Investors",
-    location: "Nairobi, Kenya",
-    thumbnail: "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "Coffee investment will be great for other people to invest and help develop Kenya's agricultural future."
-  },
-  {
-    id: 3,
-    title: "It Is Possible To Invest Not Only...",
-    name: "Our Gen 1 Investors", 
-    location: "Embu County, Kenya",
-    thumbnail: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "I'm excited about supporting one of Kenya's most promising agricultural ventures because it's not only profitable."
-  },
-  {
-    id: 4,
-    title: "I See This As The Future, Because...",
-    name: "Our Gen 1 Investors",
-    location: "Nyeri County, Kenya", 
-    thumbnail: "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "Hello, I'm Sarah Wanjiku and I see this as the future of sustainable coffee farming in Kenya."
-  },
-  {
-    id: 5,
-    title: "If You Want To Think Outside The...",
-    name: "Our Gen 1 Investors",
-    location: "Mombasa, Kenya",
-    thumbnail: "https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "If you want to be part of Kenya's agricultural revolution, this is your opportunity."
-  }
-];
+import contentData from '../data/content.json';
+import type { TestimonialsData, Testimonial } from '../types/content';
 
 const TestimonialsSection: React.FC = () => {
+  const data = contentData.testimonials as TestimonialsData;
+  const testimonials = data.testimonialsList;
+  
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -74,7 +36,7 @@ const TestimonialsSection: React.FC = () => {
     }, 5000); // Change slide every 5 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length]);
 
   // Function to get number of slides to show based on screen size
   const getSlidesToShow = () => {
@@ -108,44 +70,44 @@ const TestimonialsSection: React.FC = () => {
     setCurrentSlide(Math.min(index, maxSlide));
   };
 
-  const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] }) => (
+  const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
     <div className="px-3 w-full flex">
       <div className="card bg-white hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col w-full">
-        {/* Video Thumbnail */}
+      {/* Video Thumbnail */}
         <div className="relative flex-shrink-0">
-          <img
-            src={testimonial.thumbnail}
-            alt={testimonial.name}
+        <img
+          src={testimonial.thumbnail}
+          alt={testimonial.name}
             className="w-full h-48 sm:h-56 lg:h-48 object-cover"
-          />
-          {/* Play Button Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer touch-manipulation">
-            <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-              <Play className="w-6 h-6 text-gray-800 ml-1" />
-            </div>
-          </div>
-          {/* Quote overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
-            <p className="text-white italic leading-relaxed text-sm">
-              "{testimonial.quote}"
-            </p>
+        />
+        {/* Play Button Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer touch-manipulation">
+          <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+            <Play className="w-6 h-6 text-gray-800 ml-1" />
           </div>
         </div>
+        {/* Quote overlay */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
+            <p className="text-white italic leading-relaxed text-sm">
+            "{testimonial.quote}"
+          </p>
+        </div>
+      </div>
 
-        {/* Content */}
+      {/* Content */}
         <div className="p-4 flex-grow flex flex-col justify-between">
           <div>
             <h4 className="text-brown-700 font-bold mb-2 line-clamp-2 text-sm lg:text-base">
-              {testimonial.title}
-            </h4>
+          {testimonial.title}
+        </h4>
           </div>
           <div className="space-y-1 mt-auto">
             <p className="text-gray-700 font-semibold text-sm">
-              {testimonial.name}
-            </p>
+            {testimonial.name}
+          </p>
             <p className="text-gray-500 text-xs">
-              {testimonial.location}
-            </p>
+            {testimonial.location}
+          </p>
           </div>
         </div>
       </div>
@@ -163,14 +125,14 @@ const TestimonialsSection: React.FC = () => {
             }`}
           >
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">
-              Don't Take Our Word For It -
+              {data.sectionTitle}
             </h2>
             <h3 className="text-lg sm:text-xl lg:text-2xl text-coffee-300 mb-6 sm:mb-8">
-              Here's What Our Investors Say
+              {data.sectionSubtitle}
             </h3>
             <div className="flex justify-center lg:justify-end">
               <button className="btn bg-brown-700 text-white hover:bg-brown-800 border-brown-700 text-sm sm:text-base py-3 px-6 touch-manipulation">
-                View more <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                {data.viewMoreButton} <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </button>
             </div>
           </div>
@@ -193,8 +155,8 @@ const TestimonialsSection: React.FC = () => {
                     <TestimonialCard testimonial={testimonial} />
                   </div>
                 ))}
-              </div>
-            </div>
+                  </div>
+                </div>
 
             {/* Navigation Arrows */}
             <button
@@ -228,9 +190,9 @@ const TestimonialsSection: React.FC = () => {
             {/* Mobile Swipe Hint */}
             <div className="text-center mt-4 sm:hidden">
               <p className="text-xs text-white/70">
-                Swipe left or right to see more testimonials
-              </p>
-            </div>
+                {data.swipeHint}
+                    </p>
+                  </div>
           </div>
 
           {/* Bottom Section - Meet The People */}
@@ -243,8 +205,8 @@ const TestimonialsSection: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-center">
                 <div className="relative order-2 md:order-1">
                   <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=400&q=80"
-                    alt="Happy coffee investor testimonial"
+                    src={data.meetThePeople.image}
+                    alt={data.meetThePeople.imageAlt}
                     className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl sm:rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer touch-manipulation">
@@ -254,22 +216,22 @@ const TestimonialsSection: React.FC = () => {
                   </div>
                   <div className="absolute bottom-3 left-3 right-3">
                     <p className="text-white text-xs sm:text-sm italic">
-                      "Given time and care, that small coffee tree becomes something much bigger."
+                      "{data.meetThePeople.quote}"
                     </p>
                   </div>
                 </div>
                 <div className="text-center md:text-left order-1 md:order-2">
                   <h3 className="text-lg sm:text-xl text-brown-700 mb-1 sm:mb-2 font-bold">
-                    Meet The People
+                    {data.meetThePeople.title}
                   </h3>
                   <h4 className="text-base sm:text-lg text-brown-600 mb-3 sm:mb-4 font-semibold">
-                    Helping Your Coffee Trees Reach Their Full Potential
+                    {data.meetThePeople.subtitle}
                   </h4>
                   <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
-                    Get to know who's taking care of your coffee trees from seed to harvest.
+                    {data.meetThePeople.description}
                   </p>
                   <button className="btn btn-primary text-sm sm:text-base py-3 px-6 touch-manipulation">
-                    More about us <ArrowRight className="ml-2 h-4 w-4" />
+                    {data.meetThePeople.buttonText} <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
                 </div>
               </div>

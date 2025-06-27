@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import contentData from '../data/content.json';
+
+const typedContentData = contentData as any;
 
 const Projects: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const { projectsPage, projects } = typedContentData;
+  const coffeeFacts = projectsPage.coffeeFacts.facts;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -14,82 +20,25 @@ const Projects: React.FC = () => {
   // Auto-scroll functionality for mobile coffee facts carousel
   useEffect(() => {
     const interval = setInterval(() => {
-      if (window.innerWidth < 768) { // Only auto-scroll on mobile
+      if (window.innerWidth < 768) {
         setCurrentSlide((prev) => (prev + 1) % coffeeFacts.length);
       }
-    }, 4000); // Change slide every 4 seconds
+    }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [coffeeFacts.length]);
 
-  const projects = [
-    {
-      id: 1,
-      slug: "nyeri-highland-2024",
-      title: "Nyeri Highland Coffee Farm 2024",
-      location: "Located in Kenya's premier coffee highlands",
-      status: "Available",
-      statusColor: "bg-brown-800",
-      image: "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
-      features: ["Lifetime Investment", "Premium Arabica variety", "Volcanic soil advantage"],
-      buttonColor: "btn-secondary"
-    },
-    {
-      id: 2,
-      slug: "kiambu-highlands-2023",
-      title: "Kiambu Highlands 2023/24",
-      location: "Kiambu County, Central Kenya",
-      status: "Sold out",
-      statusColor: "bg-amber-600",
-      image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
-      features: ["Lifetime Investment", "High altitude benefits", "Proven yields"],
-      buttonColor: "btn-primary"
-    },
-    {
-      id: 3,
-      slug: "muranga-plantation-2022",
-      title: "Muranga Plantation 2022",
-      location: "Muranga County, Kenya",
-      status: "Sold out",
-      statusColor: "bg-amber-600",
-      image: "https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
-      features: ["Lifetime Investment", "Award-winning beans", "Cooperative farming"],
-      buttonColor: "btn-primary"
-    }
-  ];
-
-  const coffeeFacts = [
-    {
-      title: "Historically, Coffee Has Always Been In High Demand And Short Supply",
-      description: "With coffee demand growing yearly and a stable supply, the market price of coffee is very consistent, making it an ideal long-term investment opportunity.",
-      image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-    },
-    {
-      title: "Coffee Trees Are Long-Term Investment Assets",
-      description: "Coffee trees can produce beans for over 30 years, providing steady returns throughout their productive lifetime with peak yields after 5-7 years.",
-      image: "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-    },
-    {
-      title: "Premium Quality Kenyan Arabica Coffee",
-      description: "Our Kenyan highland plantations produce world-renowned Arabica beans with bright acidity and wine-like flavors, commanding premium prices in global specialty markets.",
-      image: "https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-    },
-    {
-      title: "Sustainable Highland Farming Practices",
-      description: "We employ eco-friendly farming methods in Kenya's highlands that ensure long-term volcanic soil health, sustainable production, and environmental stewardship alongside local communities.",
-      image: "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-    },
-    {
-      title: "Growing Global Coffee Consumption",
-      description: "Coffee consumption continues to rise globally, with specialty coffee driving premium pricing and consistent demand for quality beans.",
-      image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-    },
-    {
-      title: "Proven Kenyan Coffee Investment Returns",
-      description: "Our existing Kenyan highland coffee plantations have consistently delivered strong returns to investors, with transparent profit-sharing, regular updates, and direct farmer partnerships.",
-      image: "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-    }
-  ];
+  // Convert projects object to array and add display properties
+  const projectsArray = Object.values(projects).map((project: any) => ({
+    ...project,
+    image: project.images[0],
+    features: [
+      "Lifetime Investment", 
+      project.status === "Available now" ? "Premium Arabica variety" : "High altitude benefits",
+      project.status === "Available now" ? "Volcanic soil advantage" : "Proven yields"
+    ],
+    buttonColor: project.status === "Available now" ? "btn-secondary" : "btn-primary"
+  }));
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % coffeeFacts.length);
@@ -109,7 +58,7 @@ const Projects: React.FC = () => {
       <section className="gradient-forest relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&w=1920&q=80')`,
+            backgroundImage: `url('${projectsPage.hero.backgroundImage}')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}></div>
@@ -124,12 +73,10 @@ const Projects: React.FC = () => {
                 }`}
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 sm:mb-6 md:mb-8 font-bold leading-tight">
-                  Explore Our<br />
-                  Projects
+                  {projectsPage.hero.title}
                 </h1>
                 <p className="text-base sm:text-lg md:text-xl text-cream-100 max-w-3xl leading-relaxed">
-                  Explore our active and sold-out projects - building wealth through sustainable Kenyan highland 
-                  coffee plantations and premium Arabica cultivation.
+                  {projectsPage.hero.description}
                 </p>
               </div>
 
@@ -138,12 +85,14 @@ const Projects: React.FC = () => {
                   isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
               >
-                <button className="btn btn-gold w-full sm:w-auto text-base sm:text-lg px-8 py-4 sm:px-10 sm:py-5 touch-manipulation">
-                  Free strategy session <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
+                {projectsPage.hero.buttons.map((button: any, index: number) => (
+                  <button 
+                    key={index}
+                    className={`${button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary'} w-full sm:w-auto text-base sm:text-lg px-8 py-4 sm:px-10 sm:py-5 touch-manipulation`}
+                  >
+                    {button.text} <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
                 </button>
-                <button className="btn btn-secondary w-full sm:w-auto text-base sm:text-lg px-8 py-4 sm:px-10 sm:py-5 touch-manipulation">
-                  Make long-term profits <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
-                </button>
+                ))}
               </div>
 
               <div 
@@ -152,7 +101,7 @@ const Projects: React.FC = () => {
                 }`}
               >
                 <p className="text-cream-200 italic text-base sm:text-lg">
-                  Talk to our advisor and get to know everything you need for a secure investment.
+                  {projectsPage.hero.callToAction}
                 </p>
               </div>
             </div>
@@ -165,15 +114,15 @@ const Projects: React.FC = () => {
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-forest-600 mb-2 sm:mb-3">
-              Our Investment Projects
+              {projectsPage.projectsGrid.sectionTitle}
             </h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
-              Explore our current and completed coffee plantation projects across Kenya's premier highland regions
+              {projectsPage.projectsGrid.sectionDescription}
             </p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
-            {projects.map((project, index) => (
+            {projectsArray.map((project: any, index: number) => (
               <div 
                 key={project.id}
                 className={`card overflow-hidden transition-all duration-1000 ${
@@ -197,11 +146,11 @@ const Projects: React.FC = () => {
                     {project.title}
                   </h3>
                   <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
-                    {project.location}
+                    {project.region}
                   </p>
                   
                   <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                    {project.features.map((feature, idx) => (
+                    {project.features.map((feature: string, idx: number) => (
                       <div key={idx} className="flex items-center text-sm sm:text-base text-gray-700">
                         <Check className="w-4 h-4 text-brown-700 mr-2 sm:mr-3 flex-shrink-0" />
                         {feature}
@@ -210,7 +159,7 @@ const Projects: React.FC = () => {
                   </div>
                   
                   <Link 
-                    to={`/projects/${project.slug}`} 
+                    to={`/projects/${project.id}`} 
                     className={`btn ${project.buttonColor} w-full px-4 py-3 sm:py-3.5 text-sm sm:text-base inline-flex items-center justify-center touch-manipulation`}
                   >
                     Explore more <ArrowRight className="ml-2 h-4 w-4" />
@@ -227,10 +176,10 @@ const Projects: React.FC = () => {
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">
-              Why Invest In Coffee?
+              {projectsPage.coffeeFacts.sectionTitle}
             </h2>
             <p className="text-cream-100 text-sm sm:text-base max-w-2xl mx-auto">
-              Discover the compelling reasons behind Kenyan highland coffee plantation investments
+              {projectsPage.coffeeFacts.sectionDescription}
             </p>
           </div>
           
@@ -240,7 +189,7 @@ const Projects: React.FC = () => {
               <div className="hidden md:grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div>
                   <div className="inline-block bg-coffee-600 text-forest-600 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3 sm:mb-4">
-                    Continuous growth
+                    {projectsPage.coffeeFacts.badge}
                   </div>
                   <h3 className="text-lg sm:text-xl md:text-2xl text-coffee-600 mb-3 sm:mb-4 font-semibold leading-tight">
                     {coffeeFacts[currentSlide].title}
@@ -248,21 +197,26 @@ const Projects: React.FC = () => {
                   <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
                     {coffeeFacts[currentSlide].description}
                   </p>
-                  <div className="flex items-center gap-3">
+                  <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
+                    <div className="text-xs sm:text-sm text-gray-500">
+                      {currentSlide + 1} / {coffeeFacts.length}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 sm:gap-4">
                     <button 
                       onClick={prevSlide}
-                      className="w-10 h-10 bg-coffee-600 rounded-full flex items-center justify-center text-white hover:bg-coffee-700 transition-colors touch-manipulation"
+                      className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                     </button>
-                    <span className="text-coffee-600 font-medium text-sm sm:text-base">
-                      {currentSlide + 1} / {coffeeFacts.length}
+                    <span className="text-brown-800 font-medium text-sm sm:text-base">
+                      Navigate facts
                     </span>
                     <button 
                       onClick={nextSlide}
-                      className="w-10 h-10 bg-coffee-600 rounded-full flex items-center justify-center text-white hover:bg-coffee-700 transition-colors touch-manipulation"
+                      className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                     </button>
                   </div>
                 </div>
@@ -282,10 +236,9 @@ const Projects: React.FC = () => {
                     className="flex transition-transform duration-500 ease-in-out touch-manipulation"
                     style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                   >
-                    {coffeeFacts.map((fact, index) => (
+                    {coffeeFacts.map((fact: any, index: number) => (
                       <div key={index} className="w-full flex-shrink-0">
                         <div className="space-y-4 sm:space-y-5">
-                          {/* Image */}
                           <div className="relative">
                             <img
                               src={fact.image}
@@ -294,10 +247,9 @@ const Projects: React.FC = () => {
                             />
                           </div>
 
-                          {/* Content */}
                           <div>
                             <div className="inline-block bg-coffee-600 text-forest-600 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3">
-                              Continuous growth
+                              {projectsPage.coffeeFacts.badge}
                             </div>
                             <h3 className="text-lg sm:text-xl text-coffee-600 mb-3 font-semibold leading-tight">
                               {fact.title}
@@ -332,14 +284,14 @@ const Projects: React.FC = () => {
                 </div>
 
                 {/* Dots Indicator */}
-                <div className="flex justify-center mt-4 space-x-2">
-                  {coffeeFacts.map((_, index) => (
+                <div className="flex justify-center mt-6 space-x-2">
+                  {coffeeFacts.map((_: any, index: number) => (
                     <button
                       key={index}
                       onClick={() => goToSlide(index)}
-                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-200 touch-manipulation ${
+                      className={`w-3 h-3 rounded-full transition-all duration-200 touch-manipulation ${
                         index === currentSlide 
-                          ? 'bg-coffee-600 w-6 sm:w-8' 
+                          ? 'bg-brown-600 w-8' 
                           : 'bg-gray-300 hover:bg-gray-400'
                       }`}
                     />
@@ -356,10 +308,10 @@ const Projects: React.FC = () => {
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-forest-600 mb-2 sm:mb-3">
-              Stay Updated
+              {projectsPage.waitlist.sectionTitle}
             </h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
-              Be the first to know about new Kenyan highland coffee investment opportunities
+              {projectsPage.waitlist.sectionDescription}
             </p>
           </div>
           
@@ -368,8 +320,8 @@ const Projects: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div className="relative order-2 lg:order-1">
                   <img
-                    src="https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                    alt="Kenyan coffee cherries growing in highland plantation"
+                    src={projectsPage.waitlist.image}
+                    alt={projectsPage.waitlist.imageAlt}
                     className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                   />
                 </div>
@@ -378,19 +330,17 @@ const Projects: React.FC = () => {
                     Join The <span className="text-coffee-600">Waitlist</span>
                   </h3>
                   <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
-                    Join our waitlist and receive updates on upcoming Kenyan highland coffee plantation projects and exclusive early 
-                    access to invest in sustainable, profitable Arabica coffee farming. Be part of Kenya's coffee heritage 
-                    and the future of premium coffee investment with Project Mocha.
+                    {projectsPage.waitlist.cardDescription}
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-3">
                     <input
                       type="email"
-                      placeholder="Your email address"
-                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-coffee-600 focus:border-transparent text-sm sm:text-base touch-manipulation"
+                      placeholder={projectsPage.waitlist.emailPlaceholder}
+                      className="flex-1 px-4 py-3 sm:py-4 text-sm sm:text-base bg-white border border-gray-300 rounded-l-xl sm:rounded-l-2xl focus:outline-none focus:ring-2 focus:ring-coffee-600 focus:border-transparent"
                     />
-                    <button className="btn bg-coffee-600 text-white hover:bg-coffee-700 px-6 py-3 text-sm sm:text-base rounded-lg touch-manipulation">
-                      Subscribe <ArrowRight className="ml-2 h-4 w-4" />
+                    <button className="btn bg-coffee-600 text-white hover:bg-coffee-700 px-6 py-3 sm:py-4 text-sm sm:text-base rounded-r-xl sm:rounded-r-2xl touch-manipulation">
+                      {projectsPage.waitlist.subscribeButton.text}
                     </button>
                   </div>
                 </div>

@@ -1,28 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const whyJoinData = [
-  {
-    title: "20% Average Expected",
-    subtitle: "Annual Returns",
-    description: "Your wealth grows with your trees: with 20% historical annual returns, this investment truly bears fruit.",
-    image: "https://images.pexels.com/photos/6801874/pexels-photo-6801874.jpeg"
-  },
-  {
-    title: "An Investment You Can",
-    subtitle: "See, Touch, Smell, And Taste",
-    description: "Unlike traditional investments you often don't understand, this one is simple: plant trees, grow fruit and sell the harvest.",
-    image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
-  },
-  {
-    title: "Sustainable Agriculture",
-    subtitle: "For Future Generations",
-    description: "Support eco-friendly farming practices while building wealth for yourself and preserving the environment.",
-    image: "https://images.pexels.com/photos/21555027/pexels-photo-21555027.jpeg"
-  }
-];
+import contentData from '../data/content.json';
+import type { WhyJoinData, WhyJoinSlide } from '../types/content';
 
 const WhyJoinCarousel: React.FC = () => {
+  const data = contentData.whyJoin as WhyJoinData;
+  const whyJoinData = data.slides;
+  
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -77,10 +61,10 @@ const WhyJoinCarousel: React.FC = () => {
             }`}
           >
             <h2 className="text-xl sm:text-2xl md:text-3xl text-forest-600 mb-1 sm:mb-2 font-bold">
-              Why Join
+              {data.sectionTitle}
             </h2>
             <h3 className="text-base sm:text-lg md:text-xl text-coffee-600 mb-4 sm:mb-6 font-semibold">
-              Project Mocha?
+              {data.sectionSubtitle}
             </h3>
           </div>
 

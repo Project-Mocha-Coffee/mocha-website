@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Coffee, Play, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import contentData from '../data/content.json';
+import { ContentData } from '../types/content';
 
 const AvailableOpportunities: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -10,19 +12,11 @@ const AvailableOpportunities: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Use the same project data as in ProjectDetail page
-  const availableProject = {
-    id: 'nyeri-highland-2024',
-    title: 'Nyeri Highland Coffee Farm 2024',
-    location: 'Kenya\'s premier coffee highlands',
-    status: 'Available now',
-    statusColor: 'bg-brown-600',
-    totalTrees: 25200,
-    treesSold: 15480,
-    treesAvailable: 9720,
-    description: 'A sustainable investment rooted in the heart of Kenya\'s fertile highlands, designed for long-term growth and premium Arabica yields.',
-    image: 'https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'
-  };
+  // Get data from centralized JSON with proper typing
+  const typedContentData = contentData as ContentData;
+  const sectionData = typedContentData.availableOpportunities;
+  const featuredProjectId = sectionData.featuredProject;
+  const availableProject = typedContentData.projects[featuredProjectId];
 
   return (
     <section id="available-opportunities" className="py-6 sm:py-8 md:py-10 bg-cream-50">
@@ -39,7 +33,7 @@ const AvailableOpportunities: React.FC = () => {
                   Available Plantation
                 </div>
                 <h2 className="text-base sm:text-lg md:text-xl text-brown-600 mb-2 font-semibold">
-                  Available Investment Opportunities
+                  {sectionData.title}
                 </h2>
                 <h3 className="text-xl sm:text-2xl md:text-3xl text-coffee-600 mb-4 sm:mb-6 font-bold leading-tight">
                   {availableProject.title} Is Ready To Grow
@@ -70,7 +64,7 @@ const AvailableOpportunities: React.FC = () => {
               <div className="relative order-first lg:order-last">
                 <div className="aspect-video rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
                   <img 
-                    src={availableProject.image} 
+                    src={availableProject.images[0]} 
                     alt={availableProject.title} 
                     className="w-full h-full object-cover"
                   />
