@@ -5,6 +5,9 @@ const Cta: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isVisible, setIsVisible] = useState(false);
 
+  // Configurable booking URL 
+  const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
+
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
@@ -15,6 +18,10 @@ const Cta: React.FC = () => {
     // Handle newsletter signup
     console.log('Newsletter signup:', email);
     setEmail('');
+  };
+
+  const handleInvestClick = () => {
+    window.open(BOOKING_URL, '_blank', 'noopener,noreferrer');
   };
   
   return (
@@ -38,7 +45,10 @@ const Cta: React.FC = () => {
                 <p className="text-gray-700 text-sm sm:text-base md:text-sm lg:text-base mb-4 sm:mb-6 md:mb-5 lg:mb-6 leading-relaxed">
                   Take the first step toward sustainable and profitable growth.
                 </p>
-                <button className="btn bg-brown-700 text-white hover:bg-brown-800 w-full sm:w-auto md:w-full lg:w-auto px-6 py-3 text-sm sm:text-base rounded-lg touch-manipulation">
+                <button 
+                  onClick={handleInvestClick}
+                  className="btn bg-brown-700 text-white hover:bg-brown-800 w-full sm:w-auto md:w-full lg:w-auto px-6 py-3 text-sm sm:text-base rounded-lg touch-manipulation"
+                >
                   Invest now <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
               </div>

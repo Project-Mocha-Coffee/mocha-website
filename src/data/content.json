@@ -2,8 +2,8 @@
   "projects": {
     "nyeri-highland-2024": {
       "id": "nyeri-highland-2024",
-      "title": "Nyeri Highland Coffee Farm 2024",
-      "location": "Nyeri County, Central Kenya",
+      "title": "Embu Highland Coffee Farm 2024",
+      "location": "Embu County, Central Kenya",
       "region": "Kenya's premier coffee highlands",
       "status": "Available now",
       "statusColor": "bg-brown-800",
@@ -58,10 +58,10 @@
       "investmentDescription": "Coffee plantations provide over 40 years of stability and yield. Our investment strategy focuses on sustainable agricultural practices in Kenya's highlands that ensure consistent production and profitability for our investors over the long haul.",
       "returnsDescription": "Profits are prioritized to first cover the expenses of investors, thereby ensuring the security of your investment. We believe in creating a transparent and trustworthy relationship with our investors, where your financial well-being is our primary concern.",
       "images": [
-        "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=800"
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0009_ll0led.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0005_ibmyow.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438986/DJI_0024_mnhhhy.jpg0",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438987/DJI_0012_b5zxfh.jpg"
       ]
     },
     "kiambu-highlands-2023": {
@@ -108,9 +108,10 @@
       "investmentDescription": "This established Kiambu plantation demonstrates our proven ability to deliver consistent returns from highland coffee cultivation. With mature trees already producing premium beans, this project showcases the long-term value of Kenyan coffee investments.",
       "returnsDescription": "Investors in our Kiambu project have seen consistent returns as projected. Our transparent profit-sharing model ensures investors receive their entitled returns from this established highland coffee plantation.",
       "images": [
-        "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=800"
+         "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0009_ll0led.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0005_ibmyow.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438986/DJI_0024_mnhhhy.jpg0",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438987/DJI_0012_b5zxfh.jpg"
       ]
     },
     "muranga-plantation-2022": {
@@ -150,9 +151,10 @@
       "investmentDescription": "Our Muranga plantation represents the gold standard of Kenyan highland coffee cultivation. This mature plantation with award-winning beans demonstrates the exceptional long-term value and quality that defines our investment approach.",
       "returnsDescription": "As our flagship mature plantation, Muranga has consistently delivered exceptional returns to investors. The award-winning quality of these beans commands premium prices, ensuring strong profitability for our investment partners.",
       "images": [
-        "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=800"
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0009_ll0led.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0005_ibmyow.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438986/DJI_0024_mnhhhy.jpg0",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438987/DJI_0012_b5zxfh.jpg"
       ]
     }
   },
@@ -474,19 +476,19 @@
         "title": "20% Average Expected",
         "subtitle": "Annual Returns",
         "description": "Your wealth grows with your trees: with 20% historical annual returns, this investment truly bears fruit.",
-        "image": "https://images.pexels.com/photos/6801874/pexels-photo-6801874.jpeg"
+        "image": "https://res.cloudinary.com/ddainirdi/image/upload/v1751439929/IMG_9731_eamu1p.jpg"
       },
       {
         "title": "An Investment You Can",
         "subtitle": "See, Touch, Smell, And Taste",
         "description": "Unlike traditional investments you often don't understand, this one is simple: plant trees, grow fruit and sell the harvest.",
-        "image": "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
+        "image": "https://res.cloudinary.com/ddainirdi/image/upload/v1751439928/DSC_8989_tjjopv.jpg"
       },
       {
         "title": "Sustainable Agriculture",
         "subtitle": "For Future Generations",
         "description": "Support eco-friendly farming practices while building wealth for yourself and preserving the environment.",
-        "image": "https://images.pexels.com/photos/21555027/pexels-photo-21555027.jpeg"
+        "image": "https://res.cloudinary.com/ddainirdi/image/upload/v1751438987/DJI_0011_dcuau2.jpg"
       }
     ]
   },

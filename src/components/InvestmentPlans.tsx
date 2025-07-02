@@ -13,6 +13,9 @@ const InvestmentPlans: React.FC = () => {
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchEndX, setTouchEndX] = useState(0);
 
+  // Configurable booking URL 
+  const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
+
   // Get data from centralized JSON with proper typing
   const typedContentData = contentData as ContentData;
   const sectionData = typedContentData.investmentPlans;
@@ -22,6 +25,10 @@ const InvestmentPlans: React.FC = () => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleButtonClick = () => {
+    window.open(BOOKING_URL, '_blank', 'noopener,noreferrer');
+  };
 
   // Auto-scroll functionality for mobile
   useEffect(() => {
@@ -209,6 +216,7 @@ const InvestmentPlans: React.FC = () => {
                   {/* Button */}
                   <div className="mt-auto">
                     <button 
+                      onClick={handleButtonClick}
                       className={`btn w-full text-sm sm:text-base py-3 sm:py-3.5 px-4 touch-manipulation ${
                         plan.isRecommended 
                           ? 'bg-white text-forest-600 hover:bg-cream-100' 
@@ -328,6 +336,7 @@ const InvestmentPlans: React.FC = () => {
                       {/* Button */}
                       <div className="mt-auto">
                         <button 
+                          onClick={handleButtonClick}
                           className={`btn w-full text-base sm:text-lg py-4 px-6 touch-manipulation ${
                             plan.isRecommended 
                               ? 'bg-white text-forest-600 hover:bg-cream-100' 

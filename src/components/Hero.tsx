@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
 import contentData from '../data/content.json';
 import { ContentData, HeroData } from '../types/content';
+import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const heroData = (contentData as ContentData).hero;
+  const navigate = useNavigate();
+  
+  // Configurable booking URL 
+  const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8"; 
   
   useEffect(() => {
     setIsVisible(true);
@@ -25,13 +30,21 @@ const Hero: React.FC = () => {
     }
   };
 
+  const scrollToPlans = () => {
+    const plansSection = document.getElementById('plans');
+    if (plansSection) {
+      plansSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleButtonClick = (action: string) => {
     switch (action) {
       case 'scrollToCalculator':
-        scrollToCalculator();
+        scrollToPlans();
         break;
       case 'external':
-        // Handle external link or modal for booking a call
+        // Handle external link for booking a call
+        window.open(BOOKING_URL, '_blank', 'noopener,noreferrer');
         break;
       default:
         break;

@@ -10,6 +10,105 @@ const TestimonialsSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const People = [
+    {
+      id: 1,
+      name: "Samuel Mwangi",
+      role: "Head Grower & Agricultural Expert",
+      initials: "SM",
+      image: "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      location: "Nyeri County, Kenya",
+      experience: "25+ years",
+      bio: "Samuel leads our agricultural operations with over 25 years of experience in highland coffee cultivation. He specializes in sustainable farming practices and has helped establish some of Kenya's most successful coffee plantations.",
+      expertise: ["Sustainable Agriculture", "Highland Coffee Cultivation", "Soil Management", "Organic Certification"],
+      achievements: "Transformed over 10,000 acres into productive coffee farms"
+    },
+    {
+      id: 2,
+      name: "Grace Wanjiku",
+      role: "Coffee Quality Manager",
+      initials: "GW",
+      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      location: "Kiambu County, Kenya",
+      experience: "15+ years",
+      bio: "Grace ensures every coffee bean meets our premium standards. She oversees quality control from harvesting to processing, maintaining the exceptional standards that make our coffee sought after globally.",
+      expertise: ["Coffee Cupping", "Quality Assurance", "Processing Techniques", "Export Standards"],
+      achievements: "Led quality certification for over 50 coffee cooperatives"
+    },
+    {
+      id: 3,
+      name: "David Kinyua",
+      role: "Co-Founder & CEO",
+      initials: "DK",
+      image: "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      location: "Nairobi, Kenya",
+      experience: "20+ years",
+      bio: "David co-founded Project Mocha with a vision to democratize coffee investment while supporting local communities. He brings extensive experience in sustainable agriculture and impact investing.",
+      expertise: ["Impact Investing", "Sustainable Agriculture", "Community Development", "Strategic Planning"],
+      achievements: "Raised over $10M for sustainable agriculture projects across East Africa"
+    },
+    {
+      id: 4,
+      name: "Maria Gonzalez",
+      role: "Head of Investor Relations",
+      initials: "MG",
+      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      location: "Madrid, Spain",
+      experience: "12+ years",
+      bio: "Maria manages relationships with our global investor community. She ensures transparent communication and provides comprehensive support to help investors understand their coffee investment journey.",
+      expertise: ["Investor Relations", "Financial Planning", "International Markets", "Customer Success"],
+      achievements: "Successfully onboarded over 1,250 investors from 45 countries"
+    },
+    {
+      id: 5,
+      name: "James Ochieng",
+      role: "Sustainability Director",
+      initials: "JO",
+      image: "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      location: "Muranga County, Kenya",
+      experience: "18+ years",
+      bio: "James leads our environmental and social impact initiatives. He works closely with local communities to ensure our farming practices benefit both the environment and the people who depend on it.",
+      expertise: ["Environmental Conservation", "Community Development", "Water Management", "Biodiversity Protection"],
+      achievements: "Established 5+ water conservation systems serving 500+ farming families"
+    },
+    {
+      id: 6,
+      name: "Sarah Chen",
+      role: "Technology & Innovation Lead",
+      initials: "SC",
+      image: "https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      location: "Singapore",
+      experience: "10+ years",
+      bio: "Sarah integrates cutting-edge technology into our farming operations. She develops IoT solutions for farm management and works on blockchain technology for supply chain transparency.",
+      expertise: ["IoT Systems", "Blockchain Technology", "Data Analytics", "Smart Agriculture"],
+      achievements: "Deployed IoT sensors across 2,000+ coffee trees for optimal growth monitoring"
+    },
+    {
+      id: 7,
+      name: "Peter Kamau",
+      role: "Farm Operations Manager",
+      initials: "PK",
+      image: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      location: "Embu County, Kenya",
+      experience: "22+ years",
+      bio: "Peter oversees day-to-day farm operations across all our plantation sites. His hands-on approach and deep understanding of coffee cultivation ensure optimal growing conditions for premium bean production.",
+      expertise: ["Farm Management", "Harvest Planning", "Equipment Maintenance", "Team Leadership"],
+      achievements: "Managed successful harvests from over 25,000 coffee trees annually"
+    },
+    {
+      id: 8,
+      name: "Lisa Thompson",
+      role: "Financial Controller",
+      initials: "LT",
+      image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      location: "London, UK",
+      experience: "14+ years",
+      bio: "Lisa manages our financial operations and ensures transparent reporting to all stakeholders. She oversees investor returns, operational budgets, and maintains the financial health of all our projects.",
+      expertise: ["Financial Management", "Investment Analysis", "Risk Assessment", "Regulatory Compliance"],
+      achievements: "Maintained 98% on-time payout record to over 1,250 investors"
+    }
+  ]
+
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
@@ -205,7 +304,7 @@ const TestimonialsSection: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-center">
                 <div className="relative order-2 md:order-1">
                   <img
-                    src={data.meetThePeople.image}
+                    src={"https://res.cloudinary.com/ddainirdi/image/upload/v1751438591/Nairobi_Dream_VC---Mixer_57_ajwnhx.jpg"}
                     alt={data.meetThePeople.imageAlt}
                     className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                   />
