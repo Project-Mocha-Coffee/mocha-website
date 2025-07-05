@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
+import { contentService } from './services/contentService';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
@@ -15,6 +16,9 @@ import Footer from './components/Footer';
 
 function App() {
   useEffect(() => {
+    // Initialize global content data once on app startup
+    contentService.initializeGlobalContent();
+    
     const handleScroll = () => {
       const fadeElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
       

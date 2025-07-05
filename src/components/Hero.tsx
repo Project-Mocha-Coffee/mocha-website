@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
-import contentData from '../data/content.json';
-import { ContentData, HeroData } from '../types/content';
+import { contentData, ContentData, subscribeToContentUpdates } from '../services/contentService';
 import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const heroData = (contentData as ContentData).hero;
+  const [, setContentVersion] = useState(0); // Force re-render trigger
+  const heroData = (contentData as ContentData)?.hero;
   const navigate = useNavigate();
   
   // Configurable booking URL 
@@ -14,6 +14,14 @@ const Hero: React.FC = () => {
   
   useEffect(() => {
     setIsVisible(true);
+    
+    // Subscribe to content updates
+    const unsubscribe = subscribeToContentUpdates(() => {
+      console.log('🔄 Hero: Content updated, re-rendering...');
+      setContentVersion(prev => prev + 1); // Force re-render
+    });
+
+    return unsubscribe;
   }, []);
 
   const scrollToNext = () => {
@@ -50,6 +58,30 @@ const Hero: React.FC = () => {
         break;
     }
   };
+
+  // Show loading state if no content data yet
+  if (!contentData || !heroData) {
+    console.log('⏳ Hero: Waiting for content...', { contentData: !!contentData, heroData: !!heroData });
+    return (
+      <section className="gradient-forest relative overflow-hidden">
+        <div className="container-custom relative z-10 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-6">
+          <div className="max-w-4xl">
+            <div className="animate-pulse">
+              <div className="h-16 bg-white/20 rounded-lg mb-6"></div>
+              <div className="h-6 bg-white/20 rounded-lg mb-4 w-3/4"></div>
+              <div className="h-4 bg-white/20 rounded-lg mb-8 w-1/2"></div>
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <div className="h-12 bg-white/20 rounded-lg w-full sm:w-48"></div>
+                <div className="h-12 bg-white/20 rounded-lg w-full sm:w-48"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  console.log('✅ Hero: Rendering with content data');
   
   return (
     <section className="gradient-forest relative overflow-hidden">
@@ -91,7 +123,7 @@ const Hero: React.FC = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            {heroData.benefits.map((benefit, index) => (
+            {heroData.benefits.map((benefit: string, index: number) => (
               <div key={index} className="flex items-center text-white">
                 <Check className="h-4 w-4 mr-2 text-brown-400 flex-shrink-0" />
                 <span className="text-sm sm:text-base font-medium">{benefit}</span>
@@ -104,7 +136,7 @@ const Hero: React.FC = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            {heroData.buttons.map((button, index) => {
+            {heroData.buttons.map((button: any, index: number) => {
               const buttonClass = button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary';
               
               return (
@@ -135,7 +167,7 @@ const Hero: React.FC = () => {
             <div className="flex items-center gap-3 sm:gap-4 md:gap-6 animate-scroll">
               {/* First set of logos */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-                {heroData.trustIndicators.partners.map((partner, index) => (
+                {heroData.trustIndicators.partners.map((partner: any, index: number) => (
                   <img 
                     key={`first-${index}`}
                     src={partner.logo} 
@@ -147,21 +179,9 @@ const Hero: React.FC = () => {
               
               {/* Second set of logos */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-                {heroData.trustIndicators.partners.map((partner, index) => (
+                {heroData.trustIndicators.partners.map((partner: any, index: number) => (
                   <img 
                     key={`second-${index}`}
-                    src={partner.logo} 
-                    alt={partner.alt} 
-                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
-                  />
-                ))}
-              </div>
-
-              {/* Third set of logos */}
-              <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-                {heroData.trustIndicators.partners.map((partner, index) => (
-                  <img 
-                    key={`third-${index}`}
                     src={partner.logo} 
                     alt={partner.alt} 
                     className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
