@@ -3,14 +3,19 @@ import { ArrowRight, ChevronLeft, ChevronRight, Users, Shield, Camera, Leaf, Gif
 import InvestmentCalculator from '../components/InvestmentCalculator';
 import ReferralProgram from '../components/ReferralProgram';
 import Timeline from '../components/Timeline';
-import contentData from '../data/content.json';
+import { useContent } from '../contexts/ContentContext';
 import { ContentData } from '../types/content';
 
-const typedContentData = contentData as any;
-
 const Investing: React.FC = () => {
+  const { content } = useContent();
   const [isVisible, setIsVisible] = useState(false);
-  const investing = typedContentData.investing;
+  
+  // Early return if content is not available (shouldn't happen due to loading screen)
+  if (!content) {
+    return null;
+  }
+  
+  const investing = content.investing;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);

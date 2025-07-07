@@ -1,12 +1,17 @@
 import React from 'react';
 import { ShoppingCart, Sprout, DollarSign, ArrowRight } from 'lucide-react';
-import contentData from '../data/content.json';
+import { useContent } from '../contexts/ContentContext';
 import { ContentData } from '../types/content';
 
 const HowItWorks: React.FC = () => {
-  // Get data from centralized JSON with proper typing
-  const typedContentData = contentData as ContentData;
-  const sectionData = typedContentData.howItWorks;
+  const { content } = useContent();
+  
+  // Early return if content is not available
+  if (!content) {
+    return null;
+  }
+  
+  const sectionData = content.howItWorks;
 
   return (
     <section id="how-it-works" className="py-6 sm:py-8 md:py-10 gradient-forest">

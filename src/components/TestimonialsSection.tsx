@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import contentData from '../data/content.json';
+import { useContent } from '../contexts/ContentContext';
 import type { TestimonialsData, Testimonial } from '../types/content';
 
 const TestimonialsSection: React.FC = () => {
-  const data = contentData.testimonials as TestimonialsData;
+  const { content } = useContent();
+  
+  // Early return if content is not available
+  if (!content) {
+    return null;
+  }
+  
+  const data = content.testimonials as TestimonialsData;
   const testimonials = data.testimonialsList;
   
   const [isVisible, setIsVisible] = useState(false);

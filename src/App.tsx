@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
-import { contentService } from './services/contentService';
+import { ContentProvider, ContentLoadingScreen, useContent } from './contexts/ContentContext';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
@@ -14,11 +14,11 @@ import BlogArticle from './pages/BlogArticle';
 import Contact from './pages/Contact';
 import Footer from './components/Footer';
 
-function App() {
+// Main App Content component that uses the content context
+const AppContent: React.FC = () => {
+  const { content, isLoading, error } = useContent();
+
   useEffect(() => {
-    // Initialize global content data once on app startup
-    contentService.initializeGlobalContent();
-    
     const handleScroll = () => {
       const fadeElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
       
@@ -43,6 +43,23 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Show loading screen while content is being fetched
+  if (isLoading || !content) {
+    return <ContentLoadingScreen />;
+  }
+
+  // Show error if content failed to load
+  if (error) {
+    return (
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-red-600 mb-2">Error Loading Content</h2>
+          <p className="text-gray-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Router>
       <ScrollToTop />
@@ -62,6 +79,14 @@ function App() {
         <Analytics />
       </div>
     </Router>
+  );
+};
+
+function App() {
+  return (
+    <ContentProvider>
+      <AppContent />
+    </ContentProvider>
   );
 }
 

@@ -1,10 +1,17 @@
 import React from 'react';
 import { Shield, CloudRain, Award } from 'lucide-react';
-import contentData from '../data/content.json';
+import { useContent } from '../contexts/ContentContext';
 import type { RiskMitigationData } from '../types/content';
 
 const RiskMitigation: React.FC = () => {
-  const data = contentData.riskMitigation as RiskMitigationData;
+  const { content } = useContent();
+  
+  // Early return if content is not available
+  if (!content) {
+    return null;
+  }
+  
+  const data = content.riskMitigation as RiskMitigationData;
 
   const getIcon = (iconName: string) => {
     switch (iconName) {

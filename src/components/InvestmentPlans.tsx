@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Check, ArrowRight, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
-import contentData from '../data/content.json';
+import { useContent } from '../contexts/ContentContext';
 import { ContentData } from '../types/content';
 
 const InvestmentPlans: React.FC = () => {
+  const { content } = useContent();
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -16,9 +17,12 @@ const InvestmentPlans: React.FC = () => {
   // Configurable booking URL 
   const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
 
-  // Get data from centralized JSON with proper typing
-  const typedContentData = contentData as ContentData;
-  const sectionData = typedContentData.investmentPlans;
+  // Early return if content is not available
+  if (!content) {
+    return null;
+  }
+
+  const sectionData = content.investmentPlans;
   const plans = sectionData.plans;
 
   useEffect(() => {

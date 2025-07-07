@@ -1,10 +1,17 @@
 import React from 'react';
 import { Gift, Share2, Users, ArrowRight } from 'lucide-react';
-import contentData from '../data/content.json';
+import { useContent } from '../contexts/ContentContext';
 import type { ContentData } from '../types/content';
 
 const ReferralProgram: React.FC = () => {
-  const data = (contentData as ContentData).referralProgram;
+  const { content } = useContent();
+  
+  // Early return if content is not available
+  if (!content) {
+    return null;
+  }
+  
+  const data = content.referralProgram;
 
   return (
     <section className="py-8 md:py-10 bg-brown-800">
