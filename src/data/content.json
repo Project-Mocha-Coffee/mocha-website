@@ -1,7 +1,7 @@
 {
   "projects": {
-    "nyeri-highland-2024": {
-      "id": "nyeri-highland-2024",
+    "project-1": {
+      "id": "project-1",
       "title": "Embu Highland Coffee Farm 2024",
       "location": "Embu County, Central Kenya",
       "region": "Kenya's premier coffee highlands",
@@ -162,7 +162,7 @@
     "title": "Available Opportunities",
     "subtitle": "Invest in sustainable coffee farming",
     "description": "Join thousands of investors in Kenya's thriving coffee industry",
-    "featuredProject": "nyeri-highland-2024"
+    "featuredProject": "project-1"
   },
   "howItWorks": {
     "sectionTitle": "How Does My Investment Work?",
@@ -1198,6 +1198,78 @@
       "relatedImagesTitle": "Related Images",
       "notFoundTitle": "Article Not Found",
       "notFoundMessage": "The article you're looking for doesn't exist or has been moved."
+    }
+  },
+  "hero": {
+    "backgroundType": "image",
+    "backgroundImage": "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    "backgroundVideo": "",
+    "title": "Invest in Coffee. Harvest Your Future.",
+    "primarySubtitle": "Own premium Kenyan highland coffee trees that generate passive income for decades.",
+    "secondarySubtitle": "Join thousands of investors building sustainable wealth through coffee plantation ownership in Kenya's fertile highlands.",
+    "benefits": [
+      "Premium Arabica coffee trees in Kenya's highlands",
+      "11-22% annual returns from coffee sales",
+      "Fully managed by local experts",
+      "Transparent investment with regular updates",
+      "30+ years of productive tree life"
+    ],
+    "buttons": [
+      {
+        "text": "Start Investing",
+        "type": "primary",
+        "action": "scrollToCalculator"
+      },
+      {
+        "text": "Schedule a Call",
+        "type": "secondary",
+        "action": "external"
+      }
+    ],
+    "trustIndicators": {
+      "title": "Trusted by investors worldwide and partnered with",
+      "partners": [
+        {
+          "name": "Aya Finance",
+          "logo": "/partners/aya.png",
+          "alt": "Aya Finance"
+        },
+        {
+          "name": "BLCK IoT",
+          "logo": "/partners/blck-iot.png",
+          "alt": "BLCK IoT"
+        },
+        {
+          "name": "Kotani Pay",
+          "logo": "/partners/Kotani-Pay-logo.png",
+          "alt": "Kotani Pay"
+        },
+        {
+          "name": "Maguta Coffee Estate",
+          "logo": "/partners/MAGUTA-COFFEE-ESTATE-LOGO.png",
+          "alt": "Maguta Coffee Estate"
+        },
+        {
+          "name": "OMO Finance",
+          "logo": "/partners/omo.png",
+          "alt": "OMO Finance"
+        },
+        {
+          "name": "Scroll",
+          "logo": "/partners/Scroll.png",
+          "alt": "Scroll"
+        },
+        {
+          "name": "Swypt",
+          "logo": "/partners/swypt-logo.png",
+          "alt": "Swypt"
+        },
+        {
+          "name": "Tag Creative Communications",
+          "logo": "/partners/tagcc.png",
+          "alt": "Tag Creative Communications"
+        }
+      ]
     }
   }
 } 

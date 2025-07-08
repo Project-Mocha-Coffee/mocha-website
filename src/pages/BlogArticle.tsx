@@ -1,15 +1,43 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Calendar, User, Clock } from 'lucide-react';
-import contentData from '../data/content.json';
-
-const typedContentData = contentData as any;
+import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 
 const BlogArticle: React.FC = () => {
   const { articleId } = useParams<{ articleId: string }>();
+  const { content, isLoading, error } = useContent();
 
-  // Get data from centralized JSON
-  const { blogArticlePage, blog } = typedContentData;
+  // Show loading screen while content is being fetched
+  if (isLoading || !content) {
+    return <ContentLoadingScreen />;
+  }
+
+  // Show error state if content failed to load
+  if (error) {
+    return (
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-brown-700 mb-4">Failed to load content</h1>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="btn bg-brown-700 text-white hover:bg-brown-800 px-4 py-2 text-sm"
+          >
+            Try again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Get data from async loaded content
+  const { blogArticlePage, blog } = content;
+  
+  // Only proceed if we have the necessary data
+  if (!blogArticlePage || !blog) {
+    return <ContentLoadingScreen />;
+  }
+
   const blogPosts = blog.posts;
 
   const currentArticle = blogPosts.find((post: any) => post.id === articleId);
@@ -160,13 +188,13 @@ const BlogArticle: React.FC = () => {
             </div>
 
             {/* Secondary Images */}
-            {currentArticle.secondaryImages && currentArticle.secondaryImages.length > 0 && (
+            {(currentArticle as any).secondaryImages && (currentArticle as any).secondaryImages.length > 0 && (
               <div className="mb-8">
                 <h3 className="text-lg font-bold text-coffee-600 mb-4">
                   {blogArticlePage.content.relatedImagesTitle}
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {currentArticle.secondaryImages.map((image: string, index: number) => (
+                  {(currentArticle as any).secondaryImages.map((image: string, index: number) => (
                     <img
                       key={index}
                       src={image}

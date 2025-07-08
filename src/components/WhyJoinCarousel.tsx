@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import contentData from '../data/content.json';
+import { useContent } from '../contexts/ContentContext';
 import type { WhyJoinData, WhyJoinSlide } from '../types/content';
 
 const WhyJoinCarousel: React.FC = () => {
-  const data = contentData.whyJoin as WhyJoinData;
-  const whyJoinData = data.slides;
-  
+  const { content } = useContent();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
+
+  // Don't render if content is not available
+  if (!content?.whyJoin) {
+    return null;
+  }
+
+  const data = content.whyJoin as WhyJoinData;
+  const whyJoinData = data.slides;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);

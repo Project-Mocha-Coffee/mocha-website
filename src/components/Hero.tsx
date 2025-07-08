@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
-import { contentData, ContentData, subscribeToContentUpdates } from '../services/contentService';
+import { useContent } from '../contexts/ContentContext';
 import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
+  const { content } = useContent();
   const [isVisible, setIsVisible] = useState(false);
-  const [, setContentVersion] = useState(0); // Force re-render trigger
-  const heroData = (contentData as ContentData)?.hero;
   const navigate = useNavigate();
   
   // Configurable booking URL 
@@ -14,14 +13,6 @@ const Hero: React.FC = () => {
   
   useEffect(() => {
     setIsVisible(true);
-    
-    // Subscribe to content updates
-    const unsubscribe = subscribeToContentUpdates(() => {
-      console.log('🔄 Hero: Content updated, re-rendering...');
-      setContentVersion(prev => prev + 1); // Force re-render
-    });
-
-    return unsubscribe;
   }, []);
 
   const scrollToNext = () => {
@@ -60,38 +51,45 @@ const Hero: React.FC = () => {
   };
 
   // Show loading state if no content data yet
-  if (!contentData || !heroData) {
-    console.log('⏳ Hero: Waiting for content...', { contentData: !!contentData, heroData: !!heroData });
-    return (
-      <section className="gradient-forest relative overflow-hidden">
-        <div className="container-custom relative z-10 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-6">
-          <div className="max-w-4xl">
-            <div className="animate-pulse">
-              <div className="h-16 bg-white/20 rounded-lg mb-6"></div>
-              <div className="h-6 bg-white/20 rounded-lg mb-4 w-3/4"></div>
-              <div className="h-4 bg-white/20 rounded-lg mb-8 w-1/2"></div>
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <div className="h-12 bg-white/20 rounded-lg w-full sm:w-48"></div>
-                <div className="h-12 bg-white/20 rounded-lg w-full sm:w-48"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
+  if (!content || !content.hero) {
+    return null; // ContentLoadingScreen will handle this
   }
 
-  console.log('✅ Hero: Rendering with content data');
+  const heroData = content.hero;
   
   return (
     <section className="gradient-forest relative overflow-hidden">
-      {/* Background pattern */}
+      {/* Background media */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url('${heroData.backgroundImage}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}></div>
+        {heroData.backgroundType === 'video' && heroData.backgroundVideo ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={heroData.backgroundVideo} type="video/mp4" />
+            {/* Fallback to background image if video fails */}
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url('${heroData.backgroundImage}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            />
+          </video>
+        ) : (
+          <div 
+            className="absolute inset-0" 
+            style={{
+              backgroundImage: `url('${heroData.backgroundImage}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          />
+        )}
       </div>
       
       <div className="container-custom relative z-10 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-6">

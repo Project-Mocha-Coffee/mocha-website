@@ -1,11 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import contentData from '../data/content.json';
+import { useContent } from '../contexts/ContentContext';
 import type { TransparentReportsData, BlogData, BlogPost } from '../types/content';
 
 const TransparentReports: React.FC = () => {
-  const data = contentData.transparentReports as TransparentReportsData;
-  const blogData = contentData.blog as BlogData;
+  const { content } = useContent();
+
+  // Don't render if content is not available
+  if (!content?.transparentReports || !content?.blog) {
+    return null;
+  }
+
+  const data = content.transparentReports as TransparentReportsData;
+  const blogData = content.blog as BlogData;
   
   // Get the latest posts based on maxDisplayItems (first 2 posts)
   const newsItems = blogData.posts.slice(0, data.maxDisplayItems);

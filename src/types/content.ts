@@ -228,7 +228,9 @@ export interface HeroTrustIndicators {
 }
 
 export interface HeroData {
+  backgroundType: 'image' | 'video';
   backgroundImage: string;
+  backgroundVideo?: string;
   title: string;
   primarySubtitle: string;
   secondarySubtitle: string;

@@ -1,15 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import contentData from '../data/content.json';
-
-const typedContentData = contentData as any;
+import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 
 const Projects: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { content, isLoading, error } = useContent();
   
-  const { projectsPage, projects } = typedContentData;
+  // Show loading screen while content is being fetched
+  if (isLoading || !content) {
+    return <ContentLoadingScreen />;
+  }
+
+  // Show error state if content failed to load
+  if (error) {
+    return (
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-brown-700 mb-4">Failed to load content</h1>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="btn bg-brown-700 text-white hover:bg-brown-800 px-4 py-2 text-sm"
+          >
+            Try again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const { projectsPage, projects } = content;
+  
+  // Only proceed if we have the necessary data
+  if (!projectsPage || !projects) {
+    return <ContentLoadingScreen />;
+  }
+
   const coffeeFacts = projectsPage.coffeeFacts.facts;
 
   useEffect(() => {
