@@ -40,7 +40,7 @@ const InvestmentPlans: React.FC = () => {
       if (window.innerWidth < 1024 && !isDragging) { // Only auto-scroll on mobile/tablet when not dragging
         setCurrentSlide((prev) => (prev + 1) % plans.length);
       }
-    }, 4000); // Change slide every 4 seconds
+    }, 10000); 
 
     return () => clearInterval(interval);
   }, [isDragging, plans.length]);
@@ -151,7 +151,7 @@ const InvestmentPlans: React.FC = () => {
                   {/* Badge */}
                   <div className="flex justify-center mb-3">
                     <span className={`px-3 py-1.5 rounded-full text-white text-xs sm:text-sm font-semibold ${
-                      plan.isRecommended ? 'bg-white text-brown-900' : plan.badgeColor
+                      plan.isRecommended ? 'bg-brown-700 text-white' : plan.badgeColor
                     }`}>
                       {plan.isRecommended && plan.tagline ? plan.tagline : plan.badge}
                     </span>
