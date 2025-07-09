@@ -197,7 +197,7 @@ const AboutUs: React.FC = () => {
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-48 object-cover rounded-2xl"
+                    className="w-full h-48 object-contain bg-gray-100 rounded-2xl"
                   />
                   <div className="absolute bottom-2 right-2 w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-sm">
                     {member.initials}
@@ -232,7 +232,7 @@ const AboutUs: React.FC = () => {
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-56 sm:h-64 object-cover rounded-2xl"
+                          className="w-full h-56 sm:h-64 object-contain bg-gray-100 rounded-2xl"
                         />
                         <div className="absolute bottom-3 right-3 w-10 h-10 sm:w-12 sm:h-12 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base">
                           {member.initials}
