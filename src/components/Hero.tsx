@@ -62,34 +62,32 @@ const Hero: React.FC = () => {
       {/* Background media */}
       <div className="absolute inset-0 opacity-10">
         {heroData.backgroundType === 'video' && heroData.backgroundVideo ? (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+          <img
+            src={heroData.backgroundVideo}
+            alt="Hero background animation"
             className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src={heroData.backgroundVideo} type="video/mp4" />
-            {/* Fallback to background image if video fails */}
-            <div 
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `url('${heroData.backgroundImage}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
-            />
-          </video>
-        ) : (
-          <div 
-            className="absolute inset-0" 
-            style={{
-              backgroundImage: `url('${heroData.backgroundImage}')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
+            onError={(e) => {
+              // Fallback to background image if animated image fails
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              const fallbackDiv = target.nextElementSibling as HTMLDivElement;
+              if (fallbackDiv) {
+                fallbackDiv.style.display = 'block';
+              }
             }}
           />
-        )}
+        ) : null}
+        
+        {/* Fallback background image */}
+        <div 
+          className="absolute inset-0" 
+          style={{
+            backgroundImage: `url('${heroData.backgroundImage}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            display: heroData.backgroundType === 'video' && heroData.backgroundVideo ? 'none' : 'block'
+          }}
+        />
       </div>
       
       <div className="container-custom relative z-10 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-6">
