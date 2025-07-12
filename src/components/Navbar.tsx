@@ -181,9 +181,20 @@ const Navbar: React.FC = () => {
             ))}
           </div>
 
-          <button className="hidden lg:block btn btn-gold text-sm px-4 py-2">
-            Start Investing
-          </button>
+          <div className="hidden lg:flex items-center space-x-4">
+            <Link
+              to="/signup"
+              className="text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Register
+            </Link>
+            <Link
+              to="/login"
+              className="text-sm font-semibold text-white bg-gradient-to-r from-brown-200 to-brown-600 hover:from-amber-700 hover:to-yellow-700 transition-all duration-300 px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Login
+            </Link>
+          </div>
 
             {/* Mobile/Tablet Menu Button - Show on medium screens and below */}
           <button 
@@ -271,16 +282,21 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile/Tablet Menu Footer */}
-          <div className="p-4 border-t border-gray-200 border-opacity-50">
-            <button 
-              className="w-full btn btn-gold text-sm py-3 hover:shadow-lg transition-all duration-200"
-              onClick={() => {
-                closeMenu();
-                handleNavClick('#plans', 'scroll');
-              }}
+          <div className="p-4 border-t border-gray-200 border-opacity-50 space-y-3">
+            <Link
+              to="/signup"
+              onClick={closeMenu}
+              className="w-full block text-center px-4 py-3 text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              Start Investing
-            </button>
+              Register
+            </Link>
+            <Link
+              to="/login"
+              onClick={closeMenu}
+              className="w-full block text-center px-4 py-3 text-sm font-semibold text-white bg-gradient-to-r from-brown-200 to-brown-600 hover:from-amber-700 hover:to-yellow-700 transition-all duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Login
+            </Link>
           </div>
         </div>
       </div>

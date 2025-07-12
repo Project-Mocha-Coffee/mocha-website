@@ -12,6 +12,8 @@ import ProjectDetail from './pages/ProjectDetail';
 import Blog from './pages/Blog';
 import BlogArticle from './pages/BlogArticle';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Footer from './components/Footer';
 
 // Main App Content component that uses the content context
@@ -74,6 +76,8 @@ const AppContent: React.FC = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:articleId" element={<BlogArticle />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
         <Footer />
         <Analytics />
