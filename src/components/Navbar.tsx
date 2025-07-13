@@ -31,44 +31,35 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false);
     
     if (type === 'scroll') {
-      // If we're not on the home page, go to home first then scroll
       if (location.pathname !== '/') {
         window.location.href = '/' + href;
         return;
       }
       
-      // Smooth scroll to section
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-    // For route type, React Router Link will handle the navigation
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Basic scroll detection for background change
       setIsScrolled(currentScrollY > 50);
       
-      // Implement consistent auto-hiding behavior
       const isScrollingDown = currentScrollY > lastScrollY;
       const isScrollingUp = currentScrollY < lastScrollY;
       const scrollDelta = Math.abs(currentScrollY - lastScrollY);
       
-      // Only react to significant scroll movements (avoid tiny movements)
       if (scrollDelta > 5) {
-        // Show navbar immediately on any scroll action
         setIsVisible(true);
         
-        // Clear existing timeout
         if (hideTimeout) {
           clearTimeout(hideTimeout);
         }
         
-        // Set new timeout to hide after 10 seconds
         const timeout = setTimeout(() => {
           setIsVisible(false);
           setHideTimeout(null);
@@ -81,7 +72,6 @@ const Navbar: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     
-    // Cleanup function
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (hideTimeout) {
@@ -90,7 +80,6 @@ const Navbar: React.FC = () => {
     };
   }, [lastScrollY, hideTimeout]);
 
-  // Clear hide timeout when user interacts with navbar
   const handleNavbarInteraction = () => {
     if (hideTimeout) {
       clearTimeout(hideTimeout);
@@ -99,7 +88,6 @@ const Navbar: React.FC = () => {
     setIsVisible(true);
   };
 
-  // Close menu when clicking outside or on escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const nav = document.getElementById('mobile-nav');
@@ -127,77 +115,91 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-    <nav 
+      <nav 
         id="mobile-nav"
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        isScrolled ? 'py-1' : 'py-2'
-      } ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-      }`}
-      onMouseEnter={handleNavbarInteraction}
-      onFocus={handleNavbarInteraction}
-    >
-      <div className="container-custom">
-        <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
-          isScrolled ? 'shadow-xl' : 'shadow-lg'
-        }`}>
-          <Link 
-            to="/" 
+        className={`fixed w-full z-50 transition-all duration-500 ${
+          isScrolled ? 'py-1' : 'py-2'
+        } ${
+          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        }`}
+        onMouseEnter={handleNavbarInteraction}
+        onFocus={handleNavbarInteraction}
+      >
+        <div className="container-custom">
+          <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
+            isScrolled ? 'shadow-xl' : 'shadow-lg'
+          }`}>
+            <Link 
+              to="/" 
               className="flex items-center z-20"
               onClick={closeMenu}
-          >
-            <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
-              <img 
-                src="/mocha.jpg" 
-                alt="Project Mocha Logo" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <span className="text-xl font-bold text-coffee-800 text-emphasis">
-              Project Mocha
-            </span>
-          </Link>
+            >
+              <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
+                <img 
+                  src="/mocha.jpg" 
+                  alt="Project Mocha Logo" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-xl font-bold text-coffee-800 text-emphasis">
+                Project Mocha
+              </span>
+            </Link>
 
             {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-6">
-            {navigationItems.map((item) => (
-              <div key={item.name}>
-                {item.type === 'route' ? (
-                  <Link
-                    to={item.href}
-                    className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => handleNavClick(item.href, item.type)}
-                    className="text-sm font-semibold text-gray-600 hover:text-coffee-600 transition-colors duration-300 hover:scale-105 transform"
-                  >
-                    {item.name}
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
+            <div className="hidden md:flex space-x-6">
+              {navigationItems.map((item) => (
+                <div key={item.name} className="relative">
+                  {item.type === 'route' ? (
+                    <Link
+                      to={item.href}
+                      className={`text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
+                        location.pathname === item.href
+                          ? 'text-coffee-800 font-bold bg-coffee-50 bg-opacity-50 rounded-lg px-3 py-1'
+                          : 'text-gray-600 hover:text-coffee-600'
+                      }`}
+                    >
+                      {item.name}
+                      {location.pathname === item.href && (
+                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-coffee-600 animate-[underline_0.3s_ease-in-out_forwards]" />
+                      )}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleNavClick(item.href, item.type)}
+                      className={`text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
+                        location.pathname === item.href
+                          ? 'text-coffee-800 font-bold bg-coffee-50 bg-opacity-50 rounded-lg px-3 py-1'
+                          : 'text-gray-600 hover:text-coffee-600'
+                      }`}
+                    >
+                      {item.name}
+                      {location.pathname === item.href && (
+                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-coffee-600 animate-[underline_0.3s_ease-in-out_forwards]" />
+                      )}
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
 
-          <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
-            Start Investing
-          </button>
+            <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
+              Start Investing
+            </button>
 
             {/* Mobile Menu Button */}
-          <button 
+            <button 
               className="md:hidden focus:outline-none z-20 relative"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? (
+            >
+              {isMenuOpen ? (
                 <X className="h-6 w-6 text-coffee-800" />
-            ) : (
+              ) : (
                 <Menu className="h-6 w-6 text-coffee-800" />
-            )}
-          </button>
+              )}
+            </button>
           </div>
         </div>
       </nav>
@@ -211,7 +213,7 @@ const Navbar: React.FC = () => {
       )}
 
       {/* Mobile Menu */}
-        <div 
+      <div 
         className={`fixed top-20 right-4 w-80 max-w-sm bg-white bg-opacity-95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out md:hidden ${
           isMenuOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-95'
         }`}
@@ -247,26 +249,40 @@ const Navbar: React.FC = () => {
           {/* Mobile Menu Items */}
           <div className="py-4">
             <div className="px-4 space-y-1">
-            {navigationItems.map((item) => (
-              <div key={item.name}>
-                {item.type === 'route' ? (
-                  <Link
-                    to={item.href}
+              {navigationItems.map((item) => (
+                <div key={item.name} className="relative">
+                  {item.type === 'route' ? (
+                    <Link
+                      to={item.href}
                       onClick={closeMenu}
-                      className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70 rounded-lg transition-all duration-200"
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => handleNavClick(item.href, item.type)}
-                      className="block w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70 rounded-lg transition-all duration-200"
-                  >
-                    {item.name}
-                  </button>
-                )}
-              </div>
-            ))}
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${
+                        location.pathname === item.href
+                          ? 'text-coffee-800 font-bold bg-coffee-50 bg-opacity-70'
+                          : 'text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70'
+                      }`}
+                    >
+                      {item.name}
+                      {location.pathname === item.href && (
+                        <span className="absolute bottom-2 left-4 w-[calc(100%-2rem)] h-0.5 bg-coffee-600 animate-[underline_0.3s_ease-in-out_forwards]" />
+                      )}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleNavClick(item.href, item.type)}
+                      className={`block w-full text-left px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${
+                        location.pathname === item.href
+                          ? 'text-coffee-800 font-bold bg-coffee-50 bg-opacity-70'
+                          : 'text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70'
+                      }`}
+                    >
+                      {item.name}
+                      {location.pathname === item.href && (
+                        <span className="absolute bottom-2 left-4 w-[calc(100%-2rem)] h-0.5 bg-coffee-600 animate-[underline_0.3s_ease-in-out_forwards]" />
+                      )}
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
 
