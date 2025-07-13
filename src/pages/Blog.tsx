@@ -144,72 +144,81 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <div className="bg-forest-100 min-h-screen">
+    <div className="bg-cream-50 min-h-screen">
       {/* Hero Section */}
-      <section className="pt-20 pb-8 md:pt-24 md:pb-12">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-coffee-700">
         <div className="container-custom">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
-              Our Blog Projects,<br />
-              People, Purpose
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-cream-50 mb-4 leading-tight tracking-tight">
+              Discover Our Stories<br />Projects, People, Purpose
             </h1>
+            <p className="text-lg md:text-xl text-cream-200 max-w-2xl mx-auto">
+              Dive into the latest updates, news, and insights from the Mocha Coffee Fund.
+            </p>
           </div>
 
           {/* Featured Article */}
           <div className="max-w-6xl mx-auto">
-            <div className="bg-white rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-white rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-3xl transform hover:-translate-y-2 relative">
               <div className="grid lg:grid-cols-2 gap-0">
                 {/* Image */}
-                <div className="relative h-64 lg:h-full">
+                <div className="relative h-96 lg:h-[600px]">
                   <img
                     src={featuredPost.image}
                     alt={featuredPost.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <span className="absolute top-6 left-6 inline-block bg-[#7a5540] text-white px-5 py-2 rounded-full text-sm font-bold tracking-wide transform rotate-3 shadow-md">
+                    Featured Story
+                  </span>
                 </div>
 
                 {/* Content */}
-                <div className="p-4 lg:p-6 flex flex-col justify-center">
-                  <div className="mb-3">
-                    <div className="inline-block bg-forest-600 text-white px-2 py-1 rounded-full text-xs font-medium mb-3">
-                      ✓ Latest news
-                    </div>
-                    <h2 className="text-xl lg:text-2xl font-bold text-forest-600 mb-3 leading-tight">
-                      {featuredPost.title} 🌿 ❄️
-                    </h2>
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className={`px-2 py-1 rounded-full text-xs ${getCategoryColor(featuredPost.category)}`}>
-                        {featuredPost.category}
-                      </span>
-                      <span className="text-gray-600 text-xs">{featuredPost.date}</span>
-                    </div>
-                    <p className="text-gray-600 text-xs leading-relaxed mb-4">
-                      {featuredPost.excerpt}
-                    </p>
-                    <Link 
-                      to={`/blog/${featuredPost.id}`}
-                      className="btn bg-amber-500 text-forest-600 hover:bg-amber-400 px-3 py-2 text-xs"
-                    >
-                      Read more <ArrowRight className="ml-2 h-3 w-3" />
-                    </Link>
+                <div className="p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-cream-50 to-cream-100">
+                  <div className={`inline-block ${getCategoryColor(featuredPost.category)} px-5 py-2 rounded-full text-sm font-bold mb-6 tracking-wide shadow-sm`}>
+                    {featuredPost.category}
                   </div>
+                  <h2 className="text-3xl lg:text-4xl font-extrabold text-forest-800 mb-6 leading-tight tracking tight animate-pulse-slow">
+                    {featuredPost.title} 🌟
+                  </h2>
+                  <div className="flex items-center gap-4 mb-6 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-5 w-5 text-[#7a5540]" />
+                      <span>{featuredPost.date}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <User className="h-5 w-5 text-[#7a5540]" />
+                      <span>{featuredPost.author}</span>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 text-lg leading-relaxed mb-8 line-clamp-3 font-medium">
+                    {featuredPost.excerpt}
+                  </p>
+                  <Link 
+                    to={`/blog/${featuredPost.id}`}
+                    className="inline-flex items-center bg-[#7a5540] text-white px-8 py-4 rounded-full text-base font-bold hover:bg-[#6a4a38] transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                  >
+                    Explore Now <ArrowRight className="ml-3 h-5 w-5" />
+                  </Link>
                 </div>
               </div>
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#7a5540] to-forest-600"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* See More Articles Section */}
-      <section className="py-8 md:py-10">
+      <section className="py-12 md:py-16 bg-cream-50">
         <div className="container-custom">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8">
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4 lg:mb-0">
-              See More Articles
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10">
+            <h2 className="text-3xl lg:text-4xl font-bold text-forest-700 mb-6 lg:mb-0">
+              More Stories
             </h2>
             
             {/* Category Filters */}
-            <div className="flex gap-2">
+            <div className="flex gap-3 bg-white p-2 rounded-full shadow-sm">
               {(['All', 'Blog', 'News', 'Updates'] as const).map((category) => (
                 <button
                   key={category}
@@ -217,10 +226,10 @@ const Blog: React.FC = () => {
                     setActiveCategory(category);
                     setCurrentPage(1);
                   }}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                     activeCategory === category
-                      ? 'bg-white text-forest-600'
-                      : 'bg-white/20 text-white hover:bg-white/30'
+                      ? 'bg-forest-600 text-white shadow-md'
+                      : 'text-forest-600 hover:bg-forest-100'
                   }`}
                 >
                   {category}
@@ -230,35 +239,42 @@ const Blog: React.FC = () => {
           </div>
 
           {/* Articles Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {currentPosts.map((post) => (
               <Link 
                 key={post.id} 
                 to={`/blog/${post.id}`}
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block"
               >
-                <div className="relative h-32">
+                <div className="relative h-48">
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
+                  <span className={`absolute top-3 left-3 inline-block ${getCategoryColor(post.category)} px-3 py-1 rounded-full text-xs font-semibold`}>
+                    {post.category}
+                  </span>
                 </div>
-                <div className="p-4">
-                  <h3 className="text-sm font-bold text-forest-600 mb-2 leading-tight">
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-forest-700 mb-3 leading-tight">
                     {post.title} {post.id === 'first-cameras-installed' && '📹 🌱'} {post.id === 'third-investment-round' && '🌟'} {post.id === 'coffee-growing-success-nyeri' && '🌱'} {post.id === '10' && '🌱'}
                   </h3>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`px-2 py-1 rounded-full text-xs ${getCategoryColor(post.category)}`}>
-                      {post.category}
-                    </span>
-                    <span className="text-gray-500 text-xs">{post.date}</span>
+                  <div className="flex items-center gap-3 mb-3 text-sm text-gray-500">
+                    <div className="flex items-center gap-1">
+                      <Calendar className="h-4 w-4" />
+                      <span>{post.date}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>{post.author}</span>
+                    </div>
                   </div>
-                  <p className="text-gray-600 text-xs leading-relaxed mb-3">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
                     {post.excerpt}
                   </p>
-                  <div className="inline-flex items-center text-amber-600 hover:text-amber-700 text-xs font-medium">
-                    Read more <ArrowRight className="ml-2 h-3 w-3" />
+                  <div className="inline-flex items-center text-[#7a5540] hover:text-[#6a4a38] text-sm font-semibold transition-colors duration-200">
+                    Read More <ArrowRight className="ml-2 h-4 w-4" />
                   </div>
                 </div>
               </Link>
@@ -271,34 +287,30 @@ const Blog: React.FC = () => {
               <button 
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage >= totalPages}
-                className="btn bg-white text-forest-600 hover:bg-gray-100 px-4 py-2 text-xs disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center bg-white text-forest-600 px-6 py-3 rounded-full text-sm font-semibold hover:bg-forest-100 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Next page <ArrowRight className="ml-2 h-3 w-3" />
+                Next Page <ArrowRight className="ml-2 h-4 w-4" />
               </button>
             </div>
           )}
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-8 md:py-10 bg-cream-50">
+      <section className="py-12 md:py-16 bg-[#F5F0E5]">
         <div className="container-custom">
-          <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-2xl lg:text-3xl font-bold text-forest-600 mb-4">
-              Ready To Start Your
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-forest-700 mb-4">
+              Start Your Coffee Investment Journey
             </h2>
-            <h3 className="text-xl lg:text-2xl font-bold text-amber-600 mb-6">
-              Coffee Investment Journey?
-            </h3>
-            <p className="text-gray-600 text-sm leading-relaxed mb-6">
-              Join thousands of investors who are already growing their wealth through sustainable coffee plantation investments in Kenya's fertile highlands.
+            <p className="text-gray-600 text-base leading-relaxed mb-8">
+              Join thousands of investors growing their wealth through sustainable coffee plantation investments in Kenya's fertile highlands.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button className="btn bg-forest-600 text-white hover:bg-forest-700 px-4 py-2 text-xs">
-                Start Investing <ArrowRight className="ml-2 h-3 w-3" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="btn bg-[#7a5540] text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#6a4a38] transition-all duration-300 transform hover:scale-105">
+                Start Investing <ArrowRight className="ml-2 h-4 w-4" />
               </button>
-              <button className="btn btn-secondary px-4 py-2 text-xs">
-                Schedule a Call <ArrowRight className="ml-2 h-3 w-3" />
+              <button className="btn bg-transparent border-2 border-forest-600 text-forest-600 px-6 py-3 rounded-full text-sm font-semibold hover:bg-forest-600 hover:text-white transition-all duration-300 transform hover:scale-105">
+                Schedule a Call <ArrowRight className="ml-2 h-4 w-4" />
               </button>
             </div>
           </div>
@@ -308,4 +320,4 @@ const Blog: React.FC = () => {
   );
 };
 
-export default Blog; 
+export default Blog;
