@@ -46,27 +46,30 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      setIsScrolled(currentScrollY > 50);
-      
-      const isScrollingDown = currentScrollY > lastScrollY;
-      const isScrollingUp = currentScrollY < lastScrollY;
-      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
-      
-      if (scrollDelta > 5) {
+      const heroSection = document.querySelector('section'); // Assuming hero is the first section
+      const heroBottom = heroSection ? heroSection.getBoundingClientRect().bottom + window.scrollY : 0;
+
+      // Navbar is visible at top of page
+      if (currentScrollY === 0) {
         setIsVisible(true);
-        
-        if (hideTimeout) {
-          clearTimeout(hideTimeout);
-        }
-        
-        const timeout = setTimeout(() => {
-          setIsVisible(false);
-          setHideTimeout(null);
-        }, 10000);
-        setHideTimeout(timeout);
+        setIsScrolled(false);
+      } 
+      // Hide navbar when scrolling down within hero section
+      else if (currentScrollY > 0 && currentScrollY < heroBottom) {
+        setIsVisible(false);
+        setIsScrolled(true);
+      } 
+      // Show navbar after hero section
+      else if (currentScrollY >= heroBottom) {
+        setIsVisible(true);
+        setIsScrolled(true);
       }
-      
+
+      // Clear any existing timeout
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+
       setLastScrollY(currentScrollY);
     };
 
@@ -117,7 +120,7 @@ const Navbar: React.FC = () => {
     <>
       <nav 
         id="mobile-nav"
-        className={`fixed w-full z-50 transition-all duration-500 ${
+        className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
           isScrolled ? 'py-1' : 'py-2'
         } ${
           isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
@@ -127,7 +130,7 @@ const Navbar: React.FC = () => {
       >
         <div className="container-custom">
           <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
-            isScrolled ? 'shadow-xl' : 'shadow-lg'
+            isScrolled ? 'shadow-xl bg-white/95 backdrop-blur-md' : 'shadow-lg bg-white'
           }`}>
             <Link 
               to="/" 
@@ -183,7 +186,7 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
+            <button className="hidden md:block btn bg-[#7a5540] text-white text-sm px-4 py-2 rounded-full hover:bg-[#6a4a38] transition-all duration-300">
               Start Investing
             </button>
 
@@ -289,7 +292,7 @@ const Navbar: React.FC = () => {
           {/* Mobile Menu Footer */}
           <div className="p-4 border-t border-gray-200 border-opacity-50">
             <button 
-              className="w-full btn btn-gold text-sm py-3 hover:shadow-lg transition-all duration-200"
+              className="w-full btn bg-[#7a5540] text-white text-sm py-3 rounded-full hover:bg-[#6a4a38] hover:shadow-lg transition-all duration-200"
               onClick={() => {
                 closeMenu();
                 handleNavClick('#plans', 'scroll');
