@@ -92,7 +92,7 @@ const Hero: React.FC = () => {
         
         {/* Trust indicators */}
         <div 
-          className={`card-large p-4 sm:p-6 transition-all duration-1000 delay-1200 transform ${
+          className={`card-large p-4 sm:p-6 rounded-full transition-all duration-1000 delay-1200 transform ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}
         >
