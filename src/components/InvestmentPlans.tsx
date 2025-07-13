@@ -32,6 +32,7 @@ const plans = [
     image: 'https://images.unsplash.com/photo-1647220577886-6a5faaa7c141?auto=format&fit=crop&w=600&h=400&q=80',
     badge: 'Most Popular',
     badgeColor: 'bg-brown-700',
+    badgeTextColor: 'text-brown',
     isRecommended: true,
     tagline: 'Most Popular',
     features: [
@@ -139,7 +140,7 @@ const InvestmentPlans: React.FC = () => {
                   {/* Badge */}
                   <div className="flex justify-center mb-3">
                     <span className={`px-3 py-1.5 rounded-full text-white text-xs sm:text-sm font-semibold ${
-                      plan.isRecommended ? 'bg-white text-brown-900' : plan.badgeColor
+                      plan.isRecommended ? 'bg-white !text-brown-900' : plan.badgeColor
                     }`}>
                       {plan.isRecommended && plan.tagline ? plan.tagline : plan.badge}
                     </span>

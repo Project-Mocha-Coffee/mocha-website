@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 const scenarios = {
@@ -7,15 +7,35 @@ const scenarios = {
   pessimistic: { name: 'Pessimistic', yieldKg: 15, pricePerKg: 4.00 }
 };
 
-const InvestmentCalculator: React.FC = () => {
+const InvestmentCalculator = () => {
   const [totalTrees, setTotalTrees] = useState(1);
   const [moneyToInvest, setMoneyToInvest] = useState(100);
-  const [selectedScenario, setSelectedScenario] = useState<keyof typeof scenarios>('realistic');
+  const [selectedScenario, setSelectedScenario] = useState('realistic');
   const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target); // Stop observing once visible
+        }
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
   }, []);
 
   const scenario = scenarios[selectedScenario];
@@ -37,26 +57,58 @@ const InvestmentCalculator: React.FC = () => {
   const freeTrees = Math.floor(totalTrees / 10);
   const totalTreesWithFree = totalTrees + freeTrees;
 
-  const handleTreeChange = (trees: number) => {
+  const handleTreeChange = (trees) => {
     setTotalTrees(trees);
-    // Automatically update money to invest to match required amount
     const requiredAmount = trees * costPerTree;
     setMoneyToInvest(requiredAmount);
   };
 
-  const handleMoneyChange = (money: number) => {
+  const handleMoneyChange = (money) => {
     setMoneyToInvest(money);
-    // Update trees based on money invested
     setTotalTrees(Math.floor(money / costPerTree));
   };
 
   return (
-    <section className="section bg-cream-50 py-6 sm:py-8 md:py-10" id="calculator">
+    <section
+      ref={sectionRef}
+      className="section bg-cream-50 py-6 sm:py-8 md:py-10"
+      id="calculator"
+    >
+      <style>
+        {`
+          @keyframes slideIn {
+            0% {
+              opacity: 0;
+              transform: translateY(50px) scale(0.95) rotate(2deg);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) scale(1) rotate(0deg);
+            }
+          }
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          .animate-slide-in {
+            animation: slideIn 0.8s ease-out forwards;
+          }
+          .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+          }
+        `}
+      </style>
       <div className="container-custom px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div 
-            className={`text-center mb-6 sm:mb-8 transition-all duration-1000 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          <div
+            className={`text-center mb-6 sm:mb-8 ${
+              isVisible ? 'animate-fade-in' : 'opacity-0 translate-y-10'
             }`}
           >
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-coffee-600 mb-2 sm:mb-3">
@@ -67,10 +119,11 @@ const InvestmentCalculator: React.FC = () => {
             </p>
           </div>
 
-          <div 
-            className={`card-large p-4 sm:p-6 md:p-8 transition-all duration-1000 delay-300 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          <div
+            className={`card-large p-4 sm:p-6 md:p-8 ${
+              isVisible ? 'animate-slide-in' : 'opacity-0 translate-y-10'
             }`}
+            style={{ animationDelay: '0.2s' }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               {/* Left side - Controls */}
@@ -86,7 +139,7 @@ const InvestmentCalculator: React.FC = () => {
                           name="scenario"
                           value={key}
                           checked={selectedScenario === key}
-                          onChange={(e) => setSelectedScenario(e.target.value as keyof typeof scenarios)}
+                          onChange={(e) => setSelectedScenario(e.target.value)}
                           className="w-4 h-4 sm:w-5 sm:h-5 text-coffee-600 mr-3 sm:mr-4"
                         />
                         <span className={`text-sm sm:text-base ${selectedScenario === key ? 'text-coffee-700 font-semibold' : 'text-gray-600'}`}>
