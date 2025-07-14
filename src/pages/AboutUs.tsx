@@ -52,12 +52,14 @@ const AboutUs: React.FC = () => {
     return () => clearInterval(interval);
   }, [aboutUsData.journey.steps.length]);
 
-  // Auto-scroll for team carousel on mobile
+  // Auto-scroll for team carousel
   useEffect(() => {
     const interval = setInterval(() => {
-      if (window.innerWidth < 1024) { // Only auto-scroll on mobile/tablet
-        setCurrentTeamSlide((prev) => (prev + 1) % aboutUsData.team.members.length);
-      }
+      const maxSlides = window.innerWidth >= 1024 
+        ? Math.max(0, aboutUsData.team.members.length - 2) // Desktop: show 3, so max slide is length - 3 + 1
+        : aboutUsData.team.members.length - 1; // Mobile: show 1, so max slide is length - 1
+      
+      setCurrentTeamSlide((prev) => (prev + 1) % (maxSlides + 1));
     }, 4000); // Change slide every 4 seconds
     return () => clearInterval(interval);
   }, [aboutUsData.team.members.length]);
@@ -71,16 +73,22 @@ const AboutUs: React.FC = () => {
   };
 
   const nextTeamSlide = () => {
-    setCurrentTeamSlide((prev) => (prev + 1) % aboutUsData.team.members.length);
+    const maxSlides = window.innerWidth >= 1024 
+      ? Math.max(0, aboutUsData.team.members.length - 2) // Desktop: show 3, so max slide is length - 3 + 1
+      : aboutUsData.team.members.length - 1; // Mobile: show 1, so max slide is length - 1
+    
+    setCurrentTeamSlide((prev) => (prev + 1) % (maxSlides + 1));
   };
 
   const prevTeamSlide = () => {
-    setCurrentTeamSlide((prev) => (prev - 1 + aboutUsData.team.members.length) % aboutUsData.team.members.length);
+    const maxSlides = window.innerWidth >= 1024 
+      ? Math.max(0, aboutUsData.team.members.length - 2) // Desktop: show 3, so max slide is length - 3 + 1
+      : aboutUsData.team.members.length - 1; // Mobile: show 1, so max slide is length - 1
+    
+    setCurrentTeamSlide((prev) => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
   };
 
-  const goToTeamSlide = (index: number) => {
-    setCurrentTeamSlide(index);
-  };
+
 
   const getValueCardStyles = (index: number) => {
     if (index % 2 === 0) {
@@ -183,39 +191,77 @@ const AboutUs: React.FC = () => {
             </h3>
           </div>
 
-          {/* Desktop Grid Layout */}
-          <div className="hidden lg:grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {aboutUsData.team.members.map((member: any, index: number) => (
+          {/* Desktop Carousel */}
+          <div className="hidden lg:block relative max-w-6xl mx-auto">
+            {/* Carousel Container */}
+            <div className="relative overflow-hidden rounded-2xl">
               <div 
-                key={index}
-                className={`card p-6 text-center transition-all duration-1000 ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentTeamSlide * (100/3)}%)` }}
               >
-                <div className="relative mb-4">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-48 object-cover bg-gray-100 rounded-2xl relative"
-                    style={{ objectPosition: 'top' }}
-                  />
-                  <div className="absolute bottom-2 right-2 w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                    {member.initials}
+                {aboutUsData.team.members.map((member: any, index: number) => (
+                  <div key={index} className="w-1/3 flex-shrink-0 px-3">
+                    <div 
+                      className={`card p-6 text-center transition-all duration-1000 ${
+                        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                      }`}
+                      style={{ transitionDelay: `${index * 150}ms` }}
+                    >
+                      <div className="relative mb-4">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-48 object-cover bg-gray-100 rounded-2xl relative"
+                          style={{ objectPosition: 'top' }}
+                        />
+                        <div className="absolute bottom-2 right-2 w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                          {member.initials}
+                        </div>
+                      </div>
+                      <h4 className="text-lg font-bold text-brown-800 mb-2">{member.name}</h4>
+                      <p className="text-brown-700 font-medium mb-4 text-base">{member.role}</p>
+                      <div className="flex justify-center gap-3">
+                        <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
+                          <span className="text-white text-sm">in</span>
+                        </div>
+                        <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
+                          <span className="text-white text-sm">@</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <h4 className="text-lg font-bold text-brown-800 mb-2">{member.name}</h4>
-                <p className="text-brown-700 font-medium mb-4 text-base">{member.role}</p>
-                <div className="flex justify-center gap-3">
-                  <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
-                    <span className="text-white text-sm">in</span>
-                  </div>
-                  <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
-                    <span className="text-white text-sm">@</span>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Navigation Arrows for Desktop */}
+            <button
+              onClick={prevTeamSlide}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-4 shadow-lg transition-all duration-200 z-10"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={nextTeamSlide}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-4 shadow-lg transition-all duration-200 z-10"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            {/* Dots Indicator for Desktop */}
+            <div className="flex justify-center mt-8 space-x-3">
+              {Array.from({ length: Math.max(1, aboutUsData.team.members.length - 2) }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTeamSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                    index === currentTeamSlide 
+                      ? 'bg-brown-600 w-10' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Mobile/Tablet Carousel */}
@@ -275,7 +321,7 @@ const AboutUs: React.FC = () => {
               {aboutUsData.team.members.map((_: any, index: number) => (
                 <button
                   key={index}
-                  onClick={() => goToTeamSlide(index)}
+                  onClick={() => setCurrentTeamSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-200 touch-manipulation ${
                     index === currentTeamSlide 
                       ? 'bg-brown-600 w-8' 

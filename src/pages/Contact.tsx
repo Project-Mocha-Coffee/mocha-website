@@ -56,33 +56,23 @@ const Contact: React.FC = () => {
             <div className="bg-white rounded-3xl overflow-hidden shadow-xl">
               <div className="grid lg:grid-cols-2 gap-0">
                 {/* Left side - Company Details */}
-                <div className="p-6 lg:p-8">
-                  <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-brown-800 mb-6">
-                      Company Details
-                    </h2>
-                    
-                    <div className="mb-6">
+                <div className="p-6 lg:p-8 flex flex-col h-full">
+                  {/* Header always at the top */}
+                  <h2 className="text-2xl font-bold text-brown-800 mb-6">
+                    Company Details
+                  </h2>
+                  {/* Info + Socials in a flex-col, with space-between */}
+                  <div className="flex flex-col justify-between flex-1 py-8">
+                    <div>
                       <h3 className="text-lg font-bold text-brown-700 mb-3">
                         The Mocha Coffee Enterprise
                       </h3>
-                      <div className="space-y-2 text-sm text-gray-600">
-                        <p><span className="font-medium">Tax ID:</span> 53175249158</p>
-                        <p><span className="font-medium">Identification number:</span> 05525209</p>
-                        <p><span className="font-medium">Address:</span> Nairobi Business District, 10000 Nairobi, Kenya</p>
+                      <div className="space-y-2 text-sm text-gray-600 mb-8">
+                        <p><span className="font-medium">Postal Address:</span> P.O Box 314 Embu, Kenya</p>
+                        <p><span className="font-medium"></span> </p>
+                        <p><span className="font-medium">Headquarters: </span> Mutunduri,Embu County, Kenya</p>
                       </div>
                     </div>
-
-                    <div className="mb-6">
-                      <h3 className="text-lg font-bold text-brown-700 mb-3">
-                        Head Office
-                      </h3>
-                      <div className="text-sm text-gray-600">
-                        <p>Coffee Investment Center Floor 2, Office 2.11</p>
-                        <p><span className="font-medium">Address:</span> Kenyatta Avenue 1, 21000 Nairobi, Kenya</p>
-                      </div>
-                    </div>
-
                     <div>
                       <h3 className="text-lg font-bold text-brown-700 mb-3">
                         Follow Us:

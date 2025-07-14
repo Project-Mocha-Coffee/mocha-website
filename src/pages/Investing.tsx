@@ -389,8 +389,8 @@ const Investing: React.FC = () => {
             {investing.investmentBenefits.benefits.map((benefit: any, index: number) => {
               // Define styling based on benefit type and index
               const getCardClass = (index: number, cardType: string) => {
-                if (cardType === 'image') return 'card overflow-hidden h-40 sm:h-40 md:h-36';
-                return index % 2 === 0 ? 'card bg-white h-auto sm:h-40 md:h-36' : 'card bg-coffee-600 text-white h-auto sm:h-40 md:h-36';
+                if (cardType === 'image') return 'card overflow-hidden';
+                return index % 2 === 0 ? 'card bg-white' : 'card bg-coffee-600 text-white';
               };
               
               const getIconClass = (index: number) => {
@@ -402,7 +402,7 @@ const Investing: React.FC = () => {
               };
               
               const getDescriptionClass = (index: number) => {
-                return index % 2 === 0 ? 'leading-relaxed text-xs sm:text-sm text-gray-600' : 'leading-relaxed text-xs sm:text-sm text-white/90';
+                return index % 2 === 0 ? 'leading-relaxed text-xs sm:text-sm text-gray-600 break-words' : 'leading-relaxed text-xs sm:text-sm text-white/90 break-words';
               };
               
               return (
