@@ -1,135 +1,57 @@
 import React, { useState } from 'react';
 import { ArrowRight, Calendar, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  category: 'Blog' | 'News' | 'Updates';
-  date: string;
-  author: string;
-  image: string;
-  featured?: boolean;
-}
+import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 
 const Blog: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<'All' | 'Blog' | 'News' | 'Updates'>('All');
   const [currentPage, setCurrentPage] = useState(1);
+  const { content, isLoading, error } = useContent();
   
-  const blogPosts: BlogPost[] = [
-    {
-      id: 'tech-meets-soil-weather-stations',
-      title: 'Tech Meets Soil: Smart Weather Stations Now Live On Our Coffee Plantations',
-      excerpt: 'You can\'t manage what you don\'t measure. That\'s why we\'ve begun installing cutting-edge METOS 5 weather stations across our coffee plantations. These smart devices are transforming how we...',
-      content: 'Full article content here...',
-      category: 'Blog',
-      date: '28. May',
-      author: 'Coffee Team',
-      image: 'https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=800',
-      featured: true
-    },
-    {
-      id: 'first-cameras-installed',
-      title: 'We\'re Going Live: First Cameras Installed On Our Coffee Plantation!',
-      excerpt: 'As part of our ongoing commitment to transparency and investor trust, we\'re excited to announce that we\'ve begun...',
-      content: 'Full article content here...',
-      category: 'Blog',
-      date: '27. May',
-      author: 'Mocha Team',
-      image: 'https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      id: 'first-bean-then-future',
-      title: 'First The Bean, Then The Future',
-      excerpt: 'At The Mocha Coffee Fund, every season teaches us something new — not just about trees, but about the...',
-      content: 'Full article content here...',
-      category: 'Updates',
-      date: '21. May',
-      author: 'Kenya Team',
-      image: 'https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      id: 'third-investment-round',
-      title: 'Our Third Coffee Investment Round Is Here!',
-      excerpt: 'Mocha: New round for investment! We are excited to announce that the Securities Commission has approved our third round of coffee investments...',
-      content: 'Full article content here...',
-      category: 'News',
-      date: '17. April',
-      author: 'Investment Team',
-      image: 'https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      id: 'sweet-collaboration-kenya-cooperative',
-      title: 'A Sweet Collaboration: Joining Forces With Kenya\'s Largest Coffee Cooperative',
-      excerpt: 'As we are officially in harvest season with our plantations and trees, it\'s the perfect time to shift...',
-      content: 'Full article content here...',
-      category: 'News',
-      date: '23. January',
-      author: 'Partnership Team',
-      image: 'https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      id: 'coffee-growing-success-nyeri',
-      title: 'Coffee Growing Success in Nyeri: 80 Hands, 3 Days, And A Growing Opportunity',
-      excerpt: 'The Mocha Coffee Fund is excited to announce that the first phase of planting at our Nyeri location has...',
-      content: 'Full article content here...',
-      category: 'Updates',
-      date: '13. January',
-      author: 'Plantation Team',
-      image: 'https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      id: 'initial-investment-round-completed',
-      title: 'Initial Coffee Investment Round Completed!',
-      excerpt: 'Our initial coffee investment round has been successfully completed! In the previous issue, 4,400 coffee trees were available, where four...',
-      content: 'Full article content here...',
-      category: 'Updates',
-      date: '16. December',
-      author: 'Investment Team',
-      image: 'https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      id: 'second-investment-round',
-      title: 'Our Second Coffee Investment Round Is Here!',
-      excerpt: 'ENG: Exciting News! We\'re thrilled to announce that the Securities Commission of Kenya has...',
-      content: 'Full article content here...',
-      category: 'News',
-      date: '15. December',
-      author: 'Legal Team',
-      image: 'https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      id: 'preparing-highland-soil',
-      title: 'Preparing The Highland Soil For Success!',
-      excerpt: 'We are excited to share that, in collaboration with the Institute of Agricultural Development and with...',
-      content: 'Full article content here...',
-      category: 'Updates',
-      date: '17. October',
-      author: 'Agricultural Team',
-      image: 'https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      id: 'welcoming-new-team-members',
-      title: 'Welcoming Two New Members To The Mocha Coffee Fund Team',
-      excerpt: 'Welcoming Two New Members to The Mocha Coffee Fund Team: James Mwangi and Sarah Njeri! As we...',
-      content: 'Full article content here...',
-      category: 'News',
-      date: '14. August',
-      author: 'HR Team',
-      image: 'https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=800'
-    }
-  ];
+  // Show loading screen while content is being fetched
+  if (isLoading || !content) {
+    return <ContentLoadingScreen />;
+  }
 
-  const featuredPost = blogPosts.find(post => post.featured) || blogPosts[0];
-  const regularPosts = blogPosts.filter(post => !post.featured);
+  // Show error state if content failed to load
+  if (error) {
+    return (
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-brown-700 mb-4">Failed to load content</h1>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="btn bg-brown-700 text-white hover:bg-brown-800 px-4 py-2 text-sm"
+          >
+            Try again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Get data from async loaded content
+  const { blogPage, blog } = content;
+  
+  // Only proceed if we have the necessary data
+  if (!blogPage || !blog) {
+    return <ContentLoadingScreen />;
+  }
+
+  const blogPosts = blog.posts;
+
+  // Component-level configuration (not editable via JSON)
+  const categories = ['All', 'Blog', 'News', 'Updates'] as const;
+  const postsPerPage = 6;
+
+  const featuredPost = blogPosts.find((post: any) => post.featured) || blogPosts[0];
+  const regularPosts = blogPosts.filter((post: any) => !post.featured);
 
   const filteredPosts = activeCategory === 'All' 
     ? regularPosts 
-    : regularPosts.filter(post => post.category === activeCategory);
+    : regularPosts.filter((post: any) => post.category === activeCategory);
 
-  const postsPerPage = 6;
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
   const startIndex = (currentPage - 1) * postsPerPage;
   const currentPosts = filteredPosts.slice(startIndex, startIndex + postsPerPage);
@@ -150,8 +72,7 @@ const Blog: React.FC = () => {
         <div className="container-custom">
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
-              Our Blog Projects,<br />
-              People, Purpose
+              {blogPage.hero.title}
             </h1>
           </div>
 
@@ -172,10 +93,10 @@ const Blog: React.FC = () => {
                 <div className="p-4 lg:p-6 flex flex-col justify-center">
                   <div className="mb-3">
                     <div className="inline-block bg-forest-600 text-white px-2 py-1 rounded-full text-xs font-medium mb-3">
-                      ✓ Latest news
+                      {blogPage.hero.latestNewsBadge}
                     </div>
                     <h2 className="text-xl lg:text-2xl font-bold text-forest-600 mb-3 leading-tight">
-                      {featuredPost.title} 🌿 ❄️
+                      {featuredPost.title} {blogPage.hero.featuredPostSuffix}
                     </h2>
                     <div className="flex items-center gap-3 mb-3">
                       <span className={`px-2 py-1 rounded-full text-xs ${getCategoryColor(featuredPost.category)}`}>
@@ -190,7 +111,7 @@ const Blog: React.FC = () => {
                       to={`/blog/${featuredPost.id}`}
                       className="btn bg-amber-500 text-forest-600 hover:bg-amber-400 px-3 py-2 text-xs"
                     >
-                      Read more <ArrowRight className="ml-2 h-3 w-3" />
+                      {blogPage.hero.readMoreText} <ArrowRight className="ml-2 h-3 w-3" />
                     </Link>
                   </div>
                 </div>
@@ -205,12 +126,12 @@ const Blog: React.FC = () => {
         <div className="container-custom">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8">
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4 lg:mb-0">
-              See More Articles
+              {blogPage.articlesSection.title}
             </h2>
             
             {/* Category Filters */}
             <div className="flex gap-2">
-              {(['All', 'Blog', 'News', 'Updates'] as const).map((category) => (
+              {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => {
@@ -231,7 +152,7 @@ const Blog: React.FC = () => {
 
           {/* Articles Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            {currentPosts.map((post) => (
+            {currentPosts.map((post: any) => (
               <Link 
                 key={post.id} 
                 to={`/blog/${post.id}`}
@@ -246,7 +167,7 @@ const Blog: React.FC = () => {
                 </div>
                 <div className="p-4">
                   <h3 className="text-sm font-bold text-forest-600 mb-2 leading-tight">
-                    {post.title} {post.id === 'first-cameras-installed' && '📹 🌱'} {post.id === 'third-investment-round' && '🌟'} {post.id === 'coffee-growing-success-nyeri' && '🌱'} {post.id === '10' && '🌱'}
+                    {post.title} {post.icon && post.icon}
                   </h3>
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`px-2 py-1 rounded-full text-xs ${getCategoryColor(post.category)}`}>
@@ -258,7 +179,7 @@ const Blog: React.FC = () => {
                     {post.excerpt}
                   </p>
                   <div className="inline-flex items-center text-amber-600 hover:text-amber-700 text-xs font-medium">
-                    Read more <ArrowRight className="ml-2 h-3 w-3" />
+                    {blogPage.hero.readMoreText} <ArrowRight className="ml-2 h-3 w-3" />
                   </div>
                 </div>
               </Link>
@@ -273,7 +194,7 @@ const Blog: React.FC = () => {
                 disabled={currentPage >= totalPages}
                 className="btn bg-white text-forest-600 hover:bg-gray-100 px-4 py-2 text-xs disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Next page <ArrowRight className="ml-2 h-3 w-3" />
+                {blogPage.articlesSection.nextButtonText} <ArrowRight className="ml-2 h-3 w-3" />
               </button>
             </div>
           )}
@@ -285,20 +206,20 @@ const Blog: React.FC = () => {
         <div className="container-custom">
           <div className="text-center max-w-4xl mx-auto">
             <h2 className="text-2xl lg:text-3xl font-bold text-forest-600 mb-4">
-              Ready To Start Your
+              {blogPage.callToAction.title}
             </h2>
             <h3 className="text-xl lg:text-2xl font-bold text-amber-600 mb-6">
-              Coffee Investment Journey?
+              {blogPage.callToAction.subtitle}
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed mb-6">
-              Join thousands of investors who are already growing their wealth through sustainable coffee plantation investments in Kenya's fertile highlands.
+              {blogPage.callToAction.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button className="btn bg-forest-600 text-white hover:bg-forest-700 px-4 py-2 text-xs">
-                Start Investing <ArrowRight className="ml-2 h-3 w-3" />
+                {blogPage.callToAction.primaryButtonText} <ArrowRight className="ml-2 h-3 w-3" />
               </button>
               <button className="btn btn-secondary px-4 py-2 text-xs">
-                Schedule a Call <ArrowRight className="ml-2 h-3 w-3" />
+                {blogPage.callToAction.secondaryButtonText} <ArrowRight className="ml-2 h-3 w-3" />
               </button>
             </div>
           </div>

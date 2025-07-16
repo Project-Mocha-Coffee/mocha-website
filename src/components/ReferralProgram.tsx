@@ -1,17 +1,28 @@
 import React from 'react';
 import { Gift, Share2, Users, ArrowRight } from 'lucide-react';
+import { useContent } from '../contexts/ContentContext';
+import type { ContentData } from '../types/content';
 
 const ReferralProgram: React.FC = () => {
+  const { content } = useContent();
+  
+  // Early return if content is not available
+  if (!content) {
+    return null;
+  }
+  
+  const data = content.referralProgram;
+
   return (
     <section className="py-8 md:py-10 bg-brown-800">
       <div className="container-custom">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl text-white mb-2 font-bold">
-              Referral Program
+              {data.sectionTitle}
             </h2>
             <p className="text-brown-200 max-w-2xl mx-auto">
-              Share the opportunity and earn rewards. Help others discover sustainable coffee investing while growing your own portfolio.
+              {data.sectionSubtitle}
             </p>
           </div>
 
@@ -22,31 +33,25 @@ const ReferralProgram: React.FC = () => {
                   <Gift className="h-6 w-6 text-brown-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-brown-800 mb-1">Earn Free Trees</h3>
-                  <p className="text-brown-600 text-sm">Refer a friend and get rewarded</p>
+                  <h3 className="text-lg font-bold text-brown-800 mb-1">{data.earnCard.title}</h3>
+                  <p className="text-brown-600 text-sm">{data.earnCard.subtitle}</p>
                 </div>
               </div>
               <div className="bg-brown-50 p-4 rounded-lg mb-4">
                 <p className="text-brown-800 font-semibold text-lg mb-2">
-                  Earn 1 free tree for every $500 invested
+                  {data.earnCard.highlightText}
                 </p>
                 <p className="text-brown-600 text-sm">
-                  When your referral makes their first investment, you'll receive free coffee trees based on their investment amount.
+                  {data.earnCard.description}
                 </p>
               </div>
               <ul className="space-y-2 text-brown-700 text-sm mb-4">
-                <li className="flex items-center">
+                {data.earnCard.benefits.map((benefit, index) => (
+                  <li key={index} className="flex items-center">
                   <div className="w-2 h-2 bg-brown-400 rounded-full mr-2"></div>
-                  No limit on referrals
+                    {benefit}
                 </li>
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-brown-400 rounded-full mr-2"></div>
-                  Trees added to your portfolio
-                </li>
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-brown-400 rounded-full mr-2"></div>
-                  Same management and returns
-                </li>
+                ))}
               </ul>
             </div>
 
@@ -56,32 +61,55 @@ const ReferralProgram: React.FC = () => {
                   <Share2 className="h-6 w-6 text-brown-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-brown-800 mb-1">Easy Sharing</h3>
-                  <p className="text-brown-600 text-sm">Share with just a few clicks</p>
+                  <h3 className="text-lg font-bold text-brown-800 mb-1">{data.shareCard.title}</h3>
+                  <p className="text-brown-600 text-sm">{data.shareCard.subtitle}</p>
                 </div>
               </div>
               <p className="text-brown-700 text-sm mb-4">
-                Use our easy social sharing options to spread the word about sustainable coffee investing.
+                {data.shareCard.description}
               </p>
               <div className="space-y-3">
-                <button className="w-full btn bg-blue-600 text-white hover:bg-blue-700 flex items-center justify-center">
-                  <Share2 className="mr-2 h-4 w-4" />
-                  Share on Social Media
+                {data.shareCard.buttons.map((button, index) => {
+                  const getIcon = () => {
+                    switch (button.type) {
+                      case 'social':
+                        return <Share2 className="mr-2 h-4 w-4" />;
+                      case 'invite':
+                        return <Users className="mr-2 h-4 w-4" />;
+                      case 'copy':
+                        return null;
+                      default:
+                        return null;
+                    }
+                  };
+
+                  const getButtonClass = () => {
+                    switch (button.type) {
+                      case 'social':
+                        return 'w-full btn bg-blue-600 text-white hover:bg-blue-700 flex items-center justify-center';
+                      case 'invite':
+                        return 'w-full btn bg-green-600 text-white hover:bg-green-700 flex items-center justify-center';
+                      case 'copy':
+                        return 'w-full btn btn-secondary';
+                      default:
+                        return 'w-full btn btn-secondary';
+                    }
+                  };
+
+                  return (
+                    <button key={index} className={getButtonClass()}>
+                      {getIcon()}
+                      {button.text}
                 </button>
-                <button className="w-full btn bg-green-600 text-white hover:bg-green-700 flex items-center justify-center">
-                  <Users className="mr-2 h-4 w-4" />
-                  Send Personal Invite
-                </button>
-                <button className="w-full btn btn-secondary">
-                  Copy Referral Link
-                </button>
+                  );
+                })}
               </div>
             </div>
           </div>
 
           <div className="text-center mt-8">
             <button className="btn btn-gold">
-              Start Referring Now <ArrowRight className="ml-2 h-5 w-5" />
+              {data.ctaButton} <ArrowRight className="ml-2 h-5 w-5" />
             </button>
           </div>
         </div>

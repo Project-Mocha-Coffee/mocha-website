@@ -1,28 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { Coffee, Play, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { contentData, ContentData, subscribeToContentUpdates } from '../services/contentService';
 
 const AvailableOpportunities: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [, setContentVersion] = useState(0); // Force re-render trigger
+  const sectionData = (contentData as ContentData)?.availableOpportunities;
+  const projects = (contentData as ContentData)?.projects;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
+    
+    // Subscribe to content updates
+    const unsubscribe = subscribeToContentUpdates(() => {
+      console.log('🔄 AvailableOpportunities: Content updated, re-rendering...');
+      setContentVersion(prev => prev + 1); // Force re-render
+    });
+
+    return () => {
+      clearTimeout(timer);
+      unsubscribe();
+    };
   }, []);
 
-  // Use the same project data as in ProjectDetail page
-  const availableProject = {
-    id: 'nyeri-highland-2024',
-    title: 'Nyeri Highland Coffee Farm 2024',
-    location: 'Kenya\'s premier coffee highlands',
-    status: 'Available now',
-    statusColor: 'bg-brown-600',
-    totalTrees: 25200,
-    treesSold: 15480,
-    treesAvailable: 9720,
-    description: 'A sustainable investment rooted in the heart of Kenya\'s fertile highlands, designed for long-term growth and premium Arabica yields.',
-    image: 'https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'
-  };
+  // Show loading state if no content data yet
+  if (!contentData || !sectionData || !projects) {
+    console.log('⏳ AvailableOpportunities: Waiting for content...', { 
+      contentData: !!contentData, 
+      sectionData: !!sectionData, 
+      projects: !!projects 
+    });
+    return (
+      <section id="available-opportunities" className="py-6 sm:py-8 md:py-10 bg-cream-50">
+        <div className="container-custom px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="card-large p-4 sm:p-6 md:p-8 animate-pulse">
+              <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+                <div className="text-center lg:text-left">
+                  <div className="h-8 bg-brown-100 rounded-full w-32 mb-4"></div>
+                  <div className="h-6 bg-gray-200 rounded-lg w-48 mb-2"></div>
+                  <div className="h-8 bg-gray-200 rounded-lg w-full mb-6"></div>
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6">
+                    <div className="bg-brown-600 rounded-xl sm:rounded-2xl p-3 sm:p-4 h-20"></div>
+                    <div className="bg-coffee-600 rounded-xl sm:rounded-2xl p-3 sm:p-4 h-20"></div>
+                  </div>
+                  <div className="h-12 bg-gray-200 rounded-lg w-48"></div>
+                </div>
+                <div className="relative order-first lg:order-last">
+                  <div className="aspect-video rounded-xl sm:rounded-2xl bg-gray-200"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const featuredProjectId = sectionData.featuredProject;
+  const availableProject = projects[featuredProjectId];
+
+  // Return null if featured project not found
+  if (!availableProject) {
+    console.log('⚠️ AvailableOpportunities: Featured project not found:', featuredProjectId);
+    return null;
+  }
+
+  console.log('✅ AvailableOpportunities: Rendering with content data');
 
   return (
     <section id="available-opportunities" className="py-6 sm:py-8 md:py-10 bg-cream-50">
@@ -39,7 +84,7 @@ const AvailableOpportunities: React.FC = () => {
                   Available Plantation
                 </div>
                 <h2 className="text-base sm:text-lg md:text-xl text-brown-600 mb-2 font-semibold">
-                  Available Investment Opportunities
+                  {sectionData.title}
                 </h2>
                 <h3 className="text-xl sm:text-2xl md:text-3xl text-coffee-600 mb-4 sm:mb-6 font-bold leading-tight">
                   {availableProject.title} Is Ready To Grow
@@ -70,7 +115,7 @@ const AvailableOpportunities: React.FC = () => {
               <div className="relative order-first lg:order-last">
                 <div className="aspect-video rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
                   <img 
-                    src={availableProject.image} 
+                    src={availableProject.images[0]} 
                     alt={availableProject.title} 
                     className="w-full h-full object-cover"
                   />

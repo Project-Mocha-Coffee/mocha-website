@@ -1,90 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Check, ArrowRight, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const plans = [
-  {
-    id: 'starter',
-    name: 'Starter',
-    trees: '50 Trees',
-    investment: '$5,000 investment',
-    annualYield: '12%',
-    term: '5 years',
-    image: 'https://images.pexels.com/photos/7125492/pexels-photo-7125492.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-    badge: 'Perfect Entry Point',
-    badgeColor: 'bg-brown-600',
-    features: [
-      'Minimum investment to start earning',
-      '12% annual yield from Year 3',
-      'Expert agronomist management',
-      'Quarterly harvest reports',
-      'Full crop insurance coverage'
-    ],
-    buttonText: 'Start Investing',
-    buttonClass: 'btn-primary'
-  },
-  {
-    id: 'professional',
-    name: 'Professional',
-    trees: '200 Trees',
-    investment: '$20,000 investment',
-    annualYield: '14%',
-    term: '7 years',
-    image: 'https://images.unsplash.com/photo-1647220577886-6a5faaa7c141?auto=format&fit=crop&w=600&h=400&q=80',
-    badge: 'Most Popular',
-    badgeColor: 'bg-brown-700',
-    isRecommended: true,
-    tagline: 'Most Popular',
-    features: [
-      'Higher returns with 200 trees',
-      '14% annual yield potential',
-      'Priority plantation management',
-      'Detailed investment tracking',
-      'Reinvestment options for compounding'
-    ],
-    buttonText: 'Choose Professional',
-    buttonClass: 'btn-secondary'
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    trees: '1,000+ Trees',
-    investment: '$100,000 investment',
-    annualYield: '16%',
-    term: '10 years',
-    image: 'https://images.unsplash.com/photo-1736017703593-30934e35cc8c?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=luckas-spalinger-P_d9EfO5MjE-unsplash.jpg&w=640',
-    badge: 'Maximum Returns',
-    badgeColor: 'bg-brown-800',
-    features: [
-      'Highest return potential at 16%',
-      'Large-scale coffee plantation',
-      'Dedicated account management',
-      'Premium harvest priority',
-      'Custom investment strategies'
-    ],
-    buttonText: 'Talk To Advisor',
-    buttonClass: 'btn-primary'
-  }
-];
+import { useContent } from '../contexts/ContentContext';
+import { ContentData } from '../types/content';
 
 const InvestmentPlans: React.FC = () => {
+  const { content } = useContent();
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
+
+  // Configurable booking URL 
+  const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
+
+  // Early return if content is not available
+  if (!content) {
+    return null;
+  }
+
+  const sectionData = content.investmentPlans;
+  const plans = sectionData.plans;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  const handleButtonClick = () => {
+    window.open(BOOKING_URL, '_blank', 'noopener,noreferrer');
+  };
+
   // Auto-scroll functionality for mobile
   useEffect(() => {
     const interval = setInterval(() => {
-      if (window.innerWidth < 1024) { // Only auto-scroll on mobile/tablet
+      if (window.innerWidth < 1024 && !isDragging) { // Only auto-scroll on mobile/tablet when not dragging
         setCurrentSlide((prev) => (prev + 1) % plans.length);
       }
-    }, 4000); // Change slide every 4 seconds
+    }, 10000); 
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isDragging, plans.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % plans.length);
@@ -98,6 +57,59 @@ const InvestmentPlans: React.FC = () => {
     setCurrentSlide(index);
   };
 
+  // Touch/Swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    
+    const distance = touchStartX - touchEndX;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+
+    // Reset values
+    setTouchStartX(0);
+    setTouchEndX(0);
+    setIsDragging(false);
+  };
+
+  // Mouse drag handlers for desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!carouselRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - carouselRef.current.offsetLeft);
+    setScrollLeft(carouselRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !carouselRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - carouselRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    carouselRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
   return (
     <section className="py-6 sm:py-8 md:py-10 bg-cream-50">
       <div className="container-custom px-4 sm:px-6">
@@ -108,13 +120,13 @@ const InvestmentPlans: React.FC = () => {
             }`}
           >
             <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">
-              Choose Your Plan
+              {sectionData.sectionTitle}
             </h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-3xl mx-auto mb-1 sm:mb-2">
-              Choose from flexible investment plans designed to fit any budget and financial goal.
+              {sectionData.sectionDescription[0]}
             </p>
             <p className="text-gray-600 text-sm sm:text-base max-w-3xl mx-auto">
-              Each plan is fully managed and designed for long-term growth.
+              {sectionData.sectionDescription[1]}
             </p>
           </div>
 
@@ -139,7 +151,7 @@ const InvestmentPlans: React.FC = () => {
                   {/* Badge */}
                   <div className="flex justify-center mb-3">
                     <span className={`px-3 py-1.5 rounded-full text-white text-xs sm:text-sm font-semibold ${
-                      plan.isRecommended ? 'bg-white text-brown-900' : plan.badgeColor
+                      plan.isRecommended ? 'bg-brown-700 text-white' : plan.badgeColor
                     }`}>
                       {plan.isRecommended && plan.tagline ? plan.tagline : plan.badge}
                     </span>
@@ -208,10 +220,11 @@ const InvestmentPlans: React.FC = () => {
                   {/* Button */}
                   <div className="mt-auto">
                     <button 
+                      onClick={handleButtonClick}
                       className={`btn w-full text-sm sm:text-base py-3 sm:py-3.5 px-4 touch-manipulation ${
                         plan.isRecommended 
                           ? 'bg-white text-forest-600 hover:bg-cream-100' 
-                          : plan.buttonClass
+                          : plan.buttonType === 'primary' ? 'btn-primary' : 'btn-secondary'
                       }`}
                     >
                       {plan.buttonText} 
@@ -232,13 +245,23 @@ const InvestmentPlans: React.FC = () => {
             {/* Carousel Container */}
             <div className="relative overflow-hidden rounded-2xl">
               <div 
-                className="flex transition-transform duration-500 ease-in-out touch-manipulation"
+                ref={carouselRef}
+                className={`flex transition-transform duration-500 ease-in-out ${
+                  isDragging ? 'transition-none' : ''
+                }`}
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseLeave}
               >
                 {plans.map((plan, index) => (
                   <div key={plan.id} className="w-full flex-shrink-0 px-2">
                     <div 
-                      className={`card h-full p-5 sm:p-6 ${
+                      className={`card h-full p-5 sm:p-6 select-none ${
                         plan.isRecommended 
                           ? 'bg-brown-800 text-white border-4 border-brown-900' 
                           : 'bg-white'
@@ -260,6 +283,7 @@ const InvestmentPlans: React.FC = () => {
                             src={plan.image}
                             alt={plan.name}
                             className="w-full h-48 sm:h-56 object-cover"
+                            draggable={false}
                           />
                         </div>
                       </div>
@@ -316,10 +340,11 @@ const InvestmentPlans: React.FC = () => {
                       {/* Button */}
                       <div className="mt-auto">
                         <button 
+                          onClick={handleButtonClick}
                           className={`btn w-full text-base sm:text-lg py-4 px-6 touch-manipulation ${
                             plan.isRecommended 
                               ? 'bg-white text-forest-600 hover:bg-cream-100' 
-                              : plan.buttonClass
+                              : plan.buttonType === 'primary' ? 'btn-primary' : 'btn-secondary'
                           }`}
                         >
                           {plan.buttonText} 
@@ -368,7 +393,7 @@ const InvestmentPlans: React.FC = () => {
             {/* Mobile Swipe Hint */}
             <div className="text-center mt-4 sm:hidden">
               <p className="text-xs text-gray-500">
-                Swipe left or right to explore plans
+                {sectionData.mobileSwipeHint}
               </p>
             </div>
           </div>

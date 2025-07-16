@@ -1,0 +1,1275 @@
+{
+  "projects": {
+    "project-1": {
+      "id": "project-1",
+      "title": "Embu Highland Coffee Farm 2024",
+      "location": "Embu County, Central Kenya",
+      "region": "Kenya's premier coffee highlands",
+      "status": "Available now",
+      "statusColor": "bg-brown-800",
+      "fundName": "The Coffee Highland Project",
+      "pricePerTree": "200€",
+      "roi": "11% - 22%",
+      "investmentCycle": "2024-25",
+      "totalTrees": 25200,
+      "treesSold": 15480,
+      "treesAvailable": 9720,
+      "altitude": "1,650m",
+      "plotSize": "865,400m²",
+      "sunnyDays": 195,
+      "description": "A sustainable investment rooted in the heart of Kenya's fertile highlands, designed for long-term growth and premium Arabica yields.",
+      "timelineStages": [
+        {
+          "stage": "Land In Progress",
+          "title": "Highland Land Preparation",
+          "description": "We are happy to announce that we are currently finishing all necessary administrative steps to start preparing the highland land. Part of the coffee trees will be planted in 2024, the rest will be planted by the end of 2025.",
+          "status": "completed",
+          "image": "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "stage": "Coffee Seedlings",
+          "title": "Premium Arabica Seedlings",
+          "description": "High-quality Arabica seedlings are the foundation for a successful coffee plantation. We are sourcing premium, disease-resistant coffee varietals from Kenya's top nurseries, specifically selected for highland growing conditions.",
+          "status": "coming-soon",
+          "image": "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "stage": "Highland Preparation",
+          "title": "Volcanic Soil Preparation",
+          "description": "Preparing Kenya's volcanic highland soil for optimal coffee cultivation. Our local agricultural experts ensure the land is perfectly conditioned for premium Arabica coffee trees to thrive.",
+          "status": "coming-soon",
+          "image": "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "stage": "Trees Planted",
+          "title": "Coffee Trees Planted",
+          "description": "Premium Arabica coffee trees planted in Kenya's ideal highland climate. Our experienced local farmers follow sustainable practices to ensure healthy growth and future premium yields.",
+          "status": "coming-soon",
+          "image": "https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        }
+      ],
+      "stats": [
+        { "number": "25", "label": "Years of Highland Farming" },
+        { "number": "8", "label": "Dedicated Coffee Experts" },
+        { "number": "2000+", "label": "Satisfied Investors" },
+        { "number": "15000+", "label": "Coffee trees managed" },
+        { "number": "40+", "label": "Years of Projected Returns" }
+      ],
+      "investmentDescription": "Coffee plantations provide over 40 years of stability and yield. Our investment strategy focuses on sustainable agricultural practices in Kenya's highlands that ensure consistent production and profitability for our investors over the long haul.",
+      "returnsDescription": "Profits are prioritized to first cover the expenses of investors, thereby ensuring the security of your investment. We believe in creating a transparent and trustworthy relationship with our investors, where your financial well-being is our primary concern.",
+      "images": [
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0009_ll0led.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0005_ibmyow.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438986/DJI_0024_mnhhhy.jpg0",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438987/DJI_0012_b5zxfh.jpg"
+      ]
+    },
+    "kiambu-highlands-2023": {
+      "id": "kiambu-highlands-2023",
+      "title": "Kiambu Highlands 2023/24",
+      "location": "Kiambu County, Central Kenya",
+      "region": "High-altitude coffee region",
+      "status": "Sold out",
+      "statusColor": "bg-amber-600",
+      "fundName": "The Kiambu Coffee Project",
+      "pricePerTree": "200€",
+      "roi": "11% - 22%",
+      "investmentCycle": "2023-24",
+      "totalTrees": 18500,
+      "treesSold": 18500,
+      "treesAvailable": 0,
+      "altitude": "1,800m",
+      "plotSize": "650,000m²",
+      "sunnyDays": 210,
+      "description": "A proven highland coffee investment in Kiambu's premium growing region, delivering exceptional Arabica quality and consistent returns.",
+      "timelineStages": [
+        {
+          "stage": "Land Completed",
+          "title": "Highland Land Established",
+          "description": "Successfully completed all land preparation in Kiambu's prime highland location. This established plantation is now in full production with mature coffee trees yielding premium Arabica beans.",
+          "status": "completed",
+          "image": "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "stage": "Trees Established",
+          "title": "Mature Coffee Trees",
+          "description": "All coffee trees are now mature and producing premium Arabica beans. This plantation represents our proven track record of successful highland coffee cultivation in Kenya.",
+          "status": "completed",
+          "image": "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        }
+      ],
+      "stats": [
+        { "number": "25", "label": "Years of Highland Farming" },
+        { "number": "8", "label": "Dedicated Coffee Experts" },
+        { "number": "1800+", "label": "Satisfied Investors" },
+        { "number": "18500", "label": "Coffee trees managed" },
+        { "number": "35+", "label": "Years of Projected Returns" }
+      ],
+      "investmentDescription": "This established Kiambu plantation demonstrates our proven ability to deliver consistent returns from highland coffee cultivation. With mature trees already producing premium beans, this project showcases the long-term value of Kenyan coffee investments.",
+      "returnsDescription": "Investors in our Kiambu project have seen consistent returns as projected. Our transparent profit-sharing model ensures investors receive their entitled returns from this established highland coffee plantation.",
+      "images": [
+         "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0009_ll0led.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0005_ibmyow.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438986/DJI_0024_mnhhhy.jpg0",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438987/DJI_0012_b5zxfh.jpg"
+      ]
+    },
+    "muranga-plantation-2022": {
+      "id": "muranga-plantation-2022",
+      "title": "Muranga Plantation 2022",
+      "location": "Muranga County, Kenya",
+      "region": "Award-winning coffee region",
+      "status": "Sold out",
+      "statusColor": "bg-amber-600",
+      "fundName": "The Muranga Coffee Cooperative",
+      "pricePerTree": "200€",
+      "roi": "11% - 22%",
+      "investmentCycle": "2022-23",
+      "totalTrees": 12000,
+      "treesSold": 12000,
+      "treesAvailable": 0,
+      "altitude": "1,750m",
+      "plotSize": "420,000m²",
+      "sunnyDays": 205,
+      "description": "Our flagship mature plantation in Muranga, producing award-winning coffee beans and demonstrating the exceptional potential of Kenyan highland coffee investments.",
+      "timelineStages": [
+        {
+          "stage": "Fully Matured",
+          "title": "Award-Winning Plantation",
+          "description": "This mature plantation in Muranga is now producing award-winning coffee beans, representing the pinnacle of our highland coffee cultivation expertise. Trees are in peak production phase.",
+          "status": "completed",
+          "image": "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        }
+      ],
+      "stats": [
+        { "number": "25", "label": "Years of Highland Farming" },
+        { "number": "8", "label": "Dedicated Coffee Experts" },
+        { "number": "1200+", "label": "Satisfied Investors" },
+        { "number": "12000", "label": "Coffee trees managed" },
+        { "number": "30+", "label": "Years of Projected Returns" }
+      ],
+      "investmentDescription": "Our Muranga plantation represents the gold standard of Kenyan highland coffee cultivation. This mature plantation with award-winning beans demonstrates the exceptional long-term value and quality that defines our investment approach.",
+      "returnsDescription": "As our flagship mature plantation, Muranga has consistently delivered exceptional returns to investors. The award-winning quality of these beans commands premium prices, ensuring strong profitability for our investment partners.",
+      "images": [
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0009_ll0led.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438988/DJI_0005_ibmyow.jpg",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438986/DJI_0024_mnhhhy.jpg0",
+        "https://res.cloudinary.com/ddainirdi/image/upload/v1751438987/DJI_0012_b5zxfh.jpg"
+      ]
+    }
+  },
+  "availableOpportunities": {
+    "title": "Available Opportunities",
+    "subtitle": "Invest in sustainable coffee farming",
+    "description": "Join thousands of investors in Kenya's thriving coffee industry",
+    "featuredProject": "project-1"
+  },
+  "howItWorks": {
+    "sectionTitle": "How Does My Investment Work?",
+    "sectionSubtitle": "Simple steps to grow your sustainable investment.",
+    "steps": [
+      {
+        "stepNumber": "Step 1",
+        "title": "Choose Your Coffee Farm",
+        "actionText": "Select your trees.",
+        "description": "Select from 1 to 1,000+ trees in our marketplace of prime coffee-growing regions. Choose the investment package that fits your goals and budget."
+      },
+      {
+        "stepNumber": "Step 2",
+        "title": "We Plant & Manage",
+        "actionText": "Expert care guaranteed.",
+        "description": "Our expert agronomists handle every aspect—planting, irrigation, organic certification, and harvest. You own the trees, we manage everything."
+      },
+      {
+        "stepNumber": "Step 3",
+        "title": "Receive Annual Payouts",
+        "actionText": "Passive income starts.",
+        "description": "Enjoy direct deposits from your share of the harvest starting in Year 3, with options to reinvest for compounding returns."
+      }
+    ],
+    "ctaButton": "Start Your Journey Today"
+  },
+  "investmentPlans": {
+    "sectionTitle": "Choose Your Plan",
+    "sectionDescription": [
+      "Choose from flexible investment plans designed to fit any budget and financial goal.",
+      "Each plan is fully managed and designed for long-term growth."
+    ],
+    "mobileSwipeHint": "👈 Swipe left or right to explore plans 👉",
+    "plans": [
+      {
+        "id": "starter",
+        "name": "Starter",
+        "trees": "50 Trees",
+        "investment": "$5,000 investment",
+        "annualYield": "12%",
+        "term": "5 years",
+        "image": "https://images.pexels.com/photos/7125492/pexels-photo-7125492.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+        "badge": "Perfect Entry Point",
+        "badgeColor": "bg-brown-600",
+        "isRecommended": false,
+        "tagline": "",
+        "features": [
+          "Minimum investment to start earning",
+          "12% annual yield from Year 3",
+          "Expert agronomist management",
+          "Quarterly harvest reports",
+          "Full crop insurance coverage"
+        ],
+        "buttonText": "Start Investing",
+        "buttonType": "primary"
+      },
+      {
+        "id": "professional",
+        "name": "Professional",
+        "trees": "200 Trees",
+        "investment": "$20,000 investment",
+        "annualYield": "14%",
+        "term": "7 years",
+        "image": "https://images.unsplash.com/photo-1647220577886-6a5faaa7c141?auto=format&fit=crop&w=600&h=400&q=80",
+        "badge": "Most Popular",
+        "badgeColor": "bg-brown-700",
+        "isRecommended": true,
+        "tagline": "Most Popular",
+        "features": [
+          "Higher returns with 200 trees",
+          "14% annual yield potential",
+          "Priority plantation management",
+          "Detailed investment tracking",
+          "Reinvestment options for compounding"
+        ],
+        "buttonText": "Choose Professional",
+        "buttonType": "secondary"
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "trees": "1,000+ Trees",
+        "investment": "$100,000 investment",
+        "annualYield": "16%",
+        "term": "10 years",
+        "image": "https://images.unsplash.com/photo-1736017703593-30934e35cc8c?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=luckas-spalinger-P_d9EfO5MjE-unsplash.jpg&w=640",
+        "badge": "Maximum Returns",
+        "badgeColor": "bg-brown-800",
+        "isRecommended": false,
+        "tagline": "",
+        "features": [
+          "Highest return potential at 16%",
+          "Large-scale coffee plantation",
+          "Dedicated account management",
+          "Premium harvest priority",
+          "Custom investment strategies"
+        ],
+        "buttonText": "Talk To Advisor",
+        "buttonType": "primary"
+      }
+    ]
+  },
+  "referralProgram": {
+    "sectionTitle": "Referral Program",
+    "sectionSubtitle": "Share the opportunity and earn rewards. Help others discover sustainable coffee investing while growing your own portfolio.",
+    "earnCard": {
+      "title": "Earn Free Trees",
+      "subtitle": "Refer a friend and get rewarded",
+      "highlightText": "Earn 1 free tree for every $500 invested",
+      "description": "When your referral makes their first investment, you'll receive free coffee trees based on their investment amount.",
+      "benefits": [
+        "No limit on referrals",
+        "Trees added to your portfolio",
+        "Same management and returns"
+      ]
+    },
+    "shareCard": {
+      "title": "Easy Sharing",
+      "subtitle": "Share with just a few clicks",
+      "description": "Use our easy social sharing options to spread the word about sustainable coffee investing.",
+      "buttons": [
+        {
+          "text": "Share on Social Media",
+          "type": "social"
+        },
+        {
+          "text": "Send Personal Invite",
+          "type": "invite"
+        },
+        {
+          "text": "Copy Referral Link",
+          "type": "copy"
+        }
+      ]
+    },
+    "ctaButton": "Start Referring Now"
+  },
+  "riskMitigation": {
+    "sectionTitle": "Risk Mitigation & Trust",
+    "sectionSubtitle": "We understand that investing your capital requires trust. That's why we've implemented comprehensive safeguards to protect your investment at every stage.",
+    "safeguards": [
+      {
+        "icon": "Shield",
+        "title": "Diversified Locations",
+        "description": "Plantations in multiple climate zones for stability. We strategically distribute our coffee farms across different regions to minimize risk and ensure consistent returns."
+      },
+      {
+        "icon": "CloudRain",
+        "title": "Insurance Coverage",
+        "description": "Full crop coverage for peace of mind. Every investment is protected against natural disasters, weather events, and other unforeseen circumstances that could affect your returns."
+      },
+      {
+        "icon": "Award",
+        "title": "Certified Standards",
+        "description": "USDA Organic, Fair Trade, Rainforest Alliance. Our certifications guarantee ethical cultivation, fair farmer treatment, and complete traceability from seedling to export."
+      }
+    ],
+    "community": {
+      "title": "Join Our Growing Community",
+      "description": "Join 1,250+ investors since 2022"
+    },
+    "transparency": {
+      "title": "Transparency and Accountability",
+      "sections": [
+        {
+          "title": "Live Monitoring",
+          "description": "Our IoT-powered monitoring system provides real-time updates on your trees' health, soil conditions, and weather patterns. Access your dashboard anytime to see exactly how your investment is growing.",
+          "buttonText": "View Demo Dashboard"
+        },
+        {
+          "title": "Transparent Reporting",
+          "reports": [
+            "Quarterly Financial Updates",
+            "Annual Sustainability Audits",
+            "Harvest Quality Reports",
+            "Carbon Offset Documentation",
+            "Community Impact Assessments"
+          ]
+        }
+      ]
+    }
+  },
+  "testimonials": {
+    "sectionTitle": "Don't Take Our Word For It -",
+    "sectionSubtitle": "Here's What Our Investors Say",
+    "viewMoreButton": "View more",
+    "swipeHint": "Swipe left or right to see more testimonials",
+    "testimonialsList": [
+      {
+        "id": 1,
+        "title": "Better Returns Than My Stock Portfolio",
+        "name": "M. Rodríguez",
+        "location": "Investor",
+        "thumbnail": "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+        "quote": "Received 14.3% returns in Year 3 – better than my stock portfolio."
+      },
+      {
+        "id": 2,
+        "title": "Coffee Investment Is Something That Will Be The...",
+        "name": "Our Gen 1 Investors",
+        "location": "Nairobi, Kenya",
+        "thumbnail": "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+        "quote": "Coffee investment will be great for other people to invest and help develop Kenya's agricultural future."
+      },
+      {
+        "id": 3,
+        "title": "It Is Possible To Invest Not Only...",
+        "name": "Our Gen 1 Investors", 
+        "location": "Embu County, Kenya",
+        "thumbnail": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+        "quote": "I'm excited about supporting one of Kenya's most promising agricultural ventures because it's not only profitable."
+      },
+      {
+        "id": 4,
+        "title": "I See This As The Future, Because...",
+        "name": "Our Gen 1 Investors",
+        "location": "Nyeri County, Kenya", 
+        "thumbnail": "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+        "quote": "Hello, I'm Sarah Wanjiku and I see this as the future of sustainable coffee farming in Kenya."
+      },
+      {
+        "id": 5,
+        "title": "If You Want To Think Outside The...",
+        "name": "Our Gen 1 Investors",
+        "location": "Mombasa, Kenya",
+        "thumbnail": "https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+        "quote": "If you want to be part of Kenya's agricultural revolution, this is your opportunity."
+      }
+    ],
+    "meetThePeople": {
+      "title": "Meet The People",
+      "subtitle": "Helping Your Coffee Trees Reach Their Full Potential",
+      "description": "Get to know who's taking care of your coffee trees from seed to harvest.",
+      "buttonText": "More about us",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=400&q=80",
+      "imageAlt": "Happy coffee investor testimonial",
+      "quote": "Given time and care, that small coffee tree becomes something much bigger."
+    }
+  },
+  "transparentReports": {
+    "sectionTitle": "Transparent Operational Reports And News",
+    "sectionSubtitle": "Stay informed at all times with real-time updates from our plantations and projects.",
+    "viewAllButton": "View all",
+    "latestNewsBadge": "Latest news",
+    "readMoreButton": "Read more",
+    "maxDisplayItems": 2
+  },
+  "blog": {
+    "pageTitle": "Our Blog Projects, People, Purpose",
+    "latestNewsBadge": "✓ Latest news",
+    "posts": [
+      {
+        "id": "tech-meets-soil-weather-stations",
+        "title": "Tech Meets Soil: Smart Weather Stations Now Live On Our Coffee Plantations",
+        "excerpt": "You can't manage what you don't measure. That's why we've begun installing cutting-edge METOS 5 weather stations across our coffee plantations. These smart devices are transforming how we...",
+        "content": "You can't manage what you don't measure.\n\nThat's why we've begun installing cutting-edge METOS 5 weather stations across our coffee plantations. These smart devices are transforming how we grow — turning real-time climate data into smarter agricultural decisions.\n\nEach station collects and analyzes:\n\n🌡️ Hyper-local 7-day forecasts\n🌿 Leaf moisture, soil humidity, daily temperature  \n💧 Dew point, rainfall, and relative humidity\n🛡️ Early warnings for coffee-specific diseases\n\nWhy are we doing this?\n\nBecause modern agriculture isn't guesswork — it's precision. And because we believe that trust is built on transparency. Our goal is to ensure that our investors and partners can see the care and science behind every tree.\n\nFrom now on, weather-related risks will be seen before they become problems. That means:\n\n✅ Higher yields\n✅ Smarter interventions  \n✅ A resilient future for every tree we plant\n\nWe're not just growing coffee.\n\nWe're connecting agriculture to the future — one smart station at a time. 🌍",
+        "category": "Blog",
+        "date": "28. May",
+        "author": "Coffee Team",
+        "image": "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "readTime": "3 minute reading",
+        "featured": true,
+        "icon": "🌡️☕"
+      },
+      {
+        "id": "first-cameras-installed",
+        "title": "We're Going Live: First Cameras Installed On Our Coffee Plantation!",
+        "excerpt": "As part of our ongoing commitment to transparency and investor trust, we've begun installing live cameras across our plantations...",
+        "content": "As part of our ongoing commitment to transparency and investor trust, we're excited to announce that we've begun installing live cameras across our coffee plantations!\n\n🎥 PLANTATIONS LIVE STREAM 🌱\n\nThis groundbreaking initiative allows our investors and partners to witness the daily progress of their coffee trees in real-time. From seedling care to harvest preparation, you can now see exactly how your investment is growing.\n\nWhat you can expect to see:\n• Daily plantation activities\n• Seasonal growth progress  \n• Weather conditions and their impact\n• Our team's dedicated care for each tree\n• Harvest preparations and activities\n\nWhy transparency matters to us:\n\nTrust is the foundation of every successful partnership. By providing live access to our plantations, we're not just showing you numbers on a report — we're showing you the reality of sustainable coffee farming in Kenya's highlands.\n\nThis is just the beginning. As we expand our camera network across all plantation sites, you'll have unprecedented access to monitor your investment's progress.\n\nBecause when you can see the care, you can trust the results.\n\nWelcome to the future of transparent agriculture! 📹🌿",
+        "category": "Blog",
+        "date": "27. May",
+        "author": "Mocha Team",
+        "image": "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "readTime": "2 minute reading",
+        "featured": false,
+        "icon": "📹🌱"
+      },
+      {
+        "id": "sweet-collaboration-kenya-cooperative",
+        "title": "A Sweet Collaboration: Joining Forces With Kenya's Largest Coffee Cooperative",
+        "excerpt": "As we are officially in harvest season with our plantations and trees, it's the perfect time to shift...",
+        "content": "As we are officially in harvest season with our plantations and trees, it's the perfect time to shift our focus toward partnerships that will amplify our impact across Kenya's coffee landscape.\n\nWe're thrilled to announce our collaboration with Kenya's largest coffee cooperative, representing over 15,000 smallholder farmers across the country's premier coffee-growing regions.\n\n🤝 What This Partnership Means:\n\n• **Enhanced Quality Control**: Access to the cooperative's advanced processing facilities and quality assurance protocols\n• **Expanded Reach**: Integration with established supply chains that connect directly to international markets  \n• **Knowledge Sharing**: Exchange of best practices in sustainable farming and post-harvest processing\n• **Community Impact**: Supporting thousands of local farming families through fair trade practices\n\n**Our Shared Vision:**\n\nThis partnership aligns perfectly with our mission to create sustainable, profitable coffee investments while supporting local communities. Together, we're building a model that benefits investors, farmers, and the environment.\n\n**What's Next:**\n\nOver the coming months, you'll see the fruits of this collaboration through:\n- Improved processing efficiency\n- Enhanced bean quality and consistency  \n- Expanded market access for our premium Kenyan Arabica\n- Greater transparency in our supply chain\n\nThis is more than a business partnership — it's a commitment to the future of Kenyan coffee and the communities that make it possible.\n\nHere's to growing together! ☕🇰🇪",
+        "category": "News",
+        "date": "23. January",
+        "author": "Partnership Team",
+        "image": "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "readTime": "4 minute reading",
+        "featured": false,
+        "icon": "🍃☕"
+      },
+      {
+        "id": "coffee-growing-success-nyeri",
+        "title": "Coffee Growing Success in Nyeri: 80 Hands, 3 Days, And A Growing Opportunity",
+        "excerpt": "The Mocha Coffee Fund is excited to announce that the first phase of planting at our Nyeri location has...",
+        "content": "The Mocha Coffee Fund is excited to announce that the first phase of planting at our Nyeri location has been successfully completed!\n\n🌱 **The Numbers:**\n• 80 dedicated hands working together\n• 3 intensive days of planting\n• 2,400 premium Arabica seedlings planted\n• 15 hectares of highland terrain prepared\n\n**Why Nyeri?**\n\nNyeri County represents the heart of Kenya's coffee excellence. With its volcanic soils, optimal altitude (1,400-1,800m above sea level), and consistent rainfall patterns, this region produces some of the world's most sought-after Arabica beans.\n\n**The Planting Process:**\n\nOur team worked alongside local agricultural experts to ensure each seedling was planted with precision:\n\n1. **Soil Preparation**: Volcanic soil enriched with organic compost\n2. **Spacing Optimization**: Strategic placement for maximum growth potential  \n3. **Water Management**: Installation of efficient irrigation systems\n4. **Shade Management**: Companion planting with indigenous trees\n\n**What This Means for Investors:**\n\nThis successful planting phase represents a significant milestone in our expansion strategy. These 2,400 trees will begin producing their first harvest in 3-4 years, with peak production expected by year 5.\n\n**Community Impact:**\n\nThis project has provided employment for 80 local workers and will continue to support the community through ongoing maintenance and eventual harvest activities.\n\n**Next Steps:**\n\nPhase 2 of our Nyeri expansion is scheduled for the next planting season, with an additional 3,600 trees planned for the adjacent highland plots.\n\nThe future of Kenyan coffee is growing strong in Nyeri! 🇰🇪☕",
+        "category": "Updates",
+        "date": "13. January",
+        "author": "Plantation Team",
+        "image": "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "readTime": "3 minute reading",
+        "featured": false,
+        "icon": "🌱"
+      }
+    ]
+  },
+  "whyJoin": {
+    "sectionTitle": "Why Join",
+    "sectionSubtitle": "Project Mocha?",
+    "slides": [
+      {
+        "title": "20% Average Expected",
+        "subtitle": "Annual Returns",
+        "description": "Your wealth grows with your trees: with 20% historical annual returns, this investment truly bears fruit.",
+        "image": "https://res.cloudinary.com/ddainirdi/image/upload/v1751439929/IMG_9731_eamu1p.jpg"
+      },
+      {
+        "title": "An Investment You Can",
+        "subtitle": "See, Touch, Smell, And Taste",
+        "description": "Unlike traditional investments you often don't understand, this one is simple: plant trees, grow fruit and sell the harvest.",
+        "image": "https://res.cloudinary.com/ddainirdi/image/upload/v1751439928/DSC_8989_tjjopv.jpg"
+      },
+      {
+        "title": "Sustainable Agriculture",
+        "subtitle": "For Future Generations",
+        "description": "Support eco-friendly farming practices while building wealth for yourself and preserving the environment.",
+        "image": "https://res.cloudinary.com/ddainirdi/image/upload/v1751438987/DJI_0011_dcuau2.jpg"
+      }
+    ]
+  },
+  "hero": {
+    "backgroundImage": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1920&q=80",
+    "title": "Invest in Coffee Trees – Earn 12-18% Annual Returns",
+    "primarySubtitle": "Tangible assets, passive income, and a greener future.",
+    "secondarySubtitle": "An investment you can see, touch, smell, and taste.",
+    "benefits": [
+      "12-18% average annual returns.",
+      "Simple Investment, Great Returns.",
+      "Join 1,250+ investors since 2022."
+    ],
+    "buttons": [
+      {
+        "text": "Explore Investment Plans",
+        "type": "primary",
+        "action": "scrollToCalculator"
+      },
+      {
+        "text": "Book a call",
+        "type": "secondary",
+        "action": "external"
+      }
+    ],
+    "trustIndicators": {
+      "title": "Trusted by our partners:",
+      "partners": [
+        {
+          "name": "Maguta Coffee Estate",
+          "logo": "/partners/MAGUTA-COFFEE-ESTATE-LOGO.png",
+          "alt": "Maguta Coffee Estate"
+        },
+        {
+          "name": "TAGCC",
+          "logo": "/partners/tagcc.png",
+          "alt": "TAGCC"
+        },
+        {
+          "name": "AYA",
+          "logo": "/partners/aya.png",
+          "alt": "AYA"
+        },
+        {
+          "name": "Scroll",
+          "logo": "/partners/Scroll.png",
+          "alt": "Scroll"
+        },
+        {
+          "name": "BLCK IoT",
+          "logo": "/partners/blck-iot.png",
+          "alt": "BLCK IoT"
+        },
+        {
+          "name": "Kotani Pay",
+          "logo": "/partners/Kotani-Pay-logo.png",
+          "alt": "Kotani Pay"
+        },
+        {
+          "name": "OMO",
+          "logo": "/partners/omo.png",
+          "alt": "OMO"
+        },
+        {
+          "name": "Swypt",
+          "logo": "/partners/swypt-logo.png",
+          "alt": "Swypt"
+        }
+      ]
+    }
+  },
+  "aboutUs": {
+    "hero": {
+      "backgroundImage": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1920&q=80",
+      "title": "About Project",
+      "titleHighlight": "Mocha",
+      "descriptions": [
+        "Project Mocha was founded in 2024 with a vision to connect investors with the world's most cherished crop—coffee—while supporting ethical, sustainable farming. What began as a small pilot in Embu, Kenya is growing into a global initiative that empowers communities and delivers real returns.",
+        "Our journey begins with bringing 2000 coffee trees from our pilot farm in Embu. After the first year, we plan to increase the number of coffee trees to 200 million by 2040, introduce innovative agroforestry techniques, and partner with investors worldwide. Our mission is to make coffee farming accessible, profitable, and sustainable—benefiting both our investors and the communities who grow the beans.",
+        "We pay our farmers above market rates, invest in research around the monetisation of biodiversity data, IoT sensors for farm management and invest in water conservation projects to ensure long-term environmental health."
+      ],
+      "buttons": [
+        {
+          "text": "Free strategy session",
+          "type": "primary"
+        },
+        {
+          "text": "Why coffee?",
+          "type": "secondary"
+        }
+      ],
+      "callToAction": "Get all the info you need for your first successful coffee investment"
+    },
+    "team": {
+      "sectionTitle": "Who We Are?",
+      "sectionSubtitle": "Meet The Team Behind Sustainable Growth",
+      "swipeHint": "Swipe left or right to meet the team",
+      "members": [
+        {
+          "name": "Samuel Mwangi",
+          "role": "Head Grower",
+          "initials": "SM",
+          "image": "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop"
+        },
+        {
+          "name": "Grace Wanjiku",
+          "role": "Coffee Quality Manager",
+          "initials": "GW",
+          "image": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop"
+        },
+        {
+          "name": "David Kinyua",
+          "role": "Co-Founder",
+          "initials": "DK",
+          "image": "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop"
+        }
+      ]
+    },
+    "statistics": {
+      "sectionTitle": "Why Invest In",
+      "sectionTitleHighlight": "Coffee?",
+      "description": "For just $100 per tree, you can be part of a thriving, environmentally friendly venture that not only generates steady passive income but also contributes positively to our ecosystem.",
+      "buttons": [
+        {
+          "text": "Invest now",
+          "type": "primary"
+        },
+        {
+          "text": "Schedule a call",
+          "type": "secondary"
+        }
+      ],
+      "stats": [
+        { "number": "2024", "label": "Founded" },
+        { "number": "8", "label": "Dedicated Coffee Experts" },
+        { "number": "1,250+", "label": "Investors since 2022" },
+        { "number": "2,000", "label": "Coffee trees (pilot)" },
+        { "number": "200M", "label": "Trees by 2040" }
+      ]
+    },
+    "investmentModel": {
+      "sectionTitle": "What We Offer",
+      "sectionSubtitle": "A Unique Investment Model!",
+      "backgroundImage": "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "models": [
+        {
+          "title": "Long-Term Returns",
+          "description": "Coffee plantations provide over 30 years of stability and yield. Our investment strategy focuses on sustainable agricultural practices that ensure consistent production and profitability for our investors over the long haul.",
+          "buttonText": "Register now",
+          "buttonType": "primary"
+        },
+        {
+          "title": "Investor Priority",
+          "description": "Profits are prioritized to first cover the expenses of investors, thereby ensuring the security of your investment. We believe in creating a transparent and trustworthy relationship with our investors, where your financial well-being is our primary concern.",
+          "buttonText": "My account",
+          "buttonType": "secondary"
+        }
+      ]
+    },
+    "coffeeDemand": {
+      "badge": "Continuous growth",
+      "title": "Historically, Coffee Has Always Been In High Demand And Short Supply",
+      "description": "With coffee demand growing yearly and a stable supply, the market price of coffee is very consistent, making it an ideal long-term investment opportunity.",
+      "navigationInfo": "1 / 6",
+      "image": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&h=400&q=80",
+      "imageAlt": "Coffee plantation sustainability practices"
+    },
+    "values": {
+      "sectionTitle": "What Drives Us?",
+      "valuesList": [
+        {
+          "title": "Sustainability",
+          "description": "We are dedicated to creating a sustainable future, focusing on the well-being and satisfaction of our farmers and stakeholders alike. Our model promotes environmental health, setting a foundation for future generations.",
+          "icon": "🌱"
+        },
+        {
+          "title": "Authenticity",
+          "description": "We honor our unique story with a sustainable coffee investment model, founded on transparency and trust. Authenticity in every action is our guiding principle, helping us build lasting, genuine connections with our stakeholders.",
+          "icon": "🎯"
+        },
+        {
+          "title": "Community",
+          "description": "Our investment approach empowers local communities, financial freedom, and independence, especially in challenging times. We prioritize community development at every level, enabling our stakeholders to make informed, confident decisions about their future.",
+          "icon": "🤝"
+        },
+        {
+          "title": "Partnership",
+          "description": "Together with our investors, we pursue a common goal: advancing sustainable coffee agriculture. Our vision relies on teamwork and collaboration, and we proudly walk this path alongside our community of stakeholders.",
+          "icon": "🔗"
+        },
+        {
+          "title": "Growth",
+          "description": "Just as we nurture our trees to ensure returns, we care deeply for the communities and environments where we operate. Through this commitment, we create lasting, positive impacts that support both nature and society.",
+          "icon": "📈"
+        },
+        {
+          "title": "Transparency",
+          "description": "Transparency and accountability are at the core of our business. We uphold the highest ethical standards, take responsibility for our actions, and provide clear, accurate information to foster trust and clarity in every partnership.",
+          "icon": "🔍"
+        }
+      ]
+    },
+    "ethicalImpact": {
+      "sectionTitle": "Your Investment Grows Communities",
+      "sectionDescription": "Every coffee tree you invest in creates positive impact beyond financial returns. See how your investment supports farmers, communities, and the environment.",
+      "impactStats": [
+        {
+          "number": "40%",
+          "title": "Premium Over Market",
+          "description": "Premium over local coffee prices paid to farmers, ensuring fair compensation and sustainable livelihoods.",
+          "cardType": "light"
+        },
+        {
+          "number": "100+",
+          "title": "School Scholarships",
+          "description": "School scholarships for growers' children, investing in education and future opportunities.",
+          "cardType": "brown"
+        },
+        {
+          "number": "5+",
+          "title": "Water Systems",
+          "description": "Water conservation systems installed per 100 trees, supporting sustainable farming practices.",
+          "cardType": "light"
+        }
+      ],
+      "communityImpact": {
+        "title": "Community Impact Beyond Coffee",
+        "descriptions": [
+          "Our investment model creates lasting positive change in farming communities. We believe that sustainable returns come from sustainable practices that benefit everyone.",
+          "By investing in coffee plantations, you're not only securing your financial future but also contributing to environmental conservation and community development."
+        ],
+        "buttons": [
+          {
+            "text": "Invest now",
+            "type": "primary"
+          },
+          {
+            "text": "Learn more",
+            "type": "secondary"
+          }
+        ],
+        "image": "https://images.unsplash.com/photo-1442544213729-6a15f1611937?auto=format&fit=crop&w=600&h=400&q=80",
+        "imageAlt": "Coffee farming community impact",
+        "videoQuote": "Supporting communities through sustainable coffee farming"
+      }
+    },
+    "journey": {
+      "sectionTitle": "Explore",
+      "sectionSubtitle": "The Project Mocha Journey",
+      "steps": [
+        {
+          "year": "2024",
+          "title": "Project Mocha Founded",
+          "description": "Founded with a vision to connect investors with coffee while supporting ethical, sustainable farming. Started with a small pilot in Embu, Kenya.",
+          "image": "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
+        },
+        {
+          "year": "2024 - 2025",
+          "title": "Pilot Farm Success",
+          "description": "Our journey begins with bringing 2000 coffee trees from our pilot farm in Embu. Establishing sustainable farming practices and community partnerships.",
+          "image": "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
+        },
+        {
+          "year": "2040 Vision",
+          "title": "Global Expansion",
+          "description": "Plan to increase to 200 million coffee trees by 2040, introduce innovative agroforestry techniques, and partner with investors worldwide.",
+          "image": "https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
+        }
+      ]
+    },
+    "culture": {
+      "sectionTitle": "Culture And Opportunity",
+      "descriptions": [
+        "At Project Mocha, we foster a company culture that balances business success with an eco-friendly mindset. Our team is dedicated to advancing both our business and the communities we serve. Employees have the chance to engage in events, showcase their work, and make a meaningful impact in society.",
+        "Our mission is to make the rich tradition of coffee cultivation accessible to everyone, catering to both small and mid-sized investors. We offer an innovative approach to agro-investing that emphasizes sustainability and community involvement."
+      ],
+      "buttonText": "Invest now",
+      "image": "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+      "imageAlt": "Coffee culture"
+    },
+    "processingFacility": {
+      "sectionTitle": "Modern Coffee Processing Facility",
+      "descriptions": [
+        "Our state-of-the-art coffee processing facility ensures that every coffee bean is treated with the utmost care and precision.",
+        "We use the latest technology and traditional methods to produce high-quality coffee that meets the highest standards."
+      ],
+      "buttonText": "Learn more",
+      "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&h=400&q=80",
+      "imageAlt": "Modern coffee processing facility"
+    }
+  },
+  "investing": {
+    "hero": {
+      "backgroundImage": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1920&q=80",
+      "title": "Start Investing In",
+      "titleLines": ["Your Coffee", "Future Today"],
+      "titleHighlight": "Future Today",
+      "description": "Grow premium Arabica coffee trees with us. Expand your portfolio with our fully-managed coffee plantations in Kenya's renowned highland regions - home to some of the world's finest coffee.",
+      "buttons": [
+        {
+          "text": "Free strategy session",
+          "type": "primary"
+        },
+        {
+          "text": "Make long-term profits",
+          "type": "secondary"
+        }
+      ],
+      "callToAction": "Talk to our advisor and get to know everything you need for a secure investment."
+    },
+    "globalInvestment": {
+      "sectionTitle": "Invest From",
+      "sectionSubtitle": "All Around The World",
+      "description": "Project Mocha invites global investors to grow high-yield Arabica coffee plantations in Kenya's fertile highlands. After setup, our local agricultural experts and Kenyan farmers ensure each tree thrives in the ideal volcanic soil for maximum long-term profits. We only take our share after your initial investment is fully returned.",
+      "showcaseCard": {
+        "image": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1200&h=600&q=80",
+        "imageAlt": "Kenyan coffee plantations in highland terrain",
+        "flagEmoji": "🇰🇪",
+        "title": "Kenyan Coffee Investment",
+        "description": "Our premium Arabica coffee plantations in Kenya's highlands welcome investors from around the world. Join our community of international investors in Kenya's renowned coffee heritage."
+      },
+      "buttons": [
+        {
+          "text": "Schedule a call",
+          "type": "primary"
+        },
+        {
+          "text": "Invest now",
+          "type": "secondary"
+        }
+      ]
+    },
+    "howItWorks": {
+      "sectionTitle": "How Does My Investment Work?",
+      "sectionDescription": "Simple steps to grow your sustainable coffee investment.",
+      "steps": [
+        {
+          "step": 1,
+          "title": "You Place An Order – Pick The Perfect Plan",
+          "subtitle": "Choose your package.",
+          "icon": "🛒"
+        },
+        {
+          "step": 2,
+          "title": "We Plant And Grow Your Coffee Trees",
+          "subtitle": "We handle the rest.",
+          "icon": "🌱"
+        },
+        {
+          "step": 3,
+          "title": "You Collect Your Payouts Every Year",
+          "subtitle": "Enjoy the returns.",
+          "icon": "💰"
+        }
+      ],
+      "ctaButton": {
+        "text": "Start Your Journey Today"
+      }
+    },
+    "cashFlowForecast": {
+      "sectionTitle": "Cash Flow Forecast And",
+      "sectionSubtitle": "Investment Pitch Desk",
+      "description": "Download the 10 years cash flow forecast and investment pitch deck featuring Kenya-specific market data and get detailed insights into your Kenyan coffee investment.",
+      "downloadButton": {
+        "text": "Download now"
+      },
+      "chartTitle": "Yearly income from one coffee tree",
+      "chartPhases": [
+        {
+          "phase": "Kenya highland planting & tree development",
+          "position": "top-left"
+        },
+        {
+          "phase": "Return on Investment period",
+          "position": "top-right"
+        },
+        {
+          "phase": "The golden years",
+          "description": "Premium Kenyan Arabica yields $70-$120/tree",
+          "position": "bottom-right"
+        }
+      ]
+    },
+    "lifeCycle": {
+      "title": "Investment Life Cycle",
+      "subtitle": "Discover the growth stages of your coffee investment, from planting to peak profitability.",
+      "stages": [
+        {
+          "stage": "Plantation Setup",
+          "timeline": "Year 1",
+          "title": "Coffee Plantation Setup",
+          "description": "At this stage, you have placed an order for your coffee tree saplings. We will plant them in the first upcoming planting season in our sustainable coffee plantations across Kenya's fertile highlands, including the renowned Nyeri and Kiambu regions.",
+          "image": "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+          "badge": "Planted"
+        },
+        {
+          "stage": "Tree Development",
+          "timeline": "Years 2-4",
+          "title": "Coffee Tree Development Period",
+          "description": "In these first years, your coffee trees focus on building strong roots and structure in Kenya's ideal climate. Although capable of some early yields, initial harvests are reinvested to boost long-term vitality. Kenya's volcanic soil provides perfect conditions for healthy growth, lasting yields, and future returns.",
+          "image": "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+          "badge": "1 - 4 Years"
+        },
+        {
+          "stage": "ROI Period",
+          "timeline": "Years 5-8",
+          "title": "Initial Returns",
+          "description": "By year 5, your coffee trees begin to produce meaningful yields of premium Kenyan Arabica beans. From this point onward, returns steadily grow—culminating in full return on your investment typically by year 7 or 8. This stage marks the financial fruition of your long-term commitment to Kenya's coffee excellence.",
+          "image": "https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+          "badge": "Reward Years (5-8)"
+        },
+        {
+          "stage": "Golden Years",
+          "timeline": "Years 9-30+",
+          "title": "The Golden Years",
+          "description": "Your coffee trees are fully mature and are producing anywhere between 2-5 kg of premium Kenyan Arabica beans annually. Known for their bright acidity and wine-like flavor, these beans command premium prices in global markets, representing peak profitability and consistent returns for decades to come.",
+          "image": "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+          "badge": "9 - 30+ Years"
+        }
+      ]
+    },
+    "riskMitigation": {
+      "sectionTitle": "Full ROI",
+      "sectionSubtitle": "No Matter What",
+      "riskCard": {
+        "title": "Risk Mitigation",
+        "descriptions": [
+          "The calculation of yearly dividends is based on a percentage ownership stake in the Kenyan plantation, not on an individual \"tree yield\" basis.",
+          "This means that in case something happens to your tree/trees due to weather or other factors affecting Kenyan highlands, you will not be left empty-handed.",
+          "We ensure that you receive your entitled profits, and we will replant your trees in our Kenyan plantation sites."
+        ],
+        "image": "https://images.unsplash.com/photo-1442544213729-6a15f1611937?auto=format&fit=crop&w=600&h=400&q=80",
+        "imageAlt": "Coffee farmers working in plantation"
+      },
+      "insuranceCard": {
+        "title": "Insurance",
+        "descriptions": [
+          "As an additional line of defense from unforeseen circumstances in Kenya's highlands, Project Mocha covers all insurance-related costs until the plantation has reached self-sustainability.",
+          "In case of force majeure affecting our Kenyan operations, insurance settlements paid out to Project Mocha will be divided among investors proportionally."
+        ],
+        "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&h=400&q=80",
+        "imageAlt": "Coffee plantation aerial view"
+      }
+    },
+    "investmentBenefits": {
+      "sectionTitle": "Choose Your",
+      "sectionSubtitle": "Investment Future",
+      "sectionDescription": "Discover the growth stages of your Kenyan coffee investment, from highland planting to premium Arabica profitability.",
+      "benefits": [
+        {
+          "title": "Passive Income And Yield",
+          "description": "Coffee farming is a substantial source of passive income. It might take a couple of years for the yield to start coming in, but when it does, you will enjoy it for the next 25+ years.",
+          "icon": "TrendingUp",
+          "cardType": "text"
+        },
+        {
+          "title": "Good For The Environment",
+          "description": "Everyone should plant at least one tree in his or her lifetime... And you are going to get paid for doing so.",
+          "icon": "Leaf",
+          "cardType": "text"
+        },
+        {
+          "title": "Young Coffee Trees",
+          "description": "",
+          "icon": "",
+          "cardType": "image",
+          "image": "https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&w=600&h=400&q=80",
+          "imageAlt": "Young coffee trees growing"
+        },
+        {
+          "title": "Coffee Farming Family",
+          "description": "",
+          "icon": "",
+          "cardType": "image",
+          "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80",
+          "imageAlt": "Coffee farming family"
+        },
+        {
+          "title": "A Gift For The Next Generation",
+          "description": "Not only are you creating equity for yourself, you are also securing future generations to come.",
+          "icon": "Gift",
+          "cardType": "text"
+        },
+        {
+          "title": "Photo And Video Updates",
+          "description": "Project Mocha prides itself on transparency. With photo and video updates directly from the plantation, you will follow your coffee trees thoroughly, from planting to harvesting.",
+          "icon": "Camera",
+          "cardType": "text"
+        }
+      ]
+    }
+  },
+  "projectsPage": {
+    "hero": {
+      "backgroundImage": "https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&w=1920&q=80",
+      "title": "Explore Our Projects",
+      "description": "Explore our active and sold-out projects - building wealth through sustainable Kenyan highland coffee plantations and premium Arabica cultivation.",
+      "buttons": [
+        {
+          "text": "Free strategy session",
+          "type": "primary"
+        },
+        {
+          "text": "Make long-term profits",
+          "type": "secondary"
+        }
+      ],
+      "callToAction": "Talk to our advisor and get to know everything you need for a secure investment."
+    },
+    "projectsGrid": {
+      "sectionTitle": "Our Investment Projects",
+      "sectionDescription": "Explore our current and completed coffee plantation projects across Kenya's premier highland regions"
+    },
+    "coffeeFacts": {
+      "sectionTitle": "Why Invest In Coffee?",
+      "sectionDescription": "Discover the compelling reasons behind Kenyan highland coffee plantation investments",
+      "badge": "Continuous growth",
+      "facts": [
+        {
+          "title": "Historically, Coffee Has Always Been In High Demand And Short Supply",
+          "description": "With coffee demand growing yearly and a stable supply, the market price of coffee is very consistent, making it an ideal long-term investment opportunity.",
+          "image": "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "title": "Coffee Trees Are Long-Term Investment Assets",
+          "description": "Coffee trees can produce beans for over 30 years, providing steady returns throughout their productive lifetime with peak yields after 5-7 years.",
+          "image": "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "title": "Premium Quality Kenyan Arabica Coffee",
+          "description": "Our Kenyan highland plantations produce world-renowned Arabica beans with bright acidity and wine-like flavors, commanding premium prices in global specialty markets.",
+          "image": "https://images.pexels.com/photos/1695909/pexels-photo-1695909.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "title": "Sustainable Highland Farming Practices",
+          "description": "We employ eco-friendly farming methods in Kenya's highlands that ensure long-term volcanic soil health, sustainable production, and environmental stewardship alongside local communities.",
+          "image": "https://images.pexels.com/photos/2889685/pexels-photo-2889685.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "title": "Growing Global Coffee Consumption",
+          "description": "Coffee consumption continues to rise globally, with specialty coffee driving premium pricing and consistent demand for quality beans.",
+          "image": "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        },
+        {
+          "title": "Proven Kenyan Coffee Investment Returns",
+          "description": "Our existing Kenyan highland coffee plantations have consistently delivered strong returns to investors, with transparent profit-sharing, regular updates, and direct farmer partnerships.",
+          "image": "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        }
+      ]
+    },
+    "waitlist": {
+      "sectionTitle": "Stay Updated",
+      "sectionDescription": "Be the first to know about new Kenyan highland coffee investment opportunities",
+      "cardTitle": "Join The Waitlist",
+      "cardDescription": "Join our waitlist and receive updates on upcoming Kenyan highland coffee plantation projects and exclusive early access to invest in sustainable, profitable Arabica coffee farming. Be part of Kenya's coffee heritage and the future of premium coffee investment with Project Mocha.",
+      "image": "https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+      "imageAlt": "Kenyan coffee cherries growing in highland plantation",
+      "emailPlaceholder": "Your email address",
+      "subscribeButton": {
+        "text": "Subscribe"
+      }
+    }
+  },
+  "projectDetailPage": {
+    "hero": {
+      "backgroundImage": "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "badge": "Since 2024",
+      "buttons": [
+        {
+          "text": "Free strategy session",
+          "type": "primary"
+        },
+        {
+          "text": "View real results",
+          "type": "secondary"
+        }
+      ],
+      "callToAction": "Talk to our advisor and get to know everything you need for a secure investment."
+    },
+    "investmentCard": {
+      "title": "Invest Now",
+      "description": "See current availability and secure your share of this unique investment opportunity.",
+      "treesLabel": "Total trees available now",
+      "priceLabel": "Price per tree: ",
+      "roiLabel": "ROI: ",
+      "cycleLabel": "Investment cycle: ",
+      "investButton": {
+        "text": "Invest now"
+      }
+    },
+    "welcome": {
+      "title": "Welcome To Our",
+      "subtitle": "2024 Plantation", 
+      "description": "Part of the coffee trees will be planted in 2024, the rest will become part of this highland plantation by the end of 2025.",
+      "statsLabels": {
+        "totalTrees": "Total trees",
+        "treesSold": "Trees sold",
+        "treesAvailable": "Trees available",
+        "altitude": "Altitude:",
+        "plotSize": "Plot size:",
+        "sunnyDays": "Sunny days:"
+      },
+      "buttons": [
+        {
+          "text": "Schedule a call",
+          "type": "primary"
+        },
+        {
+          "text": "Invest now",
+          "type": "secondary"
+        }
+      ]
+    },
+    "timeline": {
+      "title": "Plantation Status",
+      "subtitle": "Discover the growth stages of your coffee investment, from highland planting to peak profitability."
+    },
+    "investmentReturns": {
+      "backgroundImage": "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "title": "Find Out More About",
+      "subtitle": "Investment And Returns",
+      "investmentSection": {
+        "title": "Investment",
+        "buttonText": "Register now"
+      },
+      "returnsSection": {
+        "title": "Returns", 
+        "buttonText": "My account"
+      }
+    },
+    "faq": {
+      "title": "Do You Have A Question?",
+      "titleHighlight": "Do You Have A",
+      "titleMain": "Question?",
+      "description": "Take a look below at the most frequently asked questions. If you can not find the answer to your question, feel free to send us an email and we will get back to you as soon as possible.",
+      "transparency": "Transparency is always the best policy!",
+      "scheduleButton": {
+        "text": "Schedule a call"
+      },
+      "questions": [
+        {
+          "question": "Who Can Invest?",
+          "answer": "Everyone! We have investors from all around the world. Plant a tree and join the team!"
+        },
+        {
+          "question": "What Is The Minimum Investment?",
+          "answer": "The minimum investment is 200€ per coffee tree. This allows you to start your coffee investment journey with a manageable entry point while still participating in the long-term returns of premium Kenyan coffee cultivation."
+        },
+        {
+          "question": "How Do I Fund My Investment?",
+          "answer": "You can fund your coffee tree investment through bank transfer, credit card, or other secure payment methods. Our team will guide you through the simple funding process once you decide to invest."
+        },
+        {
+          "question": "What Am I Investing In?",
+          "answer": "You're investing in premium Arabica coffee trees in Kenya's highland regions. Each tree is carefully cultivated in optimal growing conditions to produce high-quality coffee beans that generate returns through sales of the harvested coffee."
+        },
+        {
+          "question": "How Often Are Payouts Made?",
+          "answer": "Payouts are typically made annually after the coffee harvest season. The exact timing depends on the harvest cycle and processing of the coffee beans, usually between 12-18 months after planting for new trees."
+        },
+        {
+          "question": "How Are Payouts Calculated?",
+          "answer": "Payouts are calculated based on the net profit from coffee sales after deducting operational costs, processing, and management fees. Returns typically range from 11-22% annually, depending on market prices and harvest yields."
+        },
+        {
+          "question": "Can I Visit My Coffee Trees?",
+          "answer": "Yes! We encourage investors to visit their coffee plantations in Kenya. We can arrange guided tours of the highland farms where you can see your trees growing and meet the local farmers who care for them."
+        },
+        {
+          "question": "What Happens If My Tree Dies?",
+          "answer": "Your investment is protected through our risk mitigation program. If individual trees are affected by weather or disease, your returns are calculated based on overall plantation performance, not individual tree yields. We also maintain insurance coverage and replanting commitments."
+        }
+      ]
+    },
+    "notFound": {
+      "title": "Project Not Found",
+      "message": "The project you're looking for doesn't exist or has been moved.",
+      "backButton": "Back to Projects"
+    }
+  },
+  "blogPage": {
+    "hero": {
+      "title": "Our Blog Projects, People, Purpose",
+      "latestNewsBadge": "✓ Latest news",
+      "featuredPostSuffix": "🌿 ❄️",
+      "readMoreText": "Read more"
+    },
+    "articlesSection": {
+      "title": "See More Articles",
+      "nextButtonText": "Next page"
+    },
+    "callToAction": {
+      "title": "Ready To Start Your",
+      "subtitle": "Coffee Investment Journey?",
+      "description": "Join thousands of investors who are already growing their wealth through sustainable coffee plantation investments in Kenya's fertile highlands.",
+      "primaryButtonText": "Start Investing",
+      "secondaryButtonText": "Schedule a Call"
+    }
+  },
+  "blogArticlePage": {
+    "navigation": {
+      "backToBlogs": "Back to Blog",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "content": {
+      "relatedImagesTitle": "Related Images",
+      "notFoundTitle": "Article Not Found",
+      "notFoundMessage": "The article you're looking for doesn't exist or has been moved."
+    }
+  },
+  "hero": {
+    "backgroundType": "image",
+    "backgroundImage": "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    "backgroundVideo": "",
+    "title": "Invest in Coffee. Harvest Your Future.",
+    "primarySubtitle": "Own premium Kenyan highland coffee trees that generate passive income for decades.",
+    "secondarySubtitle": "Join thousands of investors building sustainable wealth through coffee plantation ownership in Kenya's fertile highlands.",
+    "benefits": [
+      "Premium Arabica coffee trees in Kenya's highlands",
+      "11-22% annual returns from coffee sales",
+      "Fully managed by local experts",
+      "Transparent investment with regular updates",
+      "30+ years of productive tree life"
+    ],
+    "buttons": [
+      {
+        "text": "Start Investing",
+        "type": "primary",
+        "action": "scrollToCalculator"
+      },
+      {
+        "text": "Schedule a Call",
+        "type": "secondary",
+        "action": "external"
+      }
+    ],
+    "trustIndicators": {
+      "title": "Trusted by investors worldwide and partnered with",
+      "partners": [
+        {
+          "name": "Aya Finance",
+          "logo": "/partners/aya.png",
+          "alt": "Aya Finance"
+        },
+        {
+          "name": "BLCK IoT",
+          "logo": "/partners/blck-iot.png",
+          "alt": "BLCK IoT"
+        },
+        {
+          "name": "Kotani Pay",
+          "logo": "/partners/Kotani-Pay-logo.png",
+          "alt": "Kotani Pay"
+        },
+        {
+          "name": "Maguta Coffee Estate",
+          "logo": "/partners/MAGUTA-COFFEE-ESTATE-LOGO.png",
+          "alt": "Maguta Coffee Estate"
+        },
+        {
+          "name": "OMO Finance",
+          "logo": "/partners/omo.png",
+          "alt": "OMO Finance"
+        },
+        {
+          "name": "Scroll",
+          "logo": "/partners/Scroll.png",
+          "alt": "Scroll"
+        },
+        {
+          "name": "Swypt",
+          "logo": "/partners/swypt-logo.png",
+          "alt": "Swypt"
+        },
+        {
+          "name": "Tag Creative Communications",
+          "logo": "/partners/tagcc.png",
+          "alt": "Tag Creative Communications"
+        }
+      ]
+    }
+  }
+} 

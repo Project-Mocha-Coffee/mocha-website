@@ -1,94 +1,92 @@
 import React, { useState, useEffect } from 'react';
 import { Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const testimonials = [
-  {
-    id: 1,
-    title: "Better Returns Than My Stock Portfolio",
-    name: "M. Rodríguez",
-    location: "Investor",
-    thumbnail: "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "Received 14.3% returns in Year 3 – better than my stock portfolio."
-  },
-  {
-    id: 2,
-    title: "Coffee Investment Is Something That Will Be The...",
-    name: "Our Gen 1 Investors",
-    location: "Nairobi, Kenya",
-    thumbnail: "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "Coffee investment will be great for other people to invest and help develop Kenya's agricultural future."
-  },
-  {
-    id: 3,
-    title: "It Is Possible To Invest Not Only...",
-    name: "Our Gen 1 Investors", 
-    location: "Embu County, Kenya",
-    thumbnail: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "I'm excited about supporting one of Kenya's most promising agricultural ventures because it's not only profitable."
-  },
-  {
-    id: 4,
-    title: "I See This As The Future, Because...",
-    name: "Our Gen 1 Investors",
-    location: "Nyeri County, Kenya", 
-    thumbnail: "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "Hello, I'm Sarah Wanjiku and I see this as the future of sustainable coffee farming in Kenya."
-  },
-  {
-    id: 5,
-    title: "If You Want To Think Outside The...",
-    name: "Our Gen 1 Investors",
-    location: "Mombasa, Kenya",
-    thumbnail: "https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    quote: "If you want to be part of Kenya's agricultural revolution, this is your opportunity."
-  }
-];
+import { useContent } from '../contexts/ContentContext';
+import type { TestimonialsData, Testimonial } from '../types/content';
 
 const TestimonialsSection: React.FC = () => {
+  const { content } = useContent();
+  
+  // Early return if content is not available
+  if (!content) {
+    return null;
+  }
+  
+  const data = content.testimonials as TestimonialsData;
+  const testimonials = data.testimonialsList;
+  
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+ 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-scroll functionality for mobile
+  // Handle window resize to reset carousel position
+  useEffect(() => {
+    const handleResize = () => {
+      setCurrentSlide(0); // Reset to first slide on resize
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Auto-scroll functionality
   useEffect(() => {
     const interval = setInterval(() => {
-      if (window.innerWidth < 1024) { // Only auto-scroll on mobile/tablet
-        setCurrentSlide((prev) => (prev + 1) % testimonials.length);
-      }
+      setCurrentSlide((prev) => {
+        const slidesToShow = getSlidesToShow();
+        const maxSlide = testimonials.length - slidesToShow;
+        return prev >= maxSlide ? 0 : prev + 1;
+      });
     }, 5000); // Change slide every 5 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length]);
+
+  // Function to get number of slides to show based on screen size
+  const getSlidesToShow = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1024) return 3; // lg screens - show 3 cards
+      if (window.innerWidth >= 768) return 2;  // md screens - show 2 cards
+      return 1; // sm screens - show 1 card
+    }
+    return 1;
+  };
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+    setCurrentSlide((prev) => {
+      const slidesToShow = getSlidesToShow();
+      const maxSlide = testimonials.length - slidesToShow;
+      return prev >= maxSlide ? 0 : prev + 1;
+    });
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentSlide((prev) => {
+      const slidesToShow = getSlidesToShow();
+      const maxSlide = testimonials.length - slidesToShow;
+      return prev <= 0 ? maxSlide : prev - 1;
+    });
   };
 
   const goToSlide = (index: number) => {
-    setCurrentSlide(index);
+    const slidesToShow = getSlidesToShow();
+    const maxSlide = testimonials.length - slidesToShow;
+    setCurrentSlide(Math.min(index, maxSlide));
   };
 
-  const TestimonialCard = ({ testimonial, index, isMobile = false }: { testimonial: typeof testimonials[0], index: number, isMobile?: boolean }) => (
-    <div 
-      className={`card bg-white hover:shadow-xl transition-all duration-1000 overflow-hidden ${
-        !isMobile && isVisible ? 'translate-y-0 opacity-100' : !isMobile ? 'translate-y-10 opacity-0' : ''
-      } ${isMobile ? 'mx-2' : ''}`}
-      style={!isMobile ? { transitionDelay: `${index * 150}ms` } : {}}
-    >
+  const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
+    <div className="px-3 w-full flex">
+      <div className="card bg-white hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col w-full">
       {/* Video Thumbnail */}
-      <div className="relative">
+        <div className="relative flex-shrink-0">
         <img
           src={testimonial.thumbnail}
           alt={testimonial.name}
-          className={`w-full object-cover ${isMobile ? 'h-56 sm:h-64' : 'h-48'}`}
+            className="w-full h-48 sm:h-56 lg:h-48 object-cover"
         />
         {/* Play Button Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer touch-manipulation">
@@ -98,24 +96,27 @@ const TestimonialsSection: React.FC = () => {
         </div>
         {/* Quote overlay */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
-          <p className={`text-white italic leading-relaxed ${isMobile ? 'text-sm sm:text-base' : 'text-sm'}`}>
+            <p className="text-white italic leading-relaxed text-sm">
             "{testimonial.quote}"
           </p>
         </div>
       </div>
 
       {/* Content */}
-      <div className={`${isMobile ? 'p-4 sm:p-5' : 'p-4'}`}>
-        <h4 className={`text-brown-700 font-bold mb-2 line-clamp-2 ${isMobile ? 'text-base sm:text-lg' : 'text-sm'}`}>
+        <div className="p-4 flex-grow flex flex-col justify-between">
+          <div>
+            <h4 className="text-brown-700 font-bold mb-2 line-clamp-2 text-sm lg:text-base">
           {testimonial.title}
         </h4>
-        <div className="space-y-1">
-          <p className={`text-gray-700 font-semibold ${isMobile ? 'text-sm sm:text-base' : 'text-sm'}`}>
+          </div>
+          <div className="space-y-1 mt-auto">
+            <p className="text-gray-700 font-semibold text-sm">
             {testimonial.name}
           </p>
-          <p className={`text-gray-500 ${isMobile ? 'text-xs sm:text-sm' : 'text-xs'}`}>
+            <p className="text-gray-500 text-xs">
             {testimonial.location}
           </p>
+          </div>
         </div>
       </div>
     </div>
@@ -132,66 +133,56 @@ const TestimonialsSection: React.FC = () => {
             }`}
           >
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">
-              Don't Take Our Word For It -
+              {data.sectionTitle}
             </h2>
             <h3 className="text-lg sm:text-xl lg:text-2xl text-coffee-300 mb-6 sm:mb-8">
-              Here's What Our Investors Say
+              {data.sectionSubtitle}
             </h3>
             <div className="flex justify-center lg:justify-end">
               <button className="btn bg-brown-700 text-white hover:bg-brown-800 border-brown-700 text-sm sm:text-base py-3 px-6 touch-manipulation">
-                View more <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                {data.viewMoreButton} <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </button>
             </div>
           </div>
 
-          {/* Desktop Grid Layout */}
-          <div className="hidden lg:grid lg:grid-cols-4 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard 
-                key={testimonial.id} 
-                testimonial={testimonial} 
-                index={index} 
-              />
-            ))}
-          </div>
-
-          {/* Mobile/Tablet Carousel */}
-          <div className="lg:hidden relative mb-8 sm:mb-12">
+          {/* Unified Carousel for All Screen Sizes */}
+          <div className="relative mb-8 sm:mb-12">
             {/* Carousel Container */}
-            <div className="relative overflow-hidden rounded-2xl">
+            <div className="relative overflow-hidden">
               <div 
-                className="flex transition-transform duration-500 ease-in-out touch-manipulation"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ 
+                  transform: `translateX(-${currentSlide * (100 / getSlidesToShow())}%)` 
+                }}
               >
                 {testimonials.map((testimonial) => (
-                  <div key={testimonial.id} className="w-full flex-shrink-0">
-                    <TestimonialCard 
-                      testimonial={testimonial} 
-                      index={0} 
-                      isMobile={true}
-                    />
+                  <div 
+                    key={testimonial.id} 
+                    className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 flex"
+                  >
+                    <TestimonialCard testimonial={testimonial} />
                   </div>
                 ))}
                   </div>
                 </div>
 
-            {/* Navigation Arrows - Hidden on small mobile */}
+            {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className="hidden sm:flex absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+              className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-2 sm:p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
             >
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
             <button
               onClick={nextSlide}
-              className="hidden sm:flex absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+              className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-2 sm:p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
             >
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
 
             {/* Dots Indicator */}
             <div className="flex justify-center mt-6 space-x-2">
-              {testimonials.map((_, index) => (
+              {Array.from({ length: testimonials.length - getSlidesToShow() + 1 }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
@@ -207,7 +198,7 @@ const TestimonialsSection: React.FC = () => {
             {/* Mobile Swipe Hint */}
             <div className="text-center mt-4 sm:hidden">
               <p className="text-xs text-white/70">
-                Swipe left or right to see more testimonials
+                {data.swipeHint}
                     </p>
                   </div>
           </div>
@@ -222,8 +213,8 @@ const TestimonialsSection: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-center">
                 <div className="relative order-2 md:order-1">
                   <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=400&q=80"
-                    alt="Happy coffee investor testimonial"
+                    src={"https://res.cloudinary.com/ddainirdi/image/upload/v1751438591/Nairobi_Dream_VC---Mixer_57_ajwnhx.jpg"}
+                    alt={data.meetThePeople.imageAlt}
                     className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl sm:rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer touch-manipulation">
@@ -233,22 +224,22 @@ const TestimonialsSection: React.FC = () => {
                   </div>
                   <div className="absolute bottom-3 left-3 right-3">
                     <p className="text-white text-xs sm:text-sm italic">
-                      "Given time and care, that small coffee tree becomes something much bigger."
+                      "{data.meetThePeople.quote}"
                     </p>
                   </div>
                 </div>
                 <div className="text-center md:text-left order-1 md:order-2">
                   <h3 className="text-lg sm:text-xl text-brown-700 mb-1 sm:mb-2 font-bold">
-                    Meet The People
+                    {data.meetThePeople.title}
                   </h3>
                   <h4 className="text-base sm:text-lg text-brown-600 mb-3 sm:mb-4 font-semibold">
-                    Helping Your Coffee Trees Reach Their Full Potential
+                    {data.meetThePeople.subtitle}
                   </h4>
                   <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
-                    Get to know who's taking care of your coffee trees from seed to harvest.
+                    {data.meetThePeople.description}
                   </p>
                   <button className="btn btn-primary text-sm sm:text-base py-3 px-6 touch-manipulation">
-                    More about us <ArrowRight className="ml-2 h-4 w-4" />
+                    {data.meetThePeople.buttonText} <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
                 </div>
               </div>
