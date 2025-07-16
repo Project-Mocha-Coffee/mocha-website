@@ -1,5 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Play, ChevronLeft, ChevronRight, Leaf, Target, Users, Link, TrendingUp, Search, Linkedin, X } from 'lucide-react';
+import { ArrowRight, Play, ChevronLeft, ChevronRight, Leaf, Target, Users, Link, TrendingUp, Search, Linkedin, X, Database } from 'lucide-react';
+
+const XIcon = ({ className = "" }) => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
 
 const AboutUs = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -60,24 +72,40 @@ const AboutUs = () => {
       role: "Founder",
       initials: "PG",
       image: "https://res.cloudinary.com/ddainirdi/image/upload/v1752049035/erukyibgfexgdxsq4zlb.jpg",
+      links: {
+        linkedin: "https://www.linkedin.com/in/paul-gachora-8727425a/",
+        x: "https://x.com/paulgachora"
+      }
     },
     {
       name: "Peter Maina",
       role: "Co-Founder",
       initials: "PM",
       image: "https://res.cloudinary.com/ddainirdi/image/upload/v1751907263/c9bfirxkx6ks7vmotpna.jpg",
+      links: {
+        linkedin: "https://www.linkedin.com/in/pmprojectz/",
+        x: "https://x.com/pmprojectz"
+      }
     },
     {
       name: "Mohamed Jahazi",
       role: "Chief Technology Officer",
       initials: "MJ",
       image: "https://res.cloudinary.com/ddainirdi/image/upload/v1752315365/upsddtpyf9pcfcd9yfdx.jpg",
+      links: {
+        linkedin: "https://www.linkedin.com/in/mohamed-jahazi-5a5280a1/",
+        x: "https://x.com/mohamedjahazi"
+      }
     },
     {
       name: "Georgina Mwemba",
       role: "Operations & Events Manager",
       initials: "GM",
       image: "https://res.cloudinary.com/ddainirdi/image/upload/v1752315907/yoltldm7pwioaiaa6svv.jpg",
+      links: {
+        linkedin: "https://www.linkedin.com/in/georgina-mwemba-27a381245/",
+        x: "https://x.com/georginamwemba"
+      }
     }
   ];
 
@@ -256,7 +284,6 @@ const AboutUs = () => {
             </h3>
           </div>
 
-          {/* Desktop Grid Layout */}
           <div className="hidden lg:grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {teamMembers.map((member, index) => (
               <div 
@@ -284,7 +311,7 @@ const AboutUs = () => {
                 </p>
                 <div className="flex justify-center gap-3">
                   <a 
-                    href="#"
+                    href={member.links.linkedin}
                     aria-label={`LinkedIn profile for ${member.name}`}
                     className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center text-white text-sm touch-manipulation animate-icon-pop" 
                     style={{ animationDelay: `${0.5 + index * 0.2}s` }}
@@ -292,19 +319,18 @@ const AboutUs = () => {
                     <Linkedin className="w-4 h-4" />
                   </a>
                   <a 
-                    href="#"
+                    href={member.links.x}
                     aria-label={`X profile for ${member.name}`}
                     className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center text-white text-sm touch-manipulation animate-icon-pop" 
                     style={{ animationDelay: `${0.6 + index * 0.2}s` }}
                   >
-                    <X className="w-4 h-4" />
+                    <XIcon className="w-4 h-4" />
                   </a>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Mobile/Tablet Carousel */}
           <div className="lg:hidden relative max-w-sm mx-auto">
             <div className="relative overflow-hidden rounded-2xl">
               <div 
@@ -768,6 +794,82 @@ const AboutUs = () => {
                 <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 animate-text-slide" style={{ animationDelay: '0.7s' }}>
                   <p className="text-white italic text-xs sm:text-sm">
                     "Supporting communities through sustainable coffee farming"
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Blockchain-Powered Transparency Section */}
+      <section 
+        className="py-8 sm:py-12 md:py-16 bg-cream-100" 
+        ref={(el) => (sectionRefs.current['blockchain'] = el)} 
+        data-section="blockchain"
+      >
+        <div className="container-custom px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div 
+              className={`text-center mb-8 sm:mb-12 ${
+                isVisible.blockchain ? 'animate-slide-in-header' : 'opacity-0 translate-y-12 scale-95'
+              }`}
+            >
+              <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">Blockchain-Powered Transparency</h2>
+              <p className="text-gray-600 leading-relaxed text-sm sm:text-base max-w-3xl mx-auto animate-text-slide" style={{ animationDelay: '0.1s' }}>
+                We leverage blockchain technology to ensure complete transparency and traceability in our coffee investment process, empowering investors with trust and accountability.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+              <div className="order-2 lg:order-1">
+                <h3 className={`text-base sm:text-lg md:text-xl text-brown-800 mb-3 sm:mb-4 font-semibold animate-text-slide ${
+                  isVisible.blockchain ? 'animate-text-slide' : 'opacity-0'
+                }`} style={{ animationDelay: '0.2s' }}>
+                  Trace Every Bean with Scroll
+                </h3>
+                <p className="text-gray-600 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base animate-text-slide" style={{ animationDelay: '0.3s' }}>
+                  Partnering with <a href="https://scroll.io" target="_blank" rel="noopener noreferrer" className="text-brown-600 hover:text-brown-800 underline">Scroll</a>, our blockchain platform ensures that every coffee tree investment is recorded on an immutable ledger. From planting to harvest, you can track your investment's journey with full transparency.
+                </p>
+                <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base animate-text-slide" style={{ animationDelay: '0.4s' }}>
+                  This technology guarantees fair payments to farmers, verifies sustainable practices, and provides investors with real-time data on their contributions to community and environmental impact.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-button-pop" style={{ animationDelay: '0.5s' }}>
+                  <a 
+                    href="https://scroll.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Learn more about Scroll blockchain"
+                    className="btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 bg-gradient-to-r from-brown-700 to-brown-800 hover:from-brown-800 hover:to-brown-900 text-white rounded-xl transition-all duration-300 hover:scale-105 shadow-lg touch-manipulation"
+                  >
+                    Explore Scroll <ArrowRight className="ml-2 h-4 w-4 animate-icon-bounce" />
+                  </a>
+                  <button 
+                    aria-label="Learn more about our blockchain transparency"
+                    className="btn btn-secondary w-full sm:w-auto text-sm sm:text-base py-3 px-6 bg-white text-brown-700 hover:bg-cream-50 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg touch-manipulation"
+                  >
+                    Learn More <ArrowRight className="ml-2 h-4 w-4 animate-icon-bounce" />
+                  </button>
+                </div>
+              </div>
+              <div 
+                className={`relative order-1 lg:order-2 animate-image-fade ${
+                  isVisible.blockchain ? 'animate-image-fade' : 'opacity-0 translate-x-20'
+                }`}
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=600&h=400&q=80"
+                  alt="Blockchain technology in coffee investment"
+                  className="w-full h-48 sm:h-56 md:h-64 object-cover object-center rounded-xl sm:rounded-2xl shadow-lg"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl sm:rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brown-700 bg-opacity-90 rounded-full flex items-center justify-center touch-manipulation animate-icon-pop" style={{ animationDelay: '0.6s' }}>
+                    <Database className="w-5 h-5 sm:w-6 sm:h-6 text-white animate-icon-pop" />
+                  </div>
+                </div>
+                <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 animate-text-slide" style={{ animationDelay: '0.7s' }}>
+                  <p className="text-white italic text-xs sm:text-sm">
+                    "Ensuring trust through blockchain transparency"
                   </p>
                 </div>
               </div>
