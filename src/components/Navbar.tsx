@@ -83,18 +83,14 @@ const Navbar: React.FC = () => {
       
       if (scrollDelta > 5 && isVisible) {
         setIsVisible(true);
-        
-        if (hideTimeout) {
-          clearTimeout(hideTimeout);
-        }
-        
-        const timeout = setTimeout(() => {
-          setIsVisible(false);
-          setHideTimeout(null);
-        }, 10000);
-        setHideTimeout(timeout);
+        setIsScrolled(true);
       }
-      
+
+      // Clear any existing timeout
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+
       setLastScrollY(currentScrollY);
     };
 
@@ -148,7 +144,7 @@ const Navbar: React.FC = () => {
     <>
       <nav 
         id="mobile-nav"
-        className={`fixed w-full z-50 transition-all duration-500 ${
+        className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
           isScrolled ? 'py-1' : 'py-2'
         } ${
           isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
@@ -158,7 +154,7 @@ const Navbar: React.FC = () => {
       >
         <div className="container-custom">
           <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
-            isScrolled ? 'shadow-xl' : 'shadow-lg'
+            isScrolled ? 'shadow-xl bg-white/95 backdrop-blur-md' : 'shadow-lg bg-white'
           }`}>
             <Link 
               to="/" 
@@ -214,7 +210,7 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            <button className="hidden md:block btn btn-gold text-sm px-4 py-2">
+            <button className="hidden md:block btn bg-[#7a5540] text-white text-sm px-4 py-2 rounded-full hover:bg-[#6a4a38] transition-all duration-300">
               Start Investing
             </button>
 
