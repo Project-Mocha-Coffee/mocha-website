@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true); // Start with navbar visible
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [hideTimeout, setHideTimeout] = useState<number | null>(null);
   const location = useLocation();
   const heroObserverRef = useRef<IntersectionObserver | null>(null);
 

@@ -6,6 +6,7 @@ import { contentData, ContentData, subscribeToContentUpdates } from '../services
 const AvailableOpportunities = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [, setContentVersion] = useState(0); // Force re-render trigger
+  const sectionRef = useRef<HTMLElement | null>(null);
   const sectionData = (contentData as ContentData)?.availableOpportunities;
   const projects = (contentData as ContentData)?.projects;
 

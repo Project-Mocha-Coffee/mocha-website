@@ -1,18 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowRight, Instagram, Facebook, Linkedin, Youtube } from 'lucide-react';
-
-// Custom X (Twitter) icon component
-const XIcon = ({ className = "" }) => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-  >
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-  </svg>
-);
+import { useState } from 'react';
+import { ArrowRight, Instagram } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +10,7 @@ const Contact = () => {
     message: ''
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -31,7 +18,7 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
   };
@@ -81,7 +68,6 @@ const Contact = () => {
             <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
               <div className="grid lg:grid-cols-2 gap-0">
                 {/* Left side - Company Details */}
-<<<<<<< HEAD
                 <div className="p-6 lg:p-8 flex flex-col h-full">
                   {/* Header always at the top */}
                   <h2 className="text-2xl font-bold text-brown-800 mb-6">
@@ -96,7 +82,7 @@ const Contact = () => {
                       <div className="space-y-2 text-sm text-gray-600 mb-8">
                         <p><span className="font-medium">Postal Address:</span> P.O Box 314 Embu, Kenya</p>
                         <p><span className="font-medium"></span> </p>
-                        <p><span className="font-medium">Headquarters: </span> Mutunduri,Embu County, Kenya</p>
+                        <p><span className="font-medium">Headquarters: </span> Mutunduri, Embu County, Kenya</p>
                       </div>
                     </div>
                     <div>
@@ -106,56 +92,8 @@ const Contact = () => {
                       <div className="flex gap-3">
                         <a href="https://www.instagram.com/projectmocha254/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
                           <Instagram className="w-5 h-5 text-brown-700" />
-=======
-                <div className="p-8 lg:p-12 bg-[#FAF7F0]">
-                  <h2 className="text-3xl font-bold text-[#3C2F2F] mb-8 animate-fadeInUp">
-                    Company Details
-                  </h2>
-                  
-                  <div className="mb-8 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
-                    <h3 className="text-xl font-semibold text-[#4A3728] mb-4">
-                      The Mocha Coffee Enterprise
-                    </h3>
-                    <div className="space-y-3 text-[#5C4B3E] text-sm">
-                      <p><span className="font-medium">Tax ID:</span> 53175249158</p>
-                      <p><span className="font-medium">Identification number:</span> 05525209</p>
-                      <p><span className="font-medium">Address:</span> Nairobi Business District, 10000 Nairobi, Kenya</p>
-                    </div>
-                  </div>
-
-                  <div className="mb-8 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
-                    <h3 className="text-xl font-semibold text-[#4A3728] mb-4">
-                      Head Office
-                    </h3>
-                    <div className="text-[#5C4B3E] text-sm">
-                      <p>Coffee Investment Center Floor 2, Office 2.11</p>
-                      <p><span className="font-medium">Address:</span> Kenyatta Avenue 1, 21000 Nairobi, Kenya</p>
-                    </div>
-                  </div>
-
-                  <div className="animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
-                    <h3 className="text-xl font-semibold text-[#4A3728] mb-4">
-                      Follow Us
-                    </h3>
-                    <div className="flex gap-4">
-                      {[
-                        { href: "https://www.instagram.com/projectmocha254/", Icon: Instagram },
-                        { href: "https://www.x.com/projectmocha254", Icon: XIcon },
-                        { href: "https://web.facebook.com/profile.php?id=61561477005084", Icon: Facebook },
-                        { href: "https://www.linkedin.com/company/project-mocha/", Icon: Linkedin },
-                        { href: "#", Icon: Youtube }
-                      ].map(({ href, Icon }, index) => (
-                        <a
-                          key={index}
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-12 h-12 bg-[#E8D7B7] rounded-full flex items-center justify-center text-[#3C2F2F] hover:bg-[#D7C4A3] transition-colors duration-300 animate-pulseHover"
-                        >
-                          <Icon className="w-6 h-6" />
->>>>>>> 7ad3f28 (contact us page redesigned)
                         </a>
-                      ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -166,7 +104,7 @@ const Contact = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Full Name
+                          Full Name *
                         </label>
                         <input
                           type="text"

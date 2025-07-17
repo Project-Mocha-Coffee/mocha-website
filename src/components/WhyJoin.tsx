@@ -26,7 +26,12 @@ const WhyJoin = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [investmentAmount, setInvestmentAmount] = useState(10000); // Default investment amount
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Add refs for intersection observer
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const navRef = useRef<HTMLDivElement | null>(null);
 
   // Auto-play carousel
   useEffect(() => {
@@ -104,109 +109,106 @@ const WhyJoin = () => {
   }, []);
 
   return (
-    <section
-      className="section bg-cream-50 py-16 md:py-24"
-      onMouseEnter={() => setIsAutoPlaying(false)}
-      onMouseLeave={() => setIsAutoPlaying(true)}
-    >
-      <div className="container-custom px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-forest-700 text-2xl md:text-3xl font-semibold mb-3 animate-fade-in">
-            Why Join
-          </h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-gold-500 animate-fade-in delay-100">
-            Project Mocha?
-          </h3>
-        </div>
-
-        <div className="card-large bg-white/90 backdrop-blur-lg p-6 md:p-10 lg:p-12 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div className="space-y-4 md:space-y-6 animate-fade-in">
-              <h3 className="text-3xl md:text-4xl font-bold text-forest-700 leading-tight">
-                {benefits[currentSlide].title}
-              </h3>
-              <h4 className="text-2xl md:text-3xl font-semibold text-gold-500">
-                {benefits[currentSlide].subtitle}
-              </h4>
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-prose">
-                {benefits[currentSlide].description}
-              </p>
-              {currentSlide === 0 && (
-                <div className="mt-6">
-                  <label
-                    htmlFor="investment-amount"
-                    className="block text-forest-700 text-sm font-medium mb-2"
-                  >
-                    Enter Investment Amount ($)
-                  </label>
-                  <input
-                    id="investment-amount"
-                    type="number"
-                    min="0"
-                    step="100"
-                    value={investmentAmount}
-                    onChange={handleInvestmentChange}
-                    className="w-full max-w-xs p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-gold-500 focus:border-gold-500 outline-none transition-all duration-300 text-forest-700"
-                    aria-label="Investment amount"
-                  />
-                  {calculateReturns()}
-                </div>
-              )}
-            </div>
-
-            <div className="relative group animate-fade-in delay-200">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1">
-                <img
-                  src={benefits[currentSlide].image}
-                  alt={benefits[currentSlide].title}
-                  className="w-full h-full object-cover transition-opacity duration-500"
-                  style={{ opacity: 1 }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex justify-between items-center mt-8 md:mt-10">
-            <button
-              onClick={prevSlide}
-              className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-r from-forest-600 to-forest-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gold-500 transition-all duration-300 transform hover:scale-110 hover:from-forestondo
-System: 700 hover:to-forest-900"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-5 w-5" />
-              <span className="text-sm sm:text-base font-medium">Previous</span>
-            </button>
-
-            <div className="flex space-x-2">
-              {benefits.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setCurrentSlide(index);
-                    setIsAutoPlaying(false);
-                    setTimeout(() => setIsAutoPlaying(true), 10000);
-                  }}
-                  className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-gold-500 ${
-                    index === currentSlide ? 'bg-gold-500 scale-125' : 'bg-gray-300'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={nextSlide}
-              className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-r from-forest-600 to-forest-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gold-500 transition-all duration-300 transform hover:scale-110 hover:from-forest-700 hover:to-forest-900"
-              aria-label="Next slide"
-            >
-              <span className="text-sm sm:text-base font-medium">Next</span>
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
+    <div className="container-custom px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-12 md:mb-16">
+        <h2
+          ref={headingRef}
+          className="text-forest-700 text-2xl md:text-3xl font-semibold mb-3 animate-fade-in"
+        >
+          Why Join
+        </h2>
+        <h3 className="text-4xl md:text-5xl font-bold text-gold-500 animate-fade-in delay-100">
+          Project Mocha?
+        </h3>
       </div>
 
+      <div
+        ref={cardRef}
+        className="card-large bg-white/90 backdrop-blur-lg p-6 md:p-10 lg:p-12 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+      >
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="space-y-4 md:space-y-6 animate-fade-in">
+            <h3 className="text-3xl md:text-4xl font-bold text-forest-700 leading-tight">
+              {benefits[currentSlide].title}
+            </h3>
+            <h4 className="text-2xl md:text-3xl font-semibold text-gold-500">
+              {benefits[currentSlide].subtitle}
+            </h4>
+            <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-prose">
+              {benefits[currentSlide].description}
+            </p>
+            {currentSlide === 0 && (
+              <div className="mt-6">
+                <label
+                  htmlFor="investment-amount"
+                  className="block text-forest-700 text-sm font-medium mb-2"
+                >
+                  Enter Investment Amount ($)
+                </label>
+                <input
+                  id="investment-amount"
+                  type="number"
+                  min="0"
+                  step="100"
+                  value={investmentAmount}
+                  onChange={handleInvestmentChange}
+                  className="w-full max-w-xs p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-gold-500 focus:border-gold-500 outline-none transition-all duration-300 text-forest-700"
+                  aria-label="Investment amount"
+                />
+                {calculateReturns()}
+              </div>
+            )}
+          </div>
+          <div className="relative group animate-fade-in delay-200">
+            <img
+              src={benefits[currentSlide].image}
+              alt={benefits[currentSlide].title}
+              className="w-full h-full object-cover transition-opacity duration-500 rounded-2xl shadow-lg"
+              style={{ opacity: 1 }}
+            />
+          </div>
+        </div>
+        {/* Navigation */}
+        <div
+          ref={navRef}
+          className="flex justify-between items-center mt-8 md:mt-10"
+        >
+          <button
+            onClick={prevSlide}
+            className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-r from-forest-600 to-forest-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gold-500 transition-all duration-300 transform hover:scale-110 hover:from-forest-700 hover:to-forest-900"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="h-5 w-5" />
+            <span className="text-sm sm:text-base font-medium">Previous</span>
+          </button>
+
+          <div className="flex space-x-2">
+            {benefits.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentSlide(index);
+                  setIsAutoPlaying(false);
+                  setTimeout(() => setIsAutoPlaying(true), 10000);
+                }}
+                className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-gold-500 ${
+                  index === currentSlide ? 'bg-gold-500 scale-125' : 'bg-gray-300'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={nextSlide}
+            className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-r from-forest-600 to-forest-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gold-500 transition-all duration-300 transform hover:scale-110 hover:from-forest-700 hover:to-forest-900"
+            aria-label="Next slide"
+          >
+            <span className="text-sm sm:text-base font-medium">Next</span>
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
       {/* Inline CSS for animations */}
       <style>{`
         @keyframes fade-in {
@@ -236,7 +238,7 @@ System: 700 hover:to-forest-900"
           animation-delay: 0.3s;
         }
       `}</style>
-    </section>
+    </div>
   );
 };
 

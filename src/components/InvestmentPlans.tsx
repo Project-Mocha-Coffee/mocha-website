@@ -9,11 +9,13 @@ const InvestmentPlans: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchEndX, setTouchEndX] = useState(0);
+  const navRef = useRef<HTMLDivElement>(null);
 
   // Configurable booking URL
   const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
@@ -65,7 +67,7 @@ const InvestmentPlans: React.FC = () => {
     setCurrentSlide((prev) => (prev - 1 + plans.length) % plans.length);
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: React.SetStateAction<number>) => {
     setCurrentSlide(index);
   };
 

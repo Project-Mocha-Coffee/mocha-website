@@ -10,11 +10,11 @@ const scenarios = {
 const InvestmentCalculator = () => {
   const [totalTrees, setTotalTrees] = useState(1);
   const [moneyToInvest, setMoneyToInvest] = useState(100);
-  const [selectedScenario, setSelectedScenario] = useState('realistic');
+  const [selectedScenario, setSelectedScenario] = useState<keyof typeof scenarios>('realistic');
   const [isVisible, setIsVisible] = useState(false);
   const [useCompound, setUseCompound] = useState(true); // Default to compound for realistic ROI
   const sectionRef = useRef<HTMLElement | null>(null);
-  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Scroll-based animation
   useEffect(() => {
@@ -62,9 +62,16 @@ const InvestmentCalculator = () => {
   const freeTrees = Math.floor(totalTrees / 10);
   const totalTreesWithFree = totalTrees + freeTrees;
 
-  const handleTreeChange = (trees) => {
+  const handleTreeChange = (trees: React.SetStateAction<number>) => {
     setTotalTrees(trees);
-    setMoneyToInvest(trees * costPerTree);
+    if (typeof trees === 'number') {
+      setMoneyToInvest(trees * costPerTree);
+    } else {
+      setMoneyToInvest(prev => {
+        const next = typeof trees === 'function' ? trees(prev) : prev;
+        return next * costPerTree;
+      });
+    }
   };
 
   const handleTreeInputChange = (trees: number) => {
