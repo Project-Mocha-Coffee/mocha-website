@@ -22,7 +22,7 @@ const benefits = [
   }
 ];
 
-const WhyJoin: React.FC = () => {
+const WhyJoin = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [investmentAmount, setInvestmentAmount] = useState(10000); // Default investment amount
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -75,6 +75,33 @@ const WhyJoin: React.FC = () => {
       </div>
     );
   };
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target); // Stop observing once animated
+        }
+      });
+    }, observerOptions);
+
+    if (headingRef.current) observer.observe(headingRef.current);
+    if (cardRef.current) observer.observe(cardRef.current);
+    if (navRef.current) observer.observe(navRef.current);
+
+    return () => {
+      if (headingRef.current) observer.unobserve(headingRef.current);
+      if (cardRef.current) observer.unobserve(cardRef.current);
+      if (navRef.current) observer.unobserve(navRef.current);
+    };
+  }, []);
 
   return (
     <section
@@ -147,7 +174,8 @@ const WhyJoin: React.FC = () => {
 System: 700 hover:to-forest-900"
               aria-label="Previous slide"
             >
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-5 w-5" />
+              <span className="text-sm sm:text-base font-medium">Previous</span>
             </button>
 
             <div className="flex space-x-2">
@@ -172,7 +200,8 @@ System: 700 hover:to-forest-900"
               className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-r from-forest-600 to-forest-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gold-500 transition-all duration-300 transform hover:scale-110 hover:from-forest-700 hover:to-forest-900"
               aria-label="Next slide"
             >
-              <ChevronRight className="h-6 w-6" />
+              <span className="text-sm sm:text-base font-medium">Next</span>
+              <ChevronRight className="h-5 w-5" />
             </button>
           </div>
         </div>

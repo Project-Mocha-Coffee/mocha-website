@@ -7,10 +7,10 @@ const scenarios = {
   pessimistic: { name: 'Pessimistic', yieldKg: 0.50, pricePerKg: 4.00, description: 'Conservative estimate for cautious investors.' }
 };
 
-const InvestmentCalculator: React.FC = () => {
+const InvestmentCalculator = () => {
   const [totalTrees, setTotalTrees] = useState(1);
   const [moneyToInvest, setMoneyToInvest] = useState(100);
-  const [selectedScenario, setSelectedScenario] = useState<keyof typeof scenarios>('realistic');
+  const [selectedScenario, setSelectedScenario] = useState('realistic');
   const [isVisible, setIsVisible] = useState(false);
   const [useCompound, setUseCompound] = useState(true); // Default to compound for realistic ROI
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -62,7 +62,7 @@ const InvestmentCalculator: React.FC = () => {
   const freeTrees = Math.floor(totalTrees / 10);
   const totalTreesWithFree = totalTrees + freeTrees;
 
-  const handleTreeChange = (trees: number) => {
+  const handleTreeChange = (trees) => {
     setTotalTrees(trees);
     setMoneyToInvest(trees * costPerTree);
   };
