@@ -274,7 +274,6 @@ const AboutUs = () => {
             </div>
           </div>
 
-          {/* Mobile/Tablet Carousel */}
           <div className="lg:hidden relative max-w-sm mx-auto">
             <div className="relative overflow-hidden rounded-2xl">
               <div 
