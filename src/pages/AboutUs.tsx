@@ -3,8 +3,8 @@ import { ArrowRight, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 import { ContentData, AboutUsData } from '../types/content';
 
-const AboutUs: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+const AboutUs = () => {
+  const [isVisible, setIsVisible] = useState({});
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentTeamSlide, setCurrentTeamSlide] = useState(0);
   const { content, isLoading, error } = useContent();
@@ -119,7 +119,12 @@ const AboutUs: React.FC = () => {
   return (
     <div className="bg-cream-50">
       {/* Hero Section */}
-      <section className="gradient-forest relative overflow-hidden">
+      <section 
+        className="gradient-forest relative overflow-hidden" 
+        ref={(el) => (sectionRefs.current['hero'] = el)} 
+        data-section="hero"
+        style={{ backgroundColor: '#fffcf7' }}
+      >
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `url('${aboutUsData.hero.backgroundImage}')`,
@@ -132,8 +137,8 @@ const AboutUs: React.FC = () => {
           <div className="max-w-6xl mx-auto">
             <div className="max-w-4xl">
               <div 
-                className={`transition-all duration-1000 delay-500 transform ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                className={`transition-all duration-1000 transform ${
+                  isVisible.hero ? 'animate-slide-in-header' : 'opacity-0 translate-y-12 scale-95'
                 }`}
               >
                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-4 sm:mb-6 font-bold leading-tight">
@@ -168,9 +173,10 @@ const AboutUs: React.FC = () => {
               </div>
 
               <div 
-                className={`transition-all duration-1000 delay-1200 transform ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
+                className={`animate-text-slide ${
+                  isVisible.hero ? 'animate-text-slide' : 'opacity-0'
+                }`} 
+                style={{ animationDelay: '0.5s' }}
               >
                 <p className="text-cream-200 italic text-sm sm:text-base text-center sm:text-left">
                   {aboutUsData.hero.callToAction}
@@ -182,7 +188,11 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-100">
+      <section 
+        className="py-8 sm:py-12 md:py-16 bg-cream-100" 
+        ref={(el) => (sectionRefs.current['team'] = el)} 
+        data-section="team"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
             <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">{aboutUsData.team.sectionTitle}</h2>
@@ -266,15 +276,16 @@ const AboutUs: React.FC = () => {
 
           {/* Mobile/Tablet Carousel */}
           <div className="lg:hidden relative max-w-sm mx-auto">
-            {/* Carousel Container */}
             <div className="relative overflow-hidden rounded-2xl">
               <div 
-                className="flex transition-transform duration-500 ease-in-out touch-manipulation"
+                className={`flex transition-transform duration-500 ease-in-out touch-manipulation ${
+                  isVisible.team ? 'animate-slide-in-card' : 'opacity-0 translate-y-16'
+                }`} 
                 style={{ transform: `translateX(-${currentTeamSlide * 100}%)` }}
               >
                 {aboutUsData.team.members.map((member: any, index: number) => (
                   <div key={index} className="w-full flex-shrink-0 px-2">
-                    <div className="card p-5 sm:p-6 text-center bg-white">
+                    <div className="card p-5 sm:p-6 text-center bg-white shadow-lg">
                       <div className="relative mb-5">
                         <img
                           src={member.image}
@@ -286,15 +297,29 @@ const AboutUs: React.FC = () => {
                           {member.initials}
                         </div>
                       </div>
-                      <h4 className="text-lg sm:text-xl font-bold text-brown-800 mb-2 sm:mb-3">{member.name}</h4>
-                      <p className="text-brown-700 font-medium mb-5 sm:mb-6 text-base sm:text-lg">{member.role}</p>
+                      <h4 className="text-lg sm:text-xl font-bold text-brown-800 mb-2 sm:mb-3 animate-text-slide" style={{ animationDelay: '0.1s' }}>
+                        {member.name}
+                      </h4>
+                      <p className="text-brown-700 font-medium mb-5 sm:mb-6 text-base sm:text-lg animate-text-slide" style={{ animationDelay: '0.2s' }}>
+                        {member.role}
+                      </p>
                       <div className="flex justify-center gap-4">
-                        <div className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
-                          <span className="text-white text-sm">in</span>
-                        </div>
-                        <div className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
-                          <span className="text-white text-sm">@</span>
-                        </div>
+                        <a 
+                          href="#"
+                          aria-label={`LinkedIn profile for ${member.name}`}
+                          className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center text-white text-sm touch-manipulation animate-icon-pop" 
+                          style={{ animationDelay: '0.3s' }}
+                        >
+                          <Linkedin className="w-5 h-5" />
+                        </a>
+                        <a 
+                          href="#"
+                          aria-label={`X profile for ${member.name}`}
+                          className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center text-white text-sm touch-manipulation animate-icon-pop" 
+                          style={{ animationDelay: '0.4s' }}
+                        >
+                          <X className="w-5 h-5" />
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -302,18 +327,21 @@ const AboutUs: React.FC = () => {
               </div>
             </div>
 
-            {/* Navigation Arrows */}
             <button
               onClick={prevTeamSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+              aria-label="Previous team member"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation animate-button-pop"
+              style={{ animationDelay: '0.5s' }}
             >
-              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 animate-icon-pop" />
             </button>
             <button
               onClick={nextTeamSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+              aria-label="Next team member"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation animate-button-pop"
+              style={{ animationDelay: '0.5s' }}
             >
-              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 animate-icon-pop" />
             </button>
 
             {/* Dots Indicator */}
@@ -323,16 +351,13 @@ const AboutUs: React.FC = () => {
                   key={index}
                   onClick={() => setCurrentTeamSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-200 touch-manipulation ${
-                    index === currentTeamSlide 
-                      ? 'bg-brown-600 w-8' 
-                      : 'bg-gray-300 hover:bg-gray-400'
+                    index === currentTeamSlide ? 'bg-brown-600 w-8' : 'bg-gray-300 hover:bg-gray-400'
                   }`}
                 />
               ))}
             </div>
 
-            {/* Mobile Swipe Hint */}
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 animate-text-slide" style={{ animationDelay: '0.7s' }}>
               <p className="text-xs text-gray-500">
                 {aboutUsData.team.swipeHint}
               </p>
@@ -342,9 +367,17 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Statistics Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-50">
+      <section 
+        className="py-8 sm:py-12 md:py-16 bg-cream-50" 
+        ref={(el) => (sectionRefs.current['statistics'] = el)} 
+        data-section="statistics"
+      >
         <div className="container-custom px-4 sm:px-6">
-          <div className="text-center mb-8 sm:mb-12">
+          <div 
+            className={`text-center mb-8 sm:mb-12 ${
+              isVisible.statistics ? 'animate-slide-in-header' : 'opacity-0 translate-y-12 scale-95'
+            }`}
+          >
             <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">
               {aboutUsData.statistics.sectionTitle}<br />
               <span className="text-brown-800">{aboutUsData.statistics.sectionTitleHighlight}</span>
@@ -371,15 +404,15 @@ const AboutUs: React.FC = () => {
             {aboutUsData.statistics.stats.map((stat: any, index: number) => (
               <div 
                 key={index}
-                className={`card bg-brown-800 text-white p-3 sm:p-4 md:p-6 text-center transition-all duration-1000 ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className={`card bg-brown-800 text-white p-3 sm:p-4 md:p-6 text-center animate-card-pop ${
+                  isVisible.statistics ? 'animate-card-pop' : 'opacity-0'
+                }`} 
+                style={{ animationDelay: `${0.3 + index * 0.2}s` }}
               >
                 <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-brown-400 mb-1 sm:mb-2">
                   {stat.number}
                 </div>
-                <div className="text-xs sm:text-sm text-cream-100 leading-tight">
+                <div className="text-xs sm:text-sm text-cream-100 leading-tight animate-text-slide" style={{ animationDelay: `${0.4 + index * 0.2}s` }}>
                   {stat.label}
                 </div>
               </div>
@@ -426,10 +459,19 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Coffee Demand Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-brown-800">
+      <section 
+        className="py-8 sm:py-12 md:py-16" 
+        ref={(el) => (sectionRefs.current['demand'] = el)} 
+        data-section="demand"
+        style={{ backgroundColor: '#fffcf7' }}
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="card-large p-4 sm:p-6 md:p-8">
+            <div 
+              className={`card-large p-4 sm:p-6 md:p-8 bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 ${
+                isVisible.demand ? 'animate-slide-in-card' : 'opacity-0 translate-y-16 scale-95'
+              }`}
+            >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div className="order-2 lg:order-1">
                   <div className="inline-block bg-brown-200 text-brown-800 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3 sm:mb-4">
@@ -451,12 +493,21 @@ const AboutUs: React.FC = () => {
                     </button>
                   </div>
                 </div>
-                <div className="relative order-1 lg:order-2">
+                <div 
+                  className={`relative order-1 lg:order-2 animate-image-fade ${
+                    isVisible.demand ? 'animate-image-fade' : 'opacity-0 translate-x-20'
+                  }`}
+                >
                   <img
                     src={aboutUsData.coffeeDemand.image}
                     alt={aboutUsData.coffeeDemand.imageAlt}
                     className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                   />
+                  <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl sm:rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brown-700 bg-opacity-90 rounded-full flex items-center justify-center touch-manipulation animate-icon-pop" style={{ animationDelay: '0.4s' }}>
+                      <Play className="w-5 h-5 sm:w-6 sm:h-6 text-white ml-1 animate-icon-pop" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -465,7 +516,11 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-100">
+      <section 
+        className="py-8 sm:py-12 md:py-16 bg-cream-100" 
+        ref={(el) => (sectionRefs.current['values'] = el)} 
+        data-section="values"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
             <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-800 mb-4 sm:mb-6 font-bold">{aboutUsData.values.sectionTitle}</h2>
@@ -501,7 +556,12 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Ethical Impact Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-brown-800">
+      <section 
+        className="py-8 sm:py-12 md:py-16" 
+        ref={(el) => (sectionRefs.current['ethical'] = el)} 
+        data-section="ethical"
+        style={{ backgroundColor: '#f5f0e5' }}
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="card-large p-4 sm:p-6 md:p-8">
@@ -576,7 +636,11 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Journey Timeline */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-50">
+      <section 
+        className="py-8 sm:py-12 md:py-16 bg-cream-50" 
+        ref={(el) => (sectionRefs.current['journey'] = el)} 
+        data-section="journey"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
             <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">{aboutUsData.journey.sectionTitle}</h2>
@@ -586,16 +650,18 @@ const AboutUs: React.FC = () => {
           </div>
 
           <div className="relative max-w-6xl mx-auto">
-            <div className="flex justify-between items-center mb-4 sm:mb-6">
+            <div className="flex justify-between items-center mb-4 sm:mb-6 animate-button-pop" style={{ animationDelay: '0.2s' }}>
               <button 
                 onClick={prevSlide}
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
+                aria-label="Previous journey step"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-all duration-200 touch-manipulation animate-icon-pop"
               >
                 <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button 
                 onClick={nextSlide}
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
+                aria-label="Next journey step"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-all duration-200 touch-manipulation animate-icon-pop"
               >
                 <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
@@ -605,18 +671,25 @@ const AboutUs: React.FC = () => {
               {aboutUsData.journey.steps.map((step: any, index: number) => (
                 <div 
                   key={index}
-                  className={`card p-4 sm:p-6 transition-all duration-500 ${
+                  className={`card p-4 sm:p-6 bg-white shadow-lg hover:shadow-xl transition-all duration-500 animate-card-pop ${
                     index === currentSlide ? 'lg:scale-105 shadow-xl' : 'sm:opacity-70'
-                  }`}
+                  } ${isVisible.journey ? 'animate-card-pop' : 'opacity-0'}`} 
+                  style={{ animationDelay: `${0.3 + index * 0.2}s` }}
                 >
                   <img
                     src={step.image}
                     alt={step.title}
-                    className="w-full h-32 sm:h-40 md:h-32 object-cover rounded-xl sm:rounded-2xl mb-3 sm:mb-4"
+                    className="w-full h-32 sm:h-40 md:h-32 object-cover object-center rounded-xl sm:rounded-2xl mb-3 sm:mb-4"
                   />
-                  <div className="text-base sm:text-lg md:text-xl font-bold text-brown-700 mb-1 sm:mb-2">{step.year}</div>
-                  <h4 className="text-sm sm:text-base font-bold text-brown-800 mb-2 sm:mb-3">{step.title}</h4>
-                  <p className="text-gray-600 leading-relaxed text-xs sm:text-sm">{step.description}</p>
+                  <div className="text-base sm:text-lg md:text-xl font-bold text-brown-700 mb-1 sm:mb-2 animate-text-slide" style={{ animationDelay: `${0.4 + index * 0.2}s` }}>
+                    {step.year}
+                  </div>
+                  <h4 className="text-sm sm:text-base font-bold text-brown-800 mb-2 sm:mb-3 animate-text-slide" style={{ animationDelay: `${0.5 + index * 0.2}s` }}>
+                    {step.title}
+                  </h4>
+                  <p className="text-gray-600 leading-relaxed text-xs sm:text-sm animate-text-slide" style={{ animationDelay: `${0.6 + index * 0.2}s` }}>
+                    {step.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -625,11 +698,19 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Culture Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-100">
+      <section 
+        className="py-8 sm:py-12 md:py-16 bg-cream-100" 
+        ref={(el) => (sectionRefs.current['culture'] = el)} 
+        data-section="culture"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
-              <div className="relative order-2 lg:order-1">
+              <div 
+                className={`relative order-2 lg:order-1 animate-image-fade ${
+                  isVisible.culture ? 'animate-image-fade' : 'opacity-0 translate-x-20'
+                }`}
+              >
                 <img
                   src={aboutUsData.culture.image}
                   alt={aboutUsData.culture.imageAlt}
@@ -655,11 +736,19 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Modern Coffee Processing Facility */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-50">
+      <section 
+        className="py-8 sm:py-12 md:py-16 bg-cream-50" 
+        ref={(el) => (sectionRefs.current['facility'] = el)} 
+        data-section="facility"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
-              <div className="relative order-2 lg:order-1">
+              <div 
+                className={`relative order-2 lg:order-1 animate-image-fade ${
+                  isVisible.facility ? 'animate-image-fade' : 'opacity-0 translate-x-20'
+                }`}
+              >
                 <img
                   src={aboutUsData.processingFacility.image}
                   alt={aboutUsData.processingFacility.imageAlt}
@@ -683,8 +772,171 @@ const AboutUs: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <style>{`
+        :root {
+          --cream-50: #f8f7f2;
+          --cream-100: #f5f3ec;
+          --cream-200: #f0ede3;
+          --brown-200: #d2b48c;
+          --brown-400: #8b6f47;
+          --brown-600: #5c4033;
+          --brown-700: #4a3728;
+          --brown-800: #3e2b28;
+          --brown-900: #2f221e;
+        }
+
+        .container-custom {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .gradient-forest {
+          background: linear-gradient(135deg, #3e2b28 0%, #5c4033 100%);
+        }
+
+        @media (min-width: 640px) {
+          .container-custom {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+          }
+        }
+
+        @keyframes slideInHeader {
+          0% {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9) rotate(2deg);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
+          }
+        }
+        @keyframes slideInCard {
+          0% {
+            opacity: 0;
+            transform: translateY(60px) scale(0.9) rotate(-2deg);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
+          }
+        }
+        @keyframes cardPop {
+          0% {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          70% {
+            transform: scale(1.05);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes textSlide {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes imageFade {
+          0% {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes badgePop {
+          0% {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          70% {
+            transform: scale(1.15);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes buttonPop {
+          0% {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+          }
+          70% {
+            transform: scale(1.05);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        @keyframes iconPop {
+          0% {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          70% {
+            transform: scale(1.2);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes iconBounce {
+          0% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-5px);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+        .animate-slide-in-header {
+          animation: slideInHeader 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        .animate-slide-in-card {
+          animation: slideInCard 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        .animate-card-pop {
+          animation: cardPop 0.7s ease-out forwards;
+        }
+        .animate-text-slide {
+          animation: textSlide 0.8s ease-out forwards;
+        }
+        .animate-image-fade {
+          animation: imageFade 1s ease-out forwards;
+        }
+        .animate-badge-pop {
+          animation: badgePop 0.7s ease-out forwards;
+        }
+        .animate-button-pop {
+          animation: buttonPop 0.8s ease-out forwards;
+        }
+        .animate-icon-pop {
+          animation: iconPop 0.6s ease-out forwards;
+        }
+        .animate-icon-bounce {
+          animation: iconBounce 0.5s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 };
 
-export default AboutUs; 
+export default AboutUs;
