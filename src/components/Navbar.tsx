@@ -210,9 +210,25 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            <button className="hidden md:block btn bg-[#7a5540] text-white text-sm px-4 py-2 rounded-full hover:bg-[#6a4a38] transition-all duration-300">
+            {/* <button className="hidden md:block btn bg-[#7a5540] text-white text-sm px-4 py-2 rounded-full hover:bg-[#6a4a38] transition-all duration-300">
               Start Investing
-            </button>
+            </button> */}
+
+            <div className="hidden lg:flex items-center space-x-4">
+              <Link
+                to="/signup"
+                className="text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                Register
+              </Link>
+              <Link
+                to="/login"
+                className="text-sm font-semibold text-white bg-gradient-to-r from-brown-200 to-brown-600 hover:from-amber-700 hover:to-yellow-700 transition-all duration-300 px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                Login
+              </Link>
+            </div>
+
 
             {/* Mobile Menu Button */}
             <button 
