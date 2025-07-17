@@ -65,7 +65,7 @@ const InvestmentPlans: React.FC = () => {
     setCurrentSlide((prev) => (prev - 1 + plans.length) % plans.length);
   };
 
-  const goToSlide = (index: number) => {
+  const goToSlide = (index) => {
     setCurrentSlide(index);
   };
 
@@ -150,7 +150,7 @@ const InvestmentPlans: React.FC = () => {
                 className={`relative bg-white/90 backdrop-blur-lg rounded-3xl shadow-md hover:shadow-xl transition-all duration-500 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
-                style={{ transitionDelay: `${index * 200}ms` }}
+                style={{ animationDelay: `${index * 200}ms` }}
               >
                 {/* Plan Card */}
                 <div
@@ -244,8 +244,6 @@ const InvestmentPlans: React.FC = () => {
                       ))}
                     </ul>
                   </div>
-
-                  {/* Button */}
                   <div className="mt-auto">
                     <button
                       onClick={() => window.open(BOOKING_URL, '_blank', 'noopener,noreferrer')}
@@ -259,9 +257,9 @@ const InvestmentPlans: React.FC = () => {
                     >
                       {plan.buttonText}
                       {plan.buttonText.includes('Advisor') ? (
-                        <MessageCircle className="ml-2 h-4 w-4" />
+                        <MessageCircle className="ml-2 h-4 w-4 animate-icon-bounce" />
                       ) : (
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                        <ArrowRight className="ml-2 h-4 w-4 animate-icon-bounce" />
                       )}
                     </button>
                   </div>
@@ -271,8 +269,10 @@ const InvestmentPlans: React.FC = () => {
           </div>
 
           {/* Mobile/Tablet Carousel */}
-          <div className="lg:hidden relative">
-            {/* Carousel Container */}
+          <div 
+            ref={cardsRef}
+            className="lg:hidden relative"
+          >
             <div className="relative overflow-hidden rounded-2xl">
               <div
                 ref={carouselRef}
@@ -297,7 +297,6 @@ const InvestmentPlans: React.FC = () => {
                           : 'bg-white'
                       }`}
                     >
-                      {/* Badge */}
                       <div className="flex justify-center mb-4">
                         <span
                           className={`px-4 py-2 rounded-full text-white text-sm font-semibold ${
@@ -307,8 +306,6 @@ const InvestmentPlans: React.FC = () => {
                           {plan.isRecommended && plan.tagline ? plan.tagline : plan.badge}
                         </span>
                       </div>
-
-                      {/* Image */}
                       <div className="relative mb-5">
                         <div className="rounded-2xl overflow-hidden">
                           <img
@@ -319,8 +316,6 @@ const InvestmentPlans: React.FC = () => {
                           />
                         </div>
                       </div>
-
-                      {/* Plan Details */}
                       <div className="text-center mb-5">
                         <h3
                           className={`text-xl sm:text-2xl font-bold mb-3 ${
@@ -360,8 +355,6 @@ const InvestmentPlans: React.FC = () => {
                           </span>
                         </div>
                       </div>
-
-                      {/* Features */}
                       <div className="mb-6">
                         <ul className="space-y-3">
                           {plan.features.map((feature, featureIndex) => (
@@ -382,8 +375,6 @@ const InvestmentPlans: React.FC = () => {
                           ))}
                         </ul>
                       </div>
-
-                      {/* Button */}
                       <div className="mt-auto">
                         <button
                           onClick={() => window.open(BOOKING_URL, '_blank', 'noopener,noreferrer')}
@@ -397,9 +388,9 @@ const InvestmentPlans: React.FC = () => {
                         >
                           {plan.buttonText}
                           {plan.buttonText.includes('Advisor') ? (
-                            <MessageCircle className="ml-2 h-5 w-5" />
+                            <MessageCircle className="ml-2 h-5 w-5 animate-icon-bounce" />
                           ) : (
-                            <ArrowRight className="ml-2 h-5 w-5" />
+                            <ArrowRight className="ml-2 h-5 w-5 animate-icon-bounce" />
                           )}
                         </button>
                       </div>
@@ -408,23 +399,24 @@ const InvestmentPlans: React.FC = () => {
                 ))}
               </div>
             </div>
-
-            {/* Navigation Arrows - Hidden on small mobile */}
             <button
               onClick={prevSlide}
               className="hidden sm:flex absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-[#7A5540] rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
             >
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-6 w-6 animate-icon-bounce" />
             </button>
             <button
               onClick={nextSlide}
               className="hidden sm:flex absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-[#7A5540] rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
             >
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-6 w-6 animate-icon-bounce" />
             </button>
-
-            {/* Dots Indicator */}
-            <div className="flex justify-center mt-6 space-x-2">
+            <div 
+              ref={navRef}
+              className={`flex justify-center mt-6 space-x-2 ${
+                isVisible ? 'animate-nav-slide' : 'opacity-0 translate-y-12'
+              }`}
+            >
               {plans.map((_, index) => (
                 <button
                   key={index}
@@ -434,11 +426,10 @@ const InvestmentPlans: React.FC = () => {
                       ? 'bg-[#7A5540] w-8'
                       : 'bg-gray-300 hover:bg-gray-400'
                   }`}
+                  style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                 />
               ))}
             </div>
-
-            {/* Mobile Swipe Hint */}
             <div className="text-center mt-4 sm:hidden">
               <p className="text-xs text-gray-500 animate-fade-in delay-400">
                 {sectionData.mobileSwipeHint}
