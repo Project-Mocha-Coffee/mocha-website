@@ -42,7 +42,6 @@ const Hero: React.FC = () => {
         scrollToPlans();
         break;
       case 'external':
-        // Handle external link for booking a call
         window.open(BOOKING_URL, '_blank', 'noopener,noreferrer');
         break;
       default:
@@ -150,7 +149,7 @@ const Hero: React.FC = () => {
         
         {/* Trust indicators */}
         <div 
-          className={`card-large p-4 sm:p-6 transition-all duration-1000 delay-1200 transform ${
+          className={`card-large p-4 sm:p-6 rounded-full bg-white/90 backdrop-blur-sm transition-all duration-1000 delay-1200 transform ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}
         >
@@ -158,9 +157,9 @@ const Hero: React.FC = () => {
             {heroData.trustIndicators.title}
           </p>
           
-          {/* Partner logos with rotating animation */}
+          {/* Partner logos with continuous scrolling animation */}
           <div className="relative overflow-hidden">
-            <div className="flex items-center gap-3 sm:gap-4 md:gap-6 animate-scroll">
+            <div className="flex items-center gap-3 sm:gap-4 md:gap-6 animate-infinite-scroll">
               {/* First set of logos */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
                 {heroData.trustIndicators.partners.map((partner: any, index: number) => (
@@ -173,7 +172,7 @@ const Hero: React.FC = () => {
                 ))}
               </div>
               
-              {/* Second set of logos */}
+              {/* Second set of logos for seamless looping */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
                 {heroData.trustIndicators.partners.map((partner: any, index: number) => (
                   <img 
@@ -188,6 +187,30 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Add CSS for infinite scrolling */}
+      <style>
+        {`
+          @keyframes infinite-scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+          
+          .animate-infinite-scroll {
+            display: flex;
+            animation: infinite-scroll 20s linear infinite;
+            width: max-content;
+          }
+
+          .animate-infinite-scroll:hover {
+            animation-play-state: paused;
+          }
+        `}
+      </style>
     </section>
   );
 };

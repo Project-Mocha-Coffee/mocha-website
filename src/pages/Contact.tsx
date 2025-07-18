@@ -1,20 +1,7 @@
-import React, { useState } from 'react';
-import { ArrowRight, Instagram, Facebook, Linkedin, Youtube } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Instagram } from 'lucide-react';
 
-// Custom X (Twitter) icon component
-const XIcon: React.FC<{ className?: string }> = ({ className = "" }) => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-  >
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-  </svg>
-);
-
-const Contact: React.FC = () => {
+const Contact = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -31,29 +18,54 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // Handle form submission here
     console.log('Form submitted:', formData);
   };
 
   return (
-    <div className="bg-brown-800 min-h-screen">
+    <div className="bg-gradient-to-b from-[#3C2F2F] to-[#4A3728] min-h-screen font-sans">
+      <style>
+        {`
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes scalePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+          }
+          .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out forwards;
+          }
+          .animate-pulseHover:hover {
+            animation: scalePulse 0.5s ease-in-out;
+          }
+          .input-focus {
+            transition: all 0.3s ease;
+          }
+          .input-focus:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+          }
+        `}
+      </style>
+
       {/* Contact Section */}
-      <section className="pt-20 pb-8 md:pt-24 md:pb-12">
-        <div className="container-custom">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
-              Let's Connect!
+      <section className="pt-20 pb-12 md:pt-24 md:pb-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12 animate-fadeInUp">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#F5E6CC] mb-4 tracking-tight">
+              Let's Brew Something Together!
             </h1>
-            <p className="text-cream-100 text-sm max-w-2xl mx-auto">
-              Have questions, feedback, or want to discuss a potential investment? Simply fill out the form below, and a member of our team will get back to you as soon as possible.
+            <p className="text-[#E8D7B7] text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+              Questions, ideas, or ready to invest in our coffee journey? Drop us a message, and we'll get back to you faster than a fresh espresso pour.
             </p>
           </div>
 
           {/* Main Content */}
-          <div className="max-w-6xl mx-auto">
-            <div className="bg-white rounded-3xl overflow-hidden shadow-xl">
+          <div className="max-w-6xl mx-auto animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+            <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
               <div className="grid lg:grid-cols-2 gap-0">
                 {/* Left side - Company Details */}
                 <div className="p-6 lg:p-8 flex flex-col h-full">
@@ -70,7 +82,7 @@ const Contact: React.FC = () => {
                       <div className="space-y-2 text-sm text-gray-600 mb-8">
                         <p><span className="font-medium">Postal Address:</span> P.O Box 314 Embu, Kenya</p>
                         <p><span className="font-medium"></span> </p>
-                        <p><span className="font-medium">Headquarters: </span> Mutunduri,Embu County, Kenya</p>
+                        <p><span className="font-medium">Headquarters: </span> Mutunduri, Embu County, Kenya</p>
                       </div>
                     </div>
                     <div>
@@ -81,31 +93,18 @@ const Contact: React.FC = () => {
                         <a href="https://www.instagram.com/projectmocha254/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
                           <Instagram className="w-5 h-5 text-brown-700" />
                         </a>
-                        <a href="https://www.x.com/projectmocha254" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
-                          <XIcon className="w-5 h-5 text-brown-700" />
-                        </a>
-                        <a href="https://web.facebook.com/profile.php?id=61561477005084" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
-                          <Facebook className="w-5 h-5 text-brown-700" />
-                        </a>
-                        <a href="https://www.linkedin.com/company/project-mocha/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
-                          <Linkedin className="w-5 h-5 text-brown-700" />
-                        </a>
-                        <button className="w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors">
-                          <Youtube className="w-5 h-5 text-brown-700" />
-                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Right side - Contact Form */}
-                <div className="bg-brown-800 p-6 lg:p-8 text-white">
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Row 1: Full name and Email */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-[#3C2F2F] p-8 lg:p-12 text-[#F5E6CC]">
+                  <div className="space-y-6 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Full name
+                          Full Name *
                         </label>
                         <input
                           type="text"
@@ -113,13 +112,13 @@ const Contact: React.FC = () => {
                           value={formData.fullName}
                           onChange={handleInputChange}
                           placeholder="Enter your name"
-                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm"
+                          className="w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm"
                           required
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Email address *
+                          Email Address *
                         </label>
                         <input
                           type="email"
@@ -127,14 +126,13 @@ const Contact: React.FC = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           placeholder="Enter your email address"
-                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm"
+                          className="w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm"
                           required
                         />
                       </div>
                     </div>
 
-                    {/* Row 2: Subject and Phone */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium mb-2">
                           Subject *
@@ -145,13 +143,13 @@ const Contact: React.FC = () => {
                           value={formData.subject}
                           onChange={handleInputChange}
                           placeholder="Question about investment"
-                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm"
+                          className="w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm"
                           required
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Phone number
+                          Phone Number
                         </label>
                         <input
                           type="tel"
@@ -159,12 +157,11 @@ const Contact: React.FC = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder="Phone number"
-                          className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm"
+                          className="w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm"
                         />
                       </div>
                     </div>
 
-                    {/* Message */}
                     <div>
                       <label className="block text-sm font-medium mb-2">
                         Message
@@ -175,20 +172,19 @@ const Contact: React.FC = () => {
                         onChange={handleInputChange}
                         placeholder="Enter your message..."
                         rows={6}
-                        className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 text-sm resize-none"
+                        className="w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm resize-none"
                       />
                     </div>
 
-                    {/* Submit Button */}
                     <div className="pt-2">
                       <button
-                        type="submit"
-                        className="btn bg-brown-600 text-white hover:bg-brown-700 px-6 py-3 text-sm font-medium"
+                        onClick={handleSubmit}
+                        className="bg-[#6B4E31] text-[#F5E6CC] px-6 py-3 rounded-lg font-medium text-sm hover:bg-[#8B5E3C] transition-colors duration-300 animate-pulseHover flex items-center"
                       >
-                        Send message <ArrowRight className="ml-2 h-4 w-4" />
+                        Send Message <ArrowRight className="ml-2 h-4 w-4" />
                       </button>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -199,4 +195,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default Contact; 
+export default Contact;

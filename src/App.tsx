@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Footer from './components/Footer';
+import ErrorBoundary from './utils/ErrorBoundary';
 
 // Main App Content component that uses the content context
 const AppContent: React.FC = () => {
@@ -73,8 +74,16 @@ const AppContent: React.FC = () => {
           <Route path="/investing" element={<Investing />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:projectId" element={<ProjectDetail />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:articleId" element={<BlogArticle />} />
+          <Route path="/blog" element={
+            <ErrorBoundary>
+              <Blog />
+            </ErrorBoundary>
+          } />
+          <Route path="/blog/:articleId" element={
+            <ErrorBoundary>
+              <BlogArticle />
+            </ErrorBoundary>
+          } />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

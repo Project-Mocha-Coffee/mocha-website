@@ -1,21 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 
-const Cta: React.FC = () => {
+const Cta = () => {
   const [email, setEmail] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   // Configurable booking URL 
   const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target); // Stop observing once animated
+        }
+      });
+    }, observerOptions);
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    // Handle newsletter signup
     console.log('Newsletter signup:', email);
     setEmail('');
   };
@@ -83,6 +101,93 @@ const Cta: React.FC = () => {
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes slideInCard {
+          0% {
+            opacity: 0;
+            transform: translateY(60px) scale(0.9) rotate(-2deg);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
+          }
+        }
+        @keyframes cardPop {
+          0% {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          70% {
+            transform: scale(1.05);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes textSlide {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes buttonPop {
+          0% {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+          }
+          70% {
+            transform: scale(1.05);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        @keyframes formPop {
+          0% {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes iconBounce {
+          0% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-5px);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+        .animate-slide-in-card {
+          animation: slideInCard 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        .animate-card-pop {
+          animation: cardPop 0.7s ease-out forwards;
+        }
+        .animate-text-slide {
+          animation: textSlide 0.8s ease-out forwards;
+        }
+        .animate-button-pop {
+          animation: buttonPop 0.8s ease-out forwards;
+        }
+        .animate-form-pop {
+          animation: formPop 1s ease-out forwards;
+        }
+        .animate-icon-bounce {
+          animation: iconBounce 0.5s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };
