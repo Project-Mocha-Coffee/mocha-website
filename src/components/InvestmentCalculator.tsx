@@ -2,19 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 const scenarios = {
-  realistic: { name: 'Realistic', yieldKg: 0.75, pricePerKg: 5.00, description: 'Balanced projection for Arabica coffee.' },
-  optimistic: { name: 'Optimistic', yieldKg: 1.00, pricePerKg: 6.00, description: 'High-yield scenario with strong market prices.' },
-  pessimistic: { name: 'Pessimistic', yieldKg: 0.50, pricePerKg: 4.00, description: 'Conservative estimate for cautious investors.' }
+  realistic: { name: 'Realistic', interestRate: 0.1, tenor: 5, description: 'Fixed 10% annual return over 5 years.' },
+  optimistic: { name: 'Optimistic', interestRate: 0.1, tenor: 5, description: 'Fixed 10% annual return with high confidence.' },
+  pessimistic: { name: 'Pessimistic', interestRate: 0.1, tenor: 5, description: 'Fixed 10% annual return for cautious investors.' }
 };
 
 const InvestmentCalculator = () => {
   const [totalTrees, setTotalTrees] = useState(1);
   const [moneyToInvest, setMoneyToInvest] = useState(100);
-  const [selectedScenario, setSelectedScenario] = useState<keyof typeof scenarios>('realistic');
+  const [selectedScenario, setSelectedScenario] = useState('realistic');
   const [isVisible, setIsVisible] = useState(false);
-  const [useCompound, setUseCompound] = useState(true); // Default to compound for realistic ROI
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sectionRef = useRef(null);
+  const debounceRef = useRef(null);
 
   // Scroll-based animation
   useEffect(() => {
@@ -22,7 +21,7 @@ const InvestmentCalculator = () => {
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 } // Trigger when 10% of the section is visible
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -37,52 +36,49 @@ const InvestmentCalculator = () => {
   }, []);
 
   // Debounce for money input
-  const debounce = (callback: () => void, delay: number) => {
+  const debounce = (callback, delay) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(callback, delay);
   };
 
   const costPerTree = 100;
+  const maxTrees = 1000;
+  const minInvestment = 100;
+  const maxInvestment = 100000;
+
+  // Calculate trees and returns
   const actualTrees = Math.floor(moneyToInvest / costPerTree);
   const actualFreeTrees = Math.floor(actualTrees / 10);
   const actualTotalTrees = actualTrees + actualFreeTrees;
   const scenario = scenarios[selectedScenario];
 
-  // Calculate returns
-  const returnPerYear = actualTotalTrees * scenario.yieldKg * scenario.pricePerKg;
-  const lifetimeReturn = useCompound
-    ? moneyToInvest * Math.pow(1 + (scenario.yieldKg * scenario.pricePerKg / costPerTree), 20)
-    : returnPerYear * 20;
+  // MABB calculations
+  const returnPerYear = actualTotalTrees * costPerTree * scenario.interestRate;
+  const lifetimeReturn = actualTotalTrees * (costPerTree + (costPerTree * scenario.interestRate * scenario.tenor));
   const roi = ((lifetimeReturn - moneyToInvest) / moneyToInvest) * 100;
-  const roiPercentage = Math.min(roi, 100); // Cap at 100% for progress bar
+  const roiPercentage = Math.min(roi, 100);
 
-  // Calculate for tree slider
-  const treePercentage = ((totalTrees - 1) / (1000 - 1)) * 100;
+  // Slider calculations
+  const treePercentage = ((totalTrees - 1) / (maxTrees - 1)) * 100;
   const requiredInvestment = totalTrees * costPerTree;
   const freeTrees = Math.floor(totalTrees / 10);
   const totalTreesWithFree = totalTrees + freeTrees;
 
-  const handleTreeChange = (trees: React.SetStateAction<number>) => {
+  const handleTreeChange = (e) => {
+    const trees = parseInt(e.target.value);
     setTotalTrees(trees);
-    if (typeof trees === 'number') {
-      setMoneyToInvest(trees * costPerTree);
-    } else {
-      setMoneyToInvest(prev => {
-        const next = typeof trees === 'function' ? trees(prev) : prev;
-        return next * costPerTree;
-      });
-    }
+    setMoneyToInvest(trees * costPerTree);
   };
 
-  const handleTreeInputChange = (trees: number) => {
-    const value = Math.max(1, Math.min(1000, trees || 1));
+  const handleTreeInputChange = (e) => {
+    const value = Math.max(1, Math.min(maxTrees, parseInt(e.target.value) || 1));
     setTotalTrees(value);
     setMoneyToInvest(value * costPerTree);
   };
 
-  const handleMoneyChange = (money: number) => {
+  const handleMoneyChange = (e) => {
     debounce(() => {
-      const value = Math.max(100, money || 100);
+      const value = Math.max(minInvestment, Math.min(maxInvestment, parseInt(e.target.value) || minInvestment));
       setMoneyToInvest(value);
       setTotalTrees(Math.floor(value / costPerTree));
     }, 100);
@@ -103,7 +99,7 @@ const InvestmentCalculator = () => {
               Calculate Your Investment Growth
             </h2>
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto animate-fade-in delay-100">
-              Curious about your potential profits? Use this calculator to estimate your earnings with Project Mocha.
+              Estimate your earnings with Mocha Asset-Backed Bonds (MABB).
             </p>
           </div>
 
@@ -120,7 +116,7 @@ const InvestmentCalculator = () => {
                     {Object.entries(scenarios).map(([key, scenario]) => (
                       <button
                         key={key}
-                        onClick={() => setSelectedScenario(key as keyof typeof scenarios)}
+                        onClick={() => setSelectedScenario(key)}
                         className={`p-4 rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500 ${
                           selectedScenario === key
                             ? 'bg-[#7A5540] text-white shadow-md'
@@ -140,25 +136,12 @@ const InvestmentCalculator = () => {
                 {/* Scenario Details */}
                 <div className="space-y-3 bg-cream-50 p-4 rounded-xl animate-fade-in delay-300">
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-sm md:text-base">Mature tree yield</span>
-                    <span className="text-forest-700 font-semibold text-sm md:text-base">{scenario.yieldKg}kg</span>
+                    <span className="text-gray-600 text-sm md:text-base">Annual Interest Rate</span>
+                    <span className="text-forest-700 font-semibold text-sm md:text-base">{scenario.interestRate * 100}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-sm md:text-base">Coffee price</span>
-                    <span className="text-forest-700 font-semibold text-sm md:text-base">${scenario.pricePerKg}/kg</span>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id="compound-interest"
-                      checked={useCompound}
-                      onChange={() => setUseCompound(!useCompound)}
-                      className="w-4 h-4 text-gold-500 mr-2 focus:ring-gold-500"
-                      aria-label="Use compound interest"
-                    />
-                    <label htmlFor="compound-interest" className="text-sm md:text-base text-forest-700">
-                      Use compound interest
-                    </label>
+                    <span className="text-gray-600 text-sm md:text-base">Tenor</span>
+                    <span className="text-forest-700 font-semibold text-sm md:text-base">{scenario.tenor} years</span>
                   </div>
                 </div>
 
@@ -184,9 +167,9 @@ const InvestmentCalculator = () => {
                     <input
                       type="range"
                       min="1"
-                      max="1000"
+                      max={maxTrees}
                       value={totalTrees}
-                      onChange={(e) => handleTreeChange(parseInt(e.target.value))}
+                      onChange={handleTreeChange}
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-gold-500"
                       style={{
                         background: `linear-gradient(to right, #7A5540 0%, #7A5540 ${treePercentage}%, #E5E7EB ${treePercentage}%, #E5E7EB 100%)`
@@ -200,9 +183,9 @@ const InvestmentCalculator = () => {
                       <input
                         type="number"
                         min="1"
-                        max="1000"
+                        max={maxTrees}
                         value={totalTrees}
-                        onChange={(e) => handleTreeInputChange(parseInt(e.target.value))}
+                        onChange={handleTreeInputChange}
                         className="w-20 px-2 py-1 rounded-full border border-gold-200 text-forest-700 font-semibold text-sm md:text-base text-center focus:ring-2 focus:ring-gold-500 focus:border-transparent"
                         aria-label="Edit number of trees"
                       />
@@ -218,11 +201,11 @@ const InvestmentCalculator = () => {
                   <div className="relative">
                     <input
                       type="number"
-                      min="100"
-                      max="100000"
+                      min={minInvestment}
+                      max={maxInvestment}
                       step="100"
                       value={moneyToInvest}
-                      onChange={(e) => handleMoneyChange(parseInt(e.target.value))}
+                      onChange={handleMoneyChange}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent text-forest-700 text-sm md:text-base transition-all duration-300"
                       placeholder="Enter amount"
                       aria-label="Investment amount"
@@ -232,7 +215,7 @@ const InvestmentCalculator = () => {
                     </div>
                   </div>
                   <div className="mt-2 text-sm md:text-base text-gray-500">
-                    Min: $100 | Max: $100,000
+                    Min: ${minInvestment.toLocaleString()} | Max: ${maxInvestment.toLocaleString()}
                   </div>
                 </div>
 
@@ -255,7 +238,7 @@ const InvestmentCalculator = () => {
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm md:text-base">Lifetime (20 yrs)</span>
+                    <span className="text-gray-600 text-sm md:text-base">Lifetime (5 yrs)</span>
                     <span className="text-forest-700 font-bold text-base md:text-lg">
                       ${Math.round(lifetimeReturn).toLocaleString()}
                     </span>
