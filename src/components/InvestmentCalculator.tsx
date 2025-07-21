@@ -8,7 +8,7 @@ const scenarios = {
 };
 
 const InvestmentCalculator = () => {
-  const [totalTrees, setTotalTrees] = useState(1);
+  const [totalBonds, setTotalBonds] = useState(1);
   const [moneyToInvest, setMoneyToInvest] = useState(100);
   const [selectedScenario, setSelectedScenario] = useState('realistic');
   const [isVisible, setIsVisible] = useState(false);
@@ -41,46 +41,40 @@ const InvestmentCalculator = () => {
     debounceRef.current = setTimeout(callback, delay);
   };
 
-  const costPerTree = 100;
-  const maxTrees = 1000;
+  const costPerBond = 100;
+  const maxBonds = 20; // Updated to reflect per-investor cap
   const minInvestment = 100;
-  const maxInvestment = 100000;
+  const maxInvestment = 2000; // Updated to 20 bonds * $100
 
-  // Calculate trees and returns
-  const actualTrees = Math.floor(moneyToInvest / costPerTree);
-  const actualFreeTrees = Math.floor(actualTrees / 10);
-  const actualTotalTrees = actualTrees + actualFreeTrees;
-  const scenario = scenarios[selectedScenario];
-
-  // MABB calculations
-  const returnPerYear = actualTotalTrees * costPerTree * scenario.interestRate;
-  const lifetimeReturn = actualTotalTrees * (costPerTree + (costPerTree * scenario.interestRate * scenario.tenor));
-  const roi = ((lifetimeReturn - moneyToInvest) / moneyToInvest) * 100;
+  // Calculate returns based on documentation
+  const actualBonds = Math.floor(moneyToInvest / costPerBond);
+  const annualInterest = actualBonds * 10; // $10 per bond per year
+  const lifetimeReturn = actualBonds * 50; // $50 total interest per bond over 5 years
+  const totalPayout = (actualBonds * costPerBond) + lifetimeReturn; // Principal + total interest
+  const roi = (lifetimeReturn / moneyToInvest) * 100;
   const roiPercentage = Math.min(roi, 100);
 
   // Slider calculations
-  const treePercentage = ((totalTrees - 1) / (maxTrees - 1)) * 100;
-  const requiredInvestment = totalTrees * costPerTree;
-  const freeTrees = Math.floor(totalTrees / 10);
-  const totalTreesWithFree = totalTrees + freeTrees;
+  const bondPercentage = ((totalBonds - 1) / (maxBonds - 1)) * 100;
+  const requiredInvestment = totalBonds * costPerBond;
 
-  const handleTreeChange = (e) => {
-    const trees = parseInt(e.target.value);
-    setTotalTrees(trees);
-    setMoneyToInvest(trees * costPerTree);
+  const handleBondChange = (e) => {
+    const bonds = parseInt(e.target.value);
+    setTotalBonds(bonds);
+    setMoneyToInvest(bonds * costPerBond);
   };
 
-  const handleTreeInputChange = (e) => {
-    const value = Math.max(1, Math.min(maxTrees, parseInt(e.target.value) || 1));
-    setTotalTrees(value);
-    setMoneyToInvest(value * costPerTree);
+  const handleBondInputChange = (e) => {
+    const value = Math.max(1, Math.min(maxBonds, parseInt(e.target.value) || 1));
+    setTotalBonds(value);
+    setMoneyToInvest(value * costPerBond);
   };
 
   const handleMoneyChange = (e) => {
     debounce(() => {
       const value = Math.max(minInvestment, Math.min(maxInvestment, parseInt(e.target.value) || minInvestment));
       setMoneyToInvest(value);
-      setTotalTrees(Math.floor(value / costPerTree));
+      setTotalBonds(Math.floor(value / costPerBond));
     }, 100);
   };
 
@@ -96,10 +90,10 @@ const InvestmentCalculator = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 md:mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-forest-700 mb-3 animate-fade-in">
-              Calculate Your Investment Growth
+              Mocha Asset-Backed Bond Calculator
             </h2>
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto animate-fade-in delay-100">
-              Estimate your earnings with Mocha Asset-Backed Bonds (MABB).
+              Estimate your earnings with Mocha Asset-Backed Bonds (MABB), secured by geo-tagged coffee trees in Kenya.
             </p>
           </div>
 
@@ -137,11 +131,11 @@ const InvestmentCalculator = () => {
                 <div className="space-y-3 bg-cream-50 p-4 rounded-xl animate-fade-in delay-300">
                   <div className="flex justify-between">
                     <span className="text-gray-600 text-sm md:text-base">Annual Interest Rate</span>
-                    <span className="text-forest-700 font-semibold text-sm md:text-base">{scenario.interestRate * 100}%</span>
+                    <span className="text-forest-700 font-semibold text-sm md:text-base">10%</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600 text-sm md:text-base">Tenor</span>
-                    <span className="text-forest-700 font-semibold text-sm md:text-base">{scenario.tenor} years</span>
+                    <span className="text-forest-700 font-semibold text-sm md:text-base">5 years</span>
                   </div>
                 </div>
 
@@ -151,30 +145,30 @@ const InvestmentCalculator = () => {
                     Invest Now <ArrowRight className="ml-2 h-4 w-4 inline" />
                   </button>
                   <button className="flex-1 bg-cream-100 text-forest-700 py-3 px-6 rounded-lg hover:bg-cream-200 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500">
-                    P&L Statement <ArrowRight className="ml-2 h-4 w-4 inline" />
+                    View Term Sheet <ArrowRight className="ml-2 h-4 w-4 inline" />
                   </button>
                 </div>
               </div>
 
               {/* Right side - Sliders and Results */}
               <div className="order-1 lg:order-2 space-y-6 md:space-y-8">
-                {/* Tree Slider */}
+                {/* Bond Slider */}
                 <div>
                   <label className="block text-forest-700 font-semibold mb-3 text-sm md:text-base animate-fade-in delay-200">
-                    Total trees (+{freeTrees} free)
+                    Number of Bonds
                   </label>
                   <div className="relative">
                     <input
                       type="range"
                       min="1"
-                      max={maxTrees}
-                      value={totalTrees}
-                      onChange={handleTreeChange}
+                      max={maxBonds}
+                      value={totalBonds}
+                      onChange={handleBondChange}
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-gold-500"
                       style={{
-                        background: `linear-gradient(to right, #7A5540 0%, #7A5540 ${treePercentage}%, #E5E7EB ${treePercentage}%, #E5E7EB 100%)`
+                        background: `linear-gradient(to right, #7A5540 0%, #7A5540 ${bondPercentage}%, #E5E7EB ${bondPercentage}%, #E5E7EB 100%)`
                       }}
-                      aria-label="Number of trees"
+                      aria-label="Number of bonds"
                     />
                     <div className="flex justify-between mt-3">
                       <span className="text-sm md:text-base text-gray-500">
@@ -183,11 +177,11 @@ const InvestmentCalculator = () => {
                       <input
                         type="number"
                         min="1"
-                        max={maxTrees}
-                        value={totalTrees}
-                        onChange={handleTreeInputChange}
+                        max={maxBonds}
+                        value={totalBonds}
+                        onChange={handleBondInputChange}
                         className="w-20 px-2 py-1 rounded-full border border-gold-200 text-forest-700 font-semibold text-sm md:text-base text-center focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-                        aria-label="Edit number of trees"
+                        aria-label="Edit number of bonds"
                       />
                     </div>
                   </div>
@@ -196,7 +190,7 @@ const InvestmentCalculator = () => {
                 {/* Money Input Field */}
                 <div>
                   <label className="block text-forest-700 font-semibold mb-3 text-sm md:text-base animate-fade-in delay-200">
-                    Money to invest
+                    Money to Invest
                   </label>
                   <div className="relative">
                     <input
@@ -222,30 +216,36 @@ const InvestmentCalculator = () => {
                 {/* Results */}
                 <div className="space-y-4 bg-cream-50 p-4 rounded-xl animate-fade-in delay-300">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm md:text-base">Total trees</span>
-                    <span className="text-forest-700 font-bold text-base md:text-lg">{actualTotalTrees}</span>
+                    <span className="text-gray-600 text-sm md:text-base">Total Bonds</span>
+                    <span className="text-forest-700 font-bold text-base md:text-lg">{actualBonds}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm md:text-base">Return / year</span>
+                    <span className="text-gray-600 text-sm md:text-base">Annual Interest</span>
                     <span className="text-forest-700 font-bold text-base md:text-lg">
-                      ${Math.round(returnPerYear).toLocaleString()}
+                      ${Math.round(annualInterest).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center border-t border-gray-200 pt-2">
-                    <span className="text-gray-600 text-sm md:text-base">To invest</span>
+                    <span className="text-gray-600 text-sm md:text-base">To Invest</span>
                     <span className="text-forest-700 font-bold text-base md:text-lg">
                       ${moneyToInvest.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm md:text-base">Lifetime (5 yrs)</span>
+                    <span className="text-gray-600 text-sm md:text-base">Total Return (5 yrs)</span>
                     <span className="text-forest-700 font-bold text-base md:text-lg">
                       ${Math.round(lifetimeReturn).toLocaleString()}
                     </span>
                   </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600 text-sm md:text-base">Principal at Maturity</span>
+                    <span className="text-forest-700 font-bold text-base md:text-lg">
+                      ${Math.round(actualBonds * costPerBond).toLocaleString()}
+                    </span>
+                  </div>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center pt-2 border-t-2 border-gold-200">
-                      <span className="text-forest-700 font-semibold text-sm md:text-base">ROI</span>
+                      <span className="text-forest-700 font-semibold text-sm md:text-base">ROI (5 yrs)</span>
                       <span className="text-gold-500 font-bold text-xl md:text-2xl">{roi.toFixed(1)}%</span>
                     </div>
                     <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
