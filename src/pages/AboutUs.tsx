@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 import { ContentData, AboutUsData } from '../types/content';
 
 const AboutUs: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentTeamSlide, setCurrentTeamSlide] = useState(0);
   const { content, isLoading, error } = useContent();
+  const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
 
   // Show loading screen while content is being fetched
   if (isLoading || !content) {
@@ -23,7 +23,7 @@ const AboutUs: React.FC = () => {
           <p className="text-gray-600 mb-4">{error}</p>
           <button 
             onClick={() => window.location.reload()} 
-            className="btn bg-brown-700 text-white hover:bg-brown-800 px-4 py-2 text-sm"
+            className="btn bg-brown-700 text-white hover:bg-brown-800 px-4 py-2 text-sm animate-element"
           >
             Try again
           </button>
@@ -39,9 +39,34 @@ const AboutUs: React.FC = () => {
     return <ContentLoadingScreen />;
   }
 
+  // Scroll-based visibility detection
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const elements = entry.target.querySelectorAll('.animate-element');
+            elements.forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('element-visible');
+                el.classList.remove('element-hidden');
+              }, index * 100); // Staggered delay of 100ms per element
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    sectionRefs.current.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      sectionRefs.current.forEach((section) => {
+        if (section) observer.unobserve(section);
+      });
+    };
   }, []);
 
   // Auto-scroll for journey timeline
@@ -56,11 +81,11 @@ const AboutUs: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const maxSlides = window.innerWidth >= 1024 
-        ? Math.max(0, aboutUsData.team.members.length - 2) // Desktop: show 3, so max slide is length - 3 + 1
-        : aboutUsData.team.members.length - 1; // Mobile: show 1, so max slide is length - 1
+        ? Math.max(0, aboutUsData.team.members.length - 2)
+        : aboutUsData.team.members.length - 1;
       
       setCurrentTeamSlide((prev) => (prev + 1) % (maxSlides + 1));
-    }, 4000); // Change slide every 4 seconds
+    }, 4000);
     return () => clearInterval(interval);
   }, [aboutUsData.team.members.length]);
 
@@ -74,21 +99,19 @@ const AboutUs: React.FC = () => {
 
   const nextTeamSlide = () => {
     const maxSlides = window.innerWidth >= 1024 
-      ? Math.max(0, aboutUsData.team.members.length - 2) // Desktop: show 3, so max slide is length - 3 + 1
-      : aboutUsData.team.members.length - 1; // Mobile: show 1, so max slide is length - 1
+      ? Math.max(0, aboutUsData.team.members.length - 2)
+      : aboutUsData.team.members.length - 1;
     
     setCurrentTeamSlide((prev) => (prev + 1) % (maxSlides + 1));
   };
 
   const prevTeamSlide = () => {
     const maxSlides = window.innerWidth >= 1024 
-      ? Math.max(0, aboutUsData.team.members.length - 2) // Desktop: show 3, so max slide is length - 3 + 1
-      : aboutUsData.team.members.length - 1; // Mobile: show 1, so max slide is length - 1
+      ? Math.max(0, aboutUsData.team.members.length - 2)
+      : aboutUsData.team.members.length - 1;
     
     setCurrentTeamSlide((prev) => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
   };
-
-
 
   const getValueCardStyles = (index: number) => {
     if (index % 2 === 0) {
@@ -119,7 +142,10 @@ const AboutUs: React.FC = () => {
   return (
     <div className="bg-cream-50">
       {/* Hero Section */}
-      <section className="gradient-forest relative overflow-hidden">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('hero', el)}
+        className="gradient-forest relative overflow-hidden"
+      >
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `url('${aboutUsData.hero.backgroundImage}')`,
@@ -131,17 +157,13 @@ const AboutUs: React.FC = () => {
         <div className="relative z-10 container-custom px-4 sm:px-6 pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20">
           <div className="max-w-6xl mx-auto">
             <div className="max-w-4xl">
-              <div 
-                className={`transition-all duration-1000 delay-500 transform ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-              >
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-4 sm:mb-6 font-bold leading-tight">
+              <div>
+                <h1 className="animate-element element-hidden text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-4 sm:mb-6 font-bold leading-tight">
                   {aboutUsData.hero.title}<br />
                   <span className="text-brown-400">{aboutUsData.hero.titleHighlight}</span>
                 </h1>
                 {aboutUsData.hero.descriptions.map((description: string, index: number) => (
-                  <p key={index} className={`${
+                  <p key={index} className={`animate-element element-hidden ${
                     index === 0 
                       ? 'text-base sm:text-lg md:text-xl text-cream-100 max-w-3xl leading-relaxed mb-4 sm:mb-6'
                       : 'text-sm sm:text-base md:text-lg text-cream-200 max-w-3xl leading-relaxed mb-4 sm:mb-6'
@@ -151,28 +173,20 @@ const AboutUs: React.FC = () => {
                 ))}
               </div>
 
-              <div 
-                className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 transition-all duration-1000 delay-1000 transform ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-              >
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8">
                 {aboutUsData.hero.buttons.map((button: any, index: number) => {
                   const buttonClass = button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary';
                   
                   return (
-                    <button key={index} className={`${buttonClass} w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
+                    <button key={index} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
                       {button.text} <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
+                    </button>
                   );
                 })}
               </div>
 
-              <div 
-                className={`transition-all duration-1000 delay-1200 transform ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-              >
-                <p className="text-cream-200 italic text-sm sm:text-base text-center sm:text-left">
+              <div>
+                <p className="animate-element element-hidden text-cream-200 italic text-sm sm:text-base text-center sm:text-left">
                   {aboutUsData.hero.callToAction}
                 </p>
               </div>
@@ -182,18 +196,20 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-100">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('team', el)}
+        className="py-8 sm:py-12 md:py-16 bg-cream-100"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">{aboutUsData.team.sectionTitle}</h2>
-            <h3 className="text-base sm:text-lg md:text-xl text-brown-800 mb-4 font-semibold">
+            <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">{aboutUsData.team.sectionTitle}</h2>
+            <h3 className="animate-element element-hidden text-base sm:text-lg md:text-xl text-brown-800 mb-4 font-semibold">
               {aboutUsData.team.sectionSubtitle}
             </h3>
           </div>
 
           {/* Desktop Carousel */}
           <div className="hidden lg:block relative max-w-6xl mx-auto">
-            {/* Carousel Container */}
             <div className="relative overflow-hidden rounded-2xl">
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
@@ -201,30 +217,25 @@ const AboutUs: React.FC = () => {
               >
                 {aboutUsData.team.members.map((member: any, index: number) => (
                   <div key={index} className="w-1/3 flex-shrink-0 px-3">
-                    <div 
-                      className={`card p-6 text-center transition-all duration-1000 ${
-                        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                      }`}
-                      style={{ transitionDelay: `${index * 150}ms` }}
-                    >
+                    <div className="card p-6 text-center animate-element element-hidden">
                       <div className="relative mb-4">
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-48 object-cover bg-gray-100 rounded-2xl relative"
+                          className="animate-element element-hidden w-full h-48 object-cover bg-gray-100 rounded-2xl relative"
                           style={{ objectPosition: 'top' }}
                         />
-                        <div className="absolute bottom-2 right-2 w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        <div className="absolute bottom-2 right-2 w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-sm animate-element element-hidden">
                           {member.initials}
                         </div>
                       </div>
-                      <h4 className="text-lg font-bold text-brown-800 mb-2">{member.name}</h4>
-                      <p className="text-brown-700 font-medium mb-4 text-base">{member.role}</p>
+                      <h4 className="animate-element element-hidden text-lg font-bold text-brown-800 mb-2">{member.name}</h4>
+                      <p className="animate-element element-hidden text-brown-700 font-medium mb-4 text-base">{member.role}</p>
                       <div className="flex justify-center gap-3">
-                        <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
+                        <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden">
                           <span className="text-white text-sm">in</span>
                         </div>
-                        <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
+                        <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden">
                           <span className="text-white text-sm">@</span>
                         </div>
                       </div>
@@ -234,27 +245,25 @@ const AboutUs: React.FC = () => {
               </div>
             </div>
 
-            {/* Navigation Arrows for Desktop */}
             <button
               onClick={prevTeamSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-4 shadow-lg transition-all duration-200 z-10"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-4 shadow-lg transition-all duration-200 z-10 animate-element element-hidden"
             >
               <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               onClick={nextTeamSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-4 shadow-lg transition-all duration-200 z-10"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-4 shadow-lg transition-all duration-200 z-10 animate-element element-hidden"
             >
               <ChevronRight className="h-6 w-6" />
             </button>
 
-            {/* Dots Indicator for Desktop */}
             <div className="flex justify-center mt-8 space-x-3">
               {Array.from({ length: Math.max(1, aboutUsData.team.members.length - 2) }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentTeamSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                  className={`w-3 h-3 rounded-full transition-all duration-200 animate-element element-hidden ${
                     index === currentTeamSlide 
                       ? 'bg-brown-600 w-10' 
                       : 'bg-gray-300 hover:bg-gray-400'
@@ -266,7 +275,6 @@ const AboutUs: React.FC = () => {
 
           {/* Mobile/Tablet Carousel */}
           <div className="lg:hidden relative max-w-sm mx-auto">
-            {/* Carousel Container */}
             <div className="relative overflow-hidden rounded-2xl">
               <div 
                 className="flex transition-transform duration-500 ease-in-out touch-manipulation"
@@ -274,25 +282,25 @@ const AboutUs: React.FC = () => {
               >
                 {aboutUsData.team.members.map((member: any, index: number) => (
                   <div key={index} className="w-full flex-shrink-0 px-2">
-                    <div className="card p-5 sm:p-6 text-center bg-white">
+                    <div className="card p-5 sm:p-6 text-center bg-white animate-element element-hidden">
                       <div className="relative mb-5">
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-56 sm:h-64 object-cover bg-gray-100 rounded-2xl relative"
+                          className="animate-element element-hidden w-full h-56 sm:h-64 object-cover bg-gray-100 rounded-2xl relative"
                           style={{ objectPosition: 'top' }}
                         />
-                        <div className="absolute bottom-3 right-3 w-10 h-10 sm:w-12 sm:h-12 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base">
+                        <div className="absolute bottom-3 right-3 w-10 h-10 sm:w-12 sm:h-12 bg-brown-700 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base animate-element element-hidden">
                           {member.initials}
                         </div>
                       </div>
-                      <h4 className="text-lg sm:text-xl font-bold text-brown-800 mb-2 sm:mb-3">{member.name}</h4>
-                      <p className="text-brown-700 font-medium mb-5 sm:mb-6 text-base sm:text-lg">{member.role}</p>
+                      <h4 className="animate-element element-hidden text-lg sm:text-xl font-bold text-brown-800 mb-2 sm:mb-3">{member.name}</h4>
+                      <p className="animate-element element-hidden text-brown-700 font-medium mb-5 sm:mb-6 text-base sm:text-lg">{member.role}</p>
                       <div className="flex justify-center gap-4">
-                        <div className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
+                        <div className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden">
                           <span className="text-white text-sm">in</span>
                         </div>
-                        <div className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation">
+                        <div className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden">
                           <span className="text-white text-sm">@</span>
                         </div>
                       </div>
@@ -302,27 +310,25 @@ const AboutUs: React.FC = () => {
               </div>
             </div>
 
-            {/* Navigation Arrows */}
             <button
               onClick={prevTeamSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation animate-element element-hidden"
             >
               <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
             <button
               onClick={nextTeamSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-brown-700 rounded-full p-3 shadow-lg transition-all duration-200 z-10 touch-manipulation animate-element element-hidden"
             >
               <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
 
-            {/* Dots Indicator */}
             <div className="flex justify-center mt-6 space-x-2">
               {aboutUsData.team.members.map((_: any, index: number) => (
                 <button
                   key={index}
                   onClick={() => setCurrentTeamSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 touch-manipulation ${
+                  className={`w-3 h-3 rounded-full transition-all duration-200 touch-manipulation animate-element element-hidden ${
                     index === currentTeamSlide 
                       ? 'bg-brown-600 w-8' 
                       : 'bg-gray-300 hover:bg-gray-400'
@@ -331,9 +337,8 @@ const AboutUs: React.FC = () => {
               ))}
             </div>
 
-            {/* Mobile Swipe Hint */}
             <div className="text-center mt-4">
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 animate-element element-hidden">
                 {aboutUsData.team.swipeHint}
               </p>
             </div>
@@ -342,15 +347,18 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Statistics Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-50">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('statistics', el)}
+        className="py-8 sm:py-12 md:py-16 bg-cream-50"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">
+            <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">
               {aboutUsData.statistics.sectionTitle}<br />
               <span className="text-brown-800">{aboutUsData.statistics.sectionTitleHighlight}</span>
             </h2>
             <div className="max-w-3xl mx-auto mb-6 sm:mb-8">
-              <p className="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
+              <p className="animate-element element-hidden text-gray-600 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
                 {aboutUsData.statistics.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
@@ -358,9 +366,9 @@ const AboutUs: React.FC = () => {
                   const buttonClass = button.type === 'primary' ? 'btn btn-primary' : 'btn btn-secondary';
                   
                   return (
-                    <button key={index} className={`${buttonClass} w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
+                    <button key={index} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
                       {button.text} <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
+                    </button>
                   );
                 })}
               </div>
@@ -371,15 +379,12 @@ const AboutUs: React.FC = () => {
             {aboutUsData.statistics.stats.map((stat: any, index: number) => (
               <div 
                 key={index}
-                className={`card bg-brown-800 text-white p-3 sm:p-4 md:p-6 text-center transition-all duration-1000 ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className="card bg-brown-800 text-white p-3 sm:p-4 md:p-6 text-center animate-element element-hidden"
               >
-                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-brown-400 mb-1 sm:mb-2">
+                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-brown-400 mb-1 sm:mb-2 animate-element element-hidden">
                   {stat.number}
                 </div>
-                <div className="text-xs sm:text-sm text-cream-100 leading-tight">
+                <div className="text-xs sm:text-sm text-cream-100 leading-tight animate-element element-hidden">
                   {stat.label}
                 </div>
               </div>
@@ -389,16 +394,20 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Investment Model Section */}
-      <section className="py-8 sm:py-12 md:py-16" style={{
-        backgroundImage: `linear-gradient(rgba(62, 43, 40, 0.9), rgba(62, 43, 40, 0.9)), url('${aboutUsData.investmentModel.backgroundImage}')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}>
+      <section 
+        ref={(el) => el && sectionRefs.current.set('investment', el)}
+        className="py-8 sm:py-12 md:py-16"
+        style={{
+          backgroundImage: `linear-gradient(rgba(62, 43, 40, 0.9), rgba(62, 43, 40, 0.9)), url('${aboutUsData.investmentModel.backgroundImage}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-xl sm:text-2xl md:text-3xl text-white mb-2 sm:mb-3 font-bold">{aboutUsData.investmentModel.sectionTitle}</h2>
-              <h3 className="text-base sm:text-lg md:text-xl text-brown-400 mb-4 sm:mb-6 font-semibold">
+              <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-white mb-2 sm:mb-3 font-bold">{aboutUsData.investmentModel.sectionTitle}</h2>
+              <h3 className="animate-element element-hidden text-base sm:text-lg md:text-xl text-brown-400 mb-4 sm:mb-6 font-semibold">
                 {aboutUsData.investmentModel.sectionSubtitle}
               </h3>
             </div>
@@ -409,15 +418,15 @@ const AboutUs: React.FC = () => {
                 const buttonClass = index === 0 ? 'btn bg-brown-700 text-white hover:bg-brown-800' : 'btn bg-white text-brown-800 hover:bg-cream-50';
                 
                 return (
-                  <div key={index} className={`${cardClass} p-4 sm:p-6`}>
-                    <h4 className="text-base sm:text-lg font-bold text-brown-400 mb-3 sm:mb-4">{model.title}</h4>
-                <p className="text-cream-100 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+                  <div key={index} className={`${cardClass} p-4 sm:p-6 animate-element element-hidden`}>
+                    <h4 className="animate-element element-hidden text-base sm:text-lg font-bold text-brown-400 mb-3 sm:mb-4">{model.title}</h4>
+                    <p className="animate-element element-hidden text-cream-100 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                       {model.description}
                     </p>
-                    <button className={`${buttonClass} w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
+                    <button className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
                       {model.buttonText}
-                </button>
-              </div>
+                    </button>
+                  </div>
                 );
               })}
             </div>
@@ -426,27 +435,30 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Coffee Demand Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-brown-800">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('coffeeDemand', el)}
+        className="py-8 sm:py-12 md:py-16 bg-brown-800"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="card-large p-4 sm:p-6 md:p-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div className="order-2 lg:order-1">
-                  <div className="inline-block bg-brown-200 text-brown-800 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3 sm:mb-4">
+                  <div className="animate-element element-hidden inline-block bg-brown-200 text-brown-800 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3 sm:mb-4">
                     {aboutUsData.coffeeDemand.badge}
                   </div>
-                  <h3 className="text-base sm:text-lg md:text-xl text-brown-800 mb-3 sm:mb-4 font-semibold leading-tight">
+                  <h3 className="animate-element element-hidden text-base sm:text-lg md:text-xl text-brown-800 mb-3 sm:mb-4 font-semibold leading-tight">
                     {aboutUsData.coffeeDemand.title}
                   </h3>
-                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
+                  <p className="animate-element element-hidden text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
                     {aboutUsData.coffeeDemand.description}
                   </p>
                   <div className="flex items-center gap-3 sm:gap-4">
-                    <button className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation">
+                    <button className="animate-element element-hidden w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation">
                       <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
-                    <span className="text-brown-800 font-medium text-sm sm:text-base">{aboutUsData.coffeeDemand.navigationInfo}</span>
-                    <button className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation">
+                    <span className="animate-element element-hidden text-brown-800 font-medium text-sm sm:text-base">{aboutUsData.coffeeDemand.navigationInfo}</span>
+                    <button className="animate-element element-hidden w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation">
                       <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
                   </div>
@@ -455,7 +467,7 @@ const AboutUs: React.FC = () => {
                   <img
                     src={aboutUsData.coffeeDemand.image}
                     alt={aboutUsData.coffeeDemand.imageAlt}
-                    className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
+                    className="animate-element element-hidden w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                   />
                 </div>
               </div>
@@ -465,35 +477,35 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-100">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('values', el)}
+        className="py-8 sm:py-12 md:py-16 bg-cream-100"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-800 mb-4 sm:mb-6 font-bold">{aboutUsData.values.sectionTitle}</h2>
+            <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-brown-800 mb-4 sm:mb-6 font-bold">{aboutUsData.values.sectionTitle}</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {aboutUsData.values.valuesList.map((value: any, index: number) => {
               const styles = getValueTextStyles(index);
               return (
-              <div 
-                key={index}
-                  className={`card p-4 sm:p-6 transition-all duration-1000 ${getValueCardStyles(index)} ${
-                    isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                  }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <div className="flex items-center mb-3 sm:mb-4">
-                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mr-3 sm:mr-4 ${styles.iconBg}`}>
-                    <span className="text-lg sm:text-xl">{value.icon}</span>
+                <div 
+                  key={index}
+                  className={`card p-4 sm:p-6 ${getValueCardStyles(index)} animate-element element-hidden`}
+                >
+                  <div className="flex items-center mb-3 sm:mb-4">
+                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mr-3 sm:mr-4 ${styles.iconBg} animate-element element-hidden`}>
+                      <span className="text-lg sm:text-xl">{value.icon}</span>
+                    </div>
+                    <h4 className={`text-base sm:text-lg font-bold ${styles.titleColor} animate-element element-hidden`}>
+                      {value.title}
+                    </h4>
                   </div>
-                    <h4 className={`text-base sm:text-lg font-bold ${styles.titleColor}`}>
-                    {value.title}
-                  </h4>
+                  <p className={`leading-relaxed text-xs sm:text-sm ${styles.descriptionColor} animate-element element-hidden`}>
+                    {value.description}
+                  </p>
                 </div>
-                  <p className={`leading-relaxed text-xs sm:text-sm ${styles.descriptionColor}`}>
-                  {value.description}
-                </p>
-              </div>
               );
             })}
           </div>
@@ -501,15 +513,18 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Ethical Impact Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-brown-800">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('ethicalImpact', el)}
+        className="py-8 sm:py-12 md:py-16 bg-brown-800"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="card-large p-4 sm:p-6 md:p-8">
               <div className="text-center mb-8 sm:mb-12">
-                <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">
+                <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">
                   {aboutUsData.ethicalImpact.sectionTitle}
                 </h2>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base max-w-3xl mx-auto">
+                <p className="animate-element element-hidden text-gray-600 leading-relaxed text-sm sm:text-base max-w-3xl mx-auto">
                   {aboutUsData.ethicalImpact.sectionDescription}
                 </p>
               </div>
@@ -519,24 +534,24 @@ const AboutUs: React.FC = () => {
                   const cardClass = stat.cardType === 'brown' ? 'card bg-brown-600 text-white' : 'card bg-white';
                   
                   return (
-                    <div key={index} className={`${cardClass} p-4 sm:p-6 text-center`}>
-                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-brown-600 mb-2 sm:mb-3">{stat.number}</div>
-                      <h4 className="text-sm sm:text-base font-bold text-brown-800 mb-2 sm:mb-3">{stat.title}</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
+                    <div key={index} className={`${cardClass} p-4 sm:p-6 text-center animate-element element-hidden`}>
+                      <div className="animate-element element-hidden text-2xl sm:text-3xl md:text-4xl font-bold text-brown-600 mb-2 sm:mb-3">{stat.number}</div>
+                      <h4 className="animate-element element-hidden text-sm sm:text-base font-bold text-brown-800 mb-2 sm:mb-3">{stat.title}</h4>
+                      <p className="animate-element element-hidden text-gray-600 text-xs sm:text-sm leading-relaxed">
                         {stat.description}
-                  </p>
-                </div>
+                      </p>
+                    </div>
                   );
                 })}
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div className="order-2 lg:order-1">
-                  <h3 className="text-base sm:text-lg md:text-xl text-brown-800 mb-3 sm:mb-4 font-semibold">
+                  <h3 className="animate-element element-hidden text-base sm:text-lg md:text-xl text-brown-800 mb-3 sm:mb-4 font-semibold">
                     {aboutUsData.ethicalImpact.communityImpact.title}
                   </h3>
                   {aboutUsData.ethicalImpact.communityImpact.descriptions.map((description: string, index: number) => (
-                    <p key={index} className="text-gray-600 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
+                    <p key={index} className="animate-element element-hidden text-gray-600 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
                       {description}
                     </p>
                   ))}
@@ -545,9 +560,9 @@ const AboutUs: React.FC = () => {
                       const buttonClass = button.type === 'primary' ? 'btn btn-primary' : 'btn btn-secondary';
                       
                       return (
-                        <button key={index} className={`${buttonClass} w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
+                        <button key={index} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
                           {button.text} <ArrowRight className="ml-2 h-4 w-4" />
-                    </button>
+                        </button>
                       );
                     })}
                   </div>
@@ -556,15 +571,15 @@ const AboutUs: React.FC = () => {
                   <img
                     src={aboutUsData.ethicalImpact.communityImpact.image}
                     alt={aboutUsData.ethicalImpact.communityImpact.imageAlt}
-                    className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
+                    className="animate-element element-hidden w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl sm:rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                  <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl sm:rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer animate-element element-hidden">
                     <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brown-700 bg-opacity-90 rounded-full flex items-center justify-center touch-manipulation">
                       <Play className="w-5 h-5 sm:w-6 sm:h-6 text-white ml-1" />
                     </div>
                   </div>
                   <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4">
-                    <p className="text-white italic text-xs sm:text-sm">
+                    <p className="animate-element element-hidden text-white italic text-xs sm:text-sm">
                       "{aboutUsData.ethicalImpact.communityImpact.videoQuote}"
                     </p>
                   </div>
@@ -576,11 +591,14 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Journey Timeline */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-50">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('journey', el)}
+        className="py-8 sm:py-12 md:py-16 bg-cream-50"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">{aboutUsData.journey.sectionTitle}</h2>
-            <h3 className="text-base sm:text-lg md:text-xl text-brown-800 mb-4 sm:mb-6 font-semibold">
+            <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">{aboutUsData.journey.sectionTitle}</h2>
+            <h3 className="animate-element element-hidden text-base sm:text-lg md:text-xl text-brown-800 mb-4 sm:mb-6 font-semibold">
               {aboutUsData.journey.sectionSubtitle}
             </h3>
           </div>
@@ -589,13 +607,13 @@ const AboutUs: React.FC = () => {
             <div className="flex justify-between items-center mb-4 sm:mb-6">
               <button 
                 onClick={prevSlide}
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
+                className="animate-element element-hidden w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
               >
                 <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button 
                 onClick={nextSlide}
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
+                className="animate-element element-hidden w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
               >
                 <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
@@ -605,18 +623,18 @@ const AboutUs: React.FC = () => {
               {aboutUsData.journey.steps.map((step: any, index: number) => (
                 <div 
                   key={index}
-                  className={`card p-4 sm:p-6 transition-all duration-500 ${
+                  className={`card p-4 sm:p-6 transition-all duration-500 animate-element element-hidden ${
                     index === currentSlide ? 'lg:scale-105 shadow-xl' : 'sm:opacity-70'
                   }`}
                 >
                   <img
                     src={step.image}
                     alt={step.title}
-                    className="w-full h-32 sm:h-40 md:h-32 object-cover rounded-xl sm:rounded-2xl mb-3 sm:mb-4"
+                    className="animate-element element-hidden w-full h-32 sm:h-40 md:h-32 object-cover rounded-xl sm:rounded-2xl mb-3 sm:mb-4"
                   />
-                  <div className="text-base sm:text-lg md:text-xl font-bold text-brown-700 mb-1 sm:mb-2">{step.year}</div>
-                  <h4 className="text-sm sm:text-base font-bold text-brown-800 mb-2 sm:mb-3">{step.title}</h4>
-                  <p className="text-gray-600 leading-relaxed text-xs sm:text-sm">{step.description}</p>
+                  <div className="animate-element element-hidden text-base sm:text-lg md:text-xl font-bold text-brown-700 mb-1 sm:mb-2">{step.year}</div>
+                  <h4 className="animate-element element-hidden text-sm sm:text-base font-bold text-brown-800 mb-2 sm:mb-3">{step.title}</h4>
+                  <p className="animate-element element-hidden text-gray-600 leading-relaxed text-xs sm:text-sm">{step.description}</p>
                 </div>
               ))}
             </div>
@@ -625,7 +643,10 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Culture Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-100">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('culture', el)}
+        className="py-8 sm:py-12 md:py-16 bg-cream-100"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
@@ -633,19 +654,19 @@ const AboutUs: React.FC = () => {
                 <img
                   src={aboutUsData.culture.image}
                   alt={aboutUsData.culture.imageAlt}
-                  className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl"
+                  className="animate-element element-hidden w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl"
                 />
               </div>
               <div className="order-1 lg:order-2">
-                <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-4 sm:mb-6 font-bold">
+                <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-brown-700 mb-4 sm:mb-6 font-bold">
                   {aboutUsData.culture.sectionTitle}
                 </h2>
                 {aboutUsData.culture.descriptions.map((description: string, index: number) => (
-                  <p key={index} className="text-gray-600 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
+                  <p key={index} className="animate-element element-hidden text-gray-600 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
                     {description}
                   </p>
                 ))}
-                <button className="btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation">
+                <button className="animate-element element-hidden btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation">
                   {aboutUsData.culture.buttonText} <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
               </div>
@@ -655,7 +676,10 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Modern Coffee Processing Facility */}
-      <section className="py-8 sm:py-12 md:py-16 bg-cream-50">
+      <section 
+        ref={(el) => el && sectionRefs.current.set('processing', el)}
+        className="py-8 sm:py-12 md:py-16 bg-cream-50"
+      >
         <div className="container-custom px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
@@ -663,19 +687,19 @@ const AboutUs: React.FC = () => {
                 <img
                   src={aboutUsData.processingFacility.image}
                   alt={aboutUsData.processingFacility.imageAlt}
-                  className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
+                  className="animate-element element-hidden w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
                 />
               </div>
               <div className="order-1 lg:order-2">
-                <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-4 sm:mb-6 font-bold">
+                <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-brown-700 mb-4 sm:mb-6 font-bold">
                   {aboutUsData.processingFacility.sectionTitle}
                 </h2>
                 {aboutUsData.processingFacility.descriptions.map((description: string, index: number) => (
-                  <p key={index} className="text-gray-600 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
+                  <p key={index} className="animate-element element-hidden text-gray-600 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
                     {description}
-                </p>
+                  </p>
                 ))}
-                <button className="btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation">
+                <button className="animate-element element-hidden btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation">
                   {aboutUsData.processingFacility.buttonText} <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
               </div>
@@ -687,4 +711,4 @@ const AboutUs: React.FC = () => {
   );
 };
 
-export default AboutUs; 
+export default AboutUs;

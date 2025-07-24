@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true); // Start with navbar visible
+  const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [hideTimeout, setHideTimeout] = useState<number | null>(null);
+  const [hideTimeout, setHideTimeout] = useState(null);
+  const [isHeroEnd, setIsHeroEnd] = useState(false);
   const location = useLocation();
-  const heroObserverRef = useRef<IntersectionObserver | null>(null);
 
   const navigationItems = [
     { name: 'Home', href: '/', type: 'route' },
@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
     { name: 'Investing', href: '/investing', type: 'route' },
     { name: 'Projects', href: '/projects', type: 'route' },
     { name: 'Blog', href: '/blog', type: 'route' },
-    { name: 'Contact', href: '/contact', type: 'route' }
+    { name: 'Contact', href: '/contact', type: 'route' },
   ];
 
   const toggleMenu = () => {
@@ -28,15 +28,13 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false);
   };
 
-  const handleNavClick = (href: string, type: string) => {
+  const handleNavClick = (href, type) => {
     setIsMenuOpen(false);
-    
     if (type === 'scroll') {
       if (location.pathname !== '/') {
         window.location.href = '/' + href;
         return;
       }
-      
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
@@ -45,29 +43,15 @@ const Navbar: React.FC = () => {
   };
 
   useEffect(() => {
-    const heroSection = document.querySelector('.gradient-forest');
-    
-    if (heroSection) {
-      heroObserverRef.current = new IntersectionObserver(
-        ([entry]) => {
-          // Show navbar when hero section is not intersecting or when at top of page
-          setIsVisible(!entry.isIntersecting || window.scrollY === 0);
-        },
-        {
-          root: null,
-          threshold: 0.1,
-        }
-      );
-      
-      heroObserverRef.current.observe(heroSection);
-    }
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+      const isScrollingDown = currentScrollY > lastScrollY;
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+
+      // Set scrolled state for styling
       setIsScrolled(currentScrollY > 50);
-      
-      // Ensure navbar is visible at the top of the page
+
+      // Show navbar at the top of the page
       if (currentScrollY === 0) {
         setIsVisible(true);
         if (hideTimeout) {
@@ -77,36 +61,64 @@ const Navbar: React.FC = () => {
         return;
       }
 
-      const isScrollingDown = currentScrollY > lastScrollY;
-      const isScrollingUp = currentScrollY < lastScrollY;
-      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
-      
-      if (scrollDelta > 5 && isVisible) {
-        setIsVisible(true);
-        setIsScrolled(true);
-      }
-
-      // Clear any existing timeout
-      if (hideTimeout) {
-        clearTimeout(hideTimeout);
+      // Handle scroll behavior
+      if (scrollDelta > 5) {
+        if (isScrollingDown && !isHeroEnd) {
+          // Hide navbar when scrolling down, unless at hero end
+          setIsVisible(false);
+        } else {
+          // Show navbar when scrolling up
+          setIsVisible(true);
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+          }
+          // Set timeout to hide after 10 seconds
+          const timeout = setTimeout(() => {
+            setIsVisible(false);
+            setHideTimeout(null);
+          }, 10000);
+          setHideTimeout(timeout);
+        }
       }
 
       setLastScrollY(currentScrollY);
     };
 
+    // Observe hero section to detect its end
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroEnd(!entry.isIntersecting);
+        if (!entry.isIntersecting) {
+          setIsVisible(true); // Show navbar when hero section is out of view
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            setHideTimeout(null);
+          }
+        }
+      },
+      { threshold: 0 }
+    );
+
+    const heroSection = document.querySelector('#hero');
+    if (heroSection) {
+      heroObserver.observe(heroSection);
+    }
+
     window.addEventListener('scroll', handleScroll);
-    
+
+    // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (heroSection) {
+        heroObserver.unobserve(heroSection);
+      }
       if (hideTimeout) {
         clearTimeout(hideTimeout);
       }
-      if (heroObserverRef.current) {
-        heroObserverRef.current.disconnect();
-      }
     };
-  }, [lastScrollY, hideTimeout, isVisible]);
+  }, [lastScrollY, hideTimeout, isHeroEnd]);
 
+  // Handle navbar interaction to show navbar
   const handleNavbarInteraction = () => {
     if (hideTimeout) {
       clearTimeout(hideTimeout);
@@ -115,15 +127,16 @@ const Navbar: React.FC = () => {
     setIsVisible(true);
   };
 
+  // Close menu on outside click or escape key
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event) => {
       const nav = document.getElementById('mobile-nav');
-      if (nav && !nav.contains(event.target as Node)) {
+      if (nav && !nav.contains(event.target)) {
         setIsMenuOpen(false);
       }
     };
 
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleEscape = (event) => {
       if (event.key === 'Escape') {
         setIsMenuOpen(false);
       }
@@ -142,77 +155,60 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav 
+      <nav
         id="mobile-nav"
-        className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
+        className={`fixed w-full z-50 transition-all duration-500 ${
           isScrolled ? 'py-1' : 'py-2'
         } ${
           isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-        }`}
+        } animate-nav-load`}
         onMouseEnter={handleNavbarInteraction}
         onFocus={handleNavbarInteraction}
       >
         <div className="container-custom">
-          <div className={`nav-pill px-6 py-3 flex justify-between items-center transition-all duration-500 ${
-            isScrolled ? 'shadow-xl bg-white/95 backdrop-blur-md' : 'shadow-lg bg-white'
-          }`}>
-            <Link 
-              to="/" 
-              className="flex items-center z-20"
-              onClick={closeMenu}
-            >
-              <div className="w-7 h-7 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
-                <img 
-                  src="/mocha.jpg" 
-                  alt="Project Mocha Logo" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="text-xl font-bold text-coffee-800 text-emphasis">
-                Project Mocha
-              </span>
+          <div
+            className={`nav-pill px-4 sm:px-6 py-3 flex justify-between items-center transition-all duration-500 ${
+              isScrolled ? 'shadow-xl bg-white/95 backdrop-blur-lg' : 'shadow-lg bg-white/90 backdrop-blur-md'
+            }`}
+          >
+            <Link to="/" className="flex items-center z-20" onClick={closeMenu}>
+              <img
+                src="/mocha.jpg"
+                alt="Project Mocha Logo"
+                className="w-10 h-10 sm:w-12 sm:h-12 object-cover"
+              />
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-6">
+            <div className="hidden lg:flex space-x-6">
               {navigationItems.map((item) => (
-                <div key={item.name} className="relative">
+                <div key={item.name}>
                   {item.type === 'route' ? (
                     <Link
                       to={item.href}
-                      className={`text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
+                      className={`text-sm font-semibold transition-colors duration-300 hover:scale-105 transform ${
                         location.pathname === item.href
-                          ? 'text-coffee-800 font-bold bg-coffee-50 bg-opacity-50 rounded-lg px-3 py-1'
+                          ? 'text-coffee-800 border-b-2 border-coffee-600'
                           : 'text-gray-600 hover:text-coffee-600'
                       }`}
                     >
                       {item.name}
-                      {location.pathname === item.href && (
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-coffee-600 animate-[underline_0.3s_ease-in-out_forwards]" />
-                      )}
                     </Link>
                   ) : (
                     <button
                       onClick={() => handleNavClick(item.href, item.type)}
-                      className={`text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
+                      className={`text-sm font-semibold transition-colors duration-300 hover:scale-105 transform ${
                         location.pathname === item.href
-                          ? 'text-coffee-800 font-bold bg-coffee-50 bg-opacity-50 rounded-lg px-3 py-1'
+                          ? 'text-coffee-800 border-b-2 border-coffee-600'
                           : 'text-gray-600 hover:text-coffee-600'
                       }`}
                     >
                       {item.name}
-                      {location.pathname === item.href && (
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-coffee-600 animate-[underline_0.3s_ease-in-out_forwards]" />
-                      )}
                     </button>
                   )}
                 </div>
               ))}
             </div>
-
-            {/* <button className="hidden md:block btn bg-[#7a5540] text-white text-sm px-4 py-2 rounded-full hover:bg-[#6a4a38] transition-all duration-300">
-              Start Investing
-            </button> */}
 
             <div className="hidden lg:flex items-center space-x-4">
               <Link
@@ -229,10 +225,9 @@ const Navbar: React.FC = () => {
               </Link>
             </div>
 
-
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden focus:outline-none z-20 relative"
+            {/* Mobile/Tablet Menu Button */}
+            <button
+              className="lg:hidden focus:outline-none z-20 relative"
               onClick={toggleMenu}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
@@ -249,38 +244,29 @@ const Navbar: React.FC = () => {
 
       {/* Mobile/Tablet Menu Overlay */}
       {isMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-30 z-40 lg:hidden"
           onClick={closeMenu}
         />
       )}
 
-      {/* Mobile Menu */}
-      <div 
-        className={`fixed top-20 right-4 w-80 max-w-sm bg-white bg-opacity-95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out md:hidden ${
+      {/* Mobile/Tablet Menu */}
+      <div
+        className={`fixed top-16 sm:top-20 right-4 w-80 max-w-sm bg-white bg-opacity-95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out lg:hidden ${
           isMenuOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-95'
         }`}
       >
         <div className="flex flex-col">
           {/* Mobile/Tablet Menu Header */}
           <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 border-opacity-50">
-            <Link 
-              to="/" 
-              className="flex items-center"
-              onClick={closeMenu}
-            >
-              <div className="w-6 h-6 mr-2 rounded-full overflow-hidden bg-white shadow-sm border border-coffee-200">
-                <img 
-                  src="/mocha.jpg" 
-                  alt="Project Mocha Logo" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="text-lg font-bold text-coffee-800 text-emphasis">
-                Project Mocha
-              </span>
+            <Link to="/" className="flex items-center" onClick={closeMenu}>
+              <img
+                src="/mocha.jpg"
+                alt="Project Mocha Logo"
+                className="w-10 h-10 object-cover"
+              />
             </Link>
-            <button 
+            <button
               onClick={closeMenu}
               className="p-2 rounded-full hover:bg-gray-100 hover:bg-opacity-50 transition-colors"
               aria-label="Close menu"
@@ -293,35 +279,29 @@ const Navbar: React.FC = () => {
           <div className="py-4">
             <div className="px-4 space-y-1">
               {navigationItems.map((item) => (
-                <div key={item.name} className="relative">
+                <div key={item.name}>
                   {item.type === 'route' ? (
                     <Link
                       to={item.href}
                       onClick={closeMenu}
                       className={`block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${
                         location.pathname === item.href
-                          ? 'text-coffee-800 font-bold bg-coffee-50 bg-opacity-70'
+                          ? 'text-coffee-800 bg-coffee-50 bg-opacity-70'
                           : 'text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70'
                       }`}
                     >
                       {item.name}
-                      {location.pathname === item.href && (
-                        <span className="absolute bottom-2 left-4 w-[calc(100%-2rem)] h-0.5 bg-coffee-600 animate-[underline_0.3s_ease-in-out_forwards]" />
-                      )}
                     </Link>
                   ) : (
                     <button
                       onClick={() => handleNavClick(item.href, item.type)}
                       className={`block w-full text-left px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${
                         location.pathname === item.href
-                          ? 'text-coffee-800 font-bold bg-coffee-50 bg-opacity-70'
+                          ? 'text-coffee-800 bg-coffee-50 bg-opacity-70'
                           : 'text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 hover:bg-opacity-70'
                       }`}
                     >
                       {item.name}
-                      {location.pathname === item.href && (
-                        <span className="absolute bottom-2 left-4 w-[calc(100%-2rem)] h-0.5 bg-coffee-600 animate-[underline_0.3s_ease-in-out_forwards]" />
-                      )}
                     </button>
                   )}
                 </div>
@@ -348,6 +328,23 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes nav-load {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-nav-load {
+          animation: nav-load 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+      `}</style>
     </>
   );
 };

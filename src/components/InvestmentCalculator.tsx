@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
-
-const scenarios = {
-  realistic: { name: 'Realistic', interestRate: 0.1, tenor: 5, description: 'Fixed 10% annual return over 5 years.' },
-  optimistic: { name: 'Optimistic', interestRate: 0.1, tenor: 5, description: 'Fixed 10% annual return with high confidence.' },
-  pessimistic: { name: 'Pessimistic', interestRate: 0.1, tenor: 5, description: 'Fixed 10% annual return for cautious investors.' }
-};
+import { ArrowRight, Info } from 'lucide-react';
 
 const InvestmentCalculator = () => {
   const [totalBonds, setTotalBonds] = useState(1);
@@ -42,15 +36,15 @@ const InvestmentCalculator = () => {
   };
 
   const costPerBond = 100;
-  const maxBonds = 20; // Updated to reflect per-investor cap
+  const maxBonds = 20;
   const minInvestment = 100;
-  const maxInvestment = 2000; // Updated to 20 bonds * $100
+  const maxInvestment = 2000;
 
   // Calculate returns based on documentation
   const actualBonds = Math.floor(moneyToInvest / costPerBond);
-  const annualInterest = actualBonds * 10; // $10 per bond per year
-  const lifetimeReturn = actualBonds * 50; // $50 total interest per bond over 5 years
-  const totalPayout = (actualBonds * costPerBond) + lifetimeReturn; // Principal + total interest
+  const annualInterest = actualBonds * 10;
+  const lifetimeReturn = actualBonds * 50;
+  const totalPayout = (actualBonds * costPerBond) + lifetimeReturn;
   const roi = (lifetimeReturn / moneyToInvest) * 100;
   const roiPercentage = Math.min(roi, 100);
 
@@ -89,11 +83,14 @@ const InvestmentCalculator = () => {
       <div className="container-custom px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-forest-700 mb-3 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-forest-700 mb-3 animate-fade-in">
               Mocha Asset-Backed Bond Calculator
             </h2>
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto animate-fade-in delay-100">
               Estimate your earnings with Mocha Asset-Backed Bonds (MABB), secured by geo-tagged coffee trees in Kenya.
+            </p>
+            <p className="text-gray-500 text-sm md:text-base mt-2 max-w-3xl mx-auto animate-fade-in delay-200">
+              Use this calculator to explore how many bonds you can purchase and estimate your returns over 5 years. Adjust the number of bonds or investment amount to see real-time results.
             </p>
           </div>
 
@@ -103,28 +100,15 @@ const InvestmentCalculator = () => {
               <div className="order-2 lg:order-1 space-y-6 md:space-y-8">
                 {/* Profit Scenario Selection */}
                 <div>
-                  <h3 className="text-lg md:text-xl font-bold text-forest-700 mb-4 animate-fade-in delay-200">
-                    Pick Your Profit Scenario
+                  <h3 className="text-2xl md:text-3xl font-bold text-forest-700 mb-2 animate-fade-in delay-200">
+                    Explore Your Investment Potential
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {Object.entries(scenarios).map(([key, scenario]) => (
-                      <button
-                        key={key}
-                        onClick={() => setSelectedScenario(key)}
-                        className={`p-4 rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500 ${
-                          selectedScenario === key
-                            ? 'bg-[#7A5540] text-white shadow-md'
-                            : 'bg-cream-100 text-forest-700 hover:bg-cream-200'
-                        }`}
-                        aria-label={`Select ${scenario.name} scenario`}
-                      >
-                        <span className="text-sm md:text-base font-semibold">{scenario.name}</span>
-                        <p className={`text-xs mt-1 ${selectedScenario === key ? 'text-gray-200' : 'text-gray-500'}`}>
-                          {scenario.description}
-                        </p>
-                      </button>
-                    ))}
-                  </div>
+                  <p className="text-gray-600 text-base md:text-lg mb-4 animate-fade-in delay-200">
+                    Discover Your Returns with Mocha Asset-Backed Bonds
+                  </p>
+                  <p className="text-gray-500 text-sm md:text-base mb-4 animate-fade-in delay-200">
+                    Each bond costs $100 and provides a fixed 10% annual return over 5 years, secured by coffee trees in Kenya. Review the details below to understand your investment.
+                  </p>
                 </div>
 
                 {/* Scenario Details */}
@@ -137,6 +121,14 @@ const InvestmentCalculator = () => {
                     <span className="text-gray-600 text-sm md:text-base">Tenor</span>
                     <span className="text-forest-700 font-semibold text-sm md:text-base">5 years</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 text-sm md:text-base">Bond Cost</span>
+                    <span className="text-forest-700 font-semibold text-sm md:text-base">$100 per bond</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 text-sm md:text-base">Max Bonds per Investor</span>
+                    <span className="text-forest-700 font-semibold text-sm md:text-base">20</span>
+                  </div>
                 </div>
 
                 {/* Action Buttons */}
@@ -148,6 +140,9 @@ const InvestmentCalculator = () => {
                     View Term Sheet <ArrowRight className="ml-2 h-4 w-4 inline" />
                   </button>
                 </div>
+                <p className="text-gray-500 text-sm md:text-base animate-fade-in delay-400">
+                  Click "Invest Now" to start your investment journey or "View Term Sheet" for detailed terms and conditions.
+                </p>
               </div>
 
               {/* Right side - Sliders and Results */}
@@ -156,6 +151,12 @@ const InvestmentCalculator = () => {
                 <div>
                   <label className="block text-forest-700 font-semibold mb-3 text-sm md:text-base animate-fade-in delay-200">
                     Number of Bonds
+                    <span className="ml-2 text-gray-500 cursor-pointer relative group">
+                      <Info className="h-4 w-4 inline" />
+                      <span className="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded p-2 -top-10 left-0 w-48">
+                        Select the number of bonds to purchase. Each bond costs $100, with a maximum of 20 bonds per investor.
+                      </span>
+                    </span>
                   </label>
                   <div className="relative">
                     <input
@@ -191,6 +192,12 @@ const InvestmentCalculator = () => {
                 <div>
                   <label className="block text-forest-700 font-semibold mb-3 text-sm md:text-base animate-fade-in delay-200">
                     Money to Invest
+                    <span className="ml-2 text-gray-500 cursor-pointer relative group">
+                      <Info className="h-4 w-4 inline" />
+                      <span className="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded p-2 -top-10 left-0 w-48">
+                        Enter the amount you wish to invest. The calculator will determine the number of bonds based on $100 per bond, up to a maximum of $2,000.
+                      </span>
+                    </span>
                   </label>
                   <div className="relative">
                     <input
@@ -255,6 +262,9 @@ const InvestmentCalculator = () => {
                       ></div>
                     </div>
                   </div>
+                  <p className="text-gray-500 text-sm md:text-base">
+                    Results are estimates based on a fixed 10% annual return over 5 years. Actual returns may vary. Your principal ($100 per bond) is returned at maturity.
+                  </p>
                 </div>
               </div>
             </div>
@@ -321,6 +331,10 @@ const InvestmentCalculator = () => {
         
         input[type="range"]::-moz-range-thumb:hover {
           transform: scale(1.2);
+        }
+        
+        .group:hover .group-hover\\:block {
+          display: block;
         }
       `}</style>
     </section>

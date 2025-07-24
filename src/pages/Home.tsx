@@ -22,7 +22,7 @@ const Home: React.FC = () => {
         <InvestmentCalculator />
       </section>
       <section id="plans">
-        <InvestmentPlans />
+        {/* <InvestmentPlans /> */}
       </section>
       <section id="opportunities">
         <AvailableOpportunities />
