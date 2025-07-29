@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingCart, Sprout, DollarSign, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useContent } from '../contexts/ContentContext';
 import { ContentData } from '../types/content';
 
@@ -66,8 +66,12 @@ const HowItWorks = () => {
               isSectionVisible ? 'animate-card-slide-left' : 'opacity-0 -translate-x-12'
             }`}
           >
-            <div className="w-14 h-14 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <ShoppingCart className="h-7 w-7 text-gold-500" />
+            <div className="w-full h-48 mb-4 overflow-hidden rounded-xl">
+              <img
+                src="https://i.postimg.cc/V6SmRqgK/detailed-geotags-of-project-mocha-trees.jpg"
+                alt="Shopping illustration"
+                className="w-full h-full object-cover"
+              />
             </div>
             <h3 className="text-lg md:text-xl font-bold text-gold-500 mb-3">{sectionData.steps[0].title}</h3>
             <p className="text-gray-600 mb-3 text-sm md:text-base font-medium">
@@ -81,24 +85,31 @@ const HowItWorks = () => {
               isSectionVisible ? 'animate-card-slide-left' : 'opacity-0 -translate-x-12'
             }`}
           >
-            <div className="w-14 h-14 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <ShoppingCart className="h-7 w-7 text-gold-500" />
+            <div className="w-full h-48 mb-4 overflow-hidden rounded-xl">
+              <img
+                src="https://i.postimg.cc/RC70H10v/20240815-130618-1.jpg"
+                alt="Growth illustration"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
-            <h3 className="text-lg md:text-xl font-bold text-gold-500 mb-3">{sectionData.steps[0].title}</h3>
+            <h3 className="text-lg md:text-xl font-bold text-gold-500 mb-3">{sectionData.steps[1].title}</h3>
             <p className="text-gray-600 mb-3 text-sm md:text-base font-medium">
-              <strong>{sectionData.steps[0].stepNumber}:</strong> {sectionData.steps[0].actionText}
+              <strong>{sectionData.steps[1].stepNumber}:</strong> {sectionData.steps[1].actionText}
             </p>
-            <p className="text-gray-600 text-sm leading-relaxed">{sectionData.steps[0].description}</p>
+            <p className="text-gray-600 text-sm leading-relaxed">{sectionData.steps[1].description}</p>
           </div>
-
 
           <div
             className={`card bg-white/95 backdrop-blur-xl p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 text-center ${
               isSectionVisible ? 'animate-card-slide-right' : 'opacity-0 translate-x-12'
             } sm:col-span-2 md:col-span-1`}
           >
-            <div className="w-14 h-14 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <DollarSign className="h-7 w-7 text-gold-500" />
+            <div className="w-full h-48 mb-4 overflow-hidden rounded-xl">
+              <img
+                src="https://i.postimg.cc/fymZ4M6X/870e639e-f996-4700-a849-73cc31376457.jpg"
+                alt="Payment illustration"
+                className="w-full h-full object-cover"
+              />
             </div>
             <h3 className="text-lg md:text-xl font-bold text-gold-500 mb-3">{sectionData.steps[2].title}</h3>
             <p className="text-gray-600 mb-3 text-sm md:text-base font-medium">
