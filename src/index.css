@@ -14,6 +14,7 @@
   
   body {
     @apply font-sans text-gray-800 bg-cream-50;
+    font-size: 16
     /* font-family: 'Poppins', 'Inter', sans-serif; */
   }
   
