@@ -2,12 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Info } from 'lucide-react';
 
 const InvestmentCalculator = () => {
-  const [totalBonds, setTotalBonds] = useState(1);
-  const [moneyToInvest, setMoneyToInvest] = useState(100);
-  const [selectedScenario, setSelectedScenario] = useState('realistic');
-  const [isVisible, setIsVisible] = useState(false);
+  const [totalBonds, setTotalBonds] = useState(0.01); // Start with equivalent of $1
+  const [moneyToInvest, setMoneyToInvest] = useState(1); // Minimum $1
   const sectionRef = useRef(null);
   const debounceRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Scroll-based animation
   useEffect(() => {
@@ -29,7 +28,7 @@ const InvestmentCalculator = () => {
     };
   }, []);
 
-  // Debounce for money input
+  // Debounce for input
   const debounce = (callback, delay) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(callback, delay);
@@ -37,38 +36,38 @@ const InvestmentCalculator = () => {
 
   const costPerBond = 100;
   const maxBonds = 20;
-  const minInvestment = 100;
+  const minInvestment = 1;
   const maxInvestment = 2000;
 
-  // Calculate returns based on documentation
-  const actualBonds = Math.floor(moneyToInvest / costPerBond);
+  // Calculate bonds and returns
+  const actualBonds = moneyToInvest / costPerBond; // Allow fractional bonds
   const annualInterest = actualBonds * 10;
   const lifetimeReturn = actualBonds * 50;
-  const totalPayout = (actualBonds * costPerBond) + lifetimeReturn;
-  const roi = (lifetimeReturn / moneyToInvest) * 100;
+  const totalPayout = moneyToInvest + lifetimeReturn;
+  const roi = lifetimeReturn > 0 ? (lifetimeReturn / moneyToInvest) * 100 : 0;
   const roiPercentage = Math.min(roi, 100);
 
   // Slider calculations
-  const bondPercentage = ((totalBonds - 1) / (maxBonds - 1)) * 100;
+  const bondPercentage = ((totalBonds - 0.01) / (maxBonds - 0.01)) * 100;
   const requiredInvestment = totalBonds * costPerBond;
 
   const handleBondChange = (e) => {
-    const bonds = parseInt(e.target.value);
+    const bonds = parseFloat(e.target.value);
     setTotalBonds(bonds);
     setMoneyToInvest(bonds * costPerBond);
   };
 
   const handleBondInputChange = (e) => {
-    const value = Math.max(1, Math.min(maxBonds, parseInt(e.target.value) || 1));
+    const value = Math.max(0.01, Math.min(maxBonds, parseFloat(e.target.value) || 0.01));
     setTotalBonds(value);
     setMoneyToInvest(value * costPerBond);
   };
 
-  const handleMoneyChange = (e) => {
+  const handleBondsFromInvestmentChange = (e) => {
     debounce(() => {
-      const value = Math.max(minInvestment, Math.min(maxInvestment, parseInt(e.target.value) || minInvestment));
-      setMoneyToInvest(value);
-      setTotalBonds(Math.floor(value / costPerBond));
+      const value = Math.max(0.01, Math.min(maxBonds, parseFloat(e.target.value) || 0.01));
+      setTotalBonds(value);
+      setMoneyToInvest(value * costPerBond);
     }, 100);
   };
 
@@ -161,8 +160,9 @@ const InvestmentCalculator = () => {
                   <div className="relative">
                     <input
                       type="range"
-                      min="1"
+                      min="0.01"
                       max={maxBonds}
+                      step="0.01"
                       value={totalBonds}
                       onChange={handleBondChange}
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-gold-500"
@@ -177,9 +177,10 @@ const InvestmentCalculator = () => {
                       </span>
                       <input
                         type="number"
-                        min="1"
+                        min="0.01"
                         max={maxBonds}
-                        value={totalBonds}
+                        step="0.01"
+                        value={totalBonds.toFixed(2)}
                         onChange={handleBondInputChange}
                         className="w-20 px-2 py-1 rounded-full border border-gold-200 text-forest-700 font-semibold text-sm md:text-base text-center focus:ring-2 focus:ring-gold-500 focus:border-transparent"
                         aria-label="Edit number of bonds"
@@ -188,35 +189,35 @@ const InvestmentCalculator = () => {
                   </div>
                 </div>
 
-                {/* Money Input Field */}
+                {/* Bonds from Investment */}
                 <div>
                   <label className="block text-forest-700 font-semibold mb-3 text-sm md:text-base animate-fade-in delay-200">
-                    Money to Invest
+                    Bonds from Investment
                     <span className="ml-2 text-gray-500 cursor-pointer relative group">
                       <Info className="h-4 w-4 inline" />
                       <span className="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded p-2 -top-10 left-0 w-48">
-                        Enter the amount you wish to invest. The calculator will determine the number of bonds based on $100 per bond, up to a maximum of $2,000.
+                        Enter the number of bonds to calculate the investment amount. Each bond costs $100, starting from 0.01 bonds ($1) up to a maximum of 20 bonds ($2,000).
                       </span>
                     </span>
                   </label>
                   <div className="relative">
                     <input
                       type="number"
-                      min={minInvestment}
-                      max={maxInvestment}
-                      step="100"
-                      value={moneyToInvest}
-                      onChange={handleMoneyChange}
+                      min={0.01}
+                      max={maxBonds}
+                      step="0.01"
+                      value={actualBonds.toFixed(2)}
+                      onChange={handleBondsFromInvestmentChange}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent text-forest-700 text-sm md:text-base transition-all duration-300"
-                      placeholder="Enter amount"
-                      aria-label="Investment amount"
+                      placeholder="Enter number of bonds"
+                      aria-label="Bonds from investment"
                     />
                     <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm md:text-base">
-                      $
+                      Bonds
                     </div>
                   </div>
                   <div className="mt-2 text-sm md:text-base text-gray-500">
-                    Min: ${minInvestment.toLocaleString()} | Max: ${maxInvestment.toLocaleString()}
+                    Min: 0.01 bonds ($1) | Max: {maxBonds} bonds (${maxInvestment.toLocaleString()}) | Investment: ${moneyToInvest.toLocaleString()}
                   </div>
                 </div>
 
@@ -224,7 +225,7 @@ const InvestmentCalculator = () => {
                 <div className="space-y-4 bg-cream-50 p-4 rounded-xl animate-fade-in delay-300">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 text-sm md:text-base">Total Bonds</span>
-                    <span className="text-forest-700 font-bold text-base md:text-lg">{actualBonds}</span>
+                    <span className="text-forest-700 font-bold text-base md:text-lg">{actualBonds.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 text-sm md:text-base">Annual Interest</span>
@@ -247,7 +248,7 @@ const InvestmentCalculator = () => {
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 text-sm md:text-base">Principal at Maturity</span>
                     <span className="text-forest-700 font-bold text-base md:text-lg">
-                      ${Math.round(actualBonds * costPerBond).toLocaleString()}
+                      ${Math.round(moneyToInvest).toLocaleString()}
                     </span>
                   </div>
                   <div className="space-y-2">
@@ -263,7 +264,7 @@ const InvestmentCalculator = () => {
                     </div>
                   </div>
                   <p className="text-gray-500 text-sm md:text-base">
-                    Results are estimates based on a fixed 10% annual return over 5 years. Actual returns may vary. Your principal ($100 per bond) is returned at maturity.
+                    Results are estimates based on a fixed 10% annual return over 5 years. Actual returns may vary. Your principal is returned at maturity.
                   </p>
                 </div>
               </div>
