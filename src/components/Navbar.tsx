@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [hideTimeout, setHideTimeout] = useState(null);
+  const [hideTimeout, setHideTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [isHeroEnd, setIsHeroEnd] = useState(false);
   const location = useLocation();
 
@@ -28,7 +28,7 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
-  const handleNavClick = (href, type) => {
+  const handleNavClick = (href: string, type: string) => {
     setIsMenuOpen(false);
     if (type === 'scroll') {
       if (location.pathname !== '/') {
@@ -129,14 +129,14 @@ const Navbar = () => {
 
   // Close menu on outside click or escape key
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       const nav = document.getElementById('mobile-nav');
-      if (nav && !nav.contains(event.target)) {
+      if (nav && !nav.contains(event.target as Node)) {
         setIsMenuOpen(false);
       }
     };
 
-    const handleEscape = (event) => {
+    const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsMenuOpen(false);
       }
@@ -173,9 +173,9 @@ const Navbar = () => {
           >
             <Link to="/" className="flex items-center z-20" onClick={closeMenu}>
               <img
-                src="/mocha.jpg"
+                src="/project mocha_brown 2.svg"
                 alt="Project Mocha Logo"
-                className="w-10 h-10 sm:w-12 sm:h-12 object-cover"
+                className="h-auto w-auto max-h-8 sm:max-h-10"
               />
             </Link>
 
@@ -252,7 +252,7 @@ const Navbar = () => {
 
       {/* Mobile/Tablet Menu */}
       <div
-        className={`fixed top-16 sm:top-20 right-4 w-80 max-w-sm bg-white bg-opacity-95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out lg:hidden ${
+        className={`fixed top-16 sm:top-20 right-4 w-80 max-w-sm bg-white/95 backdrop-blur-lg shadow-2xl rounded-2xl z-50 transform transition-all duration-300 ease-in-out lg:hidden ${
           isMenuOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-95'
         }`}
       >
@@ -261,9 +261,9 @@ const Navbar = () => {
           <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 border-opacity-50">
             <Link to="/" className="flex items-center" onClick={closeMenu}>
               <img
-                src="/mocha.jpg"
+                src="/project mocha_brown 2.svg"
                 alt="Project Mocha Logo"
-                className="w-10 h-10 object-cover"
+                className="h-auto w-auto max-h-8"
               />
             </Link>
             <button
