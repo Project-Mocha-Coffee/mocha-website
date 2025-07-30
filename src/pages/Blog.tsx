@@ -10,6 +10,8 @@ const Blog: React.FC = () => {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const postRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
+  console.log(currentPage, activeCategory);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

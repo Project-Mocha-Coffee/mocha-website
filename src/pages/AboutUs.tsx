@@ -531,13 +531,16 @@ const AboutUs: React.FC = () => {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
                 {aboutUsData.ethicalImpact.impactStats.map((stat: any, index: number) => {
-                  const cardClass = stat.cardType === 'brown' ? 'card bg-brown-600 text-white' : 'card bg-white';
+                  const cardClass = stat.cardType === 'brown' ? 'card bg-brown-900 text-cream-100' : 'card bg-cream-50';
+                  const numberColor = stat.cardType === 'brown' ? 'text-brown-400' : 'text-brown-700';
+                  const titleColor = stat.cardType === 'brown' ? 'text-cream-100' : 'text-brown-800';
+                  const descriptionColor = stat.cardType === 'brown' ? 'text-cream-200' : 'text-gray-600';
                   
                   return (
                     <div key={index} className={`${cardClass} p-4 sm:p-6 text-center animate-element element-hidden`}>
-                      <div className="animate-element element-hidden text-2xl sm:text-3xl md:text-4xl font-bold text-brown-600 mb-2 sm:mb-3">{stat.number}</div>
-                      <h4 className="animate-element element-hidden text-sm sm:text-base font-bold text-brown-800 mb-2 sm:mb-3">{stat.title}</h4>
-                      <p className="animate-element element-hidden text-gray-600 text-xs sm:text-sm leading-relaxed">
+                      <div className={`animate-element element-hidden text-2xl sm:text-3xl md:text-4xl font-bold ${numberColor} mb-2 sm:mb-3`}>{stat.number}</div>
+                      <h4 className={`animate-element element-hidden text-sm sm:text-base font-bold ${titleColor} mb-2 sm:mb-3`}>{stat.title}</h4>
+                      <p className={`animate-element element-hidden text-xs sm:text-sm leading-relaxed ${descriptionColor}`}>
                         {stat.description}
                       </p>
                     </div>

@@ -54,13 +54,13 @@ const Cta = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-6 lg:gap-8 xl:gap-12 items-center">
               {/* Left Side - Main CTA */}
               <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-6 lg:p-7 xl:p-8 order-2 lg:order-1">
-                <h3 className="text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl font-bold text-brown-700 mb-1 sm:mb-2 leading-tight">
+                <h3 className="text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl font-bold text-brown-800 mb-1 sm:mb-2 leading-tight">
                   Ready To Join 2000+
                 </h3>
-                <h4 className="text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl font-bold text-brown-600 mb-3 sm:mb-4 md:mb-4 lg:mb-5 xl:mb-6 leading-tight">
+                <h4 className="text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl font-bold text-brown-700 mb-3 sm:mb-4 md:mb-4 lg:mb-5 xl:mb-6 leading-tight">
                   Kenyan Coffee Investors?
                 </h4>
-                <p className="text-gray-700 text-sm sm:text-base md:text-sm lg:text-base mb-4 sm:mb-6 md:mb-5 lg:mb-6 leading-relaxed">
+                <p className="text-gray-600 text-sm sm:text-base md:text-sm lg:text-base mb-4 sm:mb-6 md:mb-5 lg:mb-6 leading-relaxed">
                   Take the first step toward sustainable and profitable growth.
                 </p>
                 <button 
@@ -76,7 +76,7 @@ const Cta = () => {
                 <h3 className="text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl font-bold text-white mb-1 sm:mb-2 leading-tight">
                   Get Our Best Deals Straight In Your Inbox
                 </h3>
-                <p className="text-brown-200 text-sm sm:text-base md:text-sm lg:text-base mb-4 sm:mb-6 md:mb-5 lg:mb-6 leading-relaxed">
+                <p className="text-gray-100 text-sm sm:text-base md:text-sm lg:text-base mb-4 sm:mb-6 md:mb-5 lg:mb-6 leading-relaxed">
                   Learn more about Kenyan coffee farming opportunities and be the first to know about new investment openings in our Embu plantations.
                 </p>
                 
@@ -86,7 +86,7 @@ const Cta = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email address"
-                    className="w-full sm:flex-1 md:w-full lg:flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brown-600 focus:border-transparent text-sm sm:text-base touch-manipulation"
+                    className="w-full sm:flex-1 md:w-full lg:flex-1 px-4 py-3 rounded-lg border border-gray-200 bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 focus:border-transparent text-sm sm:text-base touch-manipulation"
                     required
                   />
                   <button 

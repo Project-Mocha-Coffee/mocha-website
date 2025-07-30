@@ -5,13 +5,22 @@ import contentData from '../data/content.json';
 import type { TransparentReportsData, BlogData, BlogPost } from '../types/content';
 
 const TransparentReports: React.FC = () => {
-  const data = contentData.transparentReports as TransparentReportsData;
-  const blogData = contentData.blog as BlogData;
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Get the latest posts based on maxDisplayItems (first 2 posts)
-  const newsItems = blogData.posts.slice(0, data.maxDisplayItems);
+  // Type-safe data access with fallbacks
+  const data = (contentData.transparentReports as TransparentReportsData) || {
+    sectionTitle: 'Transparent Reports',
+    sectionSubtitle: 'Stay updated with our latest reports and insights.',
+    viewAllButton: 'View All Reports',
+    latestNewsBadge: 'Latest News',
+    readMoreButton: 'Read More',
+    maxDisplayItems: 2,
+  };
+  const blogData = (contentData.blog as BlogData) || { posts: [] };
+  const newsItems = blogData.posts && Array.isArray(blogData.posts) 
+    ? blogData.posts.slice(0, data.maxDisplayItems) 
+    : [];
 
   // Scroll-based animation
   useEffect(() => {
@@ -19,7 +28,7 @@ const TransparentReports: React.FC = () => {
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 } // Trigger when 10% of the section is visible
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -70,59 +79,65 @@ const TransparentReports: React.FC = () => {
             </div>
 
             {/* News Items */}
-            <div className="space-y-6">
-              {newsItems.map((item: BlogPost, index: number) => (
-                <div
-                  key={item.id}
-                  className="relative hover:bg-cream-50 rounded-xl transition-all duration-200 p-2"
-                >
-                  {/* Timeline Line */}
-                  {index < newsItems.length - 1 && (
-                    <div className="absolute left-5 top-10 w-0.5 h-12 bg-gradient-to-b from-gold-500 to-[#7A5540]"></div>
-                  )}
+            {newsItems.length > 0 ? (
+              <div className="space-y-6">
+                {newsItems.map((item: BlogPost, index: number) => (
+                  <div
+                    key={item.id || `post-${index}`}
+                    className="relative hover:bg-cream-50 rounded-xl transition-all duration-200 p-2"
+                  >
+                    {/* Timeline Line */}
+                    {index < newsItems.length - 1 && (
+                      <div className="absolute left-5 top-10 w-0.5 h-12 bg-gradient-to-b from-gold-500 to-[#7A5540]"></div>
+                    )}
 
-                  <div className="flex items-start space-x-3">
-                    {/* Icon Circle */}
-                    <div className="flex-shrink-0 w-10 h-10 bg-cream-100 rounded-full flex items-center justify-center text-base text-gold-500">
-                      {item.icon}
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-forest-700 mb-2 leading-tight text-base md:text-lg">
-                        {item.title}
-                      </h3>
-                      <div className="flex items-center text-sm text-gray-500 mb-2">
-                        <svg
-                          className="w-3 h-3 mr-1 flex-shrink-0"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                        {item.date}
+                    <div className="flex items-start space-x-3">
+                      {/* Icon Circle */}
+                      <div className="flex-shrink-0 w-10 h-10 bg-cream-100 rounded-full flex items-center justify-center text-base text-gold-500">
+                        {item.icon || <span>📄</span>} {/* Fallback icon */}
                       </div>
-                      <p className="text-gray-600 text-sm md:text-base mb-3 leading-relaxed">
-                        {item.excerpt}
-                      </p>
-                      <Link
-                        to={`/blog/${item.id}`}
-                        className="inline-flex items-center bg-[#7A5540] hover:bg-[#5A3F2F] text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-500 touch-manipulation"
-                      >
-                        {data.readMoreButton}
-                        <ArrowRight className="ml-1 h-3 w-3" />
-                      </Link>
+
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-forest-700 mb-2 leading-tight text-base md:text-lg">
+                          {item.title || 'Untitled Post'}
+                        </h3>
+                        <div className="flex items-center text-sm text-gray-500 mb-2">
+                          <svg
+                            className="w-3 h-3 mr-1 flex-shrink-0"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          {item.date || 'No Date'}
+                        </div>
+                        <p className="text-gray-600 text-sm md:text-base mb-3 leading-relaxed">
+                          {item.excerpt || 'No description available.'}
+                        </p>
+                        <Link
+                          to={`/blog/${item.id || index}`}
+                          className="inline-flex items-center bg-[#7A5540] hover:bg-[#5A3F2F] text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-500 touch-manipulation"
+                        >
+                          {data.readMoreButton}
+                          <ArrowRight className="ml-1 h-3 w-3" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-600 text-sm md:text-base">
+                No recent reports available. Check back later for updates.
+              </p>
+            )}
           </div>
         </div>
       </div>
