@@ -37,7 +37,7 @@ const Home: React.FC = () => {
         <TransparentReports />
       </section>
       <section id="contact">
-        <Cta />
+        {/* <Cta /> */}
       </section>
     </>
   );
