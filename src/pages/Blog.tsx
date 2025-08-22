@@ -267,7 +267,7 @@ const Blog: React.FC = () => {
   const blogPage = content.blogPage;
   const blog = content.blog;
 
-  const blogPosts = blog.posts.map((post) => (console.log(post), {
+  const blogPosts = blog.posts.map((post) => ({
     ...post,
     image: post.image || '/fallback-image.jpg',
     title: post.title || 'Untitled Post',
@@ -393,6 +393,7 @@ const Blog: React.FC = () => {
                         to={`/blog/${featuredPost.id}`}
                         className="btn bg-amber-500 text-forest-600 hover:bg-amber-400 px-3 py-2 text-xs"
                       >
+                      {console.log(featuredPost.id)}
                         {blogPage.hero.readMoreText} <ArrowRight className="ml-2 h-3 w-3" />
                       </Link>
                     </div>
