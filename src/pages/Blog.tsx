@@ -409,7 +409,7 @@ const Blog: React.FC = () => {
                         <span>{featuredPost.author}</span>
                       </div>
                     </div>
-                    <p className="text-gray-700 text-lg leading-relaxed mb-8 line-clamp-3 font-medium">
+                    <p className="text-gray-700 text-lg leading-rgitelaxed mb-8 line-clamp-3 font-medium">
                       {featuredPost.excerpt}
                     </p>
                     <Link
