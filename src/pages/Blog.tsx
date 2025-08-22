@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Calendar, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 
 // Define interfaces for type safety
 interface BlogPost {
@@ -51,151 +52,152 @@ const Blog: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const postRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const { content, isLoading } = useContent();
 
   // Static JSON data
-  const content: Content = {
-    blogPage: {
-      hero: {
-        title: "Our Blog Projects, People, Purpose",
-        latestNewsBadge: "✓ Latest news",
-        featuredPostSuffix: "🌿 ❄️",
-        readMoreText: "Read more"
-      },
-      articlesSection: {
-        title: "See More Articles",
-        nextButtonText: "Next page"
-      },
-      callToAction: {
-        title: "Ready To Start Your",
-        subtitle: "Coffee Investment Journey?",
-        description: "Join thousands of investors who are already growing their wealth through sustainable coffee plantation investments in Kenya's fertile highlands.",
-        primaryButtonText: "Start Investing",
-        secondaryButtonText: "Schedule a Call"
-      }
-    },
-    blog: {
-      pageTitle: "Our Blog Projects, People, Purpose",
-      latestNewsBadge: "✓ Latest news",
-      posts: [
-        {
-          id: "tech-meets-soil-weather-stations",
-          title: "The Driving Forces Behind Kenya's Coffee Resurgence: A Data-Based Analysis",
-          excerpt: "The Driving Forces Behind Kenya's Coffee Resurgence: A Data-Based Analysis The Kenyan coffee sector, which experienced its...",
-          content: `The Driving Forces Behind Kenya's Coffee Resurgence: A Data-Based Analysis
-The Kenyan coffee sector, which experienced its golden age in the 1980s with peak production of 128,926 metric tonnes in 1987/88, has shown remarkable signs of recovery in recent years after decades of decline. This report analyses the key factors contributing to this resurgence, supported by concrete data from various sources.
+//   const content: Content = {
+//     blogPage: {
+//       hero: {
+//         title: "Our Blog Projects, People, Purpose",
+//         latestNewsBadge: "✓ Latest news",
+//         featuredPostSuffix: "🌿 ❄️",
+//         readMoreText: "Read more"
+//       },
+//       articlesSection: {
+//         title: "See More Articles",
+//         nextButtonText: "Next page"
+//       },
+//       callToAction: {
+//         title: "Ready To Start Your",
+//         subtitle: "Coffee Investment Journey?",
+//         description: "Join thousands of investors who are already growing their wealth through sustainable coffee plantation investments in Kenya's fertile highlands.",
+//         primaryButtonText: "Start Investing",
+//         secondaryButtonText: "Schedule a Call"
+//       }
+//     },
+//     blog: {
+//       pageTitle: "Our Blog Projects, People, Purpose",
+//       latestNewsBadge: "✓ Latest news",
+//       posts: [
+//         {
+//           id: "tech-meets-soil-weather-stations",
+//           title: "The Driving Forces Behind Kenya's Coffee Resurgence: A Data-Based Analysis",
+//           excerpt: "The Driving Forces Behind Kenya's Coffee Resurgence: A Data-Based Analysis The Kenyan coffee sector, which experienced its...",
+//           content: `The Driving Forces Behind Kenya's Coffee Resurgence: A Data-Based Analysis
+// The Kenyan coffee sector, which experienced its golden age in the 1980s with peak production of 128,926 metric tonnes in 1987/88, has shown remarkable signs of recovery in recent years after decades of decline. This report analyses the key factors contributing to this resurgence, supported by concrete data from various sources.
 
-Recent Production Trends and Targets
-Kenya has experienced substantial growth in coffee production in recent years. Production increased by 47% from 34,000 metric tonnes in 2021 to 51,583 metric tonnes in 2022. According to the latest USDA Foreign Agricultural Service report from May 2025, a further 13.3% increase to 850,000 bags is forecast for the 2025/26 marketing year. The Kenyan government has set ambitious targets to scale up production to 102,000 metric tons by 2027, more than doubling the current output of approximately 50,000 metric tons.
+// Recent Production Trends and Targets
+// Kenya has experienced substantial growth in coffee production in recent years. Production increased by 47% from 34,000 metric tonnes in 2021 to 51,583 metric tonnes in 2022. According to the latest USDA Foreign Agricultural Service report from May 2025, a further 13.3% increase to 850,000 bags is forecast for the 2025/26 marketing year. The Kenyan government has set ambitious targets to scale up production to 102,000 metric tons by 2027, more than doubling the current output of approximately 50,000 metric tons.
 
-Government Policy Interventions
-Coffee Cherry Advance Revolving Fund
-One of the most significant contributors to increased production has been the Coffee Cherry Advance Revolving Fund:
+// Government Policy Interventions
+// Coffee Cherry Advance Revolving Fund
+// One of the most significant contributors to increased production has been the Coffee Cherry Advance Revolving Fund:
 
-Loan advances surged to Sh6.7 billion by early 2025, compared to Sh1.1 billion in November 2023, representing a 500% increase
+// Loan advances surged to Sh6.7 billion by early 2025, compared to Sh1.1 billion in November 2023, representing a 500% increase
 
-Around 500,000 small-scale farmers from 27 of the 32 coffee-growing counties have borrowed from the fund
+// Around 500,000 small-scale farmers from 27 of the 32 coffee-growing counties have borrowed from the fund
 
-Seven counties from the Mount Kenya region borrowed Sh4 billion, accounting for 59.7% of the total fund
+// Seven counties from the Mount Kenya region borrowed Sh4 billion, accounting for 59.7% of the total fund
 
-The government boosted the fund with an additional Sh4 billion in December 2023
+// The government boosted the fund with an additional Sh4 billion in December 2023
 
-The fund was established to provide affordable, sustainable, and accessible cherry advance to smallholder coffee farmers with less than 20 acres of land under coffee cultivation.
+// The fund was established to provide affordable, sustainable, and accessible cherry advance to smallholder coffee farmers with less than 20 acres of land under coffee cultivation.
 
-Fertilizer Subsidy Program
+// Fertilizer Subsidy Program
 
-The fertilizer subsidy program has played a crucial role in improving coffee yields:
+// The fertilizer subsidy program has played a crucial role in improving coffee yields:
 
-The program aims to provide fertilizer to coffee farmers at a lower cost than market price
+// The program aims to provide fertilizer to coffee farmers at a lower cost than market price
 
-Research shows that an increase in one 50kg bag of subsidized fertilizer results in a 0.191074 kg increase in coffee yields per bush
+// Research shows that an increase in one 50kg bag of subsidized fertilizer results in a 0.191074 kg increase in coffee yields per bush
 
-Farmers using 1, 2, and 3 bags (50kg each) of subsidized fertilizer harvested 2, 3, and 4 kg per coffee bush respectively, showing a direct correlation between fertilizer use and yields
+// Farmers using 1, 2, and 3 bags (50kg each) of subsidized fertilizer harvested 2, 3, and 4 kg per coffee bush respectively, showing a direct correlation between fertilizer use and yields
 
-Debt Relief and Financial Support
+// Debt Relief and Financial Support
 
-The government has implemented financial relief measures to support coffee farmers:
+// The government has implemented financial relief measures to support coffee farmers:
 
-President William Ruto approved writing off Sh6.7 billion in debt for cooperatives
+// President William Ruto approved writing off Sh6.7 billion in debt for cooperatives
 
-The enhanced Cherry Advance Revolving Fund received an additional allocation of Sh4 billion on top of the Sh2.7 billion previously available
+// The enhanced Cherry Advance Revolving Fund received an additional allocation of Sh4 billion on top of the Sh2.7 billion previously available
 
-Expansion of Coffee Growing Areas
-Increased Acreage Under Cultivation
+// Expansion of Coffee Growing Areas
+// Increased Acreage Under Cultivation
 
-The area under coffee cultivation has grown significantly:
+// The area under coffee cultivation has grown significantly:
 
-Coffee acreage increased by 2.29% from 109,384 hectares in FY 2021/22 to 111,902 hectares in FY 2022/23
+// Coffee acreage increased by 2.29% from 109,384 hectares in FY 2021/22 to 111,902 hectares in FY 2022/23
 
-Nandi County recorded the largest increase in area under coffee farming at 404 hectares during FY 2022/23
+// Nandi County recorded the largest increase in area under coffee farming at 404 hectares during FY 2022/23
 
-The transition of land from coffee plantations to housing near Kenya's largest cities has slowed, stabilizing area planted
+// The transition of land from coffee plantations to housing near Kenya's largest cities has slowed, stabilizing area planted
 
-Diversification to Non-Traditional Growing Regions
+// Diversification to Non-Traditional Growing Regions
 
-Coffee production is expanding beyond traditional growing areas:
+// Coffee production is expanding beyond traditional growing areas:
 
-There has been an increase in coffee bushes in parts of Rift Valley, Western, and Nyanza regions
+// There has been an increase in coffee bushes in parts of Rift Valley, Western, and Nyanza regions
 
-The government is implementing a coffee expansion program targeting both traditional and new growing regions
+// The government is implementing a coffee expansion program targeting both traditional and new growing regions
 
-This geographical diversification is expected to increase national coffee production significantly in the next three years
+// This geographical diversification is expected to increase national coffee production significantly in the next three years
 
-Public-Private Partnerships
+// Public-Private Partnerships
 
-Collaboration with Cooperative Societies
+// Collaboration with Cooperative Societies
 
-Public-Private Partnerships (PPP) between the Coffee Research Institute and Cooperative Societies have yielded impressive results:
+// Public-Private Partnerships (PPP) between the Coffee Research Institute and Cooperative Societies have yielded impressive results:
 
-Coffee nurseries in cooperatives expanded, with annual mean coffee seedlings produced per society increasing by 367% from 15,000 to 70,000
+// Coffee nurseries in cooperatives expanded, with annual mean coffee seedlings produced per society increasing by 367% from 15,000 to 70,000
 
-Revenue generated per society increased by 400% from an average of Ksh 200,000 to Ksh 1,000,000 from seedling sales
+// Revenue generated per society increased by 400% from an average of Ksh 200,000 to Ksh 1,000,000 from seedling sales
 
-Average membership per society increased by 15% from 2,444 to 2,807 members
+// Average membership per society increased by 15% from 2,444 to 2,807 members
 
-Coffee cherry delivered per society increased by 25% from 228 to 286 metric tons
+// Coffee cherry delivered per society increased by 25% from 228 to 286 metric tons
 
-The partnerships created an average of nine jobs per society in coffee nurseries
+// The partnerships created an average of nine jobs per society in coffee nurseries
 
-Market Conditions and Price Incentives
+// Market Conditions and Price Incentives
 
-Favorable Coffee Prices
+// Favorable Coffee Prices
 
-Rising coffee prices have motivated farmers to increase production:
+// Rising coffee prices have motivated farmers to increase production:
 
-Arabica coffee futures are trading at $370 per 60 kilograms, significantly higher than the $100-$150 price range recorded in 2019 and 2020
+// Arabica coffee futures are trading at $370 per 60 kilograms, significantly higher than the $100-$150 price range recorded in 2019 and 2020
 
-Coffee farmers earned Sh61,416 per 100 kg in 2023, compared to tea farmers who earned Sh28,371 for the same quantity, making coffee more lucrative
+// Coffee farmers earned Sh61,416 per 100 kg in 2023, compared to tea farmers who earned Sh28,371 for the same quantity, making coffee more lucrative
 
-Farmers are responding to high prices by improving farm practices and increasing production
+// Farmers are responding to high prices by improving farm practices and increasing production
 
-Recovery from Environmental Challenges
+// Recovery from Environmental Challenges
 
-Improved environmental conditions have also contributed to production increases:
+// Improved environmental conditions have also contributed to production increases:
 
-The 2023/24 marketing year production increase of 6.7% to 800,000 bags (48,000 tons) was partly attributed to recovery from drought conditions
+// The 2023/24 marketing year production increase of 6.7% to 800,000 bags (48,000 tons) was partly attributed to recovery from drought conditions
 
-This was complemented by higher fertiliser usage, highlighting the combined effect of improved environmental conditions and input access
+// This was complemented by higher fertiliser usage, highlighting the combined effect of improved environmental conditions and input access
 
-Conclusion
+// Conclusion
 
-The resurgence of Kenya's coffee production stems from a multi-pronged approach combining government interventions, technological innovation, and market forces. While traditional policy measures like the Coffee Cherry Advance Revolving Fund (Sh6.7 billion disbursed by 2025) and fertiliser subsidies (correlating with 0.191 kg yield increase per bush) have driven short-term gains, emerging blockchain-based solutions like Project Mocha address systemic challenges in smallholder financing and value chain transparency.
+// The resurgence of Kenya's coffee production stems from a multi-pronged approach combining government interventions, technological innovation, and market forces. While traditional policy measures like the Coffee Cherry Advance Revolving Fund (Sh6.7 billion disbursed by 2025) and fertiliser subsidies (correlating with 0.191 kg yield increase per bush) have driven short-term gains, emerging blockchain-based solutions like Project Mocha address systemic challenges in smallholder financing and value chain transparency.
 
-Project Mocha is a blockchain-powered platform revolutionizing the coffee industry by connecting smallholder farmers directly with global consumers and investors. By digitizing coffee trees and their yields, the platform ensures transparency, traceability, and fair compensation for farmers while enabling access to finance and improved farm management. Coffee consumers can become investors by purchasing fractional ownership of coffee trees, allowing them to support sustainable agriculture and share in the economic return. Project Mocha's tokenisation model introduces a paradigm shift by enabling farmers to fractionalize ownership of coffee trees through blockchain-secured tokens. This innovation directly targets the historical funding gap, where 70% of Kenya's coffee farmers lacked access to affordable capital despite producing 90% of the national output.
+// Project Mocha is a blockchain-powered platform revolutionizing the coffee industry by connecting smallholder farmers directly with global consumers and investors. By digitizing coffee trees and their yields, the platform ensures transparency, traceability, and fair compensation for farmers while enabling access to finance and improved farm management. Coffee consumers can become investors by purchasing fractional ownership of coffee trees, allowing them to support sustainable agriculture and share in the economic return. Project Mocha's tokenisation model introduces a paradigm shift by enabling farmers to fractionalize ownership of coffee trees through blockchain-secured tokens. This innovation directly targets the historical funding gap, where 70% of Kenya's coffee farmers lacked access to affordable capital despite producing 90% of the national output.
 
-For more information reach out to peter@projectmocha.com
+// For more information reach out to peter@projectmocha.com
 
-`,
-          category: "Blog",
-          date: "28. May",
-          author: "Coffee Team",
-          image: "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=800",
-          readTime: "3 minute reading",
-          featured: true,
-          icon: "🌡️☕"
-        },
-      ]
-    }
-  };
+// `,
+//           category: "Blog",
+//           date: "28. May",
+//           author: "Coffee Team",
+//           image: "https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&w=800",
+//           readTime: "3 minute reading",
+//           featured: true,
+//           icon: "🌡️☕"
+//         },
+//       ]
+//     }
+//   };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -219,8 +221,33 @@ For more information reach out to peter@projectmocha.com
     };
   }, [currentPage, activeCategory]);
 
-  const { blogPage, blog } = content;
-  if (!blogPage || !blog) {
+  if (isLoading) {
+    return <ContentLoadingScreen />;
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    sectionRefs.current.forEach((ref) => ref && observer.observe(ref));
+    postRefs.current.forEach((ref) => ref && observer.observe(ref));
+
+    return () => {
+      sectionRefs.current.forEach((ref) => ref && observer.unobserve(ref));
+      postRefs.current.forEach((ref) => ref && observer.unobserve(ref));
+    };
+  }, [currentPage, activeCategory]);
+
+  if (!content) {
     return (
       <div className="min-h-screen bg-cream-50 flex items-center justify-center">
         <div className="text-center">
@@ -237,7 +264,10 @@ For more information reach out to peter@projectmocha.com
     );
   }
 
-  const blogPosts = blog.posts.map((post) => ({
+  const blogPage = content.blogPage;
+  const blog = content.blog;
+
+  const blogPosts = blog.posts.map((post) => (console.log(post), {
     ...post,
     image: post.image || '/fallback-image.jpg',
     title: post.title || 'Untitled Post',
