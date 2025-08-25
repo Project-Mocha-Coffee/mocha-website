@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
               <a href="https://web.facebook.com/profile.php?id=61561477005084" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-brown-600 hover:text-white transition-colors">
                 <Facebook size={18} />
               </a>
-              <a href="https://www.x.com/projectmocha254" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-brown-600 hover:text-white transition-colors">
+              <a href="https://x.com/ProjectMochaHQ" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-brown-600 hover:text-white transition-colors">
                 <XIcon size={18} />
               </a>
               <a href="https://www.linkedin.com/company/project-mocha/" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-brown-600 hover:text-white transition-colors">

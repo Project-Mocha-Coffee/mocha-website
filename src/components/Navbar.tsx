@@ -15,7 +15,7 @@ const Navbar = () => {
     { name: 'Home', href: '/', type: 'route' },
     { name: 'About us', href: '/about', type: 'route' },
     { name: 'Investing', href: '/investing', type: 'route' },
-    { name: 'Projects', href: '/projects', type: 'route' },
+    { name: 'Farms', href: '/projects', type: 'route' },
     { name: 'Blog', href: '/blog', type: 'route' },
     { name: 'Contact', href: '/contact', type: 'route' },
   ];
@@ -215,14 +215,14 @@ const Navbar = () => {
                 to="/signup"
                 className="text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                Register
+                Start Investing
               </Link>
-              <Link
+              {/* <Link
                 to="/login"
                 className="text-sm font-semibold text-white bg-gradient-to-r from-brown-200 to-brown-600 hover:from-amber-700 hover:to-yellow-700 transition-all duration-300 px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 Login
-              </Link>
+              </Link> */}
             </div>
 
             {/* Mobile/Tablet Menu Button */}
@@ -316,15 +316,15 @@ const Navbar = () => {
               onClick={closeMenu}
               className="w-full block text-center px-4 py-3 text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              Register
+              Start Investing
             </Link>
-            <Link
+            {/* <Link
               to="/login"
               onClick={closeMenu}
               className="w-full block text-center px-4 py-3 text-sm font-semibold text-white bg-gradient-to-r from-brown-200 to-brown-600 hover:from-amber-700 hover:to-yellow-700 transition-all duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Login
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
