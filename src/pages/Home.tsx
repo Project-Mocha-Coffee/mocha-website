@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero';
 import WhyJoinCarousel from '../components/WhyJoinCarousel';
 import InvestmentCalculator from '../components/InvestmentCalculator';
+import InvestmentProjects from '../components/InvestmentsProjects'; // Import the new component
 import InvestmentPlans from '../components/InvestmentPlans';
 import AvailableOpportunities from '../components/AvailableOpportunities';
 import HowItWorks from '../components/HowItWorks';
@@ -20,6 +21,9 @@ const Home: React.FC = () => {
       </section>
       <section id="calculator">
         <InvestmentCalculator />
+      </section>
+      <section id="investment-projects">
+        <InvestmentProjects />
       </section>
       <section id="plans">
         <InvestmentPlans />
@@ -43,4 +47,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home; 
+export default Home;
