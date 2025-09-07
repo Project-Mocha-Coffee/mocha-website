@@ -35,6 +35,11 @@ const HowItWorks = () => {
     };
   }, []);
 
+  // Handle button click to redirect
+  const handleCtaClick = () => {
+    window.location.href = 'https://portal-rho-lemon.vercel.app/';
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -126,6 +131,7 @@ const HowItWorks = () => {
         >
           <button
             className="btn w-full sm:w-auto text-base md:text-lg px-8 py-4 bg-[#7A5540] text-white hover:bg-[#5A3F2F] rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500 touch-manipulation shadow-md hover:shadow-lg"
+            onClick={handleCtaClick}
           >
             {sectionData.ctaButton} <ArrowRight className="ml-2 h-5 w-5" />
           </button>
