@@ -212,7 +212,7 @@ const Navbar = () => {
 
             <div className="hidden lg:flex items-center space-x-4">
               <Link
-                to="/signup"
+                to="https://portal-rho-lemon.vercel.app/"
                 className="text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 Start Investing
@@ -312,7 +312,7 @@ const Navbar = () => {
           {/* Mobile/Tablet Menu Footer */}
           <div className="p-4 border-t border-gray-200 border-opacity-50 space-y-3">
             <Link
-              to="/signup"
+              to="https://portal-rho-lemon.vercel.app/"
               onClick={closeMenu}
               className="w-full block text-center px-4 py-3 text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
             >
