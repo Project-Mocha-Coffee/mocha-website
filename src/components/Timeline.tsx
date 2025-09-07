@@ -67,7 +67,7 @@ const Timeline: React.FC<TimelineProps> = ({
         ? { text: 'Completed', class: 'bg-green-100 text-green-700' }
         : { text: 'Coming soon', class: 'bg-amber-100 text-amber-700' };
     }
-    return { text: stage.badge, class: 'bg-brown-700 text-forest-600' };
+    return { text: stage.badge, class: 'bg-brown-700 text-white' };
   };
 
   return (
@@ -180,7 +180,7 @@ const Timeline: React.FC<TimelineProps> = ({
                       <div className="card bg-white rounded-2xl p-5 sm:p-6">
                         {/* Badge */}
                         <div className="text-center mb-4">
-                          <span className={`inline-block ${badge.class} px-4 py-2 rounded-full text-sm font-medium`}>
+                          <span className={`inline-block ${badge.class} px-4 py-2 rounded-full text-white text-sm font-medium`}>
                             {badge.text}
                           </span>
                         </div>

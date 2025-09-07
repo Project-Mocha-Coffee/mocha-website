@@ -444,7 +444,7 @@ const Investing: React.FC = () => {
               return (
                 <div key={index} className={getCardClass(index, benefit.cardType)} >
                   {benefit.cardType === 'text' ? (
-                    <>
+                    <div className="p-4 sm:p-5">
                       <div className="flex items-start mb-3">
                         <div className={getIconClass(index)}>
                           {getIcon(benefit.icon)}
@@ -454,7 +454,7 @@ const Investing: React.FC = () => {
                       <p className={getDescriptionClass(index)}>
                         {benefit.description}
                       </p>
-                    </>
+                    </div>
                   ) : (
                     <img
                       src={benefit.image}
