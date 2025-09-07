@@ -3,9 +3,9 @@ import { ArrowRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 
-const InvestmentProjects: React.FC = () => {
+const InvestmentProjects = () => {
   const { content, isLoading, error } = useContent();
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const sectionRef = useRef(null);
 
   // Show loading screen while content is being fetched
   if (isLoading || !content) {
@@ -37,24 +37,20 @@ const InvestmentProjects: React.FC = () => {
     return <ContentLoadingScreen />;
   }
 
-  // Convert projects object to array, add display properties, and limit to 3 projects
-  const projectsArray = Object.values(projects)
-    .map((project: any) => ({
-      ...project,
-      image: project.images[0],
-      features: [
-        "Lifetime Investment",
-        project.status === "Available now" ? "Premium Arabica variety" : "High altitude benefits",
-        project.status === "Available now" ? "Volcanic soil advantage" : "Proven yields",
-      ],
-      buttonColor: project.status === "Available now" ? "btn-secondary" : "btn-primary",
-    }))
-    .slice(0, 3); // Limit to a maximum of 3 projects
+  // Convert projects object to array, add display properties
+  const projectsArray = Object.values(projects).map((project) => ({
+    ...project,
+    image: project.images[0],
+    features: [
+      "Lifetime Investment",
+      project.status === "Available now" ? "Premium Arabica variety" : "High altitude benefits",
+      project.status === "Available now" ? "Volcanic soil advantage" : "Proven yields",
+    ],
+    buttonColor: project.status === "Available now" ? "btn-secondary" : "btn-primary",
+  }));
 
-  // Ensure at least one project is available
-  if (projectsArray.length === 0) {
-    return null; // Optionally, you could return a fallback UI here
-  }
+  // Limit to 3 projects for display, unless it's a single project
+  const displayProjects = projectsArray.slice(0, 3);
 
   // Scroll-based visibility detection
   useEffect(() => {
@@ -91,6 +87,7 @@ const InvestmentProjects: React.FC = () => {
       id="investment-projects"
       ref={sectionRef}
       className="py-8 sm:py-12 md:py-16 bg-cream-50"
+      style={{ backgroundColor: '#F5F0E5' }}
     >
       <div className="container-custom px-4 sm:px-6">
         <div className="text-center mb-6 sm:mb-8">
@@ -102,17 +99,29 @@ const InvestmentProjects: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
-          {projectsArray.map((project: any, index: number) => (
+        <div
+          className={`max-w-6xl mx-auto ${
+            displayProjects.length === 1
+              ? 'flex justify-center'
+              : displayProjects.length === 2
+              ? 'grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'
+              : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
+          }`}
+        >
+          {displayProjects.map((project, index) => (
             <div
               key={project.id}
-              className="card overflow-hidden animate-element element-hidden"
+              className={`card overflow-hidden animate-element element-hidden bg-white/95 backdrop-blur-xl rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${
+                displayProjects.length === 1 ? 'max-w-2xl w-full' : ''
+              }`}
             >
               <div className="relative">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="animate-element element-hidden w-full h-48 sm:h-52 md:h-56 object-cover"
+                  className={`animate-element element-hidden w-full ${
+                    displayProjects.length === 1 ? 'h-64 md:h-80' : 'h-48 sm:h-52 md:h-56'
+                  } object-cover`}
                 />
                 <div
                   className={`animate-element element-hidden absolute top-3 right-3 ${project.statusColor} text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium`}
@@ -130,7 +139,7 @@ const InvestmentProjects: React.FC = () => {
                 </p>
 
                 <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                  {project.features.map((feature: string, idx: number) => (
+                  {project.features.map((feature, idx) => (
                     <div
                       key={idx}
                       className="flex items-center text-sm sm:text-base text-gray-700 animate-element element-hidden"
@@ -143,7 +152,7 @@ const InvestmentProjects: React.FC = () => {
 
                 <Link
                   to={`/projects/${project.id}`}
-                  className={`animate-element element-hidden btn ${project.buttonColor} w-full px-4 py-3 sm:py-3.5 text-sm sm:text-base inline-flex items-center justify-center touch-manipulation`}
+                  className={`animate-element element-hidden btn ${project.buttonColor} w-full px-4 py-3 sm:py-3.5 text-sm sm:text-base inline-flex items-center justify-center touch-manipulation bg-[#7A5540] text-white hover:bg-[#5A3F2F] rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500 shadow-md hover:shadow-lg`}
                 >
                   Explore more <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -151,7 +160,31 @@ const InvestmentProjects: React.FC = () => {
             </div>
           ))}
         </div>
+
+        {projectsArray.length > 2 && (
+          <div className="text-center mt-6 sm:mt-8">
+            <Link
+              to="/farms"
+              className="animate-element element-hidden btn w-full sm:w-auto text-base md:text-lg px-8 py-4 bg-[#7A5540] text-white hover:bg-[#5A3F2F] rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500 touch-manipulation shadow-md hover:shadow-lg"
+            >
+              View All Farms <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        )}
       </div>
+
+      <style>{`
+        .element-hidden {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        .element-visible {
+          opacity: 1;
+          transform: translateY(0);
+          transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+      `}</style>
     </section>
   );
 };
