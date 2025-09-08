@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
           
-          <div>
+          {/* <div>
             <h3 className="text-lg font-bold text-coffee-800 mb-6 text-emphasis">Quick Links</h3>
             <ul className="space-y-3">
               <li>
@@ -134,7 +134,7 @@ const Footer: React.FC = () => {
                 <a href="#" className="text-gray-600 hover:text-coffee-600 transition-colors text-sm">Media Kit</a>
               </li>
             </ul>
-          </div>
+          </div> */}
           
           <div>
             <h3 className="text-lg font-bold text-coffee-800 mb-6 text-emphasis">Contact Us</h3>

@@ -3,18 +3,91 @@ import { ArrowRight, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 import { ContentData, AboutUsData } from '../types/content';
 
-const AboutUs: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+// JourneyTimeline: horizontally auto-scroll all cards, always visible
+const CARD_WIDTH = 320;     // px
+const CARD_GAP = 24;        // px
+const SCROLL_SPEED = 0.8;   // px per frame, adjust as needed
+
+const JourneyTimeline = ({ steps }) => {
+  const [offset, setOffset] = useState(0);
+  const totalCards = steps.length;
+  const totalWidth = totalCards * (CARD_WIDTH + CARD_GAP);
+
+  useEffect(() => {
+    let frameId;
+    const animate = () => {
+      setOffset((prev) => {
+        let nxt = prev + SCROLL_SPEED;
+        if (nxt > totalWidth) return 0;
+        return nxt;
+      });
+      frameId = requestAnimationFrame(animate);
+    };
+    frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, [totalWidth]);
+
+  return (
+    <div style={{
+      overflow: 'hidden',
+      maxWidth: '100%',
+      position: 'relative',
+      height: '301px',
+      paddingTop: '6px',
+      paddingBottom: '6px'
+    }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: `${CARD_GAP}px`,
+          width: `${totalWidth * 2}px`,
+          transform: `translateX(${-offset}px)`,
+          transition: 'transform 0s linear',
+          alignItems: 'stretch'
+        }}
+      >
+        {(steps.concat(steps)).map((step, idx) => (
+          <div key={idx}
+            style={{
+              minWidth: `${CARD_WIDTH}px`,
+              maxWidth: `${CARD_WIDTH}px`,
+              background: '#fff',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.07)',
+              borderRadius: '18px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '18px'
+            }}
+          >
+            <img src={step.image} alt={step.title} style={{
+              width: '100%',
+              height: '100px',
+              objectFit: 'cover',
+              borderRadius: '10px',
+              marginBottom: '10px'
+            }} />
+            <div style={{fontWeight: 'bold', color: '#a1673f', fontSize: 18, marginBottom: 7}}>{step.year}</div>
+            <h4 style={{
+              fontWeight: 'bold', color: '#734c24', fontSize: 16, marginBottom: 8}}>{step.title}
+            </h4>
+            <p style={{
+              color: '#7d6e65', fontSize: 13, textAlign: 'center', lineHeight: 1.4}}>{step.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const AboutUs = () => {
   const [currentTeamSlide, setCurrentTeamSlide] = useState(0);
   const { content, isLoading, error } = useContent();
-  const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
+  const sectionRefs = useRef(new Map());
 
-  // Show loading screen while content is being fetched
-  if (isLoading || !content) {
-    return <ContentLoadingScreen />;
-  }
-
-  // Show error state if content failed to load
+  if (isLoading || !content) return <ContentLoadingScreen />;
   if (error) {
     return (
       <div className="min-h-screen bg-cream-50 flex items-center justify-center">
@@ -31,113 +104,63 @@ const AboutUs: React.FC = () => {
       </div>
     );
   }
-
   const aboutUsData = content.aboutUs;
-  
-  // Only proceed if we have the necessary data
-  if (!aboutUsData) {
-    return <ContentLoadingScreen />;
-  }
+  if (!aboutUsData) return <ContentLoadingScreen />;
 
-  // Scroll-based visibility detection
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+    const observer = new window.IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             const elements = entry.target.querySelectorAll('.animate-element');
             elements.forEach((el, index) => {
               setTimeout(() => {
                 el.classList.add('element-visible');
                 el.classList.remove('element-hidden');
-              }, index * 100); // Staggered delay of 100ms per element
+              }, index * 100);
             });
           }
         });
       },
       { threshold: 0.1 }
     );
-
-    sectionRefs.current.forEach((section) => {
-      if (section) observer.observe(section);
-    });
-
+    sectionRefs.current.forEach(section => { if (section) observer.observe(section); });
     return () => {
-      sectionRefs.current.forEach((section) => {
-        if (section) observer.unobserve(section);
-      });
+      sectionRefs.current.forEach(section => { if (section) observer.unobserve(section); });
     };
   }, []);
 
-  // Auto-scroll for journey timeline
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % aboutUsData.journey.steps.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [aboutUsData.journey.steps.length]);
-
-  // Auto-scroll for team carousel
   useEffect(() => {
     const interval = setInterval(() => {
       const maxSlides = window.innerWidth >= 1024 
         ? Math.max(0, aboutUsData.team.members.length - 2)
         : aboutUsData.team.members.length - 1;
-      
-      setCurrentTeamSlide((prev) => (prev + 1) % (maxSlides + 1));
+      setCurrentTeamSlide(prev => (prev + 1) % (maxSlides + 1));
     }, 4000);
     return () => clearInterval(interval);
   }, [aboutUsData.team.members.length]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % aboutUsData.journey.steps.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + aboutUsData.journey.steps.length) % aboutUsData.journey.steps.length);
-  };
-
+  
   const nextTeamSlide = () => {
     const maxSlides = window.innerWidth >= 1024 
       ? Math.max(0, aboutUsData.team.members.length - 2)
       : aboutUsData.team.members.length - 1;
-    
-    setCurrentTeamSlide((prev) => (prev + 1) % (maxSlides + 1));
+    setCurrentTeamSlide(prev => (prev + 1) % (maxSlides + 1));
   };
-
   const prevTeamSlide = () => {
     const maxSlides = window.innerWidth >= 1024 
       ? Math.max(0, aboutUsData.team.members.length - 2)
       : aboutUsData.team.members.length - 1;
-    
-    setCurrentTeamSlide((prev) => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
+    setCurrentTeamSlide(prev => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
   };
-
-  const getValueCardStyles = (index: number) => {
-    if (index % 2 === 0) {
-      return 'bg-white';
-    } else if (index === 1 || index === 5) {
-      return 'bg-brown-800 text-white';
-    } else {
-      return 'bg-brown-700 text-white';
-    }
-  };
-
-  const getValueTextStyles = (index: number) => {
-    if (index % 2 === 0) {
-      return {
-        titleColor: index === 0 ? 'text-brown-800' : index === 2 ? 'text-brown-700' : 'text-brown-800',
-        descriptionColor: 'text-gray-600',
-        iconBg: 'bg-brown-200'
-      };
-    } else {
-      return {
-        titleColor: 'text-white',
-        descriptionColor: 'text-white/90',
-        iconBg: 'bg-white/20'
-      };
-    }
-  };
+  const handleCtaClick = () => window.location.href = 'https://portal-rho-lemon.vercel.app/';
+  const getValueCardStyles = index => (
+    index % 2 === 0 ? 'bg-white' : (index === 1 || index === 5 ? 'bg-brown-800 text-white' : 'bg-brown-700 text-white')
+  );
+  const getValueTextStyles = index => (
+    index % 2 === 0
+      ? { titleColor: index === 0 ? 'text-brown-800' : index === 2 ? 'text-brown-700' : 'text-brown-800', descriptionColor: 'text-gray-600', iconBg: 'bg-brown-200' }
+      : { titleColor: 'text-white', descriptionColor: 'text-white/90', iconBg: 'bg-white/20' }
+  );
 
   return (
     <div className="bg-cream-50">
@@ -366,7 +389,7 @@ const AboutUs: React.FC = () => {
                   const buttonClass = button.type === 'primary' ? 'btn btn-primary' : 'btn btn-secondary';
                   
                   return (
-                    <button key={index} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
+                    <button onClick={handleCtaClick} key={index} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
                       {button.text} <ArrowRight className="ml-2 h-4 w-4" />
                     </button>
                   );
@@ -423,7 +446,7 @@ const AboutUs: React.FC = () => {
                     <p className="animate-element element-hidden text-cream-100 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                       {model.description}
                     </p>
-                    <button className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
+                    <button onClick={handleCtaClick} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
                       {model.buttonText}
                     </button>
                   </div>
@@ -594,54 +617,17 @@ const AboutUs: React.FC = () => {
       </section>
 
       {/* Journey Timeline */}
-      <section 
-        ref={(el) => el && sectionRefs.current.set('journey', el)}
-        className="py-8 sm:py-12 md:py-16 bg-cream-50"
-      >
+      <section ref={el => el && sectionRefs.current.set('journey', el)} className="py-8 sm:py-12 md:py-16 bg-cream-50">
         <div className="container-custom px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">{aboutUsData.journey.sectionTitle}</h2>
-            <h3 className="animate-element element-hidden text-base sm:text-lg md:text-xl text-brown-800 mb-4 sm:mb-6 font-semibold">
+            <h2 className="text-xl sm:text-2xl md:text-3xl text-brown-700 mb-2 sm:mb-3 font-bold">
+              {aboutUsData.journey.sectionTitle}
+            </h2>
+            <h3 className="text-base sm:text-lg md:text-xl text-brown-800 mb-4 sm:mb-6 font-semibold">
               {aboutUsData.journey.sectionSubtitle}
             </h3>
           </div>
-
-          <div className="relative max-w-6xl mx-auto">
-            <div className="flex justify-between items-center mb-4 sm:mb-6">
-              <button 
-                onClick={prevSlide}
-                className="animate-element element-hidden w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-              <button 
-                onClick={nextSlide}
-                className="animate-element element-hidden w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation"
-              >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-              {aboutUsData.journey.steps.map((step: any, index: number) => (
-                <div 
-                  key={index}
-                  className={`card p-4 sm:p-6 transition-all duration-500 animate-element element-hidden ${
-                    index === currentSlide ? 'lg:scale-105 shadow-xl' : 'sm:opacity-70'
-                  }`}
-                >
-                  <img
-                    src={step.image}
-                    alt={step.title}
-                    className="animate-element element-hidden w-full h-32 sm:h-40 md:h-32 object-cover rounded-xl sm:rounded-2xl mb-3 sm:mb-4"
-                  />
-                  <div className="animate-element element-hidden text-base sm:text-lg md:text-xl font-bold text-brown-700 mb-1 sm:mb-2">{step.year}</div>
-                  <h4 className="animate-element element-hidden text-sm sm:text-base font-bold text-brown-800 mb-2 sm:mb-3">{step.title}</h4>
-                  <p className="animate-element element-hidden text-gray-600 leading-relaxed text-xs sm:text-sm">{step.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <JourneyTimeline steps={aboutUsData.journey.steps} />
         </div>
       </section>
 
@@ -669,7 +655,7 @@ const AboutUs: React.FC = () => {
                     {description}
                   </p>
                 ))}
-                <button className="animate-element element-hidden btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation">
+                <button onClick={handleCtaClick} className="animate-element element-hidden btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation">
                   {aboutUsData.culture.buttonText} <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
               </div>
