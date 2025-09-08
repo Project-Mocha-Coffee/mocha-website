@@ -83,13 +83,13 @@ const InvestmentCalculator = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 md:mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-forest-700 mb-3 animate-fade-in">
-              Mocha Asset-Backed Bond Calculator
+              Mocha Asset-Backed Investment Calculator
             </h2>
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto animate-fade-in delay-100">
-              Estimate your earnings with Mocha Asset-Backed Bonds (MABB), secured by geo-tagged coffee trees in Kenya.
+              Estimate your earnings with Mocha Asset-Backed Investment, secured by geo-tagged coffee trees in Kenya.
             </p>
             <p className="text-gray-500 text-sm md:text-base mt-2 max-w-3xl mx-auto animate-fade-in delay-200">
-              Use this calculator to explore how many bonds you can purchase and estimate your returns over 5 years. Adjust the number of bonds or investment amount to see real-time results.
+              Use this calculator to explore how many trees you can invest in, and estimate your returns over 5 years. Adjust the number of trees or investment amount to see real-time results.
             </p>
           </div>
 
