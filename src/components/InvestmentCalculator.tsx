@@ -89,7 +89,7 @@ const InvestmentCalculator = () => {
               Estimate your earnings with Mocha Asset-Backed Investment, secured by geo-tagged coffee trees in Kenya.
             </p>
             <p className="text-gray-500 text-sm md:text-base mt-2 max-w-3xl mx-auto animate-fade-in delay-200">
-              Use this calculator to explore how many trees you can invest in, and estimate your returns over 5 years. Adjust the number of trees or investment amount to see real-time results.
+              Use this calculator to explore how many trees you can invest in, and estimate your returns over 5 years. Adjust the number of Avilable trees or investment amount to see real-time results.
             </p>
           </div>
 
@@ -103,10 +103,10 @@ const InvestmentCalculator = () => {
                     Explore Your Investment Potential
                   </h3>
                   <p className="text-gray-600 text-base md:text-lg mb-4 animate-fade-in delay-200">
-                    Discover Your Returns with Mocha Asset-Backed Bonds
+                    Discover Your Returns with Mocha Asset-Backed Investments
                   </p>
                   <p className="text-gray-500 text-sm md:text-base mb-4 animate-fade-in delay-200">
-                    Each bond costs $100 and provides a fixed 10% annual return over 5 years, secured by coffee trees in Kenya. Review the details below to understand your investment.
+                    Each tree costs $100 and provides a fixed 10% annual return over 5 years, secured by coffee trees in Kenya. Review the details below to understand your investment.
                   </p>
                 </div>
 
@@ -121,11 +121,11 @@ const InvestmentCalculator = () => {
                     <span className="text-forest-700 font-semibold text-sm md:text-base">5 years</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-sm md:text-base">Bond Cost</span>
-                    <span className="text-forest-700 font-semibold text-sm md:text-base">$100 per bond</span>
+                    <span className="text-gray-600 text-sm md:text-base">Tree Cost</span>
+                    <span className="text-forest-700 font-semibold text-sm md:text-base">$100 per tree</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-sm md:text-base">Max Bonds per Investor</span>
+                    <span className="text-gray-600 text-sm md:text-base">Max Trees per Investor</span>
                     <span className="text-forest-700 font-semibold text-sm md:text-base">20</span>
                   </div>
                 </div>
