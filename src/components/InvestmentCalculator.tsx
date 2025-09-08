@@ -106,7 +106,7 @@ const InvestmentCalculator = () => {
                     Discover Your Returns with Mocha Asset-Backed Investments
                   </p>
                   <p className="text-gray-500 text-sm md:text-base mb-4 animate-fade-in delay-200">
-                    Invest in Kenyan coffee trees: $100 funds one complete tree investment, or start with $1 to invest in a share of a tree. Both earn the same 10% annual return.
+                    Invest in Kenyan coffee trees: $100 funds one complete tree investment, or start with $1 to invest in a share of a tree. Both earn the same 10% annual return. Review the details below to understand your investment.
                   </p>
                 </div>
 
@@ -135,12 +135,15 @@ const InvestmentCalculator = () => {
                   <button className="flex-1 bg-[#7A5540] text-white py-3 px-6 rounded-lg hover:bg-[#5A3F2F] transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500">
                     Invest Now <ArrowRight className="ml-2 h-4 w-4 inline" />
                   </button>
-                  <button className="flex-1 bg-cream-100 text-forest-700 py-3 px-6 rounded-lg hover:bg-cream-200 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500">
+                  {/* <button className="flex-1 bg-cream-100 text-forest-700 py-3 px-6 rounded-lg hover:bg-cream-200 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500">
                     View Term Sheet <ArrowRight className="ml-2 h-4 w-4 inline" />
-                  </button>
+                  </button> */}
                 </div>
-                <p className="text-gray-500 text-sm md:text-base animate-fade-in delay-400">
+                {/* <p className="text-gray-500 text-sm md:text-base animate-fade-in delay-400">
                   Click "Invest Now" to start your investment journey or "View Term Sheet" for detailed terms and conditions.
+                </p> */}
+                <p className="text-gray-500 text-sm md:text-base animate-fade-in delay-400">
+                  Click "Invest Now" to start your investment journey.
                 </p>
               </div>
 
@@ -149,11 +152,11 @@ const InvestmentCalculator = () => {
                 {/* Bond Slider */}
                 <div>
                   <label className="block text-forest-700 font-semibold mb-3 text-sm md:text-base animate-fade-in delay-200">
-                    Number of Bonds
+                    Number of Trees
                     <span className="ml-2 text-gray-500 cursor-pointer relative group">
                       <Info className="h-4 w-4 inline" />
                       <span className="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded p-2 -top-10 left-0 w-48">
-                        Select the number of bonds to purchase. Each bond costs $100, with a maximum of 20 bonds per investor.
+                        Select the number of trees to invest in. $100 funds one complete tree investment, with $1 to investing in a share of a tree. The maximum is 20 trees to invest in per investor.
                       </span>
                     </span>
                   </label>
@@ -196,7 +199,7 @@ const InvestmentCalculator = () => {
                     <span className="ml-2 text-gray-500 cursor-pointer relative group">
                       <Info className="h-4 w-4 inline" />
                       <span className="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded p-2 -top-10 left-0 w-48">
-                        Enter the number of bonds to calculate the investment amount. Each bond costs $100, starting from 0.01 bonds ($1) up to a maximum of 20 bonds ($2,000).
+                        Enter the number of trees to calculate the investment amount. $100 funds one complete tree investment, with $1 investing in a share of a tree which 0.01% share of the tree.
                       </span>
                     </span>
                   </label>
@@ -213,7 +216,7 @@ const InvestmentCalculator = () => {
                       aria-label="Bonds from investment"
                     />
                     <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm md:text-base">
-                      Bonds
+                      Treee
                     </div>
                   </div>
                   <div className="mt-2 text-sm md:text-base text-gray-500">
@@ -224,7 +227,7 @@ const InvestmentCalculator = () => {
                 {/* Results */}
                 <div className="space-y-4 bg-cream-50 p-4 rounded-xl animate-fade-in delay-300">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm md:text-base">Total Bonds</span>
+                    <span className="text-gray-600 text-sm md:text-base">Total Rewwa</span>
                     <span className="text-forest-700 font-bold text-base md:text-lg">{actualBonds.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center">
