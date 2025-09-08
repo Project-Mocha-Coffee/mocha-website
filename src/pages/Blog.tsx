@@ -543,12 +543,14 @@ const Blog: React.FC = () => {
             <p className="text-gray-600 text-sm leading-relaxed mb-6">
               {blogPage.callToAction.description}
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button className="bg-forest-600 text-white hover:bg-forest-700 px-4 py-2 text-sm rounded">
-                {blogPage.callToAction.primaryButtonText} <ArrowRight className="ml-2 h-4 w-4" />
+            <div className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto">
+              <button className="bg-forest-600 text-white hover:bg-forest-700 px-6 py-3 text-sm rounded-full flex items-center gap-x-2">
+                {blogPage.callToAction.primaryButtonText}
+                <ArrowRight className="h-4 w-4" />
               </button>
-              <button className="border border-forest-600 text-forest-600 hover:bg-forest-100 px-4 py-2 text-sm rounded">
-                {blogPage.callToAction.secondaryButtonText} <ArrowRight className="ml-2 h-4 w-4" />
+              <button className="border border-forest-600 text-forest-600 hover:bg-forest-100 px-6 py-3 text-sm rounded-full flex items-center gap-x-2">
+                {blogPage.callToAction.secondaryButtonText}
+                <ArrowRight className="h-4 w-4" />
               </button>
             </div>
           </div>

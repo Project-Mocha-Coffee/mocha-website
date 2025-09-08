@@ -17,6 +17,10 @@ const Investing: React.FC = () => {
   
   const investing = content.investing;
 
+  const handleCtaClick = () => {
+    window.location.href = 'https://portal-rho-lemon.vercel.app/';
+  };
+
   // Scroll-based visibility detection
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -187,7 +191,7 @@ const Investing: React.FC = () => {
           </div>
 
           <div className="text-center">
-            <button className="animate-element element-hidden btn bg-brown-600 text-white hover:bg-brown-700 w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base touch-manipulation">
+            <button onClick={handleCtaClick} className="animate-element element-hidden btn bg-brown-600 text-white hover:bg-brown-700 w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base touch-manipulation">
               {investing.howItWorks.ctaButton.text} <ArrowRight className="ml-2 h-4 w-4" />
             </button>
           </div>
