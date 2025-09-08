@@ -106,7 +106,7 @@ const InvestmentCalculator = () => {
                     Discover Your Returns with Mocha Asset-Backed Investments
                   </p>
                   <p className="text-gray-500 text-sm md:text-base mb-4 animate-fade-in delay-200">
-                    Each tree costs $100 and provides a fixed 10% annual return over 5 years, secured by coffee trees in Kenya. Review the details below to understand your investment.
+                    Invest in Kenyan coffee trees: $100 funds one complete tree investment, or start with $1 to invest in a share of a tree. Both earn the same 10% annual return.
                   </p>
                 </div>
 
