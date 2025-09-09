@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Instagram, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { ArrowRight, Instagram, CheckCircle, AlertCircle } from 'lucide-react';
 import { submitContactForm } from '../lib/supabase';
 
 const Contact = () => {
