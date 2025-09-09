@@ -227,7 +227,7 @@ const InvestmentCalculator = () => {
                 {/* Results */}
                 <div className="space-y-4 bg-cream-50 p-4 rounded-xl animate-fade-in delay-300">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm md:text-base">Total Rewwa</span>
+                    <span className="text-gray-600 text-sm md:text-base">Total Rewards</span>
                     <span className="text-forest-700 font-bold text-base md:text-lg">{actualBonds.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center">
