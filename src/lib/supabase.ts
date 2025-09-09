@@ -29,3 +29,37 @@ export const signupNewsletter = async (email: string) => {
     return { success: false, error }
   }
 }
+
+// Contact form submission function
+export const submitContactForm = async (formData: {
+  fullName: string;
+  email: string;
+  subject: string;
+  phone?: string;
+  message?: string;
+}) => {
+  try {
+    const { data, error } = await supabase
+      .from('contact_submissions')
+      .insert([
+        { 
+          full_name: formData.fullName.trim(),
+          email: formData.email.toLowerCase().trim(),
+          subject: formData.subject.trim(),
+          phone: formData.phone?.trim() || null,
+          message: formData.message?.trim() || null
+        }
+      ])
+      .select()
+
+    if (error) {
+      console.error('Contact form submission error:', error)
+      throw error
+    }
+
+    return { success: true, data }
+  } catch (error) {
+    console.error('Contact form submission failed:', error)
+    return { success: false, error }
+  }
+}

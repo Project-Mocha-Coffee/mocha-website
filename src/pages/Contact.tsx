@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Instagram } from 'lucide-react';
+import { ArrowRight, Instagram, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { submitContactForm } from '../lib/supabase';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,10 @@ const Contact = () => {
     phone: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -17,11 +22,71 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Clear form errors when user starts typing
+    if (formErrors[name]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const validateForm = () => {
+    const errors: {[key: string]: string} = {};
+    
+    if (!formData.fullName.trim()) {
+      errors.fullName = 'Full name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+    
+    if (!formData.subject.trim()) {
+      errors.subject = 'Subject is required';
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    
+    if (!validateForm()) {
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
+    
+    try {
+      const result = await submitContactForm(formData);
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({
+          fullName: '',
+          email: '',
+          subject: '',
+          phone: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus('error');
+        setErrorMessage('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setErrorMessage('An unexpected error occurred. Please try again.');
+      console.error('Contact form error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Scroll-based visibility detection
@@ -117,6 +182,20 @@ const Contact = () => {
                 {/* Right side - Contact Form */}
                 <div className="bg-[#3C2F2F] p-8 lg:p-12 text-[#F5E6CC]">
                   <div className="space-y-6">
+                    {/* Success/Error Messages */}
+                    {submitStatus === 'success' && (
+                      <div className="animate-element element-hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg flex items-center">
+                        <CheckCircle className="w-5 h-5 mr-2" />
+                        <span className="text-sm">Message sent successfully! We'll get back to you soon.</span>
+                      </div>
+                    )}
+                    
+                    {submitStatus === 'error' && (
+                      <div className="animate-element element-hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg flex items-center">
+                        <AlertCircle className="w-5 h-5 mr-2" />
+                        <span className="text-sm">{errorMessage}</span>
+                      </div>
+                    )}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="animate-element element-hidden block text-sm font-medium mb-2">
@@ -131,6 +210,9 @@ const Contact = () => {
                           className="animate-element element-hidden w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm"
                           required
                         />
+                        {formErrors.fullName && (
+                          <p className="text-red-400 text-xs mt-1">{formErrors.fullName}</p>
+                        )}
                       </div>
                       <div>
                         <label className="animate-element element-hidden block text-sm font-medium mb-2">
@@ -145,6 +227,9 @@ const Contact = () => {
                           className="animate-element element-hidden w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm"
                           required
                         />
+                        {formErrors.email && (
+                          <p className="text-red-400 text-xs mt-1">{formErrors.email}</p>
+                        )}
                       </div>
                     </div>
 
@@ -162,6 +247,9 @@ const Contact = () => {
                           className="animate-element element-hidden w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm"
                           required
                         />
+                        {formErrors.subject && (
+                          <p className="text-red-400 text-xs mt-1">{formErrors.subject}</p>
+                        )}
                       </div>
                       <div>
                         <label className="animate-element element-hidden block text-sm font-medium mb-2">
@@ -195,9 +283,16 @@ const Contact = () => {
                     <div className="pt-2">
                       <button
                         onClick={handleSubmit}
-                        className="animate-element element-hidden bg-[#6B4E31] text-[#F5E6CC] px-6 py-3 rounded-lg font-medium text-sm hover:bg-[#8B5E3C] transition-colors duration-300 animate-pulseHover flex items-center"
+                        disabled={isSubmitting}
+                        className={`animate-element element-hidden px-6 py-3 rounded-lg font-medium text-sm transition-colors duration-300 flex items-center ${
+                                                     'bg-[#6B4E31] text-[#F5E6CC] hover:bg-[#8B5E3C] animate-pulseHover'
+                        }`}
                       >
-                        Send Message <ArrowRight className="ml-2 h-4 w-4" />
+                         
+                          <>
+                            Send Message <ArrowRight className="ml-2 h-4 w-4" />
+                          </>
+                        
                       </button>
                     </div>
                   </div>
