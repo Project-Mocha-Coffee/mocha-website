@@ -6,8 +6,8 @@ import InvestmentProjects from '../components/InvestmentsProjects'; // Import th
 import InvestmentPlans from '../components/InvestmentPlans';
 import AvailableOpportunities from '../components/AvailableOpportunities';
 import HowItWorks from '../components/HowItWorks';
-import TestimonialsSection from '../components/TestimonialsSection';
-import TransparentReports from '../components/TransparentReports';
+/* import TestimonialsSection from '../components/TestimonialsSection';
+import TransparentReports from '../components/TransparentReports'; */
 import Cta from '../components/Cta';
 
 const Home: React.FC = () => {
