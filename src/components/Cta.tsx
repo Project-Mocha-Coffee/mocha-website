@@ -1,41 +1,43 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { signupNewsletter } from '../lib/supabase';
 
 const Cta = () => {
   const [email, setEmail] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Configurable booking URL 
   const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
 
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target); // Stop observing once animated
-        }
-      });
-    }, observerOptions);
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-
-    return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
-    };
-  }, []);
-
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    console.log('Newsletter signup:', email);
-    setEmail('');
+    
+    if (!email.trim()) return;
+    
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    
+    try {
+      const result = await signupNewsletter(email);
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        setEmail('');
+        // Reset success message after 3 seconds
+        setTimeout(() => setSubmitStatus('idle'), 3000);
+      } else {
+        setSubmitStatus('error');
+        // Reset error message after 5 seconds
+        setTimeout(() => setSubmitStatus('idle'), 5000);
+      }
+    } catch (error) {
+      console.error('Newsletter signup failed:', error);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInvestClick = () => {
@@ -46,11 +48,7 @@ const Cta = () => {
     <section className="py-8 sm:py-12 md:py-14 lg:py-16 bg-brown-800">
       <div className="container-custom px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <div 
-            className={`bg-white/5 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-6 lg:p-8 xl:p-12 transition-all duration-1000 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`}
-          >
+          <div className="bg-white/5 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-6 lg:p-8 xl:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-6 lg:gap-8 xl:gap-12 items-center">
               {/* Left Side - Main CTA */}
               <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-6 lg:p-7 xl:p-8 order-2 lg:order-1">
@@ -88,106 +86,33 @@ const Cta = () => {
                     placeholder="Your email address"
                     className="w-full sm:flex-1 md:w-full lg:flex-1 px-4 py-3 rounded-lg border border-gray-200 bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brown-600 focus:border-transparent text-sm sm:text-base touch-manipulation"
                     required
+                    disabled={isSubmitting}
                   />
                   <button 
                     type="submit"
-                    className="w-full sm:w-auto md:w-full lg:w-auto btn bg-brown-700 text-white hover:bg-brown-800 px-6 py-3 text-sm sm:text-base rounded-lg touch-manipulation"
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto md:w-full lg:w-auto btn bg-brown-700 text-white hover:bg-brown-800 disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 text-sm sm:text-base rounded-lg touch-manipulation"
                   >
-                    Subscribe <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                    {isSubmitting ? 'Subscribing...' : 'Subscribe'} <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
                 </form>
+                
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <div className="mt-3 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm">
+                    ✅ Thank you! You've been subscribed to our newsletter.
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="mt-3 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
+                    ❌ Something went wrong. Please try again or contact us directly.
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <style>{`
-        @keyframes slideInCard {
-          0% {
-            opacity: 0;
-            transform: translateY(60px) scale(0.9) rotate(-2deg);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) scale(1) rotate(0deg);
-          }
-        }
-        @keyframes cardPop {
-          0% {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          70% {
-            transform: scale(1.05);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        @keyframes textSlide {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes buttonPop {
-          0% {
-            opacity: 0;
-            transform: scale(0.9) translateY(20px);
-          }
-          70% {
-            transform: scale(1.05);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-          }
-        }
-        @keyframes formPop {
-          0% {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes iconBounce {
-          0% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-5px);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-        .animate-slide-in-card {
-          animation: slideInCard 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-        .animate-card-pop {
-          animation: cardPop 0.7s ease-out forwards;
-        }
-        .animate-text-slide {
-          animation: textSlide 0.8s ease-out forwards;
-        }
-        .animate-button-pop {
-          animation: buttonPop 0.8s ease-out forwards;
-        }
-        .animate-form-pop {
-          animation: formPop 1s ease-out forwards;
-        }
-        .animate-icon-bounce {
-          animation: iconBounce 0.5s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 };
