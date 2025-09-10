@@ -37,7 +37,7 @@ const HowItWorks = () => {
 
   // Handle button click to redirect
   const handleCtaClick = () => {
-    window.location.href = 'https://portal-rho-lemon.vercel.app/';
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
   };
 
   return (

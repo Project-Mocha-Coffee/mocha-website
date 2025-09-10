@@ -591,19 +591,25 @@
           "name": "Samuel Mwangi",
           "role": "Head Grower",
           "initials": "SM",
-          "image": "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop"
+          "image": "https://images.pexels.com/photos/1438681/pexels-photo-1438681.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+          "linkedin": "https://www.linkedin.com/in/samuel-mwangi-coffee",
+          "twitter": "https://twitter.com/samuelmwangi_coffee"
         },
         {
           "name": "Grace Wanjiku",
           "role": "Coffee Quality Manager",
           "initials": "GW",
-          "image": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop"
+          "image": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+          "linkedin": "https://www.linkedin.com/in/grace-wanjiku-coffee",
+          "twitter": "https://twitter.com/gracewanjiku_coffee"
         },
         {
           "name": "David Kinyua",
           "role": "Co-Founder",
           "initials": "DK",
-          "image": "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop"
+          "image": "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+          "linkedin": "https://www.linkedin.com/in/david-kinyua-coffee",
+          "twitter": "https://twitter.com/davidkinyua_coffee"
         }
       ]
     },

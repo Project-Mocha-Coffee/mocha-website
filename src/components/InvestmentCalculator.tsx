@@ -132,7 +132,10 @@ const InvestmentCalculator = () => {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 animate-fade-in delay-400">
-                  <button className="flex-1 bg-[#7A5540] text-white py-3 px-6 rounded-lg hover:bg-[#5A3F2F] transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500">
+                  <button 
+                    onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer')}
+                    className="flex-1 bg-[#7A5540] text-white py-3 px-6 rounded-lg hover:bg-[#5A3F2F] transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  >
                     Invest Now <ArrowRight className="ml-2 h-4 w-4 inline" />
                   </button>
                   {/* <button className="flex-1 bg-cream-100 text-forest-700 py-3 px-6 rounded-lg hover:bg-cream-200 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold-500">

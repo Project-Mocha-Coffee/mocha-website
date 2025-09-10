@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight, Users, Shield, Camera, Leaf, Gift, TrendingUp } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { ArrowRight, Camera, Leaf, Gift, TrendingUp } from 'lucide-react';
 import InvestmentCalculator from '../components/InvestmentCalculator';
 import ReferralProgram from '../components/ReferralProgram';
 import Timeline from '../components/Timeline';
 import { useContent } from '../contexts/ContentContext';
-import { ContentData } from '../types/content';
 
 const Investing: React.FC = () => {
   const { content } = useContent();
@@ -18,7 +17,7 @@ const Investing: React.FC = () => {
   const investing = content.investing;
 
   const handleCtaClick = () => {
-    window.location.href = 'https://portal-rho-lemon.vercel.app/';
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
   };
 
   // Scroll-based visibility detection
@@ -70,11 +69,10 @@ const Investing: React.FC = () => {
         className="gradient-forest relative overflow-hidden"
       >
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url('${investing.hero.backgroundImage}')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}></div>
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('${investing.hero.backgroundImage}')` }}
+          ></div>
         </div>
 
         <div className="relative z-10 container-custom pt-20 sm:pt-24 md:pt-32 pb-8 sm:pb-12 md:pb-16 px-4 sm:px-6">
@@ -95,6 +93,7 @@ const Investing: React.FC = () => {
                 {investing.hero.buttons.map((button: any, index: number) => (
                   <button 
                     key={index} 
+                    onClick={handleCtaClick}
                     className={`animate-element element-hidden ${button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary'} w-full sm:w-auto text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4 touch-manipulation`}
                   >
                     {button.text} <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
@@ -150,14 +149,25 @@ const Investing: React.FC = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            {investing.globalInvestment.buttons.map((button: any, index: number) => (
-              <button 
-                key={index} 
-                className={`animate-element element-hidden ${button.type === 'primary' ? 'btn bg-brown-700 text-white hover:bg-brown-800' : 'btn bg-brown-800 text-white hover:bg-brown-900'} w-full sm:w-auto px-6 py-3 text-sm sm:text-base rounded-full touch-manipulation`}
-              >
-                {button.text} <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
-            ))}
+            {investing.globalInvestment.buttons.map((button: any, index: number) => {
+              const handleButtonClick = () => {
+                if (button.text.toLowerCase().includes('schedule')) {
+                  window.open('https://calendly.com/mohamed-projectmocha/30min', '_blank', 'noopener,noreferrer');
+                } else {
+                  handleCtaClick();
+                }
+              };
+              
+              return (
+                <button 
+                  key={index} 
+                  onClick={handleButtonClick}
+                  className={`animate-element element-hidden ${button.type === 'primary' ? 'btn bg-brown-700 text-white hover:bg-brown-800' : 'btn bg-brown-800 text-white hover:bg-brown-900'} w-full sm:w-auto px-6 py-3 text-sm sm:text-base rounded-full touch-manipulation`}
+                >
+                  {button.text} <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -426,49 +436,56 @@ const Investing: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto">
-            {investing.investmentBenefits.benefits.map((benefit: any, index: number) => {
-              const getCardClass = (index: number, cardType: string) => {
-                if (cardType === 'image') return 'card overflow-hidden animate-element element-hidden';
-                return index % 2 === 0 ? 'card bg-white animate-element element-hidden' : 'card bg-coffee-600 text-white animate-element element-hidden';
-              };
-              
-              const getIconClass = (index: number) => {
-                return index % 2 === 0 ? 'w-8 h-8 bg-coffee-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-element element-hidden' : 'w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-element element-hidden';
-              };
-              
-              const getTitleClass = (index: number) => {
-                return index % 2 === 0 ? 'text-sm sm:text-base font-bold leading-tight text-brown-800 animate-element element-hidden' : 'text-sm sm:text-base font-bold leading-tight text-white animate-element element-hidden';
-              };
-              
-              const getDescriptionClass = (index: number) => {
-                return index % 2 === 0 ? 'leading-relaxed text-xs sm:text-sm text-gray-600 break-words animate-element element-hidden' : 'leading-relaxed text-xs sm:text-sm text-white/90 break-words animate-element element-hidden';
-              };
-              
-              return (
-                <div key={index} className={getCardClass(index, benefit.cardType)} >
-                  {benefit.cardType === 'text' ? (
-                    <div className="p-4 sm:p-5">
-                      <div className="flex items-start mb-3">
-                        <div className={getIconClass(index)}>
-                          {getIcon(benefit.icon)}
+          <div className="overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide">
+            <div className="flex gap-4 px-4 min-w-max">
+              {investing.investmentBenefits.benefits.map((benefit: any, index: number) => {
+                const getCardClass = (index: number, cardType: string) => {
+                  if (cardType === 'image') return 'card overflow-hidden animate-element element-hidden flex-shrink-0';
+                  return index % 2 === 0 ? 'card bg-white animate-element element-hidden flex-shrink-0' : 'card bg-coffee-600 text-white animate-element element-hidden flex-shrink-0';
+                };
+                
+                const getIconClass = (index: number) => {
+                  return index % 2 === 0 ? 'w-8 h-8 bg-coffee-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-element element-hidden' : 'w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-element element-hidden';
+                };
+                
+                const getTitleClass = (index: number) => {
+                  return index % 2 === 0 ? 'text-sm sm:text-base font-bold leading-tight text-brown-800 animate-element element-hidden' : 'text-sm sm:text-base font-bold leading-tight text-white animate-element element-hidden';
+                };
+                
+                const getDescriptionClass = (index: number) => {
+                  return index % 2 === 0 ? 'leading-relaxed text-xs sm:text-sm text-gray-600 break-words animate-element element-hidden' : 'leading-relaxed text-xs sm:text-sm text-white/90 break-words animate-element element-hidden';
+                };
+                
+                return (
+                  <div key={index} className={`${getCardClass(index, benefit.cardType)} min-w-[280px] max-w-[320px]`}>
+                    {benefit.cardType === 'text' ? (
+                      <div className="p-4 sm:p-5 h-full flex flex-col">
+                        <div className="flex items-start mb-3">
+                          <div className={getIconClass(index)}>
+                            {getIcon(benefit.icon)}
+                          </div>
+                          <h4 className={getTitleClass(index)}>{benefit.title}</h4>
                         </div>
-                        <h4 className={getTitleClass(index)}>{benefit.title}</h4>
+                        <p className={getDescriptionClass(index)}>
+                          {benefit.description}
+                        </p>
                       </div>
-                      <p className={getDescriptionClass(index)}>
-                        {benefit.description}
-                      </p>
-                    </div>
-                  ) : (
-                    <img
-                      src={benefit.image}
-                      alt={benefit.imageAlt}
-                      className="animate-element element-hidden w-full h-full object-cover"
-                    />
-                  )}
-                </div>
-              );
-            })}
+                    ) : (
+                      <div className="relative h-48">
+                        <img
+                          src={benefit.image}
+                          alt={benefit.imageAlt}
+                          className="animate-element element-hidden w-full h-full object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3">
+                          <h4 className="font-bold text-sm">{benefit.title}</h4>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>

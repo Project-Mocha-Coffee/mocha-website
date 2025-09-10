@@ -2,9 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
+import { signupNewsletter } from '../lib/supabase';
 
 const Projects: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'duplicate'>('idle');
   const { content, isLoading, error } = useContent();
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   
@@ -39,6 +43,45 @@ const Projects: React.FC = () => {
   }
 
   const coffeeFacts = projectsPage.coffeeFacts.facts;
+
+  // Email submission handler
+  const handleEmailSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    
+    if (!email.trim()) return;
+    
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    
+    try {
+      const result = await signupNewsletter(email);
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        setEmail('');
+        // Reset success message after 4 seconds
+        setTimeout(() => setSubmitStatus('idle'), 4000);
+      } else {
+        // Check for specific error types
+        const error = result.error as any;
+        if (error && error.code === '23505') {
+          // Duplicate email error
+          setSubmitStatus('duplicate');
+        } else {
+          // Generic error
+          setSubmitStatus('error');
+        }
+        // Reset error message after 5 seconds
+        setTimeout(() => setSubmitStatus('idle'), 5000);
+      }
+    } catch (error) {
+      console.error('Newsletter signup failed:', error);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Scroll-based visibility detection
   useEffect(() => {
@@ -133,14 +176,21 @@ const Projects: React.FC = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                {projectsPage.hero.buttons.map((button: any, index: number) => (
-                  <button 
-                    key={index}
-                    className={`animate-element element-hidden ${button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary'} w-full sm:w-auto text-base sm:text-lg px-8 py-4 sm:px-10 sm:py-5 touch-manipulation`}
-                  >
-                    {button.text} <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
-                  </button>
-                ))}
+                {projectsPage.hero.buttons.map((button: any, index: number) => {
+                  const handleButtonClick = () => {
+                    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
+                  };
+                  
+                  return (
+                    <button 
+                      key={index}
+                      onClick={handleButtonClick}
+                      className={`animate-element element-hidden ${button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary'} w-full sm:w-auto text-base sm:text-lg px-8 py-4 sm:px-10 sm:py-5 touch-manipulation`}
+                    >
+                      {button.text} <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
+                    </button>
+                  );
+                })}
               </div>
 
               <div>
@@ -168,12 +218,13 @@ const Projects: React.FC = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
-            {projectsArray.map((project: any, index: number) => (
-              <div 
-                key={project.id}
-                className="card overflow-hidden animate-element element-hidden"
-              >
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+              {projectsArray.map((project: any) => (
+                <div 
+                  key={project.id}
+                  className="card overflow-hidden animate-element element-hidden flex-shrink-0 min-w-[280px] max-w-[320px]"
+                >
                 <div className="relative">
                   <img
                     src={project.image}
@@ -211,6 +262,7 @@ const Projects: React.FC = () => {
                 </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>
@@ -383,16 +435,41 @@ const Projects: React.FC = () => {
                     {projectsPage.waitlist.cardDescription}
                   </p>
                   
-                  <div className="flex flex-col sm:flex-row gap-3">
+                  <form onSubmit={handleEmailSubmit} className="space-y-3 sm:space-y-0 sm:flex sm:gap-3">
                     <input
                       type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder={projectsPage.waitlist.emailPlaceholder}
                       className="animate-element element-hidden flex-1 px-4 py-3 sm:py-4 text-sm sm:text-base bg-white border border-gray-300 rounded-l-xl sm:rounded-l-2xl focus:outline-none focus:ring-2 focus:ring-coffee-600 focus:border-transparent"
+                      required
+                      disabled={isSubmitting}
                     />
-                    <button className="animate-element element-hidden btn bg-coffee-600 text-white hover:bg-coffee-700 px-6 py-3 sm:py-4 text-sm sm:text-base rounded-r-xl sm:rounded-r-2xl touch-manipulation">
-                      {projectsPage.waitlist.subscribeButton.text}
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="animate-element element-hidden btn bg-coffee-600 text-white hover:bg-coffee-700 disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 sm:py-4 text-sm sm:text-base rounded-r-xl sm:rounded-r-2xl touch-manipulation"
+                    >
+                      {isSubmitting ? 'Subscribing...' : projectsPage.waitlist.subscribeButton.text}
                     </button>
-                  </div>
+                  </form>
+                  
+                  {/* Status Messages */}
+                  {submitStatus === 'success' && (
+                    <div className="mt-3 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm">
+                      ✅ Thank you! You've been subscribed to our newsletter.
+                    </div>
+                  )}
+                  {submitStatus === 'duplicate' && (
+                    <div className="mt-3 p-3 bg-blue-100 border border-blue-400 text-blue-700 rounded-lg text-sm">
+                      ℹ️ This email is already subscribed to our newsletter. You're all set!
+                    </div>
+                  )}
+                  {submitStatus === 'error' && (
+                    <div className="mt-3 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
+                      ❌ Something went wrong. Please try again or contact us directly.
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

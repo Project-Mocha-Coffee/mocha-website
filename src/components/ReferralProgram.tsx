@@ -1,10 +1,11 @@
-import React from 'react';
-import { Gift, Share2, Users, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Gift, Share2, Users, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
 import { useContent } from '../contexts/ContentContext';
-import type { ContentData } from '../types/content';
 
 const ReferralProgram: React.FC = () => {
   const { content } = useContent();
+  const [shareStatus, setShareStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [shareMessage, setShareMessage] = useState('');
   
   // Early return if content is not available
   if (!content) {
@@ -12,6 +13,88 @@ const ReferralProgram: React.FC = () => {
   }
   
   const data = content.referralProgram;
+
+  // Generate referral link with current user's ID (you can customize this)
+  const generateReferralLink = () => {
+    const baseUrl = window.location.origin;
+    const referralCode = `REF${Date.now()}`; // Simple referral code generation
+    return `${baseUrl}?ref=${referralCode}`;
+  };
+
+  // Share content for social media
+  const shareContent = {
+    title: "Join Project Mocha - Sustainable Coffee Investment",
+    text: "Discover sustainable coffee investment opportunities in Kenya. Join thousands of investors growing their wealth while supporting local communities.",
+    url: generateReferralLink()
+  };
+
+  // Handle social media sharing
+  const handleSocialShare = async () => {
+    try {
+      if (navigator.share) {
+        // Use native Web Share API if available
+        await navigator.share(shareContent);
+        setShareStatus('success');
+        setShareMessage('Successfully shared!');
+      } else {
+        // Fallback: Open share dialog or copy to clipboard
+        const shareText = `${shareContent.title}\n\n${shareContent.text}\n\n${shareContent.url}`;
+        await navigator.clipboard.writeText(shareText);
+        setShareStatus('success');
+        setShareMessage('Share content copied to clipboard!');
+      }
+    } catch (error: any) {
+      if (error.name !== 'AbortError') {
+        // User didn't cancel, it's an actual error
+        setShareStatus('error');
+        setShareMessage('Failed to share. Please try again.');
+      }
+    }
+    
+    // Clear message after 3 seconds
+    setTimeout(() => {
+      setShareStatus('idle');
+      setShareMessage('');
+    }, 3000);
+  };
+
+  // Handle personal invite
+  const handlePersonalInvite = async () => {
+    try {
+      const inviteText = `Hi! I wanted to share an amazing investment opportunity with you.\n\n${shareContent.text}\n\nCheck it out: ${shareContent.url}\n\nLet me know if you're interested!`;
+      await navigator.clipboard.writeText(inviteText);
+      setShareStatus('success');
+      setShareMessage('Invite message copied to clipboard!');
+    } catch (error) {
+      setShareStatus('error');
+      setShareMessage('Failed to copy invite. Please try again.');
+    }
+    
+    // Clear message after 3 seconds
+    setTimeout(() => {
+      setShareStatus('idle');
+      setShareMessage('');
+    }, 3000);
+  };
+
+  // Handle copy referral link
+  const handleCopyReferral = async () => {
+    try {
+      const referralLink = generateReferralLink();
+      await navigator.clipboard.writeText(referralLink);
+      setShareStatus('success');
+      setShareMessage('Referral link copied to clipboard!');
+    } catch (error) {
+      setShareStatus('error');
+      setShareMessage('Failed to copy link. Please try again.');
+    }
+    
+    // Clear message after 3 seconds
+    setTimeout(() => {
+      setShareStatus('idle');
+      setShareMessage('');
+    }, 3000);
+  };
 
   return (
     <section className="py-8 md:py-10 bg-brown-800">
@@ -26,8 +109,8 @@ const ReferralProgram: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="card bg-white p-6">
+          <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
+            {/* <div className="card bg-white p-6">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-brown-100 rounded-full flex items-center justify-center mr-4">
                   <Gift className="h-6 w-6 text-brown-600" />
@@ -53,7 +136,7 @@ const ReferralProgram: React.FC = () => {
                 </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
 
             <div className="card bg-white p-6">
               <div className="flex items-center mb-4">
@@ -69,7 +152,7 @@ const ReferralProgram: React.FC = () => {
                 {data.shareCard.description}
               </p>
               <div className="space-y-3">
-                {data.shareCard.buttons.map((button, index) => {
+                {data.shareCard.buttons.filter(button => button.type !== 'invite').map((button, index) => {
                   const getIcon = () => {
                     switch (button.type) {
                       case 'social':
@@ -96,22 +179,55 @@ const ReferralProgram: React.FC = () => {
                     }
                   };
 
+                  const handleButtonClick = () => {
+                    switch (button.type) {
+                      case 'social':
+                        handleSocialShare();
+                        break;
+                      case 'invite':
+                        handlePersonalInvite();
+                        break;
+                      case 'copy':
+                        handleCopyReferral();
+                        break;
+                      default:
+                        break;
+                    }
+                  };
+
                   return (
-                    <button key={index} className={getButtonClass()}>
+                    <button key={index} onClick={handleButtonClick} className={getButtonClass()}>
                       {getIcon()}
                       {button.text}
                 </button>
                   );
                 })}
+                
+                {/* Status Messages */}
+                {shareStatus === 'success' && (
+                  <div className="mt-3 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    {shareMessage}
+                  </div>
+                )}
+                {shareStatus === 'error' && (
+                  <div className="mt-3 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm flex items-center">
+                    <AlertCircle className="w-4 h-4 mr-2" />
+                    {shareMessage}
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
-          <div className="text-center mt-8">
-            <button className="btn btn-gold">
+         {/*  <div className="text-center mt-8">
+            <button 
+              onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer')}
+              className="btn btn-gold"
+            >
               {data.ctaButton} <ArrowRight className="ml-2 h-5 w-5" />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

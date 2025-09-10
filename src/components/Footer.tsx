@@ -152,7 +152,10 @@ const Footer: React.FC = () => {
                 <span className="text-gray-600 text-sm">Kenya HQ: 123 Coffee Farm Road, Embu County, Kenya</span>
               </li>
             </ul>
-            <button className="btn btn-primary mt-6 text-sm">
+            <button 
+              onClick={() => window.open('https://calendly.com/mohamed-projectmocha/30min', '_blank', 'noopener,noreferrer')}
+              className="btn btn-primary mt-6 text-sm"
+            >
               Schedule a Call
             </button>
           </div>

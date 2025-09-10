@@ -1,80 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Play, ChevronLeft, ChevronRight, Linkedin, Twitter } from 'lucide-react';
 import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
 import { ContentData, AboutUsData } from '../types/content';
 
-// JourneyTimeline: horizontally auto-scroll all cards, always visible
-const CARD_WIDTH = 320;     // px
-const CARD_GAP = 24;        // px
-const SCROLL_SPEED = 0.8;   // px per frame, adjust as needed
-
-const JourneyTimeline = ({ steps }) => {
-  const [offset, setOffset] = useState(0);
-  const totalCards = steps.length;
-  const totalWidth = totalCards * (CARD_WIDTH + CARD_GAP);
-
-  useEffect(() => {
-    let frameId;
-    const animate = () => {
-      setOffset((prev) => {
-        let nxt = prev + SCROLL_SPEED;
-        if (nxt > totalWidth) return 0;
-        return nxt;
-      });
-      frameId = requestAnimationFrame(animate);
-    };
-    frameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frameId);
-  }, [totalWidth]);
-
+// JourneyTimeline: Static horizontal layout with manual scroll
+const JourneyTimeline = ({ steps }: { steps: any[] }) => {
   return (
-    <div style={{
-      overflow: 'hidden',
-      maxWidth: '100%',
-      position: 'relative',
-      height: '301px',
-      paddingTop: '6px',
-      paddingBottom: '6px'
-    }}>
-      <div
-        style={{
-          display: 'flex',
-          gap: `${CARD_GAP}px`,
-          width: `${totalWidth * 2}px`,
-          transform: `translateX(${-offset}px)`,
-          transition: 'transform 0s linear',
-          alignItems: 'stretch'
-        }}
-      >
-        {(steps.concat(steps)).map((step, idx) => (
+    <div className="overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide">
+      <div className="flex gap-6 px-4 min-w-max">
+        {steps.map((step, idx) => (
           <div key={idx}
-            style={{
-              minWidth: `${CARD_WIDTH}px`,
-              maxWidth: `${CARD_WIDTH}px`,
-              background: '#fff',
-              boxShadow: '0 4px 24px rgba(0,0,0,0.07)',
-              borderRadius: '18px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '18px'
-            }}
+            className="flex-shrink-0 bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center min-w-[320px] max-w-[320px] h-[280px]"
           >
-            <img src={step.image} alt={step.title} style={{
-              width: '100%',
-              height: '100px',
-              objectFit: 'cover',
-              borderRadius: '10px',
-              marginBottom: '10px'
-            }} />
-            <div style={{fontWeight: 'bold', color: '#a1673f', fontSize: 18, marginBottom: 7}}>{step.year}</div>
-            <h4 style={{
-              fontWeight: 'bold', color: '#734c24', fontSize: 16, marginBottom: 8}}>{step.title}
-            </h4>
-            <p style={{
-              color: '#7d6e65', fontSize: 13, textAlign: 'center', lineHeight: 1.4}}>{step.description}
-            </p>
+            <img 
+              src={step.image} 
+              alt={step.title} 
+              className="w-full h-24 object-cover rounded-lg mb-3"
+            />
+            <div className="font-bold text-brown-600 text-lg mb-2">{step.year}</div>
+            <h4 className="font-bold text-brown-800 text-base mb-2 text-center">{step.title}</h4>
+            <p className="text-gray-600 text-sm text-center leading-relaxed">{step.description}</p>
           </div>
         ))}
       </div>
@@ -153,10 +98,10 @@ const AboutUs = () => {
     setCurrentTeamSlide(prev => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
   };
   const handleCtaClick = () => window.location.href = 'https://portal-rho-lemon.vercel.app/';
-  const getValueCardStyles = index => (
+  const getValueCardStyles = (index: number) => (
     index % 2 === 0 ? 'bg-white' : (index === 1 || index === 5 ? 'bg-brown-800 text-white' : 'bg-brown-700 text-white')
   );
-  const getValueTextStyles = index => (
+  const getValueTextStyles = (index: number) => (
     index % 2 === 0
       ? { titleColor: index === 0 ? 'text-brown-800' : index === 2 ? 'text-brown-700' : 'text-brown-800', descriptionColor: 'text-gray-600', iconBg: 'bg-brown-200' }
       : { titleColor: 'text-white', descriptionColor: 'text-white/90', iconBg: 'bg-white/20' }
@@ -200,8 +145,16 @@ const AboutUs = () => {
                 {aboutUsData.hero.buttons.map((button: any, index: number) => {
                   const buttonClass = button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary';
                   
+                  const handleButtonClick = () => {
+                    if (button.text.toLowerCase().includes('strategy') || button.text.toLowerCase().includes('session')) {
+                      window.open('https://calendly.com/mohamed-projectmocha/30min', '_blank', 'noopener,noreferrer');
+                    } else {
+                      window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
+                    }
+                  };
+                  
                   return (
-                    <button key={index} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
+                    <button key={index} onClick={handleButtonClick} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
                       {button.text} <ArrowRight className="ml-2 h-4 w-4" />
                     </button>
                   );
@@ -255,12 +208,26 @@ const AboutUs = () => {
                       <h4 className="animate-element element-hidden text-lg font-bold text-brown-800 mb-2">{member.name}</h4>
                       <p className="animate-element element-hidden text-brown-700 font-medium mb-4 text-base">{member.role}</p>
                       <div className="flex justify-center gap-3">
-                        <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden">
-                          <span className="text-white text-sm">in</span>
-                        </div>
-                        <div className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden">
-                          <span className="text-white text-sm">@</span>
-                        </div>
+                        { true && (
+                          <a
+                            href={"https://www.linkedin.com/company/project-mocha/"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden hover:bg-brown-800 transition-colors"
+                          >
+                            <Linkedin className="text-white text-sm" size={14} />
+                          </a>
+                        )}
+                        { true && (
+                          <a
+                            href={"https://x.com/ProjectMochaHQ"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-8 h-8 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden hover:bg-brown-800 transition-colors"
+                          >
+                            <Twitter className="text-white text-sm" size={14} />
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -320,12 +287,26 @@ const AboutUs = () => {
                       <h4 className="animate-element element-hidden text-lg sm:text-xl font-bold text-brown-800 mb-2 sm:mb-3">{member.name}</h4>
                       <p className="animate-element element-hidden text-brown-700 font-medium mb-5 sm:mb-6 text-base sm:text-lg">{member.role}</p>
                       <div className="flex justify-center gap-4">
-                        <div className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden">
-                          <span className="text-white text-sm">in</span>
-                        </div>
-                        <div className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden">
-                          <span className="text-white text-sm">@</span>
-                        </div>
+                        {member.linkedin && (
+                          <a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden hover:bg-brown-800 transition-colors"
+                          >
+                            <Linkedin className="text-white text-sm" size={16} />
+                          </a>
+                        )}
+                        {member.twitter && (
+                          <a
+                            href={member.twitter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 bg-brown-700 rounded-full flex items-center justify-center touch-manipulation animate-element element-hidden hover:bg-brown-800 transition-colors"
+                          >
+                            <Twitter className="text-white text-sm" size={16} />
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -585,8 +566,16 @@ const AboutUs = () => {
                     {aboutUsData.ethicalImpact.communityImpact.buttons.map((button: any, index: number) => {
                       const buttonClass = button.type === 'primary' ? 'btn btn-primary' : 'btn btn-secondary';
                       
+                      const handleButtonClick = () => {
+                        if (button.text.toLowerCase().includes('schedule') || button.text.toLowerCase().includes('call')) {
+                          window.open('https://calendly.com/mohamed-projectmocha/30min', '_blank', 'noopener,noreferrer');
+                        } else {
+                          window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
+                        }
+                      };
+                      
                       return (
-                        <button key={index} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
+                        <button key={index} onClick={handleButtonClick} className={`${buttonClass} animate-element element-hidden w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation`}>
                           {button.text} <ArrowRight className="ml-2 h-4 w-4" />
                         </button>
                       );
@@ -688,7 +677,7 @@ const AboutUs = () => {
                     {description}
                   </p>
                 ))}
-                <button className="animate-element element-hidden btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation">
+                <button onClick={handleCtaClick} className="animate-element element-hidden btn btn-primary w-full sm:w-auto text-sm sm:text-base py-3 px-6 touch-manipulation">
                   {aboutUsData.processingFacility.buttonText} <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
               </div>

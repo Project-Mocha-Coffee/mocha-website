@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useContent, ContentLoadingScreen } from '../contexts/ContentContext';
@@ -87,7 +87,6 @@ const InvestmentProjects = () => {
       id="investment-projects"
       ref={sectionRef}
       className="py-8 sm:py-12 md:py-16 bg-cream-50"
-      style={{ backgroundColor: '#F5F0E5' }}
     >
       <div className="container-custom px-4 sm:px-6">
         <div className="text-center mb-6 sm:mb-8">
@@ -99,29 +98,20 @@ const InvestmentProjects = () => {
           </p>
         </div>
 
-        <div
-          className={`max-w-6xl mx-auto ${
-            displayProjects.length === 1
-              ? 'flex justify-center'
-              : displayProjects.length === 2
-              ? 'grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'
-              : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
-          }`}
-        >
-          {displayProjects.map((project, index) => (
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+          {displayProjects.map((project) => (
             <div
               key={project.id}
-              className={`card overflow-hidden animate-element element-hidden bg-white/95 backdrop-blur-xl rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${
-                displayProjects.length === 1 ? 'max-w-2xl w-full' : ''
+              className={`card overflow-hidden animate-element element-hidden bg-white/95 backdrop-blur-xl rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0 min-w-[280px] max-w-[320px] ${
+                displayProjects.length === 1 ? 'w-full' : 'w-auto'
               }`}
             >
               <div className="relative">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className={`animate-element element-hidden w-full ${
-                    displayProjects.length === 1 ? 'h-64 md:h-80' : 'h-48 sm:h-52 md:h-56'
-                  } object-cover`}
+                  className="animate-element element-hidden w-full h-48 sm:h-52 md:h-56 object-cover"
                 />
                 <div
                   className={`animate-element element-hidden absolute top-3 right-3 ${project.statusColor} text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium`}
@@ -159,6 +149,7 @@ const InvestmentProjects = () => {
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         {projectsArray.length > 2 && (
@@ -173,18 +164,6 @@ const InvestmentProjects = () => {
         )}
       </div>
 
-      <style>{`
-        .element-hidden {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-
-        .element-visible {
-          opacity: 1;
-          transform: translateY(0);
-          transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-      `}</style>
     </section>
   );
 };

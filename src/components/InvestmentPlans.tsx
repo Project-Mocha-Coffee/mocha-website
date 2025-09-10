@@ -17,8 +17,8 @@ const InvestmentPlans: React.FC = () => {
   const [touchEndX, setTouchEndX] = useState(0);
   const navRef = useRef<HTMLDivElement>(null);
 
-  // Configurable booking URL
-  const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
+  // Configurable booking URL - Updated to Investor Waitlist Form
+  const BOOKING_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform";
 
   // Early return if content is not available
   if (!content) {

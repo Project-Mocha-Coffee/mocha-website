@@ -5,10 +5,10 @@ import { signupNewsletter } from '../lib/supabase';
 const Cta = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'duplicate'>('idle');
 
-  // Configurable booking URL 
-  const BOOKING_URL = "https://forms.gle/2Nv1M9KusmZPWn6X8";
+  // Configurable booking URL - Updated to Investor Waitlist Form
+  const BOOKING_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform";
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -24,10 +24,18 @@ const Cta = () => {
       if (result.success) {
         setSubmitStatus('success');
         setEmail('');
-        // Reset success message after 3 seconds
-        setTimeout(() => setSubmitStatus('idle'), 3000);
+        // Reset success message after 4 seconds
+        setTimeout(() => setSubmitStatus('idle'), 4000);
       } else {
-        setSubmitStatus('error');
+        // Check for specific error types
+        const error = result.error as any;
+        if (error && error.code === '23505') {
+          // Duplicate email error
+          setSubmitStatus('duplicate');
+        } else {
+          // Generic error
+          setSubmitStatus('error');
+        }
         // Reset error message after 5 seconds
         setTimeout(() => setSubmitStatus('idle'), 5000);
       }
@@ -101,6 +109,11 @@ const Cta = () => {
                 {submitStatus === 'success' && (
                   <div className="mt-3 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm">
                     ✅ Thank you! You've been subscribed to our newsletter.
+                  </div>
+                )}
+                {submitStatus === 'duplicate' && (
+                  <div className="mt-3 p-3 bg-blue-100 border border-blue-400 text-blue-700 rounded-lg text-sm">
+                    ℹ️ This email is already subscribed to our newsletter. You're all set!
                   </div>
                 )}
                 {submitStatus === 'error' && (

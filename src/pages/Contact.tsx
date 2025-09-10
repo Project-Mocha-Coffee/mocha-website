@@ -184,14 +184,14 @@ const Contact = () => {
                   <div className="space-y-6">
                     {/* Success/Error Messages */}
                     {submitStatus === 'success' && (
-                      <div className="animate-element element-hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg flex items-center">
+                      <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg flex items-center">
                         <CheckCircle className="w-5 h-5 mr-2" />
                         <span className="text-sm">Message sent successfully! We'll get back to you soon.</span>
                       </div>
                     )}
                     
                     {submitStatus === 'error' && (
-                      <div className="animate-element element-hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg flex items-center">
+                      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg flex items-center">
                         <AlertCircle className="w-5 h-5 mr-2" />
                         <span className="text-sm">{errorMessage}</span>
                       </div>

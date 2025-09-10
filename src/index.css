@@ -318,6 +318,15 @@ html {
   scrollbar-color: #3E2B28 #F9F7F4;
 }
 
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
 /* Elegant hover effects */
 .hover-lift {
   @apply transition-transform duration-500 hover:-translate-y-1;

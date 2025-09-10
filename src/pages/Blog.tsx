@@ -544,11 +544,17 @@ const Blog: React.FC = () => {
               {blogPage.callToAction.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto">
-              <button className="bg-forest-600 text-white hover:bg-forest-700 px-6 py-3 text-sm rounded-full flex items-center gap-x-2">
+              <button 
+                onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer')}
+                className="bg-forest-600 text-white hover:bg-forest-700 px-6 py-3 text-sm rounded-full flex items-center gap-x-2"
+              >
                 {blogPage.callToAction.primaryButtonText}
                 <ArrowRight className="h-4 w-4" />
               </button>
-              <button className="border border-forest-600 text-forest-600 hover:bg-forest-100 px-6 py-3 text-sm rounded-full flex items-center gap-x-2">
+              <button 
+                onClick={() => window.open('https://calendly.com/mohamed-projectmocha/30min', '_blank', 'noopener,noreferrer')}
+                className="border border-forest-600 text-forest-600 hover:bg-forest-100 px-6 py-3 text-sm rounded-full flex items-center gap-x-2"
+              >
                 {blogPage.callToAction.secondaryButtonText}
                 <ArrowRight className="h-4 w-4" />
               </button>
