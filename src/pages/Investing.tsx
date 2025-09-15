@@ -159,13 +159,13 @@ const Investing: React.FC = () => {
               };
               
               return (
-                <button 
-                  key={index} 
+              <button 
+                key={index} 
                   onClick={handleButtonClick}
-                  className={`animate-element element-hidden ${button.type === 'primary' ? 'btn bg-brown-700 text-white hover:bg-brown-800' : 'btn bg-brown-800 text-white hover:bg-brown-900'} w-full sm:w-auto px-6 py-3 text-sm sm:text-base rounded-full touch-manipulation`}
-                >
-                  {button.text} <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
+                className={`animate-element element-hidden ${button.type === 'primary' ? 'btn bg-brown-700 text-white hover:bg-brown-800' : 'btn bg-brown-800 text-white hover:bg-brown-900'} w-full sm:w-auto px-6 py-3 text-sm sm:text-base rounded-full touch-manipulation`}
+              >
+                {button.text} <ArrowRight className="ml-2 h-4 w-4" />
+              </button>
               );
             })}
           </div>
@@ -213,130 +213,8 @@ const Investing: React.FC = () => {
         <InvestmentCalculator />
       </section>
 
-      {/* Cash Flow Forecast */}
-      <section 
-        ref={(el) => el && sectionRefs.current.set('cashFlowForecast', el)}
-        className="py-8 sm:py-12 md:py-16 bg-cream-100"
-      >
-        <div className="container-custom px-4 sm:px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
-              <div className="order-2 lg:order-1">
-                <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl font-bold text-brown-700 mb-2">{investing.cashFlowForecast.sectionTitle}</h2>
-                <h3 className="animate-element element-hidden text-lg sm:text-xl md:text-2xl font-semibold text-brown-800 mb-4 sm:mb-6">{investing.cashFlowForecast.sectionSubtitle}</h3>
-                <p className="animate-element element-hidden text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
-                  {investing.cashFlowForecast.description}
-                </p>
-                <button className="animate-element element-hidden btn bg-coffee-600 text-white hover:bg-coffee-700 w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base touch-manipulation">
-                  {investing.cashFlowForecast.downloadButton.text} <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
-              </div>
-              
-              <div className="relative order-1 lg:order-2">
-                <div className="card p-4 sm:p-6 bg-white rounded-2xl shadow-lg animate-element element-hidden">
-                  <h4 className="animate-element element-hidden text-sm sm:text-base font-bold text-forest-600 mb-3 sm:mb-4">{investing.cashFlowForecast.chartTitle}</h4>
-                  
-                  {/* Chart representation */}
-                  <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-cream-50 to-gold-50 rounded-xl p-3 sm:p-4 animate-element element-hidden">
-                    {/* Y-axis labels */}
-                    <div className="absolute left-1 sm:left-2 top-3 sm:top-4 text-xs text-gray-500 space-y-4 sm:space-y-6 animate-element element-hidden">
-                      <div>$100</div>
-                      <div>$80</div>
-                      <div>$60</div>
-                      <div>$40</div>
-                      <div>$20</div>
-                      <div>$0</div>
-                    </div>
-                    
-                    {/* Chart area */}
-                    <div className="ml-6 sm:ml-8 h-full relative">
-                      {/* Growth curve representation */}
-                      <svg className="w-full h-full animate-element element-hidden" viewBox="0 0 300 200">
-                        <defs>
-                          <linearGradient id="incomeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#D97706" stopOpacity="0.3" />
-                            <stop offset="70%" stopColor="#059669" stopOpacity="0.3" />
-                            <stop offset="100%" stopColor="#10B981" stopOpacity="0.5" />
-                          </linearGradient>
-                        </defs>
-                        
-                        {/* Income curve */}
-                        <path
-                          d="M 20 180 Q 50 160 80 140 Q 120 100 160 80 Q 200 60 240 40 L 280 30"
-                          stroke="#059669"
-                          strokeWidth="3"
-                          fill="none"
-                        />
-                        
-                        {/* Area under curve */}
-                        <path
-                          d="M 20 180 Q 50 160 80 140 Q 120 100 160 80 Q 200 60 240 40 L 280 30 L 280 180 Z"
-                          fill="url(#incomeGradient)"
-                        />
-                        
-                        {/* Data points */}
-                        <circle cx="20" cy="180" r="3" fill="#D97706" className="animate-element element-hidden" />
-                        <circle cx="80" cy="140" r="3" fill="#DC2626" className="animate-element element-hidden" />
-                        <circle cx="160" cy="80" r="3" fill="#059669" className="animate-element element-hidden" />
-                        <circle cx="240" cy="40" r="3" fill="#10B981" className="animate-element element-hidden" />
-                        <circle cx="280" cy="30" r="3" fill="#10B981" className="animate-element element-hidden" />
-                      </svg>
-                      
-                      {/* Phase labels */}
-                      <div className="absolute bottom-1 sm:bottom-2 left-0 right-0 flex justify-between text-xs text-gray-500 animate-element element-hidden">
-                        <span>Year 1</span>
-                        <span className="hidden sm:inline">Year 3</span>
-                        <span>Year 5</span>
-                        <span className="hidden sm:inline">Year 7</span>
-                        <span>Year 10+</span>
-                      </div>
-                      
-                      {/* Phase annotations - Dynamic from content */}
-                      {investing.cashFlowForecast.chartPhases.map((phase: any, index: number) => {
-                        const positionClasses: { [key: string]: string } = {
-                          'top-left': 'top-4 left-4',
-                          'top-right': 'top-8 right-4',
-                          'bottom-right': 'bottom-12 right-8'
-                        };
-                        
-                        const colorClasses: { [key: string]: string } = {
-                          'top-left': 'bg-coffee-100 text-coffee-600',
-                          'top-right': 'bg-forest-100 text-forest-600',
-                          'bottom-right': 'bg-gold-100 text-coffee-600'
-                        };
-                        
-                        const hideClasses: { [key: string]: string } = {
-                          'top-left': 'hidden sm:block',
-                          'top-right': 'hidden md:block',
-                          'bottom-right': 'hidden lg:block'
-                        };
-                        
-                        return (
-                          <div 
-                            key={index}
-                            className={`${hideClasses[phase.position]} absolute ${positionClasses[phase.position]} ${colorClasses[phase.position]} px-2 py-1 rounded text-xs animate-element element-hidden`}
-                          >
-                            {phase.description ? (
-                              <div>
-                                <div className="font-semibold text-gold-600">{phase.phase}</div>
-                                <div className="text-xs">{phase.description}</div>
-                              </div>
-                            ) : (
-                              phase.phase.split(' & ').map((line: string, lineIndex: number) => (
-                                <div key={lineIndex}>{line}</div>
-                              ))
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+   
+      
 
       {/* Investment Life Cycle */}
       <section ref={(el) => el && sectionRefs.current.set('lifeCycle', el)}>
@@ -436,55 +314,75 @@ const Investing: React.FC = () => {
             </p>
           </div>
 
-          <div className="overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide">
-            <div className="flex gap-4 px-4 min-w-max">
-              {investing.investmentBenefits.benefits.map((benefit: any, index: number) => {
-                const getCardClass = (index: number, cardType: string) => {
+          <div className="relative">
+            <div className="overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide">
+              <div className="flex gap-4 px-4 min-w-max">
+                {investing.investmentBenefits.benefits.map((benefit: any, index: number) => {
+              const getCardClass = (index: number, cardType: string) => {
                   if (cardType === 'image') return 'card overflow-hidden animate-element element-hidden flex-shrink-0';
                   return index % 2 === 0 ? 'card bg-white animate-element element-hidden flex-shrink-0' : 'card bg-coffee-600 text-white animate-element element-hidden flex-shrink-0';
-                };
-                
-                const getIconClass = (index: number) => {
-                  return index % 2 === 0 ? 'w-8 h-8 bg-coffee-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-element element-hidden' : 'w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-element element-hidden';
-                };
-                
-                const getTitleClass = (index: number) => {
-                  return index % 2 === 0 ? 'text-sm sm:text-base font-bold leading-tight text-brown-800 animate-element element-hidden' : 'text-sm sm:text-base font-bold leading-tight text-white animate-element element-hidden';
-                };
-                
-                const getDescriptionClass = (index: number) => {
-                  return index % 2 === 0 ? 'leading-relaxed text-xs sm:text-sm text-gray-600 break-words animate-element element-hidden' : 'leading-relaxed text-xs sm:text-sm text-white/90 break-words animate-element element-hidden';
-                };
-                
-                return (
+              };
+              
+              const getIconClass = (index: number) => {
+                return index % 2 === 0 ? 'w-8 h-8 bg-coffee-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-element element-hidden' : 'w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0 animate-element element-hidden';
+              };
+              
+              const getTitleClass = (index: number) => {
+                return index % 2 === 0 ? 'text-sm sm:text-base font-bold leading-tight text-brown-800 animate-element element-hidden' : 'text-sm sm:text-base font-bold leading-tight text-white animate-element element-hidden';
+              };
+              
+              const getDescriptionClass = (index: number) => {
+                return index % 2 === 0 ? 'leading-relaxed text-xs sm:text-sm text-gray-600 break-words animate-element element-hidden' : 'leading-relaxed text-xs sm:text-sm text-white/90 break-words animate-element element-hidden';
+              };
+              
+              return (
                   <div key={index} className={`${getCardClass(index, benefit.cardType)} min-w-[280px] max-w-[320px]`}>
-                    {benefit.cardType === 'text' ? (
+                  {benefit.cardType === 'text' ? (
                       <div className="p-4 sm:p-5 h-full flex flex-col">
-                        <div className="flex items-start mb-3">
-                          <div className={getIconClass(index)}>
-                            {getIcon(benefit.icon)}
-                          </div>
-                          <h4 className={getTitleClass(index)}>{benefit.title}</h4>
+                      <div className="flex items-start mb-3">
+                        <div className={getIconClass(index)}>
+                          {getIcon(benefit.icon)}
                         </div>
-                        <p className={getDescriptionClass(index)}>
-                          {benefit.description}
-                        </p>
+                        <h4 className={getTitleClass(index)}>{benefit.title}</h4>
                       </div>
-                    ) : (
+                      <p className={getDescriptionClass(index)}>
+                        {benefit.description}
+                      </p>
+                    </div>
+                  ) : (
                       <div className="relative h-48">
-                        <img
-                          src={benefit.image}
-                          alt={benefit.imageAlt}
-                          className="animate-element element-hidden w-full h-full object-cover"
-                        />
+                    <img
+                      src={benefit.image}
+                      alt={benefit.imageAlt}
+                      className="animate-element element-hidden w-full h-full object-cover"
+                    />
                         <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3">
                           <h4 className="font-bold text-sm">{benefit.title}</h4>
                         </div>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+                  )}
+                </div>
+              );
+            })}
+              </div>
+            </div>
+            
+            {/* Navigation Dots */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {investing.investmentBenefits.benefits.map((_, index: number) => (
+                <div
+                  key={index}
+                  className="w-2 h-2 rounded-full bg-white/30 transition-all duration-300 cursor-pointer hover:bg-white/50"
+                  title={`View card ${index + 1}`}
+                />
+              ))}
+            </div>
+            
+            {/* Scroll Hint */}
+            <div className="text-center mt-3">
+              <p className="text-cream-200 text-xs animate-element element-hidden">
+                ← Swipe to explore all benefits →
+              </p>
             </div>
           </div>
         </div>

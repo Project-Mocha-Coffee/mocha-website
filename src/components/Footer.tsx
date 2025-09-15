@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
               Where luxury meets sustainability, and every cup tells a story of ethical farming, community empowerment, and exceptional returns.
             </p>
             <div className="flex space-x-3">
-              <a href="https://www.instagram.com/projectmocha254/" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-brown-600 hover:text-white transition-colors">
+              <a href="https://www.instagram.com/projectmochahq/" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-brown-600 hover:text-white transition-colors">
                 <Instagram size={18} />
               </a>
               <a href="https://web.facebook.com/profile.php?id=61561477005084" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-brown-600 hover:text-white transition-colors">

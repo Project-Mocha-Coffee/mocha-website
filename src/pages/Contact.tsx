@@ -167,7 +167,7 @@ const Contact = () => {
                       </h3>
                       <div className="flex gap-3">
                         <a 
-                          href="https://www.instagram.com/projectmocha254/" 
+                          href="https://www.instagram.com/projectmochahq/" 
                           target="_blank" 
                           rel="noopener noreferrer" 
                           className="animate-element element-hidden w-10 h-10 bg-brown-200 rounded-full flex items-center justify-center hover:bg-brown-300 transition-colors"

@@ -97,7 +97,7 @@ const AboutUs = () => {
       : aboutUsData.team.members.length - 1;
     setCurrentTeamSlide(prev => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
   };
-  const handleCtaClick = () => window.location.href = 'https://portal-rho-lemon.vercel.app/';
+  const handleCtaClick = () => window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform';
   const getValueCardStyles = (index: number) => (
     index % 2 === 0 ? 'bg-white' : (index === 1 || index === 5 ? 'bg-brown-800 text-white' : 'bg-brown-700 text-white')
   );
