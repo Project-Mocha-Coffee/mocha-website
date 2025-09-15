@@ -545,7 +545,7 @@ const Blog: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto">
               <button 
-                onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer')}
+                onClick={() => window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer')}
                 className="bg-forest-600 text-white hover:bg-forest-700 px-6 py-3 text-sm rounded-full flex items-center gap-x-2"
               >
                 {blogPage.callToAction.primaryButtonText}

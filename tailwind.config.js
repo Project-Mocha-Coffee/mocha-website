@@ -74,6 +74,14 @@ export default {
         'fade-in-down': 'fadeInDown 1s ease-out forwards',
         'fade-in-up': 'fadeInUp 1s ease-out forwards',
         'fade-in': 'fadeIn 1s ease-out forwards',
+        'fade-in-custom': 'fadeInCustom 0.6s ease-out forwards',
+        'infinite-scroll': 'infiniteScroll 20s linear infinite',
+      },
+      animationDelay: {
+        '100': '0.1s',
+        '200': '0.2s',
+        '300': '0.3s',
+        '400': '0.4s',
       },
       keyframes: {
         fadeInDown: {
@@ -88,8 +96,56 @@ export default {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        fadeInCustom: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        infiniteScroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      addUtilities({
+        '.range-thumb': {
+          '&::-webkit-slider-thumb': {
+            '-webkit-appearance': 'none',
+            'width': '20px',
+            'height': '20px',
+            'background': '#7A5540',
+            'border-radius': '50%',
+            'cursor': 'pointer',
+            'box-shadow': '0 0 8px rgba(0, 0, 0, 0.2)',
+            'transition': 'transform 0.3s',
+          },
+          '&::-webkit-slider-thumb:hover': {
+            'transform': 'scale(1.2)',
+          },
+          '&::-moz-range-thumb': {
+            'width': '20px',
+            'height': '20px',
+            'background': '#7A5540',
+            'border-radius': '50%',
+            'cursor': 'pointer',
+            'box-shadow': '0 0 8px rgba(0, 0, 0, 0.2)',
+            'transition': 'transform 0.3s',
+            'border': 'none',
+          },
+          '&::-moz-range-thumb:hover': {
+            'transform': 'scale(1.2)',
+          },
+        },
+        '.animate-infinite-scroll': {
+          'display': 'flex',
+          'width': 'max-content',
+        },
+        '.animate-infinite-scroll:hover': {
+          'animation-play-state': 'paused',
+        },
+      })
+    }
+  ],
 };

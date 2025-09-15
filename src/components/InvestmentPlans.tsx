@@ -18,7 +18,7 @@ const InvestmentPlans: React.FC = () => {
   const navRef = useRef<HTMLDivElement>(null);
 
   // Configurable booking URL - Updated to Investor Waitlist Form
-  const BOOKING_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform";
+  const BOOKING_URL = "https://portal-rho-lemon.vercel.app/";
 
   // Early return if content is not available
   if (!content) {

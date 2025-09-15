@@ -37,14 +37,14 @@ const HowItWorks = () => {
 
   // Handle button click to redirect
   const handleCtaClick = () => {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
+    window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer');
   };
 
   return (
     <section
       ref={sectionRef}
       id="how-it-works"
-      className="py-12 md:py-16 bg-cream-50"
+      className="py-4 md:py-6 bg-cream-50"
       style={{ backgroundColor: '#F5F0E5' }}
     >
       <div className="container-custom px-4 sm:px-6 lg:px-8">

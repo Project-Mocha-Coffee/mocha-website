@@ -14,7 +14,7 @@ const Navbar = () => {
   const navigationItems = [
     { name: 'Home', href: '/', type: 'route' },
     { name: 'About us', href: '/about', type: 'route' },
-    { name: 'Investing', href: '/investing', type: 'route' },
+   
     { name: 'Farms', href: '/projects', type: 'route' },
     { name: 'Blog', href: '/blog', type: 'route' },
     { name: 'Contact', href: '/contact', type: 'route' },
@@ -212,7 +212,7 @@ const Navbar = () => {
 
             <div className="hidden lg:flex items-center space-x-4">
               <button
-                onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer')}
+                onClick={() => window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer')}
                 className="text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 Start Investing
@@ -314,7 +314,7 @@ const Navbar = () => {
             <button
               onClick={() => {
                 closeMenu();
-                window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
+                window.open('https://google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
               }}
               className="w-full block text-center px-4 py-3 text-sm font-semibold text-white bg-coffee-800 hover:bg-coffee-900 transition-all duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
             >

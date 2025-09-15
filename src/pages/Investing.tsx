@@ -17,7 +17,7 @@ const Investing: React.FC = () => {
   const investing = content.investing;
 
   const handleCtaClick = () => {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
+    window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer');
   };
 
   // Scroll-based visibility detection

@@ -178,7 +178,7 @@ const Projects: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 {projectsPage.hero.buttons.map((button: any, index: number) => {
                   const handleButtonClick = () => {
-                    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
+                    window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer');
                   };
                   
                   return (

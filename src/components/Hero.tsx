@@ -37,16 +37,9 @@ const Hero: React.FC = () => {
   };
 
   const handleButtonClick = (action: string) => {
-    switch (action) {
-      case 'scrollToCalculator':
-        scrollToPlans();
-        break;
-      case 'external':
-        window.open(BOOKING_URL, '_blank', 'noopener,noreferrer');
-        break;
-      default:
-        break;
-    }
+   
+
+     window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer');
   };
 
   // Show loading state if no content data yet
@@ -92,7 +85,7 @@ const Hero: React.FC = () => {
       <div className="container-custom relative z-10 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-6">
         <div className="max-w-4xl">
           <h1 
-            className={`text-white mb-4 sm:mb-6 leading-tight transition-all duration-1000 transform text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold ${
+            className={`text-white mb-4 sm:mb-6 leading-tight transition-all duration-1000 transform text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
@@ -106,7 +99,7 @@ const Hero: React.FC = () => {
             {heroData.primarySubtitle}
           </p>
           <p 
-            className={`text-white/80 text-sm sm:text-base mb-6 sm:mb-8 max-w-2xl transition-all duration-1000 delay-500 transform ${
+            className={`text-white/80 text-sm sm:text-base mb-6 sm:mb-8 max-w-2xl transition-all duration-1000 delay-500 transform font-medium ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
@@ -159,7 +152,7 @@ const Hero: React.FC = () => {
           
           {/* Partner logos with continuous scrolling animation */}
           <div className="relative overflow-hidden">
-            <div className="flex items-center gap-3 sm:gap-4 md:gap-6 animate-infinite-scroll">
+            <div className="animate-infinite-scroll">
               {/* First set of logos */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
                 {heroData.trustIndicators.partners.map((partner: any, index: number) => (
@@ -167,7 +160,7 @@ const Hero: React.FC = () => {
                     key={`first-${index}`}
                     src={partner.logo} 
                     alt={partner.alt} 
-                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
+                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-all duration-300 object-contain grayscale hover:grayscale-0"
                   />
                 ))}
               </div>
@@ -179,7 +172,7 @@ const Hero: React.FC = () => {
                     key={`second-${index}`}
                     src={partner.logo} 
                     alt={partner.alt} 
-                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
+                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-all duration-300 object-contain grayscale hover:grayscale-0"
                   />
                 ))}
               </div>
@@ -188,29 +181,6 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Add CSS for infinite scrolling */}
-      <style>
-        {`
-          @keyframes infinite-scroll {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
-          }
-          
-          .animate-infinite-scroll {
-            display: flex;
-            animation: infinite-scroll 20s linear infinite;
-            width: max-content;
-          }
-
-          .animate-infinite-scroll:hover {
-            animation-play-state: paused;
-          }
-        `}
-      </style>
     </section>
   );
 };
