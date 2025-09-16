@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Hero: React.FC = () => {
   const { content } = useContent();
   const [isVisible, setIsVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const navigate = useNavigate();
   
   // Configurable booking URL 
@@ -13,6 +14,23 @@ const Hero: React.FC = () => {
   
   useEffect(() => {
     setIsVisible(true);
+  }, []);
+
+  // Mouse tracking effect for background panning
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      
+      // Calculate mouse position as percentage (-50% to 50%)
+      const x = ((clientX / innerWidth) - 0.5) * 100;
+      const y = ((clientY / innerHeight) - 0.5) * 100;
+      
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const scrollToNext = () => {
@@ -70,16 +88,21 @@ const Hero: React.FC = () => {
           />
         ) : null}
         
-        {/* Fallback background image */}
+        {/* Interactive background image */}
         <div 
-          className="absolute inset-0" 
+          className="absolute inset-0 transition-transform duration-300 ease-out" 
           style={{
-            backgroundImage: `url('${heroData.backgroundImage}')`,
-            backgroundSize: 'cover',
+            backgroundImage: `url('/Hero.png')`,
+            backgroundSize: '100% ',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
             display: heroData.backgroundType === 'video' && heroData.backgroundVideo ? 'none' : 'block'
           }}
         />
+        
+        {/* Gainforest Background */}
+       
       </div>
       
       <div className="container-custom relative z-10 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-6">

@@ -103,13 +103,17 @@ const InvestmentProjects = () => {
             // Magazine-style layout for single project
             <div className="animate-element element-hidden bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden mb-0">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                {/* Image Section */}
+                {/* Gainforest Section */}
                 <div className="relative order-2 lg:order-1">
-                  <img
-                    src={displayProjects[0].image}
-                    alt={displayProjects[0].title}
-                    className="w-full h-48 sm:h-56 lg:h-full min-h-[300px] lg:min-h-[350px] object-cover"
-                  />
+                  <div className="w-full h-48 sm:h-56 lg:h-full min-h-[300px] lg:min-h-[350px] rounded-2xl overflow-hidden">
+                    <iframe
+                      src="https://gainforest.app/080b9d6e7488da550a6488da0fdad1997ded06354d844a586ae57365d5840af7?overlay-active-tab=project&layers-historical-satellite-date=2020-10&project-site-id=83992c08-c4d9-425d-8342-6e94cf56c5d3&project-views=&search-q=pro"
+                      title="Forest Project Location"
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allow="geolocation; microphone; camera"
+                    />
+                  </div>
                   <div
                     className={`absolute top-3 right-3 ${displayProjects[0].statusColor} text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md`}
                   >
