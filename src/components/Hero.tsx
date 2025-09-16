@@ -83,60 +83,83 @@ const Hero: React.FC = () => {
       </div>
       
       <div className="container-custom relative z-10 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-6">
-        <div className="max-w-4xl">
-          <h1 
-            className={`text-white mb-4 sm:mb-6 leading-tight transition-all duration-1000 transform text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`}
-          >
-            {heroData.title}
-          </h1>
-          <p 
-            className={`text-white/90 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 max-w-2xl transition-all duration-1000 delay-300 transform font-medium ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`}
-          >
-            {heroData.primarySubtitle}
-          </p>
-          <p 
-            className={`text-white/80 text-sm sm:text-base mb-6 sm:mb-8 max-w-2xl transition-all duration-1000 delay-500 transform font-medium ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`}
-          >
-            {heroData.secondarySubtitle}
-          </p>
-          
-          <div 
-            className={`space-y-2 sm:space-y-3 mb-6 sm:mb-8 transition-all duration-1000 delay-700 transform ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`}
-          >
-            {heroData.benefits.map((benefit: string, index: number) => (
-              <div key={index} className="flex items-center text-white">
-                <Check className="h-4 w-4 mr-2 text-brown-400 flex-shrink-0" />
-                <span className="text-sm sm:text-base font-medium">{benefit}</span>
-              </div>
-            ))}
-          </div>
-          
-          <div 
-            className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 transition-all duration-1000 delay-1000 transform ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`}
-          >
-            {heroData.buttons.map((button: any, index: number) => {
-              const buttonClass = button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary';
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Left Column - Hero Content */}
+            <div className="order-2 lg:order-1">
+              <h1 
+                className={`text-white mb-4 sm:mb-6 leading-tight transition-all duration-1000 transform text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium ${
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                }`}
+              >
+                {heroData.title}
+              </h1>
+              <p 
+                className={`text-white/90 text-base sm:text-lg md:text-xl mb-4 sm:mb-6 max-w-2xl transition-all duration-1000 delay-300 transform font-medium ${
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                }`}
+              >
+                {heroData.primarySubtitle}
+              </p>
+              <p 
+                className={`text-white/80 text-sm sm:text-base mb-6 sm:mb-8 max-w-2xl transition-all duration-1000 delay-500 transform font-medium ${
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                }`}
+              >
+                {heroData.secondarySubtitle}
+              </p>
               
-              return (
-                <button 
-                  key={index}
-                  onClick={() => handleButtonClick(button.action)} 
-                  className={`${buttonClass} w-full sm:w-auto text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4`}
-                >
-                  {button.text} <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                </button>
-              );
-            })}
+              <div 
+                className={`space-y-2 sm:space-y-3 mb-6 sm:mb-8 transition-all duration-1000 delay-700 transform ${
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                }`}
+              >
+                {heroData.benefits.map((benefit: string, index: number) => (
+                  <div key={index} className="flex items-center text-white">
+                    <Check className="h-4 w-4 mr-2 text-brown-400 flex-shrink-0" />
+                    <span className="text-sm sm:text-base font-medium">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div 
+                className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 transition-all duration-1000 delay-1000 transform ${
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                }`}
+              >
+                {heroData.buttons.map((button: any, index: number) => {
+                  const buttonClass = button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary';
+                  
+                  return (
+                    <button 
+                      key={index}
+                      onClick={() => handleButtonClick(button.action)} 
+                      className={`${buttonClass} w-full sm:w-auto text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4`}
+                    >
+                      {button.text} <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Column - YouTube Video */}
+            <div className="order-1 lg:order-2">
+              <div 
+                className={`relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl transition-all duration-1000 delay-300 transform ${
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                }`}
+              >
+                <iframe
+                  src="https://www.youtube.com/embed/n60Jks4Qmk8?si=cu7QeaIZ7sRjgT33"
+                  title="Mocha Investment Video"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
           </div>
         </div>
         

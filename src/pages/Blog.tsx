@@ -552,7 +552,7 @@ const Blog: React.FC = () => {
                 <ArrowRight className="h-4 w-4" />
               </button>
               <button 
-                onClick={() => window.open('https://calendly.com/mohamed-projectmocha/30min', '_blank', 'noopener,noreferrer')}
+                onClick={() => window.open('https://t.me/+tLhhdY-EiWRkZGY0', '_blank', 'noopener,noreferrer')}
                 className="border border-forest-600 text-forest-600 hover:bg-forest-100 px-6 py-3 text-sm rounded-full flex items-center gap-x-2"
               >
                 {blogPage.callToAction.secondaryButtonText}

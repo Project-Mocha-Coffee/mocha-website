@@ -153,10 +153,10 @@ const Footer: React.FC = () => {
               </li>
             </ul>
             <button 
-              onClick={() => window.open('https://calendly.com/mohamed-projectmocha/30min', '_blank', 'noopener,noreferrer')}
+              onClick={() => window.open('https://t.me/+tLhhdY-EiWRkZGY0', '_blank', 'noopener,noreferrer')}
               className="btn btn-primary mt-6 text-sm"
             >
-              Schedule a Call
+              Join Our Community
             </button>
           </div>
         </div>
