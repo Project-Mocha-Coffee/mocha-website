@@ -107,7 +107,7 @@ const InvestmentProjects = () => {
                 <div className="relative order-2 lg:order-1">
                   <div className="w-full h-48 sm:h-56 lg:h-full min-h-[300px] lg:min-h-[350px] rounded-2xl overflow-hidden">
                     <iframe
-                      src="https://gainforest.app/080b9d6e7488da550a6488da0fdad1997ded06354d844a586ae57365d5840af7?overlay-active-tab=project&layers-historical-satellite-date=2020-10&project-site-id=83992c08-c4d9-425d-8342-6e94cf56c5d3&project-views=&search-q=pro"
+                      src="https://gainforest.app/080b9d6e7488da550a6488da0fdad1997ded06354d844a586ae57365d5840af7?overlay-active-tab=layers&search-q=pro&project-site-id=83992c08-c4d9-425d-8342-6e94cf56c5d3&project-views="
                       title="Forest Project Location"
                       className="w-full h-full"
                       frameBorder="0"
