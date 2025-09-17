@@ -251,7 +251,7 @@ const Contact = () => {
                           <p className="text-red-400 text-xs mt-1">{formErrors.subject}</p>
                         )}
                       </div>
-                      <div>
+                     {/*  <div>
                         <label className="animate-element element-hidden block text-sm font-medium mb-2">
                           Phone Number
                         </label>
@@ -263,7 +263,7 @@ const Contact = () => {
                           placeholder="Phone number"
                           className="animate-element element-hidden w-full px-4 py-3 rounded-lg bg-[#FAF7F0] text-[#3C2F2F] placeholder-[#8B7A6A] input-focus text-sm"
                         />
-                      </div>
+                      </div> */}
                     </div>
 
                     <div>

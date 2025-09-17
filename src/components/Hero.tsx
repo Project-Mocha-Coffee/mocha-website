@@ -68,9 +68,9 @@ const Hero: React.FC = () => {
   const heroData = content.hero;
   
   return (
-    <section className="gradient-forest relative overflow-hidden">
+    <section className="#gradient-gold relative overflow-hidden ">
       {/* Background media */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-100">
         {heroData.backgroundType === 'video' && heroData.backgroundVideo ? (
           <img
             src={heroData.backgroundVideo}
@@ -151,7 +151,7 @@ const Hero: React.FC = () => {
                 }`}
               >
                 {heroData.buttons.map((button: any, index: number) => {
-                  const buttonClass = button.type === 'primary' ? 'btn btn-gold' : 'btn btn-secondary';
+                  const buttonClass = button.type === 'primary' ? 'btn btn-secondary' : 'btn btn-secondary';
                   
                   return (
                     <button 
@@ -186,45 +186,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
         
-        {/* Trust indicators */}
-        <div 
-          className={`card-large p-4 sm:p-6 rounded-full bg-white/90 backdrop-blur-sm transition-all duration-1000 delay-1200 transform ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}
-        >
-          <p className="text-gray-600 text-center mb-3 sm:mb-4 text-xs sm:text-sm font-medium">
-            {heroData.trustIndicators.title}
-          </p>
-          
-          {/* Partner logos with continuous scrolling animation */}
-          <div className="relative overflow-hidden">
-            <div className="animate-infinite-scroll">
-              {/* First set of logos */}
-              <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-                {heroData.trustIndicators.partners.map((partner: any, index: number) => (
-                  <img 
-                    key={`first-${index}`}
-                    src={partner.logo} 
-                    alt={partner.alt} 
-                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-all duration-300 object-contain grayscale hover:grayscale-0"
-                  />
-                ))}
-              </div>
-              
-              {/* Second set of logos for seamless looping */}
-              <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-                {heroData.trustIndicators.partners.map((partner: any, index: number) => (
-                  <img 
-                    key={`second-${index}`}
-                    src={partner.logo} 
-                    alt={partner.alt} 
-                    className="h-8 sm:h-10 md:h-12 w-auto opacity-80 hover:opacity-100 transition-all duration-300 object-contain grayscale hover:grayscale-0"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
 
     </section>

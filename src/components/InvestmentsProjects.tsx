@@ -86,9 +86,9 @@ const InvestmentProjects = () => {
     <section
       id="investment-projects"
       ref={sectionRef}
-      className="py-0 sm:py-0 md:py-0 bg-cream-50"
+      className="py-0 sm:py-0 md:py-0 bg-cream-200 "
     >
-      <div className="container-custom px-4 sm:px-6">
+      <div className="container-custom px-4 sm:px-6 bg-cream-200 pt-10 py-10" >
         <div className="text-center mb-4 sm:mb-6">
           <h2 className="animate-element element-hidden text-xl sm:text-2xl md:text-3xl font-bold text-forest-600 mb-2 sm:mb-3">
             {projectsPage.projectsGrid.sectionTitle}

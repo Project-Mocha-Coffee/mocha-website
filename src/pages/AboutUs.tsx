@@ -6,22 +6,34 @@ import { ContentData, AboutUsData } from '../types/content';
 // JourneyTimeline: Static horizontal layout with manual scroll
 const JourneyTimeline = ({ steps }: { steps: any[] }) => {
   return (
-    <div className="overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide">
-      <div className="flex gap-6 px-4 min-w-max">
-        {steps.map((step, idx) => (
-          <div key={idx}
-            className="flex-shrink-0 bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center min-w-[320px] max-w-[320px] h-[280px]"
-          >
-            <img 
-              src={step.image} 
-              alt={step.title} 
-              className="w-full h-24 object-cover rounded-lg mb-3"
-            />
-            <div className="font-bold text-brown-600 text-lg mb-2">{step.year}</div>
-            <h4 className="font-bold text-brown-800 text-base mb-2 text-center">{step.title}</h4>
-            <p className="text-gray-600 text-sm text-center leading-relaxed">{step.description}</p>
-          </div>
-        ))}
+    <div className="w-full">
+      <div className="flex justify-center gap-6 px-4">
+        {steps.map((step, idx) => {
+          // Define different YouTube URLs for each step
+          const youtubeUrls = [
+            'https://www.youtube.com/embed/dCBfFJjDLaY?si=_2MZeDjeP5-r26os', // Step 1
+            'https://www.youtube.com/embed/dCBfFJjDLaY?si=_2MZeDjeP5-r26os', // Step 2 - Replace with your URL
+            'https://www.youtube.com/embed/dCBfFJjDLaY?si=_2MZeDjeP5-r26os'  // Step 3 - Replace with your URL
+          ];
+          
+          return (
+            <div key={idx}
+              className="flex-1 bg-white rounded-2xl shadow-lg overflow-hidden max-w-[400px] h-[280px]"
+            >
+              <iframe
+                width="100%"
+                height="100%"
+                src={youtubeUrls[idx] || youtubeUrls[0]}
+                title={`YouTube video ${idx + 1}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -97,7 +109,7 @@ const AboutUs = () => {
       : aboutUsData.team.members.length - 1;
     setCurrentTeamSlide(prev => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
   };
-  const handleCtaClick = () => window.location.href = 'https://portal-rho-lemon.vercel.app/';
+  const handleCtaClick = () => window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer');
   const getValueCardStyles = (index: number) => (
     index % 2 === 0 ? 'bg-white' : (index === 1 || index === 5 ? 'bg-brown-800 text-white' : 'bg-brown-700 text-white')
   );
@@ -457,7 +469,7 @@ const AboutUs = () => {
                   <p className="animate-element element-hidden text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
                     {aboutUsData.coffeeDemand.description}
                   </p>
-                  <div className="flex items-center gap-3 sm:gap-4">
+                 {/*  <div className="flex items-center gap-3 sm:gap-4">
                     <button className="animate-element element-hidden w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation">
                       <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
@@ -465,7 +477,7 @@ const AboutUs = () => {
                     <button className="animate-element element-hidden w-8 h-8 sm:w-10 sm:h-10 bg-brown-700 rounded-full flex items-center justify-center text-white hover:bg-brown-800 transition-colors touch-manipulation">
                       <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="relative order-1 lg:order-2">
                   <img
@@ -567,10 +579,10 @@ const AboutUs = () => {
                       const buttonClass = button.type === 'primary' ? 'btn btn-primary' : 'btn btn-secondary';
                       
                       const handleButtonClick = () => {
-                        if (button.text.toLowerCase().includes('schedule') || button.text.toLowerCase().includes('call')) {
-                          window.open('https://calendly.com/mohamed-projectmocha/30min', '_blank', 'noopener,noreferrer');
+                        if (button.text.toLowerCase().includes('learn') || button.text.toLowerCase().includes('call')) {
+                          window.open('https://t.me/+tLhhdY-EiWRkZGY0', '_blank', 'noopener,noreferrer');
                         } else {
-                          window.open('https://docs.google.com/forms/d/e/1FAIpQLSfGl7ml1yBLsz_KNkrc2M-vkIe-9q4_-1IKCnyBsBHitAtVbA/viewform', '_blank', 'noopener,noreferrer');
+                          window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer');
                         }
                       };
                       
@@ -583,16 +595,17 @@ const AboutUs = () => {
                   </div>
                 </div>
                 <div className="relative order-1 lg:order-2">
-                  <img
-                    src={aboutUsData.ethicalImpact.communityImpact.image}
-                    alt={aboutUsData.ethicalImpact.communityImpact.imageAlt}
-                    className="animate-element element-hidden w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl sm:rounded-2xl shadow-lg"
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/dCBfFJjDLaY?si=_2MZeDjeP5-r26os"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="animate-element element-hidden w-full h-48 sm:h-56 md:h-64 rounded-xl sm:rounded-2xl shadow-lg"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl sm:rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer animate-element element-hidden">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brown-700 bg-opacity-90 rounded-full flex items-center justify-center touch-manipulation">
-                      <Play className="w-5 h-5 sm:w-6 sm:h-6 text-white ml-1" />
-                    </div>
-                  </div>
                   <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4">
                     <p className="animate-element element-hidden text-white italic text-xs sm:text-sm">
                       "{aboutUsData.ethicalImpact.communityImpact.videoQuote}"
@@ -654,7 +667,7 @@ const AboutUs = () => {
       </section>
 
       {/* Modern Coffee Processing Facility */}
-      <section 
+     {/*  <section 
         ref={(el) => el && sectionRefs.current.set('processing', el)}
         className="py-8 sm:py-12 md:py-16 bg-cream-50"
       >
@@ -684,7 +697,7 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

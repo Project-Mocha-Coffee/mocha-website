@@ -16,6 +16,7 @@ const WhyJoinCarousel: React.FC = () => {
   }
 
   const data = content.whyJoin as WhyJoinData;
+  const heroData = content.hero;
   const whyJoinData = data.slides;
 
   useEffect(() => {
@@ -160,7 +161,7 @@ const WhyJoinCarousel: React.FC = () => {
           </div>
 
           {/* Slide indicators */}
-          <div className="flex justify-center mt-4 sm:mt-6 space-x-2">
+          <div className="flex justify-center mt-1 sm:mt-6 space-x-2">
             {whyJoinData.map((_, index) => (
               <button
                 key={index}
@@ -174,6 +175,46 @@ const WhyJoinCarousel: React.FC = () => {
               />
             ))}
           </div>
+
+          {/* Trust indicators */}
+        <div 
+          className={`card-small p-2 mt-3 sm:p-3 rounded-full bg-white/50 backdrop-blur-sm transition-all duration-1000 delay-1200 transform ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}
+        >
+          <p className="text-gray-600 text-center mb-2 text-xs font-medium">
+            {heroData.trustIndicators.title}
+          </p>
+          
+          {/* Partner logos with continuous scrolling animation */}
+          <div className="relative overflow-hidden">
+            <div className="animate-infinite-scroll">
+              {/* First set of logos */}
+              <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                {heroData.trustIndicators.partners.map((partner: any, index: number) => (
+                  <img 
+                    key={`first-${index}`}
+                    src={partner.logo} 
+                    alt={partner.alt} 
+                    className="h-6 sm:h-8 w-auto opacity-80 hover:opacity-100 transition-all duration-300 object-contain grayscale hover:grayscale-0"
+                  />
+                ))}
+              </div>
+              
+              {/* Second set of logos for seamless looping */}
+              <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                {heroData.trustIndicators.partners.map((partner: any, index: number) => (
+                  <img 
+                    key={`second-${index}`}
+                    src={partner.logo} 
+                    alt={partner.alt} 
+                    className="h-6 sm:h-8 w-auto opacity-80 hover:opacity-100 transition-all duration-300 object-contain grayscale hover:grayscale-0"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </section>

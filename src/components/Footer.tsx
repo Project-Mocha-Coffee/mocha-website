@@ -143,13 +143,10 @@ const Footer: React.FC = () => {
                 <Mail className="h-5 w-5 text-coffee-600 mr-3 flex-shrink-0 mt-0.5" />
                 <span className="text-gray-600 text-sm">info@projectmocha.com</span>
               </li>
-              <li className="flex items-start">
-                <Phone className="h-5 w-5 text-coffee-600 mr-3 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-600 text-sm">+254 (700) 123-456</span>
-              </li>
+             
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 text-coffee-600 mr-3 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-600 text-sm">Kenya HQ: 123 Coffee Farm Road, Embu County, Kenya</span>
+                <span className="text-gray-600 text-sm">Kenya HQ: Mutunduri, Embu County, Kenya</span>
               </li>
             </ul>
             <button 

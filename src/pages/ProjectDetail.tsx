@@ -61,6 +61,14 @@ const ProjectDetail: React.FC = () => {
     }
   };
 
+  const handleCta = () => {
+    window.open('https://portal-rho-lemon.vercel.app/', '_blank', 'noopener,noreferrer');
+  };
+
+  const handleTelegram = () => {
+    window.open('https://t.me/+tLhhdY-EiWRkZGY0', '_blank', 'noopener,noreferrer');
+  };
+
   if (!project) {
     return (
       <div className="min-h-screen bg-cream-50 flex items-center justify-center">
@@ -107,7 +115,7 @@ const ProjectDetail: React.FC = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 mb-6">
                   {projectDetailPage.hero.buttons.map((button: any, index: number) => (
-                    <button key={index} className={`${button.type === 'primary' ? 'btn bg-amber-500 text-forest-600 hover:bg-amber-400' : 'btn btn-secondary'} px-4 py-2 text-sm`}>
+                    <button key={index} onClick={handleCta} className={`${button.type === 'primary' ? 'btn bg-amber-200 text-forest-600 hover:bg-amber-400' : 'btn btn-secondary'} px-4 py-2 text-sm`}>
                       {button.text} <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
                   ))}
@@ -164,7 +172,7 @@ const ProjectDetail: React.FC = () => {
                     </div>
                   </div>
 
-                  <button className="btn bg-forest-600 text-white hover:bg-forest-700 w-full px-4 py-3 text-sm">
+                  <button onClick={handleCta} className="btn bg-forest-600 text-white hover:bg-forest-700 w-full px-4 py-3 text-sm">
                     {projectDetailPage.investmentCard.investButton.text} <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
                 </div>
@@ -192,17 +200,18 @@ const ProjectDetail: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Video/Image */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-blue-200 to-blue-300 rounded-3xl h-64 flex items-center justify-center relative overflow-hidden">
-                <img
-                  src={project.images[0]}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
+              <div className="bg-gradient-to-br from-blue-200 to-blue-300 rounded-3xl h-80 md:h-96 flex items-center justify-center relative overflow-hidden">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/dCBfFJjDLaY?si=_2MZeDjeP5-r26os"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="rounded-3xl"
                 />
-                <button className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center">
-                    <Play className="w-6 h-6 text-white ml-1" />
-                  </div>
-                </button>
               </div>
             </div>
 
@@ -247,13 +256,13 @@ const ProjectDetail: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex gap-3 mt-6">
-                {projectDetailPage.welcome.buttons.map((button: any, index: number) => (
-                  <button key={index} className={`${button.type === 'primary' ? 'btn bg-amber-500 text-forest-600 hover:bg-amber-400' : 'btn bg-white text-forest-600 hover:bg-cream-100'} px-4 py-2 text-sm`}>
-                    {button.text} <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
-                ))}
-              </div>
+               <div className="flex gap-3 mt-6">
+                 {projectDetailPage.welcome.buttons.map((button: any, index: number) => (
+                   <button key={index} onClick={handleTelegram } className={`${button.type === 'primary' ? 'btn bg-amber-500 text-forest-600 hover:bg-amber-400' : 'btn bg-white text-forest-600 hover:bg-cream-100'} px-4 py-2 text-sm`}>
+                     {button.text} <ArrowRight className="ml-2 h-4 w-4" />
+                 </button>
+                 ))}
+               </div>
             </div>
           </div>
         </div>
@@ -302,7 +311,7 @@ const ProjectDetail: React.FC = () => {
                 <p className="text-cream-100 text-sm leading-relaxed mb-6">
                   {project.investmentDescription}
                 </p>
-                <button className="btn bg-amber-500 text-forest-600 hover:bg-amber-400 px-4 py-2 text-sm">
+                <button onClick={handleCta} className="btn bg-amber-500 text-forest-600 hover:bg-amber-400 px-4 py-2 text-sm">
                   {projectDetailPage.investmentReturns.investmentSection.buttonText}
                 </button>
               </div>
@@ -313,7 +322,7 @@ const ProjectDetail: React.FC = () => {
                 <p className="text-forest-700 text-sm leading-relaxed mb-6">
                   {project.returnsDescription}
                 </p>
-                <button className="btn bg-forest-600 text-white hover:bg-forest-700 px-4 py-2 text-sm">
+                <button onClick={handleCta} className="btn bg-forest-600 text-white hover:bg-forest-700 px-4 py-2 text-sm">
                   {projectDetailPage.investmentReturns.returnsSection.buttonText}
                 </button>
               </div>
@@ -386,7 +395,7 @@ const ProjectDetail: React.FC = () => {
                 <p className="text-forest-600 font-medium text-sm mb-6">
                   {projectDetailPage.faq.transparency}
                 </p>
-                <button className="btn bg-amber-500 text-forest-600 hover:bg-amber-400 px-4 py-2 text-sm">
+                <button onClick={handleCta} className="btn bg-amber-500 text-forest-600 hover:bg-amber-400 px-4 py-2 text-sm">
                   {projectDetailPage.faq.scheduleButton.text} <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
               </div>

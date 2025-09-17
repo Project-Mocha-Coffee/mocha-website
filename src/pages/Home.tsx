@@ -16,15 +16,16 @@ const Home: React.FC = () => {
       <section id="hero">
         <Hero />
       </section>
+       <section id="investment-projects" className="bg-cream-100">
+        <InvestmentProjects />
+      </section>
       <section id="why-join">
         <WhyJoinCarousel />
       </section>
       <section id="calculator">
         <InvestmentCalculator />
       </section>
-      <section id="investment-projects">
-        <InvestmentProjects />
-      </section>
+     
       <section id="plans">
         <InvestmentPlans />
       </section>

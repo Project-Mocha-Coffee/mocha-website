@@ -366,7 +366,7 @@ html {
 }
 
 .gradient-gold {
-  background: linear-gradient(135deg, #3E2B28 0%, #5C4034 100%);
+  background: linear-gradient(135deg, #3E2B28 0%, #5C4034 10%);
 }
 
 .element-hidden {
