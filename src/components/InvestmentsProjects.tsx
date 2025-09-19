@@ -42,9 +42,9 @@ const InvestmentProjects = () => {
     ...project,
     image: project.images[0],
     features: [
-      "Lifetime Investment",
-      project.status === "Available now" ? "Premium Arabica variety" : "High altitude benefits",
-      project.status === "Available now" ? "Volcanic soil advantage" : "Proven yields",
+      "Live weather and rainfall data in our farms",
+      "Every coffee tree is geotagged with GPS accuracy",
+      "Forecasted harvest yields with AI-powered analysis",
     ],
     buttonColor: project.status === "Available now" ? "btn-secondary" : "btn-primary",
   }));

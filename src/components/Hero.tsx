@@ -68,16 +68,16 @@ const Hero: React.FC = () => {
   const heroData = content.hero;
   
   return (
-    <section className="#gradient-gold relative overflow-hidden ">
+    <section className="gradient-gold relative overflow-hidden min-h-[85vh]">
       {/* Background media */}
-      <div className="absolute inset-0 opacity-100">
-        {heroData.backgroundType === 'video' && heroData.backgroundVideo ? (
-          <img
-            src={heroData.backgroundVideo}
+      <div className="absolute inset-0 opacity-40">
+        { 
+        /*   <img
+            src={heroData.backgroundImage}
             alt="Hero background animation"
             className="absolute inset-0 w-full h-full object-cover"
             onError={(e) => {
-              // Fallback to background image if animated image fails
+              
               const target = e.target as HTMLImageElement;
               target.style.display = 'none';
               const fallbackDiv = target.nextElementSibling as HTMLDivElement;
@@ -85,19 +85,19 @@ const Hero: React.FC = () => {
                 fallbackDiv.style.display = 'block';
               }
             }}
-          />
-        ) : null}
+          /> */
+        }
         
         {/* Interactive background image */}
         <div 
-          className="absolute inset-0 transition-transform duration-300 ease-out" 
+          className="absolute inset-0 transition-transform duration-300 ease-in-out sm:rotate-0 rotate-90" 
           style={{
-            backgroundImage: `url('/Hero.png')`,
+            backgroundImage: `url(${heroData.backgroundImage})`,
             backgroundSize: '100% ',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
-            display: heroData.backgroundType === 'video' && heroData.backgroundVideo ? 'none' : 'block'
+            opacity: 0.6
           }}
         />
         
@@ -105,7 +105,7 @@ const Hero: React.FC = () => {
        
       </div>
       
-      <div className="container-custom relative z-10 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-6">
+      <div className="container-custom relative z-10 pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Column - Hero Content */}
@@ -167,10 +167,10 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Right Column - YouTube Video */}
-            <div className="order-1 lg:order-2">
+            <div className="order-2 lg:order-2">
               <div 
-                className={`relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl transition-all duration-1000 delay-300 transform ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                className={`relative w-100% aspect-video rounded-2xl overflow-hidden shadow-2xl transition-all duration-1000 delay-300 transform ${
+                  isVisible ? 'translate-y-0 opacity-80' : 'translate-y-10 opacity-0'
                 }`}
               >
                 <iframe
