@@ -151,7 +151,7 @@ const InvestmentProjects = () => {
                   <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4">
                     <div className="bg-cream-50 p-2 sm:p-3 rounded-md">
                       <div className="text-lg sm:text-xl font-bold text-brown-700">{displayProjects[0].pricePerTree}</div>
-                      <div className="text-xs text-gray-600 uppercase tracking-wide">Per Tree</div>
+                      <div className="text-xs text-gray-600  tracking-wide">PER TREE (Min Investment is $1)</div>
                     </div>
                     <div className="bg-cream-50 p-2 sm:p-3 rounded-md">
                       <div className="text-lg sm:text-xl font-bold text-brown-700">{displayProjects[0].roi}</div>
@@ -182,21 +182,21 @@ const InvestmentProjects = () => {
 
                   {/* Investment Details */}
                   <div className="bg-brown-50 p-2 sm:p-3 rounded-md mb-3">
-                    <h4 className="font-semibold text-brown-800 mb-1 text-xs sm:text-sm">Investment Details</h4>
-                    <div className="grid grid-cols-2 gap-1 text-xs">
-                      <div className="flex justify-between">
+                    <h4 className="font-semibold text-brown-800 mb-2 text-xs sm:text-sm">Investment Details</h4>
+                    <div className="grid grid-cols-2 gap-2 sm:gap-4 text-xs">
+                      <div className="flex justify-start items-center">
                         <span className="text-gray-600">Total Trees:</span>
                         <span className="font-medium text-brown-700">{displayProjects[0].totalTrees?.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-start items-center">
                         <span className="text-gray-600">Available:</span>
                         <span className="font-medium text-brown-700">{displayProjects[0].treesAvailable?.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-start items-center">
                         <span className="text-gray-600">Plot Size:</span>
                         <span className="font-medium text-brown-700">{displayProjects[0].plotSize}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-start items-center">
                         <span className="text-gray-600">Cycle:</span>
                         <span className="font-medium text-brown-700">{displayProjects[0].investmentCycle}</span>
                       </div>
